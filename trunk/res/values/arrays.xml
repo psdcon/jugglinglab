@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="hand_movement">
+		<item>Default</item>
+		<item>Inside throws</item>
+		<item>Outside throws</item>
+		<item>Half shower</item>
+		<item>Mills Mess</item>
+		<item>Custom</item>
+	</string-array>
+
+	<string-array name="body_movement">
+		<item>Default</item>
+		<item>Line</item>
+		<item>Feed</item>
+		<item>Back to back</item>
+		<item>Side to side</item>
+		<item>Circles</item>
+		<item>Custom</item>
+	</string-array>
+
+	<string-array name="prop_type">
+		<item>Ball</item>
+		<item>Image</item>
+		<item>Ring</item>
+	</string-array>
+</resources>
