@@ -36,7 +36,7 @@ public class JMLSymmetry {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        //errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        errorstrings = ResourceBundle.getBundle("com/jonglen7/jugglinglab/resources/ErrorStrings");
     }
 
     int		type;

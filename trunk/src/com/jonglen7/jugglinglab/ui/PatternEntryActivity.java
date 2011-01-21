@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.jonglen7.jugglinglab.R;
@@ -100,8 +99,8 @@ public class PatternEntryActivity extends Activity {
     public void onJuggleClick(View v) {
     	String text = "";
     	text += "pattern=" + edit_pattern.getText().toString();
-    	text += ";bps="    + seekbar_beats_per_second.getProgress();
-    	text += ";dwell="  + seekbar_dwell_beats.getProgress();
+    	text += ";bps="    + txt_beats_per_second_progress.getText().toString();
+    	text += ";dwell="  + txt_dwell_beats_progress.getText().toString();
     	if (edit_hand_movement.getText().toString().length() > 0)
     		text += ";hands="  + edit_hand_movement.getText().toString();
     	if (edit_body_movement.getText().toString().length() > 0)
