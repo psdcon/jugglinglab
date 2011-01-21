@@ -23,12 +23,12 @@
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
 
-import java.awt.*;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.ResourceBundle;
 
-import com.jonglen7.jugglinglab.jugglinglab.core.*;
-import com.jonglen7.jugglinglab.jugglinglab.jml.*;
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 
 public abstract class Notation {
@@ -36,7 +36,7 @@ public abstract class Notation {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        //errorstrings = ResourceBundle.getBundle("ErrorStrings");
     }
 
     static Hashtable hash = null;
@@ -58,7 +58,7 @@ public abstract class Notation {
         if (not == null) {
             Notation newnot = null;
             try {
-                Object obj = Class.forName("jugglinglab.notation."+
+                Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.notation."+
                                            name.toLowerCase()+"Notation").newInstance();
                 if (!(obj instanceof Notation))
                     throw new JuggleExceptionInternal(errorstrings.getString("Error_notation_bad")+": '"+name+"'");

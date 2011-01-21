@@ -123,13 +123,20 @@
 				android:layout_height="wrap_content"
 				android:layout_below="@id/pattern_entry_edit_body_movement"
 				android:layout_toRightOf="@id/pattern_entry_txt_prop_type"/>
+			<EditText
+				android:id="@+id/pattern_entry_edit_prop_type"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/pattern_entry_spinner_prop_type"
+				android:layout_toRightOf="@id/pattern_entry_txt_prop_type"
+				android:visibility="gone"/>
 				
 			<!-- Manual settings -->
 			<TextView
 				android:id="@+id/pattern_entry_txt_manual_settings"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_spinner_prop_type"
+				android:layout_below="@id/pattern_entry_edit_prop_type"
 				android:text="@string/pattern_entry_txt_manual_settings"/>
 			<EditText
 				android:id="@+id/pattern_entry_edit_manual_settings"

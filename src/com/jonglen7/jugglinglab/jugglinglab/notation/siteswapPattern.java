@@ -22,8 +22,13 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import java.util.*;
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
 
 
 public class siteswapPattern extends mhnPattern {

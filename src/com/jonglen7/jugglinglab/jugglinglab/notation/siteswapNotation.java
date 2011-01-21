@@ -22,10 +22,10 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import java.util.*;
-
-import com.jonglen7.jugglinglab.jugglinglab.jml.*;
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
 
 
 public class siteswapNotation extends mhnNotation {
@@ -48,7 +48,7 @@ public class siteswapNotation extends mhnNotation {
         while ((pos = config.indexOf('\r')) >= 0) {
             config = config.substring(0,pos) + config.substring(pos+1,config.length());
         }
-
+        
         p.parseInput(config);
         String origpattern = p.pattern;
 
@@ -108,6 +108,7 @@ public class siteswapNotation extends mhnNotation {
                 p.pattern = "(" + p.pattern + "^" + repeats + ")";
             }
         }
+        
         p.parsePattern();
 
         // The following is a hack to support the legacy "mat_HR" parameter
@@ -121,9 +122,10 @@ public class siteswapNotation extends mhnNotation {
         }
 
         JMLPattern result = getJML(p);
+    	
         result.setTitle(origpattern);
 
-        if (com.jonglen7.jugglinglab.jugglinglab.core.Constants.DEBUG_LAYOUT)
+    	if (com.jonglen7.jugglinglab.jugglinglab.core.Constants.DEBUG_LAYOUT)
             System.out.println(result);
 
         return result;
