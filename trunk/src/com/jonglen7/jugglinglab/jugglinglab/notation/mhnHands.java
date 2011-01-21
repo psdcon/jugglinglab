@@ -22,9 +22,13 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import java.util.*;
+import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
+import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 
 public class mhnHands {
@@ -32,7 +36,7 @@ public class mhnHands {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        //errorstrings = ResourceBundle.getBundle("ErrorStrings");
     }
 
     protected int jugglers = 0;

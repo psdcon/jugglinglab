@@ -22,9 +22,13 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import java.util.*;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
 
 
 public class mhnPattern {
@@ -32,7 +36,7 @@ public class mhnPattern {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        //errorstrings = ResourceBundle.getBundle("ErrorStrings");
     }
 
     protected static double bps_default = -1.0;	// calculate bps

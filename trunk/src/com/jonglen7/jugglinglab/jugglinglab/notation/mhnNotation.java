@@ -23,13 +23,18 @@
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
 
-import java.util.*;
-import java.awt.*;
-//import java.awt.event.*;
-
-import com.jonglen7.jugglinglab.jugglinglab.core.*;
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
-import com.jonglen7.jugglinglab.jugglinglab.jml.*;
+import com.jonglen7.jugglinglab.jugglinglab.core.Constants;
+import com.jonglen7.jugglinglab.jugglinglab.jml.HandLink;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLEvent;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPosition;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLSymmetry;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLTransition;
+import com.jonglen7.jugglinglab.jugglinglab.jml.PropDef;
+import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
 
 
 public class mhnNotation extends Notation {
@@ -42,11 +47,11 @@ public class mhnNotation extends Notation {
 
 
     protected static JMLPattern getJML(mhnPattern p) throws JuggleExceptionUser, JuggleExceptionInternal {
-        findMasterThrows(p);
-        assignPaths(p);
-        findThrowSources(p);
-        setCatchOrder(p);
-        JMLPattern result = convertPatternToJML(p);
+    	findMasterThrows(p);
+    	assignPaths(p);
+    	findThrowSources(p);
+    	setCatchOrder(p);
+    	JMLPattern result = convertPatternToJML(p);
         return result;
     }
 

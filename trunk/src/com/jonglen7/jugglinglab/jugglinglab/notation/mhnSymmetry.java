@@ -22,7 +22,9 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
+import com.jonglen7.jugglinglab.jugglinglab.util.JBoyceException;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
 
 
 public class mhnSymmetry {

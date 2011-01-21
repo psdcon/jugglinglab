@@ -22,7 +22,7 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import java.util.*;
+import java.util.Vector;
 
 
 public class SiteswapTreeItem {

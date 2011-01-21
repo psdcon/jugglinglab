@@ -22,7 +22,6 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
 
 
 public class mhnThrow {
