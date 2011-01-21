@@ -73,7 +73,7 @@ public class JMLPattern {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        //errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        errorstrings = ResourceBundle.getBundle("com/jonglen7/jugglinglab/resources/ErrorStrings");
     }
 
     protected String version = JMLDefs.jmlversion;	// JML version number
