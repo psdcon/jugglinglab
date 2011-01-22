@@ -23,25 +23,24 @@ public class PatternEntryActivity extends Activity {
     /** Pattern. */
 	EditText edit_pattern;
 
-    /** Beats per second. */
-    TextView txt_beats_per_second_progress;
-    SeekBar seekbar_beats_per_second;
+    /** Hand movement. */
+    Spinner spinner_hand_movement;
+    EditText edit_hand_movement;
+
+    /** Prop type. */
+    Spinner spinner_prop_type;
 
     /** Dwell beats. */
     TextView txt_dwell_beats_progress;
     SeekBar seekbar_dwell_beats;
 
-    /** Hand movement. */
-    Spinner spinner_hand_movement;
-    EditText edit_hand_movement;
+    /** Beats per second. */
+    TextView txt_beats_per_second_progress;
+    SeekBar seekbar_beats_per_second;
 
     /** Body movement. */
     Spinner spinner_body_movement;
     EditText edit_body_movement;
-
-    /** Prop type. */
-    Spinner spinner_prop_type;
-    EditText edit_prop_type;
 
     /** Manual settings. */
 	EditText edit_manual_settings;
@@ -55,18 +54,6 @@ public class PatternEntryActivity extends Activity {
         /** Pattern. */
         edit_pattern = (EditText)findViewById(R.id.pattern_entry_edit_pattern);
         
-        /** Beats per second. */
-        txt_beats_per_second_progress = (TextView)findViewById(R.id.pattern_entry_txt_beats_per_second_progress);
-        seekbar_beats_per_second = (SeekBar)findViewById(R.id.pattern_entry_seekbar_beats_per_second);
-        seekbar_beats_per_second.setOnSeekBarChangeListener(seekBarChangeListenerBeatsPerSecond);
-        txt_beats_per_second_progress.setText(" " + seekbar_beats_per_second.getProgress() + " ");
-        
-        /** Dwell beats. */
-        txt_dwell_beats_progress = (TextView)findViewById(R.id.pattern_entry_txt_dwell_beats_progress);
-        seekbar_dwell_beats = (SeekBar)findViewById(R.id.pattern_entry_seekbar_dwell_beats);
-        seekbar_dwell_beats.setOnSeekBarChangeListener(seekBarChangeListenerDwellBeats);
-    	txt_dwell_beats_progress.setText(" " + (seekbar_dwell_beats.getProgress()/10.) + " ");
-        
         /** Hand movement. */
         spinner_hand_movement = (Spinner) findViewById(R.id.pattern_entry_spinner_hand_movement);
         spinner_hand_movement.setOnItemSelectedListener(itemSelectedListenerHandMovement);
@@ -74,6 +61,24 @@ public class PatternEntryActivity extends Activity {
         adapter_hand_movement.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_hand_movement.setAdapter(adapter_hand_movement);
         edit_hand_movement = (EditText)findViewById(R.id.pattern_entry_edit_hand_movement);
+
+        /** Prop type. */
+        spinner_prop_type = (Spinner) findViewById(R.id.pattern_entry_spinner_prop_type);
+        ArrayAdapter adapter_prop_type = ArrayAdapter.createFromResource(this, R.array.prop_type, android.R.layout.simple_spinner_item);
+        adapter_prop_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_prop_type.setAdapter(adapter_prop_type);
+        
+        /** Dwell beats. */
+        txt_dwell_beats_progress = (TextView)findViewById(R.id.pattern_entry_txt_dwell_beats_progress);
+        seekbar_dwell_beats = (SeekBar)findViewById(R.id.pattern_entry_seekbar_dwell_beats);
+        seekbar_dwell_beats.setOnSeekBarChangeListener(seekBarChangeListenerDwellBeats);
+    	txt_dwell_beats_progress.setText(" " + (seekbar_dwell_beats.getProgress()/10.) + " ");
+        
+        /** Beats per second. */
+        txt_beats_per_second_progress = (TextView)findViewById(R.id.pattern_entry_txt_beats_per_second_progress);
+        seekbar_beats_per_second = (SeekBar)findViewById(R.id.pattern_entry_seekbar_beats_per_second);
+        seekbar_beats_per_second.setOnSeekBarChangeListener(seekBarChangeListenerBeatsPerSecond);
+        txt_beats_per_second_progress.setText(" " + seekbar_beats_per_second.getProgress() + " ");
 
         /** Body movement. */
         spinner_body_movement = (Spinner) findViewById(R.id.pattern_entry_spinner_body_movement);
@@ -83,36 +88,24 @@ public class PatternEntryActivity extends Activity {
         spinner_body_movement.setAdapter(adapter_body_movement);
         edit_body_movement = (EditText)findViewById(R.id.pattern_entry_edit_body_movement);
 
-        /** Prop type. */
-        Spinner spinner_prop_type = (Spinner) findViewById(R.id.pattern_entry_spinner_prop_type);
-        spinner_prop_type.setOnItemSelectedListener(itemSelectedListenerPropType);
-        ArrayAdapter adapter_prop_type = ArrayAdapter.createFromResource(this, R.array.prop_type, android.R.layout.simple_spinner_item);
-        adapter_prop_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_prop_type.setAdapter(adapter_prop_type);
-        edit_prop_type = (EditText)findViewById(R.id.pattern_entry_edit_prop_type);
-
         /** Manual settings. */
         edit_manual_settings = (EditText)findViewById(R.id.pattern_entry_edit_manual_settings);
     }
     
     /** Handle "Juggle" action. */
     public void onJuggleClick(View v) {
-    	String text = "";
-    	text += "pattern=" + edit_pattern.getText().toString();
-    	text += ";bps="    + txt_beats_per_second_progress.getText().toString();
-    	text += ";dwell="  + txt_dwell_beats_progress.getText().toString();
-    	if (edit_hand_movement.getText().toString().length() > 0)
-    		text += ";hands="  + edit_hand_movement.getText().toString();
-    	if (edit_body_movement.getText().toString().length() > 0)
-    		text += ";body="  + edit_body_movement.getText().toString();
-    	if (edit_prop_type.getText().toString().length() > 0)
-    		text += ";prop="  + edit_prop_type.getText().toString().toLowerCase();
-    	if (edit_manual_settings.getText().toString().length() > 0)
-    		text += ";"  + edit_manual_settings.getText().toString();
+    	StringBuffer text = new StringBuffer(256);
+    	text.append("pattern=" + edit_pattern.getText().toString());
+		text.append((edit_hand_movement.getText().toString().length() > 0) ? (";hands=" + edit_hand_movement.getText().toString()) : "");
+    	text.append(";prop=" + spinner_prop_type.getSelectedItem().toString().toLowerCase());
+    	text.append(";dwell=" + txt_dwell_beats_progress.getText().toString());
+    	text.append(";bps=" + txt_beats_per_second_progress.getText().toString());
+		text.append((edit_body_movement.getText().toString().length() > 0) ? (";body=" + edit_body_movement.getText().toString()) : "");
+		text.append((edit_manual_settings.getText().toString().length() > 0) ? (";" + edit_manual_settings.getText().toString()) : "");
     	
 		try {
 	    	Notation ssn = Notation.getNotation("siteswap");
-	    	JMLPattern pat = ssn.getJMLPattern(text);
+	    	JMLPattern pat = ssn.getJMLPattern(text.toString());
 	    	Log.v("PatternEntryActivity", pat.toString());
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
@@ -126,6 +119,7 @@ public class PatternEntryActivity extends Activity {
 	    @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 	    	edit_hand_movement.setText(getResources().getStringArray(R.array.hand_movement_values)[pos]);
+	    	edit_hand_movement.setEnabled(pos!=0);
         }
 
 	    @Override
@@ -139,6 +133,7 @@ public class PatternEntryActivity extends Activity {
 	    @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 	    	edit_body_movement.setText(getResources().getStringArray(R.array.body_movement_values)[pos]);
+	    	edit_body_movement.setEnabled(pos!=0);
         }
 
 	    @Override
@@ -147,24 +142,11 @@ public class PatternEntryActivity extends Activity {
         }
     };
     
-    private OnItemSelectedListener itemSelectedListenerPropType = new OnItemSelectedListener() {
-
-	    @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-	    	edit_prop_type.setText(getResources().getStringArray(R.array.prop_type)[pos]);
-        }
-
-	    @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-          // Do nothing.
-        }
-    };
-    
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListenerBeatsPerSecond = new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListenerDwellBeats= new SeekBar.OnSeekBarChangeListener() {
 
 	    @Override
 	    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-	    	txt_beats_per_second_progress.setText(" " + seekbar_beats_per_second.getProgress() + " ");
+	    	txt_dwell_beats_progress.setText(" " + (seekbar_dwell_beats.getProgress()/10.) + " ");
 	    }
 	    
 	    @Override
@@ -174,11 +156,11 @@ public class PatternEntryActivity extends Activity {
 	    public void onStopTrackingTouch(SeekBar seekBar) {}
     };
     
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListenerDwellBeats= new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListenerBeatsPerSecond = new SeekBar.OnSeekBarChangeListener() {
 
 	    @Override
 	    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-	    	txt_dwell_beats_progress.setText(" " + (seekbar_dwell_beats.getProgress()/10.) + " ");
+	    	txt_beats_per_second_progress.setText(" " + seekbar_beats_per_second.getProgress() + " ");
 	    }
 	    
 	    @Override

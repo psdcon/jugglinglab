@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- App -->
     <string name="app_name">Juggling Lab</string>
     
     <!-- Home -->
@@ -12,15 +13,42 @@
     <!-- Pattern entry -->
     <string name="pattern_entry_txt_pattern">Pattern Entry</string>
     <string name="pattern_entry_edit_pattern">3</string>
-    <string name="pattern_entry_txt_beats_per_second">BPS</string>
-    <string name="pattern_entry_txt_dwell_beats">Dwell</string>
     <string name="pattern_entry_txt_hand_movement">Hand movement</string>
-    <string name="pattern_entry_txt_body_movement">Body movement</string>
     <string name="pattern_entry_txt_prop_type">Prop type</string>
+    <string name="pattern_entry_txt_dwell_beats">Dwell</string>
+    <string name="pattern_entry_txt_beats_per_second">BPS</string>
+    <string name="pattern_entry_txt_body_movement">Body movement</string>
     <string name="pattern_entry_txt_manual_settings">Manual settings</string>
     <string name="pattern_entry_btn_juggle">Juggle</string>
     
     <!-- Generator -->
+    <string name="generator_txt_balls">Balls</string>
+    <string name="generator_edit_balls">5</string>
+    <string name="generator_txt_max_throw">Max. throw</string>
+    <string name="generator_edit_max_throw">7</string>
+    <string name="generator_txt_rhythm">Rhythm</string>
+    <string name="generator_txt_jugglers">Jugglers</string>
+    <string name="generator_txt_period">Period</string>
+    <string name="generator_edit_period">5</string>
+    <string name="generator_txt_compositions">Compositions</string>
+    <string name="generator_txt_find">Find:</string>
+    <string name="generator_cb_ground_state_patterns">Ground state patterns</string>
+    <string name="generator_cb_excited_state_patterns">Excited state patterns</string>
+    <string name="generator_cb_transition_throws">Transition throws</string>
+    <string name="generator_cb_pattern_rotations">Pattern rotations</string>
+    <string name="generator_cb_juggler_permutations">Juggler permutations</string>
+    <string name="generator_cb_connected_patterns_only">Connected patterns only</string>
+    <string name="generator_txt_multiplexing">Multiplexing:</string>
+    <string name="generator_cb_enable">Enable</string>
+    <string name="generator_txt_simultaneous_throws">Simultaneous throws</string>
+    <string name="generator_edit_simultaneous_throws">2</string>
+    <string name="generator_cb_no_simultaneous_catches">No simultaneous catches</string>
+    <string name="generator_cb_no_clustered_throws">No clustered throws</string>
+    <string name="generator_cb_true_multiplexing_only">True multiplexing only</string>
+    <string name="generator_txt_exclude_these_expressions">Exclude these expressions</string>
+    <string name="generator_txt_include_these_expressions">Include these expressions</string>
+    <string name="generator_txt_passing_communication_delay">Passing communication delay</string>
+    <string name="generator_edit_passing_communication_delay">0</string>
     <string name="generator_btn_run">Run</string>
     
     <!-- Tutorials -->

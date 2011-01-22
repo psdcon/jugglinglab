@@ -43,4 +43,24 @@
 		<item>Image</item>
 		<item>Ring</item>
 	</string-array>
+
+	<string-array name="rhythm">
+		<item>Asynch</item>
+		<item>Synch</item>
+	</string-array>
+
+	<string-array name="jugglers">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+	</string-array>
+
+	<string-array name="compositions">
+		<item>All</item>
+		<item>Non-obvious</item>
+		<item>None (prime only)</item>
+	</string-array>
 </resources>
