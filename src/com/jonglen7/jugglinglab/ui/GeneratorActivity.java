@@ -1,6 +1,7 @@
 package com.jonglen7.jugglinglab.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.jonglen7.jugglinglab.R;
+import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
+import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 public class GeneratorActivity extends Activity {
 	
@@ -134,7 +138,7 @@ public class GeneratorActivity extends Activity {
         text.append((spinner_compositions.getSelectedItemPosition() == 2) ? " -prime" : "");
     	text.append((cb_ground_state_patterns.isChecked() && !cb_excited_state_patterns.isChecked()) ? " -g" : "");
     	text.append((!cb_ground_state_patterns.isChecked() && cb_excited_state_patterns.isChecked()) ? " -ng" : "");
-    	text.append((cb_transition_throws.isEnabled() && cb_transition_throws.isChecked()) ? " -se" : "");
+    	text.append((cb_transition_throws.isEnabled() && !cb_transition_throws.isChecked()) ? " -se" : "");
     	text.append((cb_pattern_rotations.isChecked()) ? " -rot" : "");
     	if (cb_enable.isChecked() && edit_simultaneous_throws.getText().length()>0) {
     		text.append(" -m " + edit_simultaneous_throws.getText());
@@ -145,6 +149,21 @@ public class GeneratorActivity extends Activity {
     	text.append((edit_exclude_these_expressions.getText().length() > 0) ? (" -x " + edit_exclude_these_expressions.getText()) : "");
     	text.append((edit_include_these_expressions.getText().length() > 0) ? (" -i " + edit_include_these_expressions.getText()) : "");
         Log.v("GeneratorActivity", text.toString());
+
+        Intent i = new Intent(this, GeneratorListActivity.class);
+        i.putExtra("pattern", text.toString());
+        /*target.clearPatternList();
+        siteswapGenerator sg = new siteswapGenerator();
+        try {
+			sg.initGenerator(text.toString());
+			sg.runGenerator(target);
+		} catch (JuggleExceptionUser e) {
+			e.printStackTrace();
+		}
+        Log.v("GeneratorActivity", target.getPattern_list().toString());
+        Intent i = new Intent(this, GeneratorListActivity.class);
+        i.putExtra("pattern_list", target.getPattern_list());*/
+        startActivity(i);
     }
     
     private OnItemSelectedListener itemSelectedListenerJugglers = new OnItemSelectedListener() {

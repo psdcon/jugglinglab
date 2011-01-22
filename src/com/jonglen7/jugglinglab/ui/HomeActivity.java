@@ -22,7 +22,7 @@ public class HomeActivity extends Activity {
     
     /** Handle "Generator" action. */
     public void onGeneratorClick(View v) {
-        startActivity(new Intent(HomeActivity.this, GeneratorActivity.class));
+        startActivity(new Intent(this, GeneratorActivity.class));
     }
     
     /** Handle "Tutorials" action. */
