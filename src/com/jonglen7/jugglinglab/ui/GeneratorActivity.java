@@ -16,9 +16,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.jonglen7.jugglinglab.R;
-import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
-import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
-import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 public class GeneratorActivity extends Activity {
 	
