@@ -76,21 +76,20 @@ public class GeneratorActivity extends Activity {
 
         /** Rhythm. */
     	spinner_rhythm = (Spinner) findViewById(R.id.generator_spinner_rhythm);
-        ArrayAdapter adapter_rhythm = ArrayAdapter.createFromResource(this, R.array.rhythm, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_rhythm = ArrayAdapter.createFromResource(this, R.array.rhythm, android.R.layout.simple_spinner_item);
         adapter_rhythm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_rhythm.setAdapter(adapter_rhythm);
-        //edit_rhythm = (EditText)findViewById(R.id.generator_edit_rhythm);
 
         /** Jugglers. */
     	spinner_jugglers = (Spinner) findViewById(R.id.generator_spinner_jugglers);
         spinner_jugglers.setOnItemSelectedListener(itemSelectedListenerJugglers);
-        ArrayAdapter adapter_jugglers = ArrayAdapter.createFromResource(this, R.array.jugglers, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_jugglers = ArrayAdapter.createFromResource(this, R.array.jugglers, android.R.layout.simple_spinner_item);
         adapter_jugglers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_jugglers.setAdapter(adapter_jugglers);
         
         /** Compositions. */
     	spinner_compositions = (Spinner) findViewById(R.id.generator_spinner_compositions);
-        ArrayAdapter adapter_compositions = ArrayAdapter.createFromResource(this, R.array.compositions, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_compositions = ArrayAdapter.createFromResource(this, R.array.compositions, android.R.layout.simple_spinner_item);
         adapter_compositions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_compositions.setAdapter(adapter_compositions);
         
@@ -149,17 +148,6 @@ public class GeneratorActivity extends Activity {
 
         Intent i = new Intent(this, GeneratorListActivity.class);
         i.putExtra("pattern", text.toString());
-        /*target.clearPatternList();
-        siteswapGenerator sg = new siteswapGenerator();
-        try {
-			sg.initGenerator(text.toString());
-			sg.runGenerator(target);
-		} catch (JuggleExceptionUser e) {
-			e.printStackTrace();
-		}
-        Log.v("GeneratorActivity", target.getPattern_list().toString());
-        Intent i = new Intent(this, GeneratorListActivity.class);
-        i.putExtra("pattern_list", target.getPattern_list());*/
         startActivity(i);
     }
     

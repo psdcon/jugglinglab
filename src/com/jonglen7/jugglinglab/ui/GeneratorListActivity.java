@@ -1,5 +1,10 @@
 package com.jonglen7.jugglinglab.ui;
 
+import java.io.IOException;
+import java.io.StringReader;
+
+import org.xml.sax.SAXException;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
+import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 public class GeneratorListActivity extends ListActivity {
@@ -43,6 +50,8 @@ public class GeneratorListActivity extends ListActivity {
         siteswapGenerator sg = new siteswapGenerator();
         try {
 			sg.initGenerator(pattern);
+			// No limits
+			// TODO This might take too long, find a way to prevent that
 			sg.runGenerator(target);
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
@@ -62,6 +71,25 @@ public class GeneratorListActivity extends ListActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// When clicked, show a toast with the TextView text
 			Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+			
+			// TODO That doesn't work, wait for the reply of the Juggling Lab guy
+			/*JMLPattern pat = null;
+			JMLParser p = new JMLParser();
+            try {
+    	    	Log.v("GeneratorListActivity", "Avant p.parse(new StringReader(((TextView) view).getText().toString()));");
+				p.parse(new StringReader(((TextView) view).getText().toString()));
+			} catch (SAXException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+            try {
+    	    	Log.v("GeneratorListActivity", "Avant pat = new JMLPattern(p.getTree());");
+				pat = new JMLPattern(p.getTree());
+			} catch (JuggleExceptionUser e) {
+				e.printStackTrace();
+			}
+	    	Log.v("GeneratorListActivity", pat.toString());*/
 		}
     	
     };

@@ -57,14 +57,14 @@ public class PatternEntryActivity extends Activity {
         /** Hand movement. */
         spinner_hand_movement = (Spinner) findViewById(R.id.pattern_entry_spinner_hand_movement);
         spinner_hand_movement.setOnItemSelectedListener(itemSelectedListenerHandMovement);
-        ArrayAdapter adapter_hand_movement = ArrayAdapter.createFromResource(this, R.array.hand_movement, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_hand_movement = ArrayAdapter.createFromResource(this, R.array.hand_movement, android.R.layout.simple_spinner_item);
         adapter_hand_movement.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_hand_movement.setAdapter(adapter_hand_movement);
         edit_hand_movement = (EditText)findViewById(R.id.pattern_entry_edit_hand_movement);
 
         /** Prop type. */
         spinner_prop_type = (Spinner) findViewById(R.id.pattern_entry_spinner_prop_type);
-        ArrayAdapter adapter_prop_type = ArrayAdapter.createFromResource(this, R.array.prop_type, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_prop_type = ArrayAdapter.createFromResource(this, R.array.prop_type, android.R.layout.simple_spinner_item);
         adapter_prop_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_prop_type.setAdapter(adapter_prop_type);
         
@@ -83,7 +83,7 @@ public class PatternEntryActivity extends Activity {
         /** Body movement. */
         spinner_body_movement = (Spinner) findViewById(R.id.pattern_entry_spinner_body_movement);
         spinner_body_movement.setOnItemSelectedListener(itemSelectedListenerBodyMovement);
-        ArrayAdapter adapter_body_movement = ArrayAdapter.createFromResource(this, R.array.body_movement, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_body_movement = ArrayAdapter.createFromResource(this, R.array.body_movement, android.R.layout.simple_spinner_item);
         adapter_body_movement.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_body_movement.setAdapter(adapter_body_movement);
         edit_body_movement = (EditText)findViewById(R.id.pattern_entry_edit_body_movement);
@@ -103,15 +103,16 @@ public class PatternEntryActivity extends Activity {
 		text.append((edit_body_movement.getText().toString().length() > 0) ? (";body=" + edit_body_movement.getText().toString()) : "");
 		text.append((edit_manual_settings.getText().toString().length() > 0) ? (";" + edit_manual_settings.getText().toString()) : "");
     	
+		JMLPattern pat = null;
 		try {
 	    	Notation ssn = Notation.getNotation("siteswap");
-	    	JMLPattern pat = ssn.getJMLPattern(text.toString());
-	    	Log.v("PatternEntryActivity", pat.toString());
+	    	pat = ssn.getJMLPattern(text.toString());
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
 		} catch (JuggleExceptionInternal e) {
 			e.printStackTrace();
 		}
+    	Log.v("PatternEntryActivity", pat.toString());
     }
     
     private OnItemSelectedListener itemSelectedListenerHandMovement = new OnItemSelectedListener() {
