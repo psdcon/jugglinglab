@@ -24,21 +24,23 @@ package com.jonglen7.jugglinglab.jugglinglab.generator;
 
 import java.util.ArrayList;
 
+import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 
-	// This is used as an adapter to handle the generator output
+
+// This is used as an adapter to handle the generator output
 public class GeneratorTarget {
-	ArrayList<String> pattern_list;
+	ArrayList<PatternRecord> pattern_list;
 
-    public ArrayList<String> getPattern_list() {
+    public ArrayList<PatternRecord> getPattern_list() {
 		return pattern_list;
 	}
 
 	public GeneratorTarget() {
-    	pattern_list = new ArrayList<String>();
+    	pattern_list = new ArrayList<PatternRecord>();
     }
 
     public void writePattern(final String display, final String notation, final String anim) {
-    	pattern_list.add(display);
+    	pattern_list.add(new PatternRecord(display, "", notation, anim));
     }
     
     public void clearPatternList(){

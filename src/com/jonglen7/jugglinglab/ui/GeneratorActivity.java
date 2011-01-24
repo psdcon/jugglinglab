@@ -2,8 +2,13 @@ package com.jonglen7.jugglinglab.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,24 +25,31 @@ import com.jonglen7.jugglinglab.R;
 public class GeneratorActivity extends Activity {
 	
 	/** Balls. */
+	TextView txt_balls;
 	EditText edit_balls;
 	
 	/** Max. throw. */
+	TextView txt_max_throw;
 	EditText edit_max_throw;
 
     /** Rhythm. */
+	TextView txt_rhythm;
     Spinner spinner_rhythm;
 
     /** Jugglers. */
+    TextView txt_jugglers;
     Spinner spinner_jugglers;
 	
 	/** Period. */
+    TextView txt_period;
 	EditText edit_period;
 
     /** Compositions. */
+	TextView txt_compositions;
     Spinner spinner_compositions;
     
     /** Find. */
+    TextView txt_find;
     CheckBox cb_ground_state_patterns;
     CheckBox cb_excited_state_patterns;
     CheckBox cb_transition_throws;
@@ -46,6 +58,7 @@ public class GeneratorActivity extends Activity {
     CheckBox cb_connected_patterns_only;
     
     /** Multiplexing. */
+    TextView txt_multiplexing;
     CheckBox cb_enable;
     TextView txt_simultaneous_throws;
     EditText edit_simultaneous_throws;
@@ -54,7 +67,9 @@ public class GeneratorActivity extends Activity {
     CheckBox cb_true_multiplexing_only;
     
     /** Exclude / Include. */
+    TextView txt_exclude_these_expressions;
     EditText edit_exclude_these_expressions;
+    TextView txt_include_these_expressions;
     EditText edit_include_these_expressions;
     TextView txt_passing_communication_delay;
     EditText edit_passing_communication_delay;
@@ -66,21 +81,26 @@ public class GeneratorActivity extends Activity {
     	setContentView(R.layout.activity_generator);
 
     	/** Balls. */
-    	edit_balls = (EditText)findViewById(R.id.generator_edit_balls);
+    	txt_balls = (TextView) findViewById(R.id.generator_txt_balls);
+    	edit_balls = (EditText) findViewById(R.id.generator_edit_balls);
     	
     	/** Max. throw. */
-    	edit_max_throw = (EditText)findViewById(R.id.generator_edit_max_throw);
+    	txt_max_throw = (TextView) findViewById(R.id.generator_txt_max_throw);
+    	edit_max_throw = (EditText) findViewById(R.id.generator_edit_max_throw);
     	
     	/** Period. */
-    	edit_period = (EditText)findViewById(R.id.generator_edit_period);
+    	txt_period = (TextView) findViewById(R.id.generator_txt_period);
+    	edit_period = (EditText) findViewById(R.id.generator_edit_period);
 
         /** Rhythm. */
+    	txt_rhythm = (TextView) findViewById(R.id.generator_txt_rhythm);
     	spinner_rhythm = (Spinner) findViewById(R.id.generator_spinner_rhythm);
         ArrayAdapter<CharSequence> adapter_rhythm = ArrayAdapter.createFromResource(this, R.array.rhythm, android.R.layout.simple_spinner_item);
         adapter_rhythm.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_rhythm.setAdapter(adapter_rhythm);
 
         /** Jugglers. */
+        txt_jugglers = (TextView) findViewById(R.id.generator_txt_jugglers);
     	spinner_jugglers = (Spinner) findViewById(R.id.generator_spinner_jugglers);
         spinner_jugglers.setOnItemSelectedListener(itemSelectedListenerJugglers);
         ArrayAdapter<CharSequence> adapter_jugglers = ArrayAdapter.createFromResource(this, R.array.jugglers, android.R.layout.simple_spinner_item);
@@ -88,12 +108,14 @@ public class GeneratorActivity extends Activity {
         spinner_jugglers.setAdapter(adapter_jugglers);
         
         /** Compositions. */
+        txt_compositions = (TextView) findViewById(R.id.generator_txt_compositions);
     	spinner_compositions = (Spinner) findViewById(R.id.generator_spinner_compositions);
         ArrayAdapter<CharSequence> adapter_compositions = ArrayAdapter.createFromResource(this, R.array.compositions, android.R.layout.simple_spinner_item);
         adapter_compositions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_compositions.setAdapter(adapter_compositions);
         
         /** Find. */
+        txt_find = (TextView) findViewById(R.id.generator_txt_find);
         cb_ground_state_patterns = (CheckBox) findViewById(R.id.generator_cb_ground_state_patterns);
         cb_ground_state_patterns.setOnCheckedChangeListener(checkedChangeListenerGroundExcitedStatePatterns);
         cb_excited_state_patterns = (CheckBox) findViewById(R.id.generator_cb_excited_state_patterns);
@@ -104,19 +126,71 @@ public class GeneratorActivity extends Activity {
         cb_connected_patterns_only = (CheckBox) findViewById(R.id.generator_cb_connected_patterns_only);
         
         /** Multiplexing. */
+        txt_multiplexing = (TextView) findViewById(R.id.generator_txt_multiplexing);
         cb_enable = (CheckBox) findViewById(R.id.generator_cb_enable);
         cb_enable.setOnCheckedChangeListener(checkedChangeListenerEnable);
-        txt_simultaneous_throws = (TextView)findViewById(R.id.generator_txt_simultaneous_throws);
-        edit_simultaneous_throws = (EditText)findViewById(R.id.generator_edit_simultaneous_throws);
+        txt_simultaneous_throws = (TextView) findViewById(R.id.generator_txt_simultaneous_throws);
+        edit_simultaneous_throws = (EditText) findViewById(R.id.generator_edit_simultaneous_throws);
         cb_no_simultaneous_catches = (CheckBox) findViewById(R.id.generator_cb_no_simultaneous_catches);
         cb_no_clustered_throws = (CheckBox) findViewById(R.id.generator_cb_no_clustered_throws);
         cb_true_multiplexing_only = (CheckBox) findViewById(R.id.generator_cb_true_multiplexing_only);
         
         /** Exclude / Include. */
-        edit_exclude_these_expressions = (EditText)findViewById(R.id.generator_edit_exclude_these_expressions);
-        edit_include_these_expressions = (EditText)findViewById(R.id.generator_edit_include_these_expressions);
-        txt_passing_communication_delay = (TextView)findViewById(R.id.generator_txt_passing_communication_delay);
-        edit_passing_communication_delay = (EditText)findViewById(R.id.generator_edit_passing_communication_delay);
+        txt_exclude_these_expressions = (TextView) findViewById(R.id.generator_txt_exclude_these_expressions);
+        edit_exclude_these_expressions = (EditText) findViewById(R.id.generator_edit_exclude_these_expressions);
+        txt_include_these_expressions = (TextView) findViewById(R.id.generator_txt_include_these_expressions);
+        edit_include_these_expressions = (EditText) findViewById(R.id.generator_edit_include_these_expressions);
+        txt_passing_communication_delay = (TextView) findViewById(R.id.generator_txt_passing_communication_delay);
+        edit_passing_communication_delay = (EditText) findViewById(R.id.generator_edit_passing_communication_delay);
+
+        /** Advanced mode. */
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean advanced_mode = preferences.getBoolean("advanced_mode", false);
+        if (!advanced_mode) {
+        	txt_compositions.setVisibility(View.GONE);
+        	spinner_compositions.setVisibility(View.GONE);
+        	txt_find.setVisibility(View.GONE);
+        	cb_ground_state_patterns.setVisibility(View.GONE);
+        	cb_excited_state_patterns.setVisibility(View.GONE);
+        	cb_transition_throws.setVisibility(View.GONE);
+        	cb_pattern_rotations.setVisibility(View.GONE);
+        	cb_juggler_permutations.setVisibility(View.GONE);
+        	cb_connected_patterns_only.setVisibility(View.GONE);
+        	txt_multiplexing.setVisibility(View.GONE);
+        	cb_enable.setVisibility(View.GONE);
+        	txt_simultaneous_throws.setVisibility(View.GONE);
+        	edit_simultaneous_throws.setVisibility(View.GONE);
+        	cb_no_simultaneous_catches.setVisibility(View.GONE);
+        	cb_no_clustered_throws.setVisibility(View.GONE);
+        	cb_true_multiplexing_only.setVisibility(View.GONE);
+        	txt_exclude_these_expressions.setVisibility(View.GONE);
+        	edit_exclude_these_expressions.setVisibility(View.GONE);
+        	txt_include_these_expressions.setVisibility(View.GONE);
+        	edit_include_these_expressions.setVisibility(View.GONE);
+        	txt_passing_communication_delay.setVisibility(View.GONE);
+        	edit_passing_communication_delay.setVisibility(View.GONE);
+        }
+    }
+    
+    /** Menu button. */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_home_settings:
+            	startActivity(new Intent(this, SettingsHomeActivity.class));
+                break;
+            case R.id.menu_home_about:
+            	startActivity(new Intent(this, AboutActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     
     /** Handle "Run" action. */

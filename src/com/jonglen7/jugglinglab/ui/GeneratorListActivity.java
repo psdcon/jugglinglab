@@ -2,6 +2,7 @@ package com.jonglen7.jugglinglab.ui;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import org.xml.sax.SAXException;
 
@@ -17,16 +18,22 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.jonglen7.jugglinglab.R;
+import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
+import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 public class GeneratorListActivity extends ListActivity {
     
     /** GeneratorTarget. */
     GeneratorTarget target;
+    
+    /** Pattern list. */
+    ArrayList<PatternRecord> pattern_list;
     
     /** Called when the activity is first created. */
     @Override
@@ -52,14 +59,19 @@ public class GeneratorListActivity extends ListActivity {
 			sg.initGenerator(pattern);
 			// No limits
 			// TODO This might take too long, find a way to prevent that
-			sg.runGenerator(target);
+			//sg.runGenerator(target);
+			sg.runGenerator(target, 100, 5.0);
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
 		}
 		
-        Log.v("GeneratorListActivity", target.getPattern_list().toString());
+		/** Pattern list */
+		pattern_list = target.getPattern_list();
+        ArrayList<String> pattern_list_display = new ArrayList<String>();
+        for (int i=0; i<pattern_list.size(); i++) pattern_list_display.add(pattern_list.get(i).getDisplay());
         
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, target.getPattern_list()));
+        // TODO What to display if there are no results ?
+        setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, pattern_list_display));
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
         lv.setOnItemClickListener(itemClickListener);
@@ -69,27 +81,41 @@ public class GeneratorListActivity extends ListActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			// When clicked, show a toast with the TextView text
-			Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 			
-			// TODO That doesn't work, wait for the reply of the Juggling Lab guy
-			/*JMLPattern pat = null;
-			JMLParser p = new JMLParser();
-            try {
-    	    	Log.v("GeneratorListActivity", "Avant p.parse(new StringReader(((TextView) view).getText().toString()));");
-				p.parse(new StringReader(((TextView) view).getText().toString()));
-			} catch (SAXException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			PatternRecord pattern = pattern_list.get(position);
+			
+			JMLPattern pat = null;
+			
+			if (pattern.getNotation().compareTo("siteswap") == 0) {
+				try {
+					Notation ssn = Notation.getNotation("siteswap");
+					pat = ssn.getJMLPattern(pattern.getAnim());
+				} catch (JuggleExceptionUser e) {
+					e.printStackTrace();
+				} catch (JuggleExceptionInternal e) {
+					e.printStackTrace();
+				}
+			} if (pattern.getNotation().compareTo("jml") == 0) {
+				JMLParser p = new JMLParser();
+				
+				try {
+					p.parse(new StringReader(pattern.getAnim()));
+				} catch (SAXException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+	            try {
+					pat = new JMLPattern(p.getTree());
+				} catch (JuggleExceptionUser e) {
+					e.printStackTrace();
+				}
+			} else {
+				Log.v("GeneratorListActivity", "WTF!? Neither siteswap or jml !");
 			}
-            try {
-    	    	Log.v("GeneratorListActivity", "Avant pat = new JMLPattern(p.getTree());");
-				pat = new JMLPattern(p.getTree());
-			} catch (JuggleExceptionUser e) {
-				e.printStackTrace();
-			}
-	    	Log.v("GeneratorListActivity", pat.toString());*/
+			
+	    	Log.v("GeneratorListActivity", pat.toString());
 		}
     	
     };

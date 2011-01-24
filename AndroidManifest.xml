@@ -16,6 +16,8 @@
 <activity android:name=".ui.TutorialsActivity"></activity>
 <activity android:name=".ui.VideoActivity"></activity>
 <activity android:name=".ui.GeneratorListActivity"></activity>
+<activity android:name=".ui.SettingsHomeActivity"></activity>
+<activity android:name=".ui.AboutActivity"></activity>
 </application>
 
 
