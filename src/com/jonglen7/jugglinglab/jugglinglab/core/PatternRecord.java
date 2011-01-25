@@ -1,6 +1,9 @@
 package com.jonglen7.jugglinglab.jugglinglab.core;
 
-public class PatternRecord {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PatternRecord implements Parcelable {
 	private String display;
 	
 	// TODO Fred : "il faudra le buter si on l'implemente pas"
@@ -27,4 +30,39 @@ public class PatternRecord {
 	public String getAnim() {
 		return anim;
 	}
+	
+	public PatternRecord(Parcel in) {
+		readFromParcel(in);
+	}
+
+	private void readFromParcel(Parcel in) {
+		display = in.readString();
+		animprefs = in.readString();
+		notation = in.readString();
+		anim = in.readString();
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(display);
+		dest.writeString(animprefs);
+		dest.writeString(notation);
+		dest.writeString(anim);
+	}
+	
+	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+		public PatternRecord createFromParcel(Parcel in) {
+           	return new PatternRecord(in);
+		}
+ 
+		public PatternRecord[] newArray(int size) {
+			return new PatternRecord[size];
+		}
+	};
 }

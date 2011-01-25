@@ -143,33 +143,43 @@ public class GeneratorActivity extends Activity {
         txt_passing_communication_delay = (TextView) findViewById(R.id.generator_txt_passing_communication_delay);
         edit_passing_communication_delay = (EditText) findViewById(R.id.generator_edit_passing_communication_delay);
 
-        /** Advanced mode. */
+        /** Normal or advanced mode. */
+        switchDisplayMode();
+    }
+
+	/** Advanced mode. */
+    @Override
+    public void onResume() {
+    	super.onResume();
+        switchDisplayMode();
+    }
+    
+    /** Hide or show some parameters depending if the Advanced mode is selected. */
+    public void switchDisplayMode() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean advanced_mode = preferences.getBoolean("advanced_mode", false);
-        if (!advanced_mode) {
-        	txt_compositions.setVisibility(View.GONE);
-        	spinner_compositions.setVisibility(View.GONE);
-        	txt_find.setVisibility(View.GONE);
-        	cb_ground_state_patterns.setVisibility(View.GONE);
-        	cb_excited_state_patterns.setVisibility(View.GONE);
-        	cb_transition_throws.setVisibility(View.GONE);
-        	cb_pattern_rotations.setVisibility(View.GONE);
-        	cb_juggler_permutations.setVisibility(View.GONE);
-        	cb_connected_patterns_only.setVisibility(View.GONE);
-        	txt_multiplexing.setVisibility(View.GONE);
-        	cb_enable.setVisibility(View.GONE);
-        	txt_simultaneous_throws.setVisibility(View.GONE);
-        	edit_simultaneous_throws.setVisibility(View.GONE);
-        	cb_no_simultaneous_catches.setVisibility(View.GONE);
-        	cb_no_clustered_throws.setVisibility(View.GONE);
-        	cb_true_multiplexing_only.setVisibility(View.GONE);
-        	txt_exclude_these_expressions.setVisibility(View.GONE);
-        	edit_exclude_these_expressions.setVisibility(View.GONE);
-        	txt_include_these_expressions.setVisibility(View.GONE);
-        	edit_include_these_expressions.setVisibility(View.GONE);
-        	txt_passing_communication_delay.setVisibility(View.GONE);
-        	edit_passing_communication_delay.setVisibility(View.GONE);
-        }
+        int visibility = (preferences.getBoolean("user_advanced_mode", false))?View.VISIBLE:View.GONE;
+        txt_compositions.setVisibility(visibility);
+    	spinner_compositions.setVisibility(visibility);
+    	txt_find.setVisibility(visibility);
+    	cb_ground_state_patterns.setVisibility(visibility);
+    	cb_excited_state_patterns.setVisibility(visibility);
+    	cb_transition_throws.setVisibility(visibility);
+    	cb_pattern_rotations.setVisibility(visibility);
+    	cb_juggler_permutations.setVisibility(visibility);
+    	cb_connected_patterns_only.setVisibility(visibility);
+    	txt_multiplexing.setVisibility(visibility);
+    	cb_enable.setVisibility(visibility);
+    	txt_simultaneous_throws.setVisibility(visibility);
+    	edit_simultaneous_throws.setVisibility(visibility);
+    	cb_no_simultaneous_catches.setVisibility(visibility);
+    	cb_no_clustered_throws.setVisibility(visibility);
+    	cb_true_multiplexing_only.setVisibility(visibility);
+    	txt_exclude_these_expressions.setVisibility(visibility);
+    	edit_exclude_these_expressions.setVisibility(visibility);
+    	txt_include_these_expressions.setVisibility(visibility);
+    	edit_include_these_expressions.setVisibility(visibility);
+    	txt_passing_communication_delay.setVisibility(visibility);
+    	edit_passing_communication_delay.setVisibility(visibility);
     }
     
     /** Menu button. */

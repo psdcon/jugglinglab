@@ -1,19 +1,16 @@
 package com.jonglen7.jugglinglab.ui;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 
-import org.xml.sax.SAXException;
-
 import android.app.ListActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -21,13 +18,13 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
-import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
-import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
-import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
-import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
 public class GeneratorListActivity extends ListActivity {
+	
+	/** Settings for the generator. */
+	int max_patterns;
+	int max_seconds;
     
     /** GeneratorTarget. */
     GeneratorTarget target;
@@ -41,11 +38,16 @@ public class GeneratorListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator_list);
         
+        /** Settings for the generator. */
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        max_patterns = Integer.parseInt(preferences.getString("generator_max_patterns", "100"));
+        max_seconds = Integer.parseInt(preferences.getString("generator_max_seconds", "3"));
+        
         /** GeneratorTarget. */
         target = new GeneratorTarget();
         target.clearPatternList();
         
-        /** Get pattern/ */
+        /** Get pattern. */
         Bundle extras = getIntent().getExtras();
         if (extras== null){
         	Toast.makeText(getApplicationContext(), "ERROR",
@@ -57,10 +59,7 @@ public class GeneratorListActivity extends ListActivity {
         siteswapGenerator sg = new siteswapGenerator();
         try {
 			sg.initGenerator(pattern);
-			// No limits
-			// TODO This might take too long, find a way to prevent that
-			//sg.runGenerator(target);
-			sg.runGenerator(target, 100, 5.0);
+			sg.runGenerator(target, max_patterns, max_seconds);
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
 		}
@@ -81,41 +80,9 @@ public class GeneratorListActivity extends ListActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			
-			PatternRecord pattern = pattern_list.get(position);
-			
-			JMLPattern pat = null;
-			
-			if (pattern.getNotation().compareTo("siteswap") == 0) {
-				try {
-					Notation ssn = Notation.getNotation("siteswap");
-					pat = ssn.getJMLPattern(pattern.getAnim());
-				} catch (JuggleExceptionUser e) {
-					e.printStackTrace();
-				} catch (JuggleExceptionInternal e) {
-					e.printStackTrace();
-				}
-			} if (pattern.getNotation().compareTo("jml") == 0) {
-				JMLParser p = new JMLParser();
-				
-				try {
-					p.parse(new StringReader(pattern.getAnim()));
-				} catch (SAXException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-	            try {
-					pat = new JMLPattern(p.getTree());
-				} catch (JuggleExceptionUser e) {
-					e.printStackTrace();
-				}
-			} else {
-				Log.v("GeneratorListActivity", "WTF!? Neither siteswap or jml !");
-			}
-			
-	    	Log.v("GeneratorListActivity", pat.toString());
+			Intent i = new Intent(GeneratorListActivity.this, JMLPatternActivity.class);
+	        i.putExtra("pattern_record", pattern_list.get(position));
+	        startActivity(i);
 		}
     	
     };
