@@ -1,8 +1,9 @@
 package com.jonglen7.jugglinglab.ui;
 
-import com.jonglen7.jugglinglab.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.jonglen7.jugglinglab.R;
 
 public class SettingsHomeActivity extends PreferenceActivity {
 

@@ -1,9 +1,9 @@
 package com.jonglen7.jugglinglab.ui;
 
-import com.jonglen7.jugglinglab.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.jonglen7.jugglinglab.R;
 
 public class AboutActivity extends Activity {
 

@@ -68,6 +68,11 @@
     <string name="settings_home_category_user">User</string>
     <string name="settings_home_cb_advanced_mode_title">Advanced mode</string>
     <string name="settings_home_cb_advanced_mode_summary">Activate the advanced mode</string>
+    <string name="settings_home_category_generator">Generator</string>
+    <string name="settings_home_txt_max_patterns_title">Patterns</string>
+    <string name="settings_home_txt_max_patterns_summary">Maximum number of patterns to print</string>
+    <string name="settings_home_txt_max_seconds_title">Time</string>
+    <string name="settings_home_txt_max_seconds_summary">Maximum number of seconds</string>
     <string name="settings_home_category_animation">Animation</string>
     
     <!-- About -->

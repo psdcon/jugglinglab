@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,10 +18,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.jonglen7.jugglinglab.R;
-import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
-import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
-import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
-import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 
 public class PatternEntryActivity extends Activity {
 
@@ -111,24 +107,34 @@ public class PatternEntryActivity extends Activity {
         txt_manual_settings = (TextView) findViewById(R.id.pattern_entry_txt_manual_settings);
         edit_manual_settings = (EditText) findViewById(R.id.pattern_entry_edit_manual_settings);
         
-        /** Advanced mode. */
+    	/** Normal or advanced mode. */
+        switchDisplayMode();
+    }
+
+	/** Called when the activity is resumed. */
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	switchDisplayMode();
+    }
+    
+    /** Hide or show some parameters depending if the Advanced mode is selected. */
+    public void switchDisplayMode() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean advanced_mode = preferences.getBoolean("advanced_mode", false);
-        if (!advanced_mode) {
-        	txt_dwell_beats.setVisibility(View.GONE);
-        	txt_dwell_beats_progress.setVisibility(View.GONE);
-        	txt_dwell_beats.setVisibility(View.GONE);
-        	seekbar_dwell_beats.setVisibility(View.GONE);
-        	txt_beats_per_second.setVisibility(View.GONE);
-        	txt_beats_per_second_progress.setVisibility(View.GONE);
-        	txt_beats_per_second.setVisibility(View.GONE);
-        	seekbar_beats_per_second.setVisibility(View.GONE);
-        	txt_body_movement.setVisibility(View.GONE);
-        	spinner_body_movement.setVisibility(View.GONE);
-        	edit_body_movement.setVisibility(View.GONE);
-        	txt_manual_settings.setVisibility(View.GONE);
-        	edit_manual_settings.setVisibility(View.GONE);
-        }
+        int visibility = (preferences.getBoolean("user_advanced_mode", false))?View.VISIBLE:View.GONE;
+    	txt_dwell_beats.setVisibility(visibility);
+    	txt_dwell_beats_progress.setVisibility(visibility);
+    	txt_dwell_beats.setVisibility(visibility);
+    	seekbar_dwell_beats.setVisibility(visibility);
+    	txt_beats_per_second.setVisibility(visibility);
+    	txt_beats_per_second_progress.setVisibility(visibility);
+    	txt_beats_per_second.setVisibility(visibility);
+    	seekbar_beats_per_second.setVisibility(visibility);
+    	txt_body_movement.setVisibility(visibility);
+    	spinner_body_movement.setVisibility(visibility);
+    	edit_body_movement.setVisibility(visibility);
+    	txt_manual_settings.setVisibility(visibility);
+    	edit_manual_settings.setVisibility(visibility);
     }
     
     /** Menu button. */
@@ -163,7 +169,7 @@ public class PatternEntryActivity extends Activity {
 		text.append((edit_body_movement.getText().toString().length() > 0) ? (";body=" + edit_body_movement.getText().toString()) : "");
 		text.append((edit_manual_settings.getText().toString().length() > 0) ? (";" + edit_manual_settings.getText().toString()) : "");
     	
-		JMLPattern pat = null;
+		/*JMLPattern pat = null;
 		try {
 	    	Notation ssn = Notation.getNotation("siteswap");
 	    	pat = ssn.getJMLPattern(text.toString());
@@ -172,7 +178,11 @@ public class PatternEntryActivity extends Activity {
 		} catch (JuggleExceptionInternal e) {
 			e.printStackTrace();
 		}
-    	Log.v("PatternEntryActivity", pat.toString());
+    	Log.v("PatternEntryActivity", pat.toString());*/
+		
+		Intent i = new Intent(this, JMLPatternActivity.class);
+        i.putExtra("pattern_record", new PatternRecord("", "", "siteswap", text.toString()));
+        startActivity(i);
     }
     
     private OnItemSelectedListener itemSelectedListenerHandMovement = new OnItemSelectedListener() {

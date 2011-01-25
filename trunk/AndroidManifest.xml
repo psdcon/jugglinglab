@@ -18,6 +18,7 @@
 <activity android:name=".ui.GeneratorListActivity"></activity>
 <activity android:name=".ui.SettingsHomeActivity"></activity>
 <activity android:name=".ui.AboutActivity"></activity>
+<activity android:name=".ui.JMLPatternActivity"></activity>
 </application>
 
 

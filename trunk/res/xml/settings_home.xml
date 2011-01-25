@@ -4,10 +4,24 @@
   
 	<PreferenceCategory android:title="@string/settings_home_category_user">
 		<CheckBoxPreference 
-			android:key="advanced_mode" 
+			android:key="user_advanced_mode" 
 			android:title="@string/settings_home_cb_advanced_mode_title" 
-			android:summary="@string/settings_home_cb_advanced_mode_summary">
-		</CheckBoxPreference>
+			android:summary="@string/settings_home_cb_advanced_mode_summary"/>
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/settings_home_category_generator">
+		<EditTextPreference
+			android:key="generator_max_patterns"
+			android:title="@string/settings_home_txt_max_patterns_title"
+			android:summary="@string/settings_home_txt_max_patterns_summary"
+			android:numeric="integer"
+			android:defaultValue="100"/>
+		<EditTextPreference
+			android:key="generator_max_seconds"
+			android:title="@string/settings_home_txt_max_seconds_title"
+			android:summary="@string/settings_home_txt_max_seconds_summary"
+			android:numeric="integer"
+			android:defaultValue="3"/>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/settings_home_category_animation">
