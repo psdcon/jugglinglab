@@ -35,7 +35,7 @@ public abstract class Path {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        errorstrings = ResourceBundle.getBundle("com/jonglen7/jugglinglab/resources/ErrorStrings");
     }
 
     protected double		start_time, end_time;
@@ -51,7 +51,7 @@ public abstract class Path {
             throw new JuggleExceptionUser("Prop type not specified");
 
         try {
-            Object obj = Class.forName("jugglinglab.path."+name.toLowerCase()+"Path").newInstance();
+            Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.path."+name.toLowerCase()+"Path").newInstance();
             //			if (obj == null)
             //				throw new JuggleExceptionUser("Cannot create Path type '"+name+"'");
             if (!(obj instanceof Path))
