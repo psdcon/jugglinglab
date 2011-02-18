@@ -1,11 +1,15 @@
 package com.jonglen7.jugglinglab.ui;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,6 +18,7 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
+import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
@@ -40,12 +45,12 @@ public class JMLPatternActivity extends Activity {
         PatternRecord pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
         
         /** Generate the JMLPattern */
-        JMLPattern pat = null;
+        JMLPattern pattern = null;
 		
 		if (pattern_record.getNotation().compareTo("siteswap") == 0) {
 			try {
 				Notation ssn = Notation.getNotation("siteswap");
-				pat = ssn.getJMLPattern(pattern_record.getAnim());
+				pattern = ssn.getJMLPattern(pattern_record.getAnim());
 			} catch (JuggleExceptionUser e) {
 				e.printStackTrace();
 			} catch (JuggleExceptionInternal e) {
@@ -63,7 +68,7 @@ public class JMLPatternActivity extends Activity {
 			}
 
             try {
-				pat = new JMLPattern(p.getTree());
+				pattern = new JMLPattern(p.getTree());
 			} catch (JuggleExceptionUser e) {
 				e.printStackTrace();
 			}
@@ -71,6 +76,82 @@ public class JMLPatternActivity extends Activity {
 			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
 		}
 		
-    	Log.v("GeneratorListActivity", pat.toString());
+    	Log.v("GeneratorListActivity", pattern.toString());
+       
+        // Black Screen
+        //setContentView(R.layout.activity_video);
+        
+        // 2D Square
+        /*
+        GLSurfaceView view = new GLSurfaceView(this);
+   		view.setRenderer(new OpenGLRenderer());
+   		setContentView(view);
+   		*/
+        
+   		// 3D Cube
+        /*
+        GLSurfaceView mGLSurfaceView;
+        mGLSurfaceView = new TouchSurfaceView(this);
+        setContentView(mGLSurfaceView);
+        mGLSurfaceView.requestFocus();
+        mGLSurfaceView.setFocusableInTouchMode(true);
+        */
+        
+        // Fake Juggler  
+   		/*
+        GLSurfaceView view = new GLSurfaceView(this);
+   		view.setRenderer(new JugglingRenderer());
+   		setContentView(view);
+   		*/
+        
+        
+        
+        
+        
+        // **********************************************************
+        // Juggler
+        // **********************************************************
+        
+        // Read the JML file
+        /*BufferedReader reader = null;
+        try {
+        	reader = new BufferedReader(new InputStreamReader(this.getAssets().open("3.jml")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Build the JMLPattern from it
+		JMLPattern pattern = null;
+		try {
+			pattern = new JMLPattern(reader);
+		} catch (JuggleExceptionUser e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+		
+		// pattern.layoutPattern()
+		try {
+			pattern.layoutPattern();
+		} catch (JuggleExceptionInternal e) {
+			e.printStackTrace();
+		} catch (JuggleExceptionUser e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		JugglingRenderer jd = new JugglingRenderer();
+		jd.setPattern(pattern);
+
+   
+        GLSurfaceView view = new GLSurfaceView(this);
+        view.setRenderer(jd);
+        setContentView(view);
     }
 }
