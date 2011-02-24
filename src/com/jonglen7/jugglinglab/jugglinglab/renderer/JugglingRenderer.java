@@ -5,9 +5,12 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
+import android.util.Log;
 
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
+import com.jonglen7.jugglinglab.jugglinglab.prop.Prop;
+import com.jonglen7.jugglinglab.jugglinglab.prop.ballProp;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 
@@ -68,7 +71,8 @@ public class JugglingRenderer implements Renderer {
 		// Save the current matrix.
 		gl.glPushMatrix();
 		// Translates 10 units into the screen.
-		gl.glTranslatef(0, -100.0f, -100.0f); 
+		//gl.glTranslatef(0, -100.0f, -100.0f); 
+		gl.glTranslatef(0, -150.0f, -100.0f); 
 		// Reduce
 		//gl.glScalef(0.2f, 0.2f, 0.2f);
 		// Draw the Juggler	
@@ -77,9 +81,32 @@ public class JugglingRenderer implements Renderer {
 			juggler.findJugglerCoordinates(pattern, time);
 			juggler.MathVectorToVertices();
 			juggler.draw(gl);
+
+			Coordinate tempc = new Coordinate();
+
+			float x=0.0f, y=0.0f, z=0.0f;
+			
+			int[] animpropnum = new int[pattern.getNumberOfPaths()];
+	        for (int i = 1; i <= pattern.getNumberOfPaths(); i++)
+	            animpropnum[i-1] = pattern.getPropAssignment(i);
+	    	
+			for (int i = 1; i <= pattern.getNumberOfPaths(); i++) {
+	            pattern.getPathCoordinate(i, time, tempc);
+	            if (!tempc.isValid())
+	                tempc.setCoordinate(0.0,0.0,0.0);
+	            x = (float)(0.5f + tempc.x);
+	            y = (float)(0.5f + tempc.y);
+	            z = (float)(0.5f + tempc.z);
+	            Prop pr = pattern.getProp(animpropnum[i-1]);
+	            pr.setPropCenter(tempc);
+	            pr.centerProp();
+	            //Log.v("JugglingRenderer", i + "\tX=" + x + "\tY=" + y + "\tZ=" + z);
+	            pr.draw(gl); 
+	       }	
 		} catch (JuggleExceptionInternal e){
 			e.printStackTrace();
 		}
+		
 		// Restore the last matrix.
 		gl.glPopMatrix();
 		
@@ -90,7 +117,7 @@ public class JugglingRenderer implements Renderer {
         
         
 		/*
-		// FakeJuggler
+		// Fake Juggler + Fake Ball
 		
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
@@ -99,11 +126,14 @@ public class JugglingRenderer implements Renderer {
 		// Save the current matrix.
 		gl.glPushMatrix();
 		// Translates 10 units into the screen.
-		gl.glTranslatef(0, -100.0f, -100.0f); 
-		// Reduce
-		//gl.glScalef(0.2f, 0.2f, 0.2f);
-		// Draw	
+		gl.glTranslatef(0.0f, -100.0f, -100.0f); 
+		//int x=11, y=30, z=139;
 		juggler.draw(gl);
+		int x=11, y=30, z=139;
+		Prop pr = new ballProp();
+		pr.setPropCenter(new Coordinate(x, y, z));
+        pr.centerProp();
+        pr.draw(gl);
 		// Restore the last matrix.
 		gl.glPopMatrix();
         */
