@@ -35,6 +35,8 @@ import java.util.Vector;
 
 import org.xml.sax.SAXException;
 
+import android.util.Log;
+
 import com.jonglen7.jugglinglab.jugglinglab.core.Constants;
 import com.jonglen7.jugglinglab.jugglinglab.curve.Curve;
 import com.jonglen7.jugglinglab.jugglinglab.curve.lineCurve;
@@ -268,12 +270,12 @@ public class JMLPattern {
         if (!valid)
             throw new JuggleExceptionInternal("Cannot do layout of invalid pattern");
 
-        /*
+        
         if (getNumberOfProps() == 0)
             this.addProp(new PropDef("ball", null));
         for (int i = 0; i < getNumberOfProps(); i++)
             ((PropDef)props.elementAt(i)).layoutProp();
-        */
+        
 
         this.buildEventList();
         this.findMasterEvents();

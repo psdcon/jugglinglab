@@ -24,6 +24,8 @@ package com.jonglen7.jugglinglab.jugglinglab.prop;
 
 import java.util.ResourceBundle;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.ParameterDescriptor;
@@ -34,16 +36,15 @@ public abstract class Prop {
     static ResourceBundle errorstrings;
     static {
         // guistrings = ResourceBundle.getBundle("GUIStrings");
-        errorstrings = ResourceBundle.getBundle("ErrorStrings");
+        errorstrings = ResourceBundle.getBundle("com/jonglen7/jugglinglab/resources/ErrorStrings");
     }
     
     protected String initString;
-
     public static final String[] builtinProps = { "Ball", "Image", "Ring" };
 
     public static Prop getProp(String name) throws JuggleExceptionUser {
         try {
-            Object obj = Class.forName("jugglinglab.prop."+name.toLowerCase()+"Prop").newInstance();
+            Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.prop."+name.toLowerCase()+"Prop").newInstance();
             if (!(obj instanceof Prop))
                 throw new JuggleExceptionUser("Prop type '"+name+"' doesn't work");
             return (Prop)obj;
@@ -58,25 +59,26 @@ public abstract class Prop {
             throw new JuggleExceptionUser("Couldn't create '"+name+"' prop");
         }
     }
-
-    public abstract String getName();
-
-    //public abstract Color getEditorColor();
-
-    public abstract ParameterDescriptor[] getParameterDescriptors();
-
+    
     public void initProp(String st) throws JuggleExceptionUser {
         initString = st;
         this.init(st);
     }
 
+
     protected abstract void init(String st) throws JuggleExceptionUser;
+    public abstract String getName();
+    //public abstract Color getEditorColor();
+    public abstract ParameterDescriptor[] getParameterDescriptors();
     public abstract Coordinate getMax();
     public abstract Coordinate getMin();
-    /*public abstract Image getProp2DImage(Component comp, double zoom, double[] camangle);
-    public abstract Dimension getProp2DSize(Component comp, double zoom);
-    public abstract Dimension getProp2DCenter(Component comp, double zoom);
-    public abstract Dimension getProp2DGrip(Component comp, double zoom);*/
-    public abstract Object getPropIDX3D();
-    public abstract Coordinate getPropIDX3DGrip();
+    //public abstract Image getProp2DImage(Component comp, double zoom, double[] camangle);
+    public abstract Coordinate getPropSize();
+    public abstract Coordinate getPropCenter();
+    public abstract void setPropCenter(Coordinate center);
+    public abstract void centerProp();
+    public abstract Coordinate getPropGrip();
+    public abstract void draw(GL10 gl);
+    //public abstract Object getPropIDX3D();
+    //public abstract Coordinate getPropIDX3DGrip();
 }

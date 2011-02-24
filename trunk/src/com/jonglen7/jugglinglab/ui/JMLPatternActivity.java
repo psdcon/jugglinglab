@@ -19,6 +19,7 @@ import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
 import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
+import com.jonglen7.jugglinglab.jugglinglab.renderer.TouchSurfaceView;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
@@ -56,7 +57,7 @@ public class JMLPatternActivity extends Activity {
 			} catch (JuggleExceptionInternal e) {
 				e.printStackTrace();
 			}
-		} if (pattern_record.getNotation().compareTo("jml") == 0) {
+		} else if (pattern_record.getNotation().compareTo("jml") == 0) {
 			JMLParser p = new JMLParser();
 			
 			try {
@@ -97,23 +98,18 @@ public class JMLPatternActivity extends Activity {
         mGLSurfaceView.setFocusableInTouchMode(true);
         */
         
-        // Fake Juggler  
+        // Fake Juggler and Fake Ball
    		/*
         GLSurfaceView view = new GLSurfaceView(this);
    		view.setRenderer(new JugglingRenderer());
    		setContentView(view);
    		*/
         
-        
-        
-        
-        
-        // **********************************************************
+
         // Juggler
-        // **********************************************************
-        
-        // Read the JML file
-        /*BufferedReader reader = null;
+        // Read JMLPAttern from JML file
+        /*
+        BufferedReader reader = null;
         try {
         	reader = new BufferedReader(new InputStreamReader(this.getAssets().open("3.jml")));
 		} catch (FileNotFoundException e) {
@@ -132,9 +128,12 @@ public class JMLPatternActivity extends Activity {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
-		
-		// pattern.layoutPattern()
+		}
+		*/
+
+    	// Juggler
+    	// Pattern get from the PatternEntryActivity
+    	
 		try {
 			pattern.layoutPattern();
 		} catch (JuggleExceptionInternal e) {
@@ -142,16 +141,16 @@ public class JMLPatternActivity extends Activity {
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+
 		JugglingRenderer jd = new JugglingRenderer();
 		jd.setPattern(pattern);
 
-   
+		
         GLSurfaceView view = new GLSurfaceView(this);
         view.setRenderer(jd);
         setContentView(view);
+        
+        
+
     }
 }
