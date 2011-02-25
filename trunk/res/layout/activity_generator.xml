@@ -4,10 +4,19 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	
+	<Button
+		android:id="@+id/generator_btn_run"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:onClick="onRunClick"
+		android:text="@string/generator_btn_run"/>
+	
 	<ScrollView
 		android:id="@+id/generator_scrollview"
 		android:layout_width="fill_parent"
-		android:layout_height="380dp">
+		android:layout_height="fill_parent"
+		android:layout_above="@id/generator_btn_run">
 		<RelativeLayout
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_width="fill_parent"
@@ -242,12 +251,4 @@
 			
 		</RelativeLayout>
 	</ScrollView>
-	
-	<Button
-		android:id="@+id/generator_btn_run"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/generator_scrollview"
-		android:onClick="onRunClick"
-		android:text="@string/generator_btn_run"/>
 </RelativeLayout>

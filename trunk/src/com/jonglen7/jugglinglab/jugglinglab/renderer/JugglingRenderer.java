@@ -3,14 +3,12 @@ package com.jonglen7.jugglinglab.jugglinglab.renderer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
-import android.util.Log;
+import android.opengl.GLSurfaceView.Renderer;
 
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.prop.Prop;
-import com.jonglen7.jugglinglab.jugglinglab.prop.ballProp;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 

@@ -1,9 +1,6 @@
 package com.jonglen7.jugglinglab.ui;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 
 import org.xml.sax.SAXException;
@@ -19,7 +16,6 @@ import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
 import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
-import com.jonglen7.jugglinglab.jugglinglab.renderer.TouchSurfaceView;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
@@ -77,7 +73,7 @@ public class JMLPatternActivity extends Activity {
 			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
 		}
 		
-    	Log.v("GeneratorListActivity", pattern.toString());
+    	Log.v("JMLPatternActivity", pattern.toString());
        
         // Black Screen
         //setContentView(R.layout.activity_video);
