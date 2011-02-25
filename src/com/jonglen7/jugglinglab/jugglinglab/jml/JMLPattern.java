@@ -35,8 +35,6 @@ import java.util.Vector;
 
 import org.xml.sax.SAXException;
 
-import android.util.Log;
-
 import com.jonglen7.jugglinglab.jugglinglab.core.Constants;
 import com.jonglen7.jugglinglab.jugglinglab.curve.Curve;
 import com.jonglen7.jugglinglab.jugglinglab.curve.lineCurve;

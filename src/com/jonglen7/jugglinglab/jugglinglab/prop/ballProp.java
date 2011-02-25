@@ -22,21 +22,20 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.prop;
 
-import java.util.*;
-import java.awt.*;
-import java.lang.reflect.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
 import android.graphics.Color;
 
-import com.jonglen7.jugglinglab.jugglinglab.core.*;
-import com.jonglen7.jugglinglab.jugglinglab.util.*;
-import com.jonglen7.jugglinglab.jugglinglab.renderer.*;
+import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.ParameterDescriptor;
+import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
 
 
 public class ballProp extends Prop {

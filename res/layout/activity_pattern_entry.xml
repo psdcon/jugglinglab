@@ -4,10 +4,19 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	
+	<Button
+		android:id="@+id/pattern_entry_btn_juggle"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:onClick="onJuggleClick"
+		android:text="@string/pattern_entry_btn_juggle"/>
+	
 	<ScrollView
 		android:id="@+id/pattern_entry_scrollview"
 		android:layout_width="fill_parent"
-		android:layout_height="380dp">
+		android:layout_height="fill_parent"
+		android:layout_above="@id/pattern_entry_btn_juggle">
 		<RelativeLayout
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_width="fill_parent"
@@ -139,12 +148,4 @@
 				
 		</RelativeLayout>
 	</ScrollView>
-	
-	<Button
-		android:id="@+id/pattern_entry_btn_juggle"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/pattern_entry_scrollview"
-		android:onClick="onJuggleClick"
-		android:text="@string/pattern_entry_btn_juggle"/>
 </RelativeLayout>
