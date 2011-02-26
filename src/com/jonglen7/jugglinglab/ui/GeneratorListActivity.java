@@ -8,11 +8,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
@@ -31,6 +33,13 @@ public class GeneratorListActivity extends ListActivity {
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
+
+    /** QuickActions */
+    ActionItem fav;
+    ActionItem practising;
+    ActionItem record;
+    ActionItem share;
+    ActionItem stats;
     
     /** Called when the activity is first created. */
     @Override
@@ -74,6 +83,63 @@ public class GeneratorListActivity extends ListActivity {
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
         lv.setOnItemClickListener(itemClickListener);
+        lv.setOnItemLongClickListener(itemLongClickListener);
+        
+        /** QuickActions */
+        quickActions();
+    }
+    
+    /** QuickActions */
+    private void quickActions() {
+    	fav = new ActionItem();
+    	fav.setTitle("Fav");
+    	fav.setIcon(getResources().getDrawable(R.drawable.chart));
+    	fav.setOnClickListener(new OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			Toast.makeText(GeneratorListActivity.this, "Fav selected" , Toast.LENGTH_SHORT).show();
+    		}
+    	});
+    	
+    	practising = new ActionItem();
+    	practising.setTitle("Practising");
+    	practising.setIcon(getResources().getDrawable(R.drawable.production));
+    	practising.setOnClickListener(new OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			Toast.makeText(GeneratorListActivity.this, "Practising selected", Toast.LENGTH_SHORT).show();
+    		}
+    	});
+    	
+    	record = new ActionItem();
+    	record.setTitle("Record");
+    	record.setIcon(getResources().getDrawable(R.drawable.record));
+    	record.setOnClickListener(new OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			Toast.makeText(GeneratorListActivity.this, "Record selected" , Toast.LENGTH_SHORT).show();
+    		}
+    	});
+
+    	share = new ActionItem();
+    	share.setTitle("Share");
+    	share.setIcon(getResources().getDrawable(R.drawable.share));
+    	share.setOnClickListener(new OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			Toast.makeText(GeneratorListActivity.this, "Share selected" , Toast.LENGTH_SHORT).show();
+    		}
+    	});
+
+    	stats = new ActionItem();
+    	stats.setTitle("Stats");
+    	stats.setIcon(getResources().getDrawable(R.drawable.stats));
+    	stats.setOnClickListener(new OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    			Toast.makeText(GeneratorListActivity.this, "Stats selected" , Toast.LENGTH_SHORT).show();
+    		}
+    	});
     }
     
     private OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -83,6 +149,26 @@ public class GeneratorListActivity extends ListActivity {
 			Intent i = new Intent(GeneratorListActivity.this, JMLPatternActivity.class);
 	        i.putExtra("pattern_record", pattern_list.get(position));
 	        startActivity(i);
+		}
+    	
+    };
+    
+    private OnItemLongClickListener itemLongClickListener = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+			// http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
+			QuickAction qa = new QuickAction(view);
+			
+			qa.addActionItem(fav);
+			qa.addActionItem(practising);
+			qa.addActionItem(record);
+			qa.addActionItem(share);
+			qa.addActionItem(stats);
+			qa.setAnimStyle(QuickAction.ANIM_AUTO);
+			
+			qa.show();
+			return false;
 		}
     	
     };
