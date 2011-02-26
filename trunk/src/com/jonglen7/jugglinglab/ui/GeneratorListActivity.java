@@ -3,6 +3,7 @@ package com.jonglen7.jugglinglab.ui;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class GeneratorListActivity extends ListActivity {
 	
@@ -85,8 +88,20 @@ public class GeneratorListActivity extends ListActivity {
         lv.setOnItemClickListener(itemClickListener);
         lv.setOnItemLongClickListener(itemLongClickListener);
         
+        /** ActionBar. */
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
+        actionBar.setTitle(pattern_list.size() + " patterns found");
+        
         /** QuickActions */
         quickActions();
+    }
+
+    /** ActionBar. */
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
     }
     
     /** QuickActions */
@@ -157,7 +172,6 @@ public class GeneratorListActivity extends ListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			// http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
 			QuickAction qa = new QuickAction(view);
 			
 			qa.addActionItem(fav);

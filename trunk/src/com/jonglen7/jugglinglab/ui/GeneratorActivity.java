@@ -1,6 +1,7 @@
 package com.jonglen7.jugglinglab.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.jonglen7.jugglinglab.R;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class GeneratorActivity extends Activity {
 	
@@ -79,6 +82,10 @@ public class GeneratorActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_generator);
+        
+        /** ActionBar. */
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
 
     	/** Balls. */
     	txt_balls = (TextView) findViewById(R.id.generator_txt_balls);
@@ -152,6 +159,13 @@ public class GeneratorActivity extends Activity {
     public void onResume() {
     	super.onResume();
         switchDisplayMode();
+    }
+
+    /** ActionBar. */
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
     }
     
     /** Hide or show some parameters depending if the Advanced mode is selected. */

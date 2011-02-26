@@ -1,6 +1,7 @@
 package com.jonglen7.jugglinglab.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class PatternEntryActivity extends Activity {
 
@@ -59,6 +62,10 @@ public class PatternEntryActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern_entry);
+        
+        /** ActionBar. */
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
 
         /** Pattern. */
         txt_pattern = (TextView) findViewById(R.id.pattern_entry_txt_pattern);
@@ -116,6 +123,13 @@ public class PatternEntryActivity extends Activity {
     public void onResume() {
     	super.onResume();
     	switchDisplayMode();
+    }
+
+    /** ActionBar. */
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
     }
     
     /** Hide or show some parameters depending if the Advanced mode is selected. */

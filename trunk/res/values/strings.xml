@@ -4,6 +4,7 @@
     <string name="app_name">Juggling Lab</string>
     
     <!-- Home -->
+    <string name="home_title">Juggling Lab</string>
     <string name="home_btn_pattern_entry">Pattern Entry</string>
     <string name="home_btn_generator">Generator</string>
     <string name="home_btn_tutorials">Tutorials</string>
@@ -11,6 +12,7 @@
     <string name="home_btn_video">Video</string>
     
     <!-- Pattern entry -->
+    <string name="pattern_entry_title">Pattern Entry</string>
     <string name="pattern_entry_txt_pattern">Pattern Entry</string>
     <string name="pattern_entry_edit_pattern">3</string>
     <string name="pattern_entry_txt_hand_movement">Hand movement</string>
@@ -22,6 +24,7 @@
     <string name="pattern_entry_btn_juggle">Juggle</string>
     
     <!-- Generator -->
+    <string name="generator_title">Generator</string>
     <string name="generator_txt_balls">Balls</string>
     <string name="generator_edit_balls">5</string>
     <string name="generator_txt_max_throw">Max. throw</string>
@@ -52,13 +55,16 @@
     <string name="generator_btn_run">Run</string>
     
     <!-- Tutorials -->
+    <string name="tutorials_title">Tutorials</string>
     
     <!-- My profile -->
+    <string name="my_profile_title">My profile</string>
     <string name="my_profile_tab_favs">Favs</string>
     <string name="my_profile_tab_practicing">Practicing</string>
     <string name="my_profile_tab_records">Records</string>
     
     <!-- Video -->
+    <string name="video_title">Video</string>
     
     <!-- Menu -->
     <string name="menu_home_settings">Settings</string>
