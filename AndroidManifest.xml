@@ -3,24 +3,21 @@
       package="com.jonglen7.jugglinglab"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
         <activity android:label="@string/app_name" android:name=".ui.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    <activity android:name=".ui.GeneratorActivity"></activity>
-<activity android:name=".ui.MyProfileActivity"></activity><activity android:name=".ui.PatternEntryActivity"></activity>
-
-<activity android:name=".ui.TutorialsActivity"></activity>
-<activity android:name=".ui.VideoActivity"></activity>
-<activity android:name=".ui.GeneratorListActivity"></activity>
-<activity android:name=".ui.SettingsHomeActivity"></activity>
-<activity android:name=".ui.AboutActivity"></activity>
-<activity android:name=".ui.JMLPatternActivity"></activity>
-</application>
-
-
+        <activity android:name=".ui.GeneratorActivity"></activity>
+        <activity android:name=".ui.MyProfileActivity"></activity><activity android:name=".ui.PatternEntryActivity"></activity>
+        <activity android:name=".ui.TutorialsActivity"></activity>
+        <activity android:name=".ui.VideoActivity"></activity>
+        <activity android:name=".ui.GeneratorListActivity"></activity>
+        <activity android:name=".ui.SettingsHomeActivity"></activity>
+        <activity android:name=".ui.AboutActivity"></activity>
+        <activity android:name=".ui.JMLPatternActivity"></activity>
+    </application>
 <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
 </manifest> 
