@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,6 +82,7 @@ public class PatternEntryActivity extends Activity {
         adapter_hand_movement.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_hand_movement.setAdapter(adapter_hand_movement);
         edit_hand_movement = (EditText) findViewById(R.id.pattern_entry_edit_hand_movement);
+        edit_hand_movement.addTextChangedListener(textChangedListenerHandMovement);
 
         /** Prop type. */
         txt_prop_type = (TextView) findViewById(R.id.pattern_entry_txt_prop_type);
@@ -109,6 +113,7 @@ public class PatternEntryActivity extends Activity {
         adapter_body_movement.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_body_movement.setAdapter(adapter_body_movement);
         edit_body_movement = (EditText) findViewById(R.id.pattern_entry_edit_body_movement);
+        edit_body_movement.addTextChangedListener(textChangedListenerBodyMovement);
 
         /** Manual settings. */
         txt_manual_settings = (TextView) findViewById(R.id.pattern_entry_txt_manual_settings);
@@ -182,17 +187,6 @@ public class PatternEntryActivity extends Activity {
     	text.append(";bps=" + txt_beats_per_second_progress.getText().toString());
 		text.append((edit_body_movement.getText().toString().length() > 0) ? (";body=" + edit_body_movement.getText().toString()) : "");
 		text.append((edit_manual_settings.getText().toString().length() > 0) ? (";" + edit_manual_settings.getText().toString()) : "");
-    	
-		/*JMLPattern pat = null;
-		try {
-	    	Notation ssn = Notation.getNotation("siteswap");
-	    	pat = ssn.getJMLPattern(text.toString());
-		} catch (JuggleExceptionUser e) {
-			e.printStackTrace();
-		} catch (JuggleExceptionInternal e) {
-			e.printStackTrace();
-		}
-    	Log.v("PatternEntryActivity", pat.toString());*/
 		
 		String display = edit_pattern.getText().toString();
 		if (spinner_hand_movement.getSelectedItemPosition() != 0 && spinner_hand_movement.getSelectedItemPosition() != spinner_hand_movement.getCount() - 1)
@@ -207,28 +201,68 @@ public class PatternEntryActivity extends Activity {
 
 	    @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-	    	edit_hand_movement.setText(getResources().getStringArray(R.array.hand_movement_values)[pos]);
+			String[] values = getResources().getStringArray(R.array.hand_movement_values);
+	    	if (pos != values.length - 1) edit_hand_movement.setText(values[pos]);
 	    	edit_hand_movement.setEnabled(pos!=0);
         }
 
 	    @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-          // Do nothing.
-        }
+        public void onNothingSelected(AdapterView<?> parent) {}
+    };
+    
+    private TextWatcher textChangedListenerHandMovement = new TextWatcher() {
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			String[] values = getResources().getStringArray(R.array.hand_movement_values);
+			for (int pos=0; pos < values.length - 1; pos ++) {
+				if (s.toString().compareTo(values[pos]) == 0 && spinner_hand_movement.getSelectedItemPosition() != values.length - 1) {
+					spinner_hand_movement.setSelection(pos);
+					return;
+				}
+			}
+			spinner_hand_movement.setSelection(values.length - 1);
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
     
     private OnItemSelectedListener itemSelectedListenerBodyMovement = new OnItemSelectedListener() {
 
 	    @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-	    	edit_body_movement.setText(getResources().getStringArray(R.array.body_movement_values)[pos]);
+			String[] values = getResources().getStringArray(R.array.body_movement_values);
+			if (pos != values.length - 1) edit_body_movement.setText(values[pos]);
 	    	edit_body_movement.setEnabled(pos!=0);
         }
 
 	    @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-          // Do nothing.
-        }
+        public void onNothingSelected(AdapterView<?> parent) {}
+    };
+    
+    private TextWatcher textChangedListenerBodyMovement = new TextWatcher() {
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			String[] values = getResources().getStringArray(R.array.body_movement_values);
+			for (int pos=0; pos < values.length - 1; pos ++) {
+				if (s.toString().compareTo(values[pos]) == 0 && spinner_body_movement.getSelectedItemPosition() != values.length - 1) {
+					spinner_body_movement.setSelection(pos);
+					return;
+				}
+			}
+			spinner_body_movement.setSelection(values.length - 1);
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
     
     private SeekBar.OnSeekBarChangeListener seekBarChangeListenerDwellBeats= new SeekBar.OnSeekBarChangeListener() {
