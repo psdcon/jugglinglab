@@ -194,8 +194,12 @@ public class PatternEntryActivity extends Activity {
 		}
     	Log.v("PatternEntryActivity", pat.toString());*/
 		
+		String display = edit_pattern.getText().toString();
+		if (spinner_hand_movement.getSelectedItemPosition() != 0 && spinner_hand_movement.getSelectedItemPosition() != spinner_hand_movement.getCount() - 1)
+			display += " " + getResources().getStringArray(R.array.hand_movement)[spinner_hand_movement.getSelectedItemPosition()];
+		
 		Intent i = new Intent(this, JMLPatternActivity.class);
-        i.putExtra("pattern_record", new PatternRecord("", "", "siteswap", text.toString()));
+        i.putExtra("pattern_record", new PatternRecord(display, "", "siteswap", text.toString()));
         startActivity(i);
     }
     
