@@ -86,6 +86,10 @@ public class GeneratorActivity extends Activity {
         /** ActionBar. */
         final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
         actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
+        // TODO Rajouter les actions dans l'actionBar
+        // cf: /home/kira/Projets/Juggling Lab/Ressources/android-actionbar/actionbarexample/src/com/markupartist/android/actionbar/example/HomeActivity.java
+        //actionBar.addAction(new IntentAction(this, createShareIntent(), R.drawable.ic_title_share_default));
+        //actionBar.addAction(new IntentAction(this, new Intent(this, OtherActivity.class), R.drawable.ic_title_export_default));
 
     	/** Balls. */
     	txt_balls = (TextView) findViewById(R.id.generator_txt_balls);
