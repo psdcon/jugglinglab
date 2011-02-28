@@ -3,32 +3,73 @@ package com.jonglen7.jugglinglab.jugglinglab.renderer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.GLU;
+import android.util.Log;
 
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
+import com.jonglen7.jugglinglab.jugglinglab.jml.HandLink;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.prop.Prop;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
+import com.jonglen7.jugglinglab.jugglinglab.util.JLMath;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
+import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
 
 public class JugglingRenderer implements Renderer {
 	
-	// Attributes
-	private Juggler juggler;
-	private JMLPattern pattern;
-	private AnimatorPrefs pref;
 	
-	double sim_interval_secs = 0.0;
-	double time = 0.0;
+	// Attributes
+	private JMLPattern pattern;
+	private Juggler juggler;
+	private AnimatorPrefs prefs;
+	
+	private Coordinate		overallmax = null;
+    private Coordinate		overallmin = null;
+    
+    private Coordinate tempc = null;
+	
+	private double sim_interval_secs = 0.0;
+	private double time = 0.0;
+	
+	private int[]				animpropnum = null, temppropnum = null;
+	private Permutation		invpathperm = null;
+	private int				num_frames;
+	private double			sim_time;
+	private long				real_interval_millis;
+
+	private static final double snapangle = JLMath.toRad(15.0);
+    
+	private Coordinate cameraCenter;
+	
+	
+	
+	
+	
 	
 	// Constructors
-	public JugglingRenderer() {
-		pattern = null;
-		pref = new AnimatorPrefs();
-		juggler = new Juggler(1);  // TODO: Implements for multiple jugglers
+	public JugglingRenderer(JMLPattern pattern) {
+		
+		// Initialize class attributes
+		this.pattern = pattern;
+		this.prefs = new AnimatorPrefs();
+		this.cameraCenter = new Coordinate();
+		this.tempc = new Coordinate();
+		this.juggler = new Juggler(1);  // TODO: Implements for multiple jugglers
 		//juggler = new FakeJuggler();
-}
+		
+		try {
+			pattern.layoutPattern();
+		} catch (JuggleExceptionInternal e) {
+			e.printStackTrace();
+		} catch (JuggleExceptionUser e) {
+			e.printStackTrace();
+		}
+		
+        syncToPattern();
+        setCameraCoordinate();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -69,47 +110,17 @@ public class JugglingRenderer implements Renderer {
 		// Save the current matrix.
 		gl.glPushMatrix();
 		// Translates 10 units into the screen.
-		//gl.glTranslatef(0, -100.0f, -100.0f); 
 		gl.glTranslatef(0, -150.0f, -100.0f); 
+		//gl.glTranslatef((float)-this.cameraCenter.z, (float)-this.cameraCenter.y, -100.0f); 
 		// Reduce
 		//gl.glScalef(0.2f, 0.2f, 0.2f);
-		// Draw the Juggler	
-		// TODO: WTF is this time?
-		try {
-			juggler.findJugglerCoordinates(pattern, time);
-			juggler.MathVectorToVertices();
-			juggler.draw(gl);
-
-			Coordinate tempc = new Coordinate();
-
-			float x=0.0f, y=0.0f, z=0.0f;
-			
-			int[] animpropnum = new int[pattern.getNumberOfPaths()];
-	        for (int i = 1; i <= pattern.getNumberOfPaths(); i++)
-	            animpropnum[i-1] = pattern.getPropAssignment(i);
-	    	
-			for (int i = 1; i <= pattern.getNumberOfPaths(); i++) {
-	            pattern.getPathCoordinate(i, time, tempc);
-	            if (!tempc.isValid())
-	                tempc.setCoordinate(0.0,0.0,0.0);
-	            x = (float)(0.5f + tempc.x);
-	            y = (float)(0.5f + tempc.y);
-	            z = (float)(0.5f + tempc.z);
-	            Prop pr = pattern.getProp(animpropnum[i-1]);
-	            pr.setPropCenter(tempc);
-	            pr.centerProp();
-	            //Log.v("JugglingRenderer", i + "\tX=" + x + "\tY=" + y + "\tZ=" + z);
-	            pr.draw(gl); 
-	       }	
-		} catch (JuggleExceptionInternal e){
-			e.printStackTrace();
-		}
+		// Draw the Frame
+		drawEffectiveFrame(gl);
 		
 		// Restore the last matrix.
 		gl.glPopMatrix();
 		
-		// The 2 following lines comes from Animator.syncToPattern()
-		// Try to simulate time for an animation
+		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
         
         
@@ -163,16 +174,139 @@ public class JugglingRenderer implements Renderer {
 
 
 	
-	public void setPattern(JMLPattern pattern) {
+	private void setPattern(JMLPattern pattern) {
 		this.pattern = pattern;
-		int num_frames = (int)(0.5 + (pattern.getLoopEndTime() - pattern.getLoopStartTime()) * pref.slowdown * pref.fps);
+		int num_frames = (int)(0.5 + (pattern.getLoopEndTime() - pattern.getLoopStartTime()) * prefs.slowdown * prefs.fps);
 		sim_interval_secs = (pattern.getLoopEndTime()-pattern.getLoopStartTime()) / num_frames;
-	
-		
+
 	}
 	
-/*
-    public com.jonglen7.jugglinglab.jugglinglab.util.Coordinate getHandWindowMax() {
+	/*
+	 *  This function draw the effective frame (jugglers + props)
+	 */
+	private void drawEffectiveFrame(GL10 gl) {
+		try {
+			
+			// Draw the Jugglers 
+			for (int j = 1; j <= pattern.getNumberOfJugglers(); j++) {
+				juggler.findJugglerCoordinates(this.pattern, time);
+				juggler.MathVectorToVertices();
+				juggler.draw(gl);
+			}
+
+			// Draw the props
+			float x=0.0f, y=0.0f, z=0.0f;
+			for (int i = 1; i <= pattern.getNumberOfPaths(); i++) {
+	            pattern.getPathCoordinate(i, time, tempc);
+	            if (!tempc.isValid())
+	                tempc.setCoordinate(0.0,0.0,0.0);
+	            x = (float)(0.5f + tempc.x);
+	            y = (float)(0.5f + tempc.y);
+	            z = (float)(0.5f + tempc.z);
+	            Prop pr = pattern.getProp(animpropnum[i-1]);
+	            pr.setPropCenter(tempc);
+	            pr.centerProp();
+	            pr.draw(gl); 
+	       }	
+			
+		} catch (JuggleExceptionInternal e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+    protected void advanceProps(int[] pnum) {
+        for (int i = 0; i < pattern.getNumberOfPaths(); i++)
+            temppropnum[invpathperm.getMapping(i+1)-1] = pnum[i];
+        for (int i = 0; i < pattern.getNumberOfPaths(); i++)
+            pnum[i] = temppropnum[i];
+    }
+
+    public void syncToPattern() {
+        findMaxMin();
+        syncRenderer();
+
+        // figure out timing constants; adjust fps to get integer number of frames in loop
+        num_frames = (int)(0.5 + (pattern.getLoopEndTime() - pattern.getLoopStartTime()) * prefs.slowdown * prefs.fps);
+        sim_interval_secs = (pattern.getLoopEndTime()-pattern.getLoopStartTime()) / num_frames;
+        real_interval_millis = (long)(1000.0 * sim_interval_secs * prefs.slowdown);
+
+        //  time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
+        
+        animpropnum = new int[pattern.getNumberOfPaths()];
+        for (int i = 1; i <= pattern.getNumberOfPaths(); i++)
+            animpropnum[i-1] = pattern.getPropAssignment(i);
+        temppropnum = new int[pattern.getNumberOfPaths()];
+        invpathperm = pattern.getPathPermutation().getInverse();
+    }
+
+    protected void findMaxMin() {
+        // the algorithm here could be improved to take into account which props are
+        // on which paths.  We may also want to leave room for the rest of the juggler.
+        int i;
+        Coordinate patternmax = null, patternmin = null;
+        Coordinate handmax = null, handmin = null;
+        Coordinate propmax = null, propmin = null;
+
+        for (i = 1; i <= pattern.getNumberOfPaths(); i++) {
+            patternmax = Coordinate.max(patternmax, pattern.getPathMax(i));
+            patternmin = Coordinate.min(patternmin, pattern.getPathMin(i));
+        }
+
+        // make sure all hands are visible
+        for (i = 1; i <= pattern.getNumberOfJugglers(); i++) {
+            handmax = Coordinate.max(handmax, pattern.getHandMax(i, HandLink.LEFT_HAND));
+            handmin = Coordinate.min(handmin, pattern.getHandMin(i, HandLink.LEFT_HAND));
+            handmax = Coordinate.max(handmax, pattern.getHandMax(i, HandLink.RIGHT_HAND));
+            handmin = Coordinate.min(handmin, pattern.getHandMin(i, HandLink.RIGHT_HAND));
+        }
+
+        for (i = 1; i <= pattern.getNumberOfProps(); i++) {
+            propmax = Coordinate.max(propmax, pattern.getProp(i).getMax());
+            propmin = Coordinate.min(propmin, pattern.getProp(i).getMin());
+        }
+
+        // make sure props are entirely visible along all paths
+        patternmax = Coordinate.add(patternmax, propmax);
+        patternmin = Coordinate.add(patternmin, propmin);
+
+        // make sure hands are entirely visible
+        handmax = Coordinate.add(handmax, getHandWindowMax());
+        handmin = Coordinate.add(handmin, getHandWindowMin());
+
+        // make sure jugglers' bodies are visible
+        this.overallmax = Coordinate.max(handmax, getJugglerWindowMax());
+        this.overallmax = Coordinate.max(overallmax, patternmax);
+
+        this.overallmin = Coordinate.min(handmin, getJugglerWindowMin());
+        this.overallmin = Coordinate.min(overallmin, patternmin);
+
+        if (com.jonglen7.jugglinglab.jugglinglab.core.Constants.DEBUG_LAYOUT) {
+            System.out.println("Hand max = " + handmax);
+            System.out.println("Hand min = " + handmin);
+            System.out.println("Prop max = " + propmax);
+            System.out.println("Prop min = " + propmin);
+            System.out.println("Pattern max = " + patternmax);
+            System.out.println("Pattern min = " + patternmin);
+            System.out.println("Overall max = " + this.overallmax);
+            System.out.println("Overall min = " + this.overallmin);
+
+            this.overallmax = new Coordinate(100.0,0.0,500.0);
+            this.overallmin = new Coordinate(-100.0,0.0,-100.0);
+        }
+    }
+
+    
+    protected void syncRenderer() {
+    /*
+        Dimension d = this.getSize();
+        this.renderer.initDisplay(d, prefs.border, this.overallmax, this.overallmin);
+    */
+    }
+
+
+    public Coordinate getHandWindowMax() {
         return new Coordinate(Juggler.hand_out, 0, 1);
     }
 
@@ -190,6 +324,7 @@ public class JugglingRenderer implements Renderer {
         return max;
         // return new Coordinate(Math.max(max.x, max.y), Math.max(max.x, max.y), max.z);
     }
+    
     public Coordinate getJugglerWindowMin() {
         Coordinate min = pattern.getJugglerMin(1);
         for (int i = 2; i <= pattern.getNumberOfJugglers(); i++)
@@ -200,5 +335,28 @@ public class JugglingRenderer implements Renderer {
         return min;
         // return new Coordinate(Math.min(min.x, min.y), Math.min(min.x, min.y), min.z);
     }
-*/
+    
+    public double getTime() { return sim_time; };
+
+    public void setTime(double time) {
+        /*		while (time < pat.getLoopStartTime())
+        time += (pat.getLoopEndTime() - pat.getLoopStartTime());
+        while (time > pat.getLoopEndTime())
+        time -= (pat.getLoopEndTime() - pat.getLoopStartTime());
+        */
+        sim_time = time;
+    }
+    
+    private void setCameraCoordinate()
+    {
+    	double x = (double)(0.5*(overallmax.x+overallmin.x));
+    	double y = (double)(0.5*(overallmax.z+overallmin.z));
+    	double z = (double)(0.5*(overallmax.y+overallmin.y));
+    	cameraCenter.setCoordinate(x, y, z);
+
+    	
+    	Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
+    }
+    
+
 }

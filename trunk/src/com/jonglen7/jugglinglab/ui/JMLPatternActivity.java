@@ -129,21 +129,10 @@ public class JMLPatternActivity extends Activity {
 
     	// Juggler
     	// Pattern get from the PatternEntryActivity
+    	JugglingRenderer renderer = new JugglingRenderer(pattern);
     	
-		try {
-			pattern.layoutPattern();
-		} catch (JuggleExceptionInternal e) {
-			e.printStackTrace();
-		} catch (JuggleExceptionUser e) {
-			e.printStackTrace();
-		}
-
-		JugglingRenderer jd = new JugglingRenderer();
-		jd.setPattern(pattern);
-
-		
         GLSurfaceView view = new GLSurfaceView(this);
-        view.setRenderer(jd);
+        view.setRenderer(renderer);
         setContentView(view);
         
         
