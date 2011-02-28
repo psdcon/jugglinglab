@@ -250,11 +250,9 @@ public class ballProp extends Prop {
     
     public void draw(GL10 gl)
     {
-
-    	
         mVertexBuffer.put(vertices);
         mVertexBuffer.position(0);
-              
+        
         gl.glFrontFace(gl.GL_CW);
         gl.glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
