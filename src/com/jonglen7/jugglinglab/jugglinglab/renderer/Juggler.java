@@ -28,6 +28,8 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 import com.jonglen7.jugglinglab.jugglinglab.jml.HandLink;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
@@ -79,11 +81,28 @@ public class Juggler {
 	// Structure that will contains the pixel positions of the juggler
 	private MathVector[][] jugglerDescription;
 	
+	// Boolean for null elbow coordinate
+	private boolean bNullLeftelbow = false;
+	private boolean bNullRightelbow = false;
+	
+	
 	// Array for openGL
 	private float vertices[];
     private byte indices[] = {
             0, 4,    1, 5,						// Left and Right Hand
             4, 2,    5, 3,						// Left and Right Arm
+            2, 6,    6, 7,    7, 3,     3, 2,	// Body
+            9, 8,    8, 10,   10, 11,   11, 9	// Head
+   	};
+    private byte indicesWithoutLeftelbow[] = {
+            0, 2,    							// Left Arm
+            1, 5,    5, 3,						// Right Arm
+            2, 6,    6, 7,    7, 3,     3, 2,	// Body
+            9, 8,    8, 10,   10, 11,   11, 9	// Head
+   	};
+    private byte indicesWithoutRightelbow[] = {
+            0, 4,    4, 2,						// Left Arm
+            1, 5,								// Right Arm
             2, 6,    6, 7,    7, 3,     3, 2,	// Body
             9, 8,    8, 10,   10, 11,   11, 9	// Head
    	};
@@ -250,7 +269,36 @@ public class Juggler {
 		
 		int juggler = this.nbJuggler;
 		int i = 0;
-		for (int j=0; j<12; j++){
+		for (int j=0; j<4; j++){
+			vertices[i] = (int)jugglerDescription[juggler-1][j].x;
+			vertices[i+1] = (int)jugglerDescription[juggler-1][j].y;
+			vertices[i+2] = (int)jugglerDescription[juggler-1][j].z;
+			i+=3;
+		}
+		
+		// Sometimes leftelbow is null
+		// When this happen the line shoulder-hand is the whole arm
+		if (jugglerDescription[juggler-1][4] != null) {
+			vertices[i] = (int)jugglerDescription[juggler-1][4].x;
+			vertices[i+1] = (int)jugglerDescription[juggler-1][4].y;
+			vertices[i+2] = (int)jugglerDescription[juggler-1][4].z;	
+		} else {
+			bNullLeftelbow = true;
+		}
+		i+=3;
+		
+		// Sometimes righttelbow is null
+		// When this happen the line shoulder-hand is the whole arm
+		if (jugglerDescription[juggler-1][5] != null) {
+			vertices[i] = (int)jugglerDescription[juggler-1][5].x;
+			vertices[i+1] = (int)jugglerDescription[juggler-1][5].y;
+			vertices[i+2] = (int)jugglerDescription[juggler-1][5].z;
+		} else {
+			bNullRightelbow = true;
+		}		
+		i+=3;
+		
+		for (int j=6; j<12; j++){
 			vertices[i] = (int)jugglerDescription[juggler-1][j].x;
 			vertices[i+1] = (int)jugglerDescription[juggler-1][j].y;
 			vertices[i+2] = (int)jugglerDescription[juggler-1][j].z;
@@ -280,7 +328,21 @@ public class Juggler {
     	gl.glLineWidth(3.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
-        gl.glDrawElements(gl.GL_LINES, indices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        
+        // Draw the lines
+        if (bNullLeftelbow) {
+            mIndexBuffer.put(indicesWithoutLeftelbow);
+            mIndexBuffer.position(0);
+        	gl.glDrawElements(gl.GL_LINES, indicesWithoutLeftelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        } else if (bNullRightelbow){
+            mIndexBuffer.put(indicesWithoutRightelbow);
+            mIndexBuffer.position(0);
+        	gl.glDrawElements(gl.GL_LINES, indicesWithoutRightelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        } else {
+            mIndexBuffer.put(indices);
+            mIndexBuffer.position(0);
+        	gl.glDrawElements(gl.GL_LINES, indices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        }
     }
 	
 }	
