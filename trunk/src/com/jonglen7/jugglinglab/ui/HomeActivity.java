@@ -36,17 +36,17 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_home, menu);
+        inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_home_settings:
+            case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsHomeActivity.class));
                 break;
-            case R.id.menu_home_about:
+            case R.id.menu_about:
             	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
@@ -66,6 +66,11 @@ public class HomeActivity extends Activity {
     /** Handle "Tutorials" action. */
     public void onTutorialsClick(View v) {
         startActivity(new Intent(this, TutorialsActivity.class));
+    }
+    
+    /** Handle "Pattern List" action. */
+    public void onPatternListClick(View v) {
+        startActivity(new Intent(this, PatternListActivity.class));
     }
     
     /** Handle "My profile" action. */

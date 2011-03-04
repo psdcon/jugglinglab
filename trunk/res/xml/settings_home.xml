@@ -23,8 +23,5 @@
 			android:numeric="integer"
 			android:defaultValue="3"/>
 	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/settings_home_category_animation">
-	</PreferenceCategory>
 	
 </PreferenceScreen>
