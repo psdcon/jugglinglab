@@ -4,6 +4,9 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -32,6 +35,27 @@ public class TutorialsActivity extends ListActivity {
         Intent i = new Intent(context, HomeActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return i;
+    }
+    
+    /** Menu button. */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+            	startActivity(new Intent(this, SettingsHomeActivity.class));
+                break;
+            case R.id.menu_about:
+            	startActivity(new Intent(this, AboutActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     
     private String[] tutorials = new String[] {

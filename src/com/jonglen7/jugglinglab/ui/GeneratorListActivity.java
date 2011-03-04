@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -155,6 +158,27 @@ public class GeneratorListActivity extends ListActivity {
     			Toast.makeText(GeneratorListActivity.this, "Stats selected" , Toast.LENGTH_SHORT).show();
     		}
     	});
+    }
+    
+    /** Menu button. */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+            	startActivity(new Intent(this, SettingsHomeActivity.class));
+                break;
+            case R.id.menu_about:
+            	startActivity(new Intent(this, AboutActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     
     private OnItemClickListener itemClickListener = new OnItemClickListener() {

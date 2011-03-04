@@ -10,13 +10,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.PatternEntryActivity"></activity>
         <activity android:name=".ui.GeneratorActivity"></activity>
-        <activity android:name=".ui.MyProfileActivity"></activity><activity android:name=".ui.PatternEntryActivity"></activity>
         <activity android:name=".ui.TutorialsActivity"></activity>
+        <activity android:name=".ui.PatternListActivity"></activity>
+        <activity android:name=".ui.MyProfileActivity"></activity>
         <activity android:name=".ui.VideoActivity"></activity>
-        <activity android:name=".ui.GeneratorListActivity"></activity>
         <activity android:name=".ui.SettingsHomeActivity"></activity>
+        <activity android:name=".ui.SettingsAnimationActivity"></activity>
         <activity android:name=".ui.AboutActivity"></activity>
+        <activity android:name=".ui.GeneratorListActivity"></activity>
         <activity android:name=".ui.JMLPatternActivity"></activity>
     </application>
 <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
