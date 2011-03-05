@@ -104,4 +104,13 @@
     <!-- About -->
     <string name="about_txt_todo">Bazinga !</string>
     
+    <!-- QuickActions -->
+    <string name="quickactions_fav">Fav</string>
+    <string name="quickactions_practising">Practising</string>
+    <string name="quickactions_record">Record</string>
+    <string name="quickactions_share">Share</string>
+    <string name="quickactions_share_working">I am working on the</string>
+    <string name="quickactions_share_thanks">thanks to Juggling Lab for Android !</string>
+    <string name="quickactions_stats">Stats</string>
+    
 </resources>
