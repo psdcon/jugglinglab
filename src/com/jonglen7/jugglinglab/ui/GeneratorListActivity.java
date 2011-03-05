@@ -12,13 +12,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
@@ -39,13 +37,6 @@ public class GeneratorListActivity extends ListActivity {
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
-
-    /** QuickActions */
-    ActionItem fav;
-    ActionItem practising;
-    ActionItem record;
-    ActionItem share;
-    ActionItem stats;
     
     /** Called when the activity is first created. */
     @Override
@@ -89,7 +80,7 @@ public class GeneratorListActivity extends ListActivity {
         ListView lv = getListView();
         lv.setTextFilterEnabled(true);
         lv.setOnItemClickListener(itemClickListener);
-        lv.setOnItemLongClickListener(itemLongClickListener);
+        lv.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));
         
         /** ActionBar. */
         final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
@@ -135,87 +126,5 @@ public class GeneratorListActivity extends ListActivity {
 		}
     	
     };
-    
-    private OnItemLongClickListener itemLongClickListener = new OnItemLongClickListener() {
-
-		@Override
-		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			QuickAction qa = new QuickAction(view);
-			
-			final PatternRecord pattern = pattern_list.get(position);
-			
-	    	fav = new ActionItem();
-	    	fav.setTitle(getString(R.string.quickactions_fav));
-	    	fav.setIcon(getResources().getDrawable(R.drawable.chart));
-	    	fav.setOnClickListener(new OnClickListener() {
-	    		@Override
-	    		public void onClick(View v) {
-	    			Toast.makeText(GeneratorListActivity.this, "Fav selected" , Toast.LENGTH_SHORT).show();
-	    		}
-	    	});
-	    	
-	    	practising = new ActionItem();
-	    	practising.setTitle(getString(R.string.quickactions_practising));
-	    	practising.setIcon(getResources().getDrawable(R.drawable.production));
-	    	practising.setOnClickListener(new OnClickListener() {
-	    		@Override
-	    		public void onClick(View v) {
-	    			Toast.makeText(GeneratorListActivity.this, "Practising selected", Toast.LENGTH_SHORT).show();
-	    		}
-	    	});
-	    	
-	    	record = new ActionItem();
-	    	record.setTitle(getString(R.string.quickactions_record));
-	    	record.setIcon(getResources().getDrawable(R.drawable.record));
-	    	record.setOnClickListener(new OnClickListener() {
-	    		@Override
-	    		public void onClick(View v) {
-	    			Toast.makeText(GeneratorListActivity.this, "Record selected" , Toast.LENGTH_SHORT).show();
-	    		}
-	    	});
-
-	    	share = new ActionItem();
-	    	share.setTitle(getString(R.string.quickactions_share));
-	    	share.setIcon(getResources().getDrawable(R.drawable.share));
-	    	share.setOnClickListener(new OnClickListener() {
-	    		@Override
-	    		public void onClick(View v) {
-	    			Toast.makeText(GeneratorListActivity.this, "Share selected " , Toast.LENGTH_SHORT).show();
-	    			share("Juggling Lab", getString(R.string.quickactions_share_working) + " " + pattern.getDisplay() + " " + getString(R.string.quickactions_share_thanks));
-	    		}
-	    	});
-
-	    	stats = new ActionItem();
-	    	stats.setTitle(getString(R.string.quickactions_stats));
-	    	stats.setIcon(getResources().getDrawable(R.drawable.stats));
-	    	stats.setOnClickListener(new OnClickListener() {
-	    		@Override
-	    		public void onClick(View v) {
-	    			Toast.makeText(GeneratorListActivity.this, "Stats selected" , Toast.LENGTH_SHORT).show();
-	    		}
-	    	});
-			
-			qa.addActionItem(fav);
-			qa.addActionItem(practising);
-			qa.addActionItem(record);
-			qa.addActionItem(share);
-			qa.addActionItem(stats);
-			qa.setAnimStyle(QuickAction.ANIM_AUTO);
-			
-			qa.show();
-			return false;
-		}
-    	
-    };
-    
-    public void share(String subject, String text) {
-    	 final Intent intent = new Intent(Intent.ACTION_SEND);
-
-    	 intent.setType("text/plain");
-    	 intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-    	 intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    	 startActivity(Intent.createChooser(intent, getString(R.string.quickactions_share)));
-    }
     
 }
