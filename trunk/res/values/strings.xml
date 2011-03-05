@@ -65,7 +65,7 @@
     <string name="my_profile_title">My profile</string>
     <string name="my_profile_tab_favs">Favs</string>
     <string name="my_profile_tab_practicing">Practicing</string>
-    <string name="my_profile_tab_records">Records</string>
+    <string name="my_profile_tab_juggler">Juggler</string>
     
     <!-- Video -->
     <string name="video_title">Video</string>

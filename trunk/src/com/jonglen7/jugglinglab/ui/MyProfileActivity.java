@@ -61,9 +61,9 @@ public class MyProfileActivity extends TabActivity {
 	private void buildTabs(){
         tabHost = getTabHost();
 
-        tabHost.addTab(tabHost.newTabSpec("tab_test1").setIndicator(getString(R.string.my_profile_tab_favs)).setContent(R.id.my_profile_content));
-        tabHost.addTab(tabHost.newTabSpec("tab_test2").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(R.id.my_profile_content));
-        tabHost.addTab(tabHost.newTabSpec("tab_test3").setIndicator(getString(R.string.my_profile_tab_records)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_favs").setIndicator(getString(R.string.my_profile_tab_favs)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_practising").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_juggler").setIndicator(getString(R.string.my_profile_tab_juggler)).setContent(R.id.my_profile_content));
 
         tabHost.setCurrentTab(0);
 	}
