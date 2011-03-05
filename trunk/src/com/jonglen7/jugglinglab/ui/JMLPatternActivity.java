@@ -2,10 +2,12 @@ package com.jonglen7.jugglinglab.ui;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -23,6 +25,8 @@ import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
 import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 
 /**
  * Generate a JMLPattern using a PatternRecord
@@ -31,6 +35,9 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
  */
 
 public class JMLPatternActivity extends Activity {
+	
+	/** PatternRecord */
+	PatternRecord pattern_record;
 
     /** Called when the activity is first created. */
     @Override
@@ -44,7 +51,7 @@ public class JMLPatternActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
     	
-        PatternRecord pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
+        pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
         
         /** Generate the JMLPattern */
         JMLPattern pattern = null;
@@ -131,17 +138,33 @@ public class JMLPatternActivity extends Activity {
 			e.printStackTrace();
 		}
 		*/
+    	
+        setContentView(R.layout.activity_animation);
 
     	// Juggler
     	// Pattern get from the PatternEntryActivity
     	JugglingRenderer renderer = new JugglingRenderer(pattern);
     	
-        GLSurfaceView view = new GLSurfaceView(this);
+        //GLSurfaceView view = new GLSurfaceView(this);
+    	GLSurfaceView view = (GLSurfaceView) findViewById(R.id.surface);
         view.setRenderer(renderer);
-        setContentView(view);
-        
-        
+        //setContentView(view);
 
+        
+        /** ActionBar. */
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
+        actionBar.setTitle(pattern_record.getDisplay());
+        ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
+        pattern_list.add(pattern_record);
+        actionBar.setOnClickListener(new QuickActionClickListener(pattern_list));
+    }
+
+    /** ActionBar. */
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
     }
     
     /** Menu button. */
