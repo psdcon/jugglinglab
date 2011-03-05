@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/list_item_text"
+	android:orientation="horizontal"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
-</TextView>
+ 
+	<TextView
+		android:id="@+id/list_item_text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true">
+	</TextView>
+
+	<ImageView
+		android:id="@+id/list_item_fav"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_alignParentRight="true"
+		android:padding="4px">
+	</ImageView>
+
+</RelativeLayout>
