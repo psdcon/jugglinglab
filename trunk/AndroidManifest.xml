@@ -21,6 +21,7 @@
         <activity android:name=".ui.AboutActivity"></activity>
         <activity android:name=".ui.GeneratorListActivity"></activity>
         <activity android:name=".ui.JMLPatternActivity"></activity>
+        <activity android:name="org.achartengine.GraphicalActivity"></activity>
     </application>
 <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
 </manifest> 
