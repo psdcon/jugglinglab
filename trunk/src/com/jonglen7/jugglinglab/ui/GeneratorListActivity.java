@@ -1,6 +1,7 @@
 package com.jonglen7.jugglinglab.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -12,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -37,6 +40,13 @@ public class GeneratorListActivity extends ListActivity {
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
+    //ArrayList<String> pattern_list_display;
+    
+    /** ListView */
+    ListView listView;
+    
+    /** The ArrayList that will populate the ListView. */
+    ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
     
     /** Called when the activity is first created. */
     @Override
@@ -44,6 +54,30 @@ public class GeneratorListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator_list);
         
+        createPatternList();
+        
+        /*setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, pattern_list_display));
+        ListView lv = getListView();
+        lv.setTextFilterEnabled(true);
+        lv.setOnItemClickListener(itemClickListener);
+        lv.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));*/
+        
+        listView = getListView();
+        listView.setOnItemClickListener(itemClickListener);
+        listView.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));
+        
+        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
+               new String[] {"list_item_text", "list_item_fav"}, new int[] {R.id.list_item_text, R.id.list_item_fav});
+
+        listView.setAdapter(mSchedule);
+        
+        /** ActionBar. */
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
+        actionBar.setTitle(pattern_list.size() + " patterns found");
+    }
+    
+    private void createPatternList() {
         /** Settings for the generator. */
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         max_patterns = Integer.parseInt(preferences.getString("generator_max_patterns", "100"));
@@ -72,20 +106,15 @@ public class GeneratorListActivity extends ListActivity {
 		
 		/** Pattern list */
 		pattern_list = target.getPattern_list();
-        ArrayList<String> pattern_list_display = new ArrayList<String>();
-        for (int i=0; i<pattern_list.size(); i++) pattern_list_display.add(pattern_list.get(i).getDisplay());
-        
-        // TODO What to display if there are no results ?
-        setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, pattern_list_display));
-        ListView lv = getListView();
-        lv.setTextFilterEnabled(true);
-        lv.setOnItemClickListener(itemClickListener);
-        lv.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));
-        
-        /** ActionBar. */
-        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
-        actionBar.setTitle(pattern_list.size() + " patterns found");
+        //pattern_list_display = new ArrayList<String>();
+		HashMap<String, String> map;
+        for (int i=0; i<pattern_list.size(); i++) {
+        	//pattern_list_display.add(pattern_list.get(i).getDisplay());
+        	map = new HashMap<String, String>();
+        	map.put("list_item_text", pattern_list.get(i).getDisplay());
+        	map.put("list_item_fav", String.valueOf(R.drawable.fav));
+        	listItem.add(map);
+        }
     }
 
     /** ActionBar. */

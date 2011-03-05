@@ -40,7 +40,7 @@ public class QuickActionClickListener implements OnItemLongClickListener, OnClic
 		
 		ActionItem fav = new ActionItem();
     	fav.setTitle(context.getString(R.string.quickactions_fav));
-    	fav.setIcon(context.getResources().getDrawable(R.drawable.chart));
+    	fav.setIcon(context.getResources().getDrawable(R.drawable.fav));
     	fav.setOnClickListener(new OnClickListener() {
     		@Override
     		public void onClick(View v) {
@@ -49,22 +49,22 @@ public class QuickActionClickListener implements OnItemLongClickListener, OnClic
     	});
     	
     	ActionItem practising = new ActionItem();
-    	practising.setTitle(context.getString(R.string.quickactions_practising));
-    	practising.setIcon(context.getResources().getDrawable(R.drawable.production));
+    	practising.setTitle(context.getString(R.string.quickactions_catches));
+    	practising.setIcon(context.getResources().getDrawable(R.drawable.catches));
     	practising.setOnClickListener(new OnClickListener() {
     		@Override
     		public void onClick(View v) {
-    			Toast.makeText(context, "Practising selected", Toast.LENGTH_SHORT).show();
+    			Toast.makeText(context, "Catches selected", Toast.LENGTH_SHORT).show();
     		}
     	});
     	
     	ActionItem record = new ActionItem();
-    	record.setTitle(context.getString(R.string.quickactions_record));
-    	record.setIcon(context.getResources().getDrawable(R.drawable.record));
+    	record.setTitle(context.getString(R.string.quickactions_goal));
+    	record.setIcon(context.getResources().getDrawable(R.drawable.goal));
     	record.setOnClickListener(new OnClickListener() {
     		@Override
     		public void onClick(View v) {
-    			Toast.makeText(context, "Record selected" , Toast.LENGTH_SHORT).show();
+    			Toast.makeText(context, "Goal selected" , Toast.LENGTH_SHORT).show();
     		}
     	});
 
