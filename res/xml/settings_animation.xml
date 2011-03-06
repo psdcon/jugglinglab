@@ -10,9 +10,12 @@
 		<PreferenceScreen
 			android:title="@string/settings_animation_category_prop_type">
 		</PreferenceScreen>
+		
+		<!--  Color -->
 		<PreferenceScreen
-			android:title="@string/settings_animation_category_prop_color">
+			android:key="colorPrefScreen" android:title="@string/settings_animation_category_prop_color">
 		</PreferenceScreen>
+
 		<PreferenceScreen
 			android:title="@string/settings_animation_category_prop_size">
 		</PreferenceScreen>

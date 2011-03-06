@@ -101,6 +101,10 @@
     <string name="settings_animation_category_juggler_beard">Beard</string>
     <string name="settings_animation_category_background">Background</string>
     
+    <!-- Settings : Animation/Color -->
+    <string name="settings_animation_category_prop_color_color">Color</string>
+    <string name="settings_animation_category_prop_color_category_all">All Props</string>
+    
     <!-- About -->
     <string name="about_txt_todo">Bazinga !</string>
     

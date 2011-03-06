@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<PreferenceCategory android:title="@string/settings_animation_category_prop_color_category_all">
+			<com.jonglen7.jugglinglab.ui.ColorPickerPreference
+				android:key="colorPicker" 
+				android:title="@string/settings_animation_category_prop_color_color" />
+	</PreferenceCategory>
+	
+</PreferenceScreen>	
