@@ -306,8 +306,7 @@ public class ballProp extends Prop {
         mVertexBuffer.position(0);
         
         gl.glFrontFace(gl.GL_CW);
-        // TODO solve color pb! 
-        gl.glColor4f((float)Color.red(color), (float)Color.green(color), (float)Color.blue(color), 1.0f);
+        gl.glColor4f(((float)Color.red(color))/255.0f, ((float)Color.green(color))/255.0f, ((float)Color.blue(color))/255.0f, 1.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
         gl.glDrawElements(gl.GL_TRIANGLES, 36, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
