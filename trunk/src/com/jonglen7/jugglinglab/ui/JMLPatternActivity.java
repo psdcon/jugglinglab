@@ -39,15 +39,17 @@ import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class JMLPatternActivity extends Activity {
 	
-	/** PatternRecord */
-	PatternRecord pattern_record;
+	JugglingRenderer renderer = null;
+	PatternRecord pattern_record = null;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_animation);
         
-        /** Get the PatternRecord. */
+        // Get the PatternRecord.
         Bundle extras = getIntent().getExtras();
         if (extras== null){
         	Toast.makeText(getApplicationContext(), "ERROR",
@@ -56,9 +58,62 @@ public class JMLPatternActivity extends Activity {
     	
         pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
         
-        /** Generate the JMLPattern */
-        JMLPattern pattern = null;
-		
+        // ActionBar
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
+        actionBar.setTitle(pattern_record.getDisplay());
+        ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
+        pattern_list.add(pattern_record);
+        actionBar.setOnClickListener(new QuickActionClickListener(pattern_list));
+
+       
+        // 2D Square
+        /*
+        GLSurfaceView view = new GLSurfaceView(this);
+   		view.setRenderer(new OpenGLRenderer());
+   		setContentView(view);
+   		*/
+        
+   		// 3D Cube
+        /*
+        GLSurfaceView mGLSurfaceView;
+        mGLSurfaceView = new TouchSurfaceView(this);
+        setContentView(mGLSurfaceView);
+        mGLSurfaceView.requestFocus();
+        mGLSurfaceView.setFocusableInTouchMode(true);
+        */
+        
+        // Fake Juggler and Fake Ball
+   		/*
+        GLSurfaceView view = new GLSurfaceView(this);
+   		view.setRenderer(new JugglingRenderer());
+   		setContentView(view);
+   		*/
+        
+        // Initialize Renderer and View
+    	renderer = new JugglingRenderer(this);
+    	GLSurfaceView view = (GLSurfaceView) findViewById(R.id.surface);
+        view.setRenderer(renderer);
+        //setContentView(view);
+
+    }
+    
+    
+
+    /** ActionBar. */
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, HomeActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return i;
+    }
+    
+
+    
+    /** Compute JMLPattern from the PatternRecord **/
+    public JMLPattern getJMLPattern() {
+    	
+    	JMLPattern pattern = null;
+    	
 		if (pattern_record.getNotation().compareTo("siteswap") == 0) {
 			try {
 				Notation ssn = Notation.getNotation("siteswap");
@@ -89,101 +144,26 @@ public class JMLPatternActivity extends Activity {
 		}
 		
     	Log.v("JMLPatternActivity", pattern.toString());
-       
-        // Black Screen
-        //setContentView(R.layout.activity_video);
-        
-        // 2D Square
-        /*
-        GLSurfaceView view = new GLSurfaceView(this);
-   		view.setRenderer(new OpenGLRenderer());
-   		setContentView(view);
-   		*/
-        
-   		// 3D Cube
-        /*
-        GLSurfaceView mGLSurfaceView;
-        mGLSurfaceView = new TouchSurfaceView(this);
-        setContentView(mGLSurfaceView);
-        mGLSurfaceView.requestFocus();
-        mGLSurfaceView.setFocusableInTouchMode(true);
-        */
-        
-        // Fake Juggler and Fake Ball
-   		/*
-        GLSurfaceView view = new GLSurfaceView(this);
-   		view.setRenderer(new JugglingRenderer());
-   		setContentView(view);
-   		*/
-        
-
-        // Juggler
-        // Read JMLPAttern from JML file
-        /*
-        BufferedReader reader = null;
-        try {
-        	reader = new BufferedReader(new InputStreamReader(this.getAssets().open("3.jml")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		// Build the JMLPattern from it
-		JMLPattern pattern = null;
-		try {
-			pattern = new JMLPattern(reader);
-		} catch (JuggleExceptionUser e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
     	
-        setContentView(R.layout.activity_animation);
-
-    	// Juggler
-    	// Pattern get from the PatternEntryActivity
-    	JugglingRenderer renderer = new JugglingRenderer(pattern);
-    	
-        //GLSurfaceView view = new GLSurfaceView(this);
-    	GLSurfaceView view = (GLSurfaceView) findViewById(R.id.surface);
-        view.setRenderer(renderer);
-        //setContentView(view);
-
-        
-        /** ActionBar. */
-        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
-        actionBar.setTitle(pattern_record.getDisplay());
-        ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
-        pattern_list.add(pattern_record);
-        actionBar.setOnClickListener(new QuickActionClickListener(pattern_list));
+    	return pattern;
     }
-
-    /** ActionBar. */
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return i;
-    }
+    
+    
     
 	/** Called when the activity is resumed. */
     @Override
     public void onResume() {
     	super.onResume();
-    	getPreferences();
+    	this.getPreferences();
     	
     }
-    
     
     protected void getPreferences(){
     	SharedPreferences preferences = getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
         
     	int newColor = preferences.getInt("SelectedColor", this.getResources().getInteger(R.color.prop_default_color));     
 		
+    	
     	String message = String.format("#%02x%02x%02x", Color.red(newColor),
 				Color.green(newColor), Color.blue(newColor));
 		
@@ -191,6 +171,8 @@ public class JMLPatternActivity extends Activity {
                 Toast.LENGTH_SHORT).show();
         
     }
+    
+    
     
     /** Menu button. */
     @Override
@@ -212,4 +194,5 @@ public class JMLPatternActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
 }

@@ -39,6 +39,12 @@ import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
 
 
 public class ballProp extends Prop {
+	
+	
+    // -------------------------------------
+    // Attributes
+    // -------------------------------------
+	
     static String[] colornames = {"black", "blue", "cyan", "gray",
         "green", "magenta", "red", "white", "yellow"};
     static int[] colorvals = {Color.BLACK, Color.BLUE, Color.CYAN, Color.GRAY, 
@@ -60,7 +66,13 @@ public class ballProp extends Prop {
     protected Coordinate center = null;
 	protected Coordinate grip = null;
 
-    // Constructor To be delete or adapted
+	
+	
+	
+    // -------------------------------------
+    // Constructors
+    // -------------------------------------
+	
     public ballProp(){
     	
         size = new Coordinate(ball_pixel_size, ball_pixel_size);
@@ -78,32 +90,10 @@ public class ballProp extends Prop {
         mIndexBuffer.position(0);
     }
     
-    
-    
-    public String getName() {
-        return "Ball";
-    }
 
-    public int getEditorColor() {
-        return color;
-    }
-
-    public ParameterDescriptor[] getParameterDescriptors() {
-        ParameterDescriptor[] result = new ParameterDescriptor[3];
-
-        Vector<String> range = new Vector<String>();
-        for (int i = 0; i < colornames.length; i++)
-            range.add(colornames[i]);
-
-        result[0] = new ParameterDescriptor("color", ParameterDescriptor.TYPE_CHOICE,
-                                            range, colornames[colornum_def], colornames[color]);
-        result[1] = new ParameterDescriptor("diam", ParameterDescriptor.TYPE_FLOAT,
-                                            null, new Double(diam_def), new Double(diam));
-        result[2] = new ParameterDescriptor("highlight", ParameterDescriptor.TYPE_BOOLEAN,
-                                            null, new Boolean(highlight_def), new Boolean(highlight));
-
-        return result;
-    }
+    // -------------------------------------
+    // Initialization methods
+    // -------------------------------------
 
     protected void init(String st) throws JuggleExceptionUser {
         color = colornum_def;
@@ -165,32 +155,8 @@ public class ballProp extends Prop {
         }
         
     }
-
-    public Coordinate getMax() {
-        return new Coordinate(diam/2,0,diam);
-    }
-
-    public Coordinate getMin() {
-        return new Coordinate(-diam/2,0,0);
-    }
-
-    public Coordinate getPropSize() {
-        return size;
-    }
-
-	public Coordinate getPropCenter() {
-		return center;
-	}
-	
-    public void setPropCenter(Coordinate center) {
-		this.center = center;
-	}
-	
-    public Coordinate getPropGrip() {
-        return grip;
-    }
-
-    protected void init(double zoom) {
+    
+	protected void init(double zoom) {
     	
         ball_pixel_size = (int)(0.5 + zoom * diam);
         
@@ -204,9 +170,95 @@ public class ballProp extends Prop {
         lastzoom = zoom;
     }
     
+	
+	
+    // -------------------------------------
+    // Attributes Getters & Setters
+    // -------------------------------------
+    
+    public double getDiam() {
+		return diam;
+	}
 
+	public void setDiam(double diam) {
+		this.diam = diam;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public boolean isHighlight() {
+		return highlight;
+	}
+
+	public void setHighlight(boolean highlight) {
+		this.highlight = highlight;
+	}
+
+	public Coordinate getSize() {
+		return size;
+	}
+
+	public void setSize(Coordinate size) {
+		this.size = size;
+	}
+
+	public Coordinate getCenter() {
+		return center;
+	}
+
+	public void setCenter(Coordinate center) {
+		this.center = center;
+	}
+    
+    
+	
+    // -------------------------------------
+    // Advanced Getters
+    // -------------------------------------
+    
+    public String getName() {
+        return "Ball";
+    }
+    
+    public ParameterDescriptor[] getParameterDescriptors() {
+        ParameterDescriptor[] result = new ParameterDescriptor[3];
+
+        Vector<String> range = new Vector<String>();
+        for (int i = 0; i < colornames.length; i++)
+            range.add(colornames[i]);
+
+        result[0] = new ParameterDescriptor("color", ParameterDescriptor.TYPE_CHOICE,
+                                            range, colornames[colornum_def], colornames[color]);
+        result[1] = new ParameterDescriptor("diam", ParameterDescriptor.TYPE_FLOAT,
+                                            null, new Double(diam_def), new Double(diam));
+        result[2] = new ParameterDescriptor("highlight", ParameterDescriptor.TYPE_BOOLEAN,
+                                            null, new Boolean(highlight_def), new Boolean(highlight));
+
+        return result;
+    }
+
+    public Coordinate getMax() {
+        return new Coordinate(diam/2,0,diam);
+    }
+
+    public Coordinate getMin() {
+        return new Coordinate(-diam/2,0,0);
+    }
+
+
+    
+    
+    // -------------------------------------
+    // Drawing Attributes and methods
+    // -------------------------------------
+    
     float one = 3.0f;
-    //float one = 3.0f*one_;
     private float cubeVertices[] = {
 	            -one, -one, -one,
 	            one, -one, -one,
@@ -254,7 +306,8 @@ public class ballProp extends Prop {
         mVertexBuffer.position(0);
         
         gl.glFrontFace(gl.GL_CW);
-        gl.glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
+        // TODO solve color pb! 
+        gl.glColor4f((float)Color.red(color), (float)Color.green(color), (float)Color.blue(color), 1.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
         gl.glDrawElements(gl.GL_TRIANGLES, 36, gl.GL_UNSIGNED_BYTE, mIndexBuffer);

@@ -3,10 +3,13 @@ package com.jonglen7.jugglinglab.jugglinglab.renderer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
 
+import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
 import com.jonglen7.jugglinglab.jugglinglab.jml.HandLink;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
@@ -16,14 +19,17 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JLMath;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
+import com.jonglen7.jugglinglab.ui.JMLPatternActivity;
 
 public class JugglingRenderer implements Renderer {
 	
 	
 	// Attributes
-	private JMLPattern pattern;
-	private Juggler juggler;
-	private AnimatorPrefs prefs;
+	private Context context = null;
+	private JMLPattern pattern = null;
+	private Juggler juggler = null;
+	private SharedPreferences preferences = null;
+	private AnimatorPrefs prefs = null;
 	
 	private Coordinate		overallmax = null;
     private Coordinate		overallmin = null;
@@ -49,14 +55,21 @@ public class JugglingRenderer implements Renderer {
 	
 	
 	// Constructors
-	public JugglingRenderer(JMLPattern pattern) {
+	// Parameter context is used to acces JMLPattern and SharedPreferences
+	public JugglingRenderer(Context context) {
 		
 		// Initialize class attributes
-		this.pattern = pattern;
+		this.context = context;
+		this.pattern = ((JMLPatternActivity)context).getJMLPattern();
+		this.preferences = context.getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
 		this.prefs = new AnimatorPrefs();
 		this.cameraCenter = new Coordinate();
+		this.overallmin = new Coordinate(-40.0f, 70.0f, -30.0f);
+		this.overallmax= new Coordinate(40.0f, 175.0f, 35.0f);
 		this.tempc = new Coordinate();
-		this.juggler = new Juggler(1);  // TODO: Implements for multiple jugglers
+		
+		// TODO: Implements for multiple jugglers
+		this.juggler = new Juggler(1);  
 		//juggler = new FakeJuggler();
 		
 		try {
@@ -68,6 +81,9 @@ public class JugglingRenderer implements Renderer {
 		}
 		
         syncToPattern();
+    	Log.v("JugglingRenderer","OverallMin Coordinate\tX=" + this.overallmin.x + "\tY=" + this.overallmin.y + "\tZ=" + this.overallmin.z);
+    	Log.v("JugglingRenderer","OverallMax Coordinate\tX=" + this.overallmax.x + "\tY=" + this.overallmax.y + "\tZ=" + this.overallmax.z);
+    	
         setCameraCoordinate();
 	}
 
@@ -111,14 +127,14 @@ public class JugglingRenderer implements Renderer {
 		gl.glPushMatrix();
 		// Translates 10 units into the screen.
 		gl.glTranslatef(0, -150.0f, -100.0f); 
+		//gl.glTranslatef(0.0f, 0.0f, -100.0f);
 		//gl.glTranslatef((float)-this.cameraCenter.z, (float)-this.cameraCenter.y, -100.0f); 
-		// Reduce
-		//gl.glScalef(0.2f, 0.2f, 0.2f);
+				
 		// Draw the Frame
 		drawEffectiveFrame(gl);
-		
 		// Restore the last matrix.
 		gl.glPopMatrix();
+		//GLU.gluLookAt(gl, (float)cameraCenter.x, (float)cameraCenter.z, 100.0f, (float)cameraCenter.x, (float)cameraCenter.z, (float)cameraCenter.y, 0.0f, 1.0f, 0.0f);
 		
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
@@ -164,8 +180,9 @@ public class JugglingRenderer implements Renderer {
 		// Reset the projection matrix
 		gl.glLoadIdentity();
 		// Calculate the aspect ratio of the window
-		GLU.gluPerspective(gl, 90.0f, (float) width / (float) height, 0.1f,
-				100.0f);
+		GLU.gluPerspective(gl, 90.0f, (float) width / (float) height, 0.1f, 100.0f);
+		//gl.glFrustumf((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, 0.0f, (float)this.overallmax.y);
+		//gl.glOrthof((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, (float)this.overallmin.y, (float)this.overallmax.y);
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		// Reset the modelview matrix
@@ -195,6 +212,7 @@ public class JugglingRenderer implements Renderer {
 			}
 
 			// Draw the props
+			int color;
 			float x=0.0f, y=0.0f, z=0.0f;
 			for (int i = 1; i <= pattern.getNumberOfPaths(); i++) {
 	            pattern.getPathCoordinate(i, time, tempc);
@@ -204,7 +222,9 @@ public class JugglingRenderer implements Renderer {
 	            y = (float)(0.5f + tempc.y);
 	            z = (float)(0.5f + tempc.z);
 	            Prop pr = pattern.getProp(animpropnum[i-1]);
-	            pr.setPropCenter(tempc);
+	            color = preferences.getInt("SelectedColor", context.getResources().getInteger(R.color.prop_default_color));     
+	            pr.setColor(color);
+	            pr.setCenter(tempc);
 	            pr.centerProp();
 	            pr.draw(gl); 
 	       }	
@@ -354,8 +374,8 @@ public class JugglingRenderer implements Renderer {
     	double z = (double)(0.5*(overallmax.y+overallmin.y));
     	cameraCenter.setCoordinate(x, y, z);
 
-    	
-    	Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
+
+    	//Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
     }
     
 

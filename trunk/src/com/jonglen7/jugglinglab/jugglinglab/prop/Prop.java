@@ -65,20 +65,23 @@ public abstract class Prop {
         this.init(st);
     }
 
-
     protected abstract void init(String st) throws JuggleExceptionUser;
+    
     public abstract String getName();
-    //public abstract Color getEditorColor();
     public abstract ParameterDescriptor[] getParameterDescriptors();
     public abstract Coordinate getMax();
     public abstract Coordinate getMin();
-    //public abstract Image getProp2DImage(Component comp, double zoom, double[] camangle);
-    public abstract Coordinate getPropSize();
-    public abstract Coordinate getPropCenter();
-    public abstract void setPropCenter(Coordinate center);
-    public abstract void centerProp();
-    public abstract Coordinate getPropGrip();
+    
+    public abstract Coordinate getSize();
+    public abstract void setSize(Coordinate size);
+    public abstract Coordinate getCenter();
+    public abstract void setCenter(Coordinate center);
+    public abstract int getColor();
+    public abstract void setColor(int color);
+    public abstract double getDiam();
+	public abstract void setDiam(double diam);
+    
+    
+    public abstract void centerProp();  
     public abstract void draw(GL10 gl);
-    //public abstract Object getPropIDX3D();
-    //public abstract Coordinate getPropIDX3DGrip();
 }
