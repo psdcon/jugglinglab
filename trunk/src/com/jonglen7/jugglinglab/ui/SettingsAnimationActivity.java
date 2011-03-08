@@ -2,15 +2,11 @@ package com.jonglen7.jugglinglab.ui;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.widget.Toast;
 
 import com.jonglen7.jugglinglab.R;
 

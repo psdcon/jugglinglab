@@ -46,8 +46,10 @@
 
 	<string-array name="prop_type">
 		<item>Ball</item>
-		<item>Image</item>
 		<item>Ring</item>
+		<item>Club</item>
+		<item>Cube</item>
+		<item>Image</item>
 	</string-array>
 
 	<string-array name="rhythm">
@@ -68,5 +70,26 @@
 		<item>All</item>
 		<item>Non-obvious</item>
 		<item>None (prime only)</item>
+	</string-array>
+
+	<string-array name="trick">
+		<item>1 Ball out of a 3-Cascade</item>
+		<item>Throw Twice</item>
+		<item>2 Balls out of a 3-Cascade</item>
+		<item>Throw 3 Times</item>
+		<item>3-Cascade</item>
+		<item>2 in One Hand</item>
+		<item>4-Synchronous Fountain</item>
+		<item>4-Fountain</item>
+		<item>2 Balls out of a 5-Cascade</item>
+		<item>3 Balls</item>
+		<item>Chase</item>
+		<item>Flash</item>
+		<item>4 Balls</item>
+		<item>4 Balls out of a 5-Cascade</item>
+		<item>552</item>
+		<item>5551</item>
+		<item>5-Cascade</item>
+		<item>3-ball Flash</item>
 	</string-array>
 </resources>
