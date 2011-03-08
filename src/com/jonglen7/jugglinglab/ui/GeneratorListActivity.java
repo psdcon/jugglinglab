@@ -13,9 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -45,30 +43,21 @@ public class GeneratorListActivity extends ListActivity {
     /** ListView */
     ListView listView;
     
-    /** The ArrayList that will populate the ListView. */
-    ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator_list);
         
-        createPatternList();
+        /** The ArrayList that will populate the ListView. */
+        ArrayList<HashMap<String, String>> listItem = createPatternList();
         
-        /*setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, pattern_list_display));
-        ListView lv = getListView();
-        lv.setTextFilterEnabled(true);
-        lv.setOnItemClickListener(itemClickListener);
-        lv.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));*/
+        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
+               new String[] {"list_item_text", "list_item_fav"}, new int[] {R.id.list_item_text, R.id.list_item_fav});
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));
-        
-        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
-               new String[] {"list_item_text", "list_item_fav"}, new int[] {R.id.list_item_text, R.id.list_item_fav});
-
         listView.setAdapter(mSchedule);
         
         /** ActionBar. */
@@ -77,7 +66,9 @@ public class GeneratorListActivity extends ListActivity {
         actionBar.setTitle(pattern_list.size() + " patterns found");
     }
     
-    private void createPatternList() {
+    private ArrayList<HashMap<String, String>> createPatternList() {
+    	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
+    	
         /** Settings for the generator. */
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         max_patterns = Integer.parseInt(preferences.getString("generator_max_patterns", "100"));
@@ -115,6 +106,8 @@ public class GeneratorListActivity extends ListActivity {
         	map.put("list_item_fav", String.valueOf(R.drawable.fav));
         	listItem.add(map);
         }
+        
+        return listItem;
     }
 
     /** ActionBar. */

@@ -6,8 +6,6 @@
 
 package com.jonglen7.jugglinglab.ui;
 
-import com.jonglen7.jugglinglab.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,6 +15,8 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.jonglen7.jugglinglab.R;
 
 public class ColorPickerPreference extends Preference {
 
