@@ -4,16 +4,17 @@ package com.jonglen7.jugglinglab.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceClickListener;
 
 import com.jonglen7.jugglinglab.R;
 
 public class SettingsAnimationActivity extends PreferenceActivity {
 
 	PreferenceScreen colorPrefScreen;
-	int newColor;
+	PreferenceScreen backgroundColorPicker;
+	int newBackgroundColor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +29,12 @@ public class SettingsAnimationActivity extends PreferenceActivity {
 		.findPreference("colorPrefScreen");
 		colorPrefScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
-				return onColorPreferenceClick(preference);
+				return onPropColorPreferenceClick(preference);
 			}
 		});
 	}
 	
-	private boolean onColorPreferenceClick(Preference pref) {
+	private boolean onPropColorPreferenceClick(Preference pref) {
 		Intent intent = new Intent(this, ColorPreferenceActivity.class);
 		startActivityForResult(intent, org.superdry.util.colorpicker.lib.SuperdryColorPicker.ACTION_GETCOLOR);
 		return true;

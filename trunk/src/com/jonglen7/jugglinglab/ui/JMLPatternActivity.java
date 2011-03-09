@@ -9,8 +9,6 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
@@ -148,31 +146,20 @@ public class JMLPatternActivity extends Activity {
     }
     
     
+	/** Called when the activity is paused. */
+    @Override
+    public void onPause() {
+    	super.onPause();
+    }
     
 	/** Called when the activity is resumed. */
     @Override
     public void onResume() {
     	super.onResume();
-    	this.getPreferences();
-    	
-    }
-    
-    protected void getPreferences(){
-    	SharedPreferences preferences = getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
-        
-    	int newColor = preferences.getInt("SelectedColor", this.getResources().getInteger(R.color.prop_default_color));     
-		
-    	
-    	String message = String.format("#%02x%02x%02x", Color.red(newColor),
-				Color.green(newColor), Color.blue(newColor));
-		
-        Toast.makeText(getApplicationContext(), "newColor = " + message,
-                Toast.LENGTH_SHORT).show();
-        
     }
     
     
-    
+ 
     /** Menu button. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
