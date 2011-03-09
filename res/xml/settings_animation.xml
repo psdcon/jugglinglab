@@ -5,13 +5,20 @@
 	<PreferenceCategory android:title="@string/settings_animation_category_animation">
 		<!-- TODO: BPS, Dwell, Speed, Hands movement, Body movement, ... -->
 	</PreferenceCategory>
+	
+	<!--  Background Color -->
+	<PreferenceCategory android:title="@string/settings_animation_category_background">			
+		<com.jonglen7.jugglinglab.ui.ColorPickerPreference
+				android:key="backgroundColorPicker" 
+				android:title="@string/settings_animation_category_background_color" />
+	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/settings_animation_category_prop">
 		<PreferenceScreen
 			android:title="@string/settings_animation_category_prop_type">
 		</PreferenceScreen>
 		
-		<!--  Color -->
+		<!--  Props Color -->
 		<PreferenceScreen
 			android:key="colorPrefScreen" android:title="@string/settings_animation_category_prop_color">
 		</PreferenceScreen>
@@ -46,8 +53,5 @@
 			android:title="@string/settings_animation_category_juggler_beard">
 		</PreferenceScreen>
 	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/settings_animation_category_background">
-	</PreferenceCategory>
-	
+		
 </PreferenceScreen>

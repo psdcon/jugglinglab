@@ -67,6 +67,8 @@ public class ColorPickerPreference extends Preference {
 					borderViewWidth - 1), 3, 3, paint);
 			paint.setStyle(Paint.Style.FILL);
 			paint.setColor(color);
+			//Log.v("ColorPickerPreference", "onDraw | " + String.format("#%02x%02x%02x", Color.red(color),
+			//		Color.green(color), Color.blue(color)));
 			canvas.drawRoundRect(new RectF(2, 2, borderViewWidth - 2,
 					borderViewWidth - 2), 3, 3, paint);
 		}
@@ -79,5 +81,7 @@ public class ColorPickerPreference extends Preference {
 
 	public void setColor(int color) {
 		this.color = color;
+		//Log.v("ColorPickerPreference", "setColor | " + String.format("#%02x%02x%02x", Color.red(color),
+		//		Color.green(color), Color.blue(color)));
 	}
 }

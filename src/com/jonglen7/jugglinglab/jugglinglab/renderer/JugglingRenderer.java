@@ -5,8 +5,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.GLU;
 import android.util.Log;
 
 import com.jonglen7.jugglinglab.R;
@@ -222,7 +222,7 @@ public class JugglingRenderer implements Renderer {
 	            y = (float)(0.5f + tempc.y);
 	            z = (float)(0.5f + tempc.z);
 	            Prop pr = pattern.getProp(animpropnum[i-1]);
-	            color = preferences.getInt("SelectedColor", context.getResources().getInteger(R.color.prop_default_color));     
+	            color = preferences.getInt("SelectedColor_for_item_" + (i-1), context.getResources().getInteger(R.color.prop_default_color));     
 	            pr.setColor(color);
 	            pr.setCenter(tempc);
 	            pr.centerProp();

@@ -100,10 +100,21 @@
     <string name="settings_animation_category_juggler_glasses">Glasses</string>
     <string name="settings_animation_category_juggler_beard">Beard</string>
     <string name="settings_animation_category_background">Background</string>
+    <string name="settings_animation_category_background_color">Color</string>
     
-    <!-- Settings : Animation/Color -->
-    <string name="settings_animation_category_prop_color_color">Color</string>
+    <!-- Settings : Animation/Prop/Color -->
     <string name="settings_animation_category_prop_color_category_all">All Props</string>
+    <string name="settings_animation_category_prop_color_color">One Color</string>    
+    <string name="settings_animation_category_prop_color_category_mixed_title">Mixed</string>
+    <string name="settings_animation_category_prop_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_animation_category_prop_color_category_pbp_title">Prop by Prop</string>
+    
+     <!-- Settings : Animation/Juggler/Color -->
+     <string name="settings_animation_category_juggler_color_category_all">All Props</string>
+    <string name="settings_animation_category_juggler_color_color">One Color</string>  
+    <string name="settings_animation_category_juggler_color_category_mixed_title">Mixed</string>
+    <string name="settings_animation_category_juggler_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_animation_category_juggler_color_category_jbj_title">Juggler by Juggler</string>
     
     <!-- About -->
     <string name="about_txt_todo">Bazinga !</string>
