@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -56,28 +57,8 @@ public class TutorialsActivity extends ListActivity {
     	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
     	
 		HashMap<String, String> map;
-    	
-    	DataBaseHelper myDbHelper = new DataBaseHelper(this);
-    	 
-        try {
-        	// XXX A modifier lors de la livraison !
-        	boolean debug = true;
-        	myDbHelper.createDataBase(debug);
-	 	} catch (IOException ioe) {
-	 		throw new Error("Unable to create database");
-	 	}
-	 
-	 	try {
-	 		myDbHelper.openDataBase();
-	 	}catch(SQLException sqle){
-	 		throw sqle;
-	 	}
-        
-	 	//rawQuery("SELECT * FROM TABLE WHERE c.deck_id=? AND c.next_date < ? AND c.next_date > 0 AND c.active > 0 AND c.deck_level=?",
-	 	//		new String[] { Long.toString(deckId), Long.toString(now), Long.toString(level)});
-	 	
-
-	 	myDbHelper.close();
+		
+		// TODO Gérer les DESCRIPTION et CUSTOM_*
 	 	String query = "SELECT T.PATTERN, H.CODE, B.CODE, P.CODE, T.XML_DISPLAY_LINE_NUMBER, TT.ID_COLLECTION, TT.STEP, C.XML_LINE_NUMBER " +
 	 					"FROM Trick T, Hands H, Body B, Prop P, TrickTutorial TT, Collection C " +
 	 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
@@ -86,7 +67,7 @@ public class TutorialsActivity extends ListActivity {
 	 					"AND T.ID_TRICK=TT.ID_TRICK " +
 	 					"AND TT.ID_COLLECTION=C.ID_COLLECTION " +
 	 					"ORDER BY TT.ID_COLLECTION, TT.STEP";
-	 	Cursor cursor = myDbHelper.getReadableDatabase().rawQuery(query, null);
+	 	Cursor cursor = DataBaseHelper.execQuery(this, query, null);
         startManagingCursor(cursor);
 
     	String[] trick = getResources().getStringArray(R.array.trick);
