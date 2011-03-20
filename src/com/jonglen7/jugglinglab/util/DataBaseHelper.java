@@ -6,10 +6,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper{
 
@@ -122,4 +124,26 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	// You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
 	// to you to create adapters for your views.
 
+	public static Cursor execQuery(Context context, String query, String[] selectionArgs) {
+    	DataBaseHelper myDbHelper = new DataBaseHelper(context);
+    	 
+        try {
+        	// XXX A modifier lors de la livraison !
+        	boolean debug = true;
+        	myDbHelper.createDataBase(debug);
+	 	} catch (IOException ioe) {
+	 		throw new Error("Unable to create database");
+	 	}
+	 
+	 	try {
+	 		myDbHelper.openDataBase();
+	 	}catch(SQLException sqle){
+	 		throw sqle;
+	 	}
+
+	 	myDbHelper.close();
+
+		return myDbHelper.getReadableDatabase().rawQuery(query, selectionArgs);
+	}
+	
 }
