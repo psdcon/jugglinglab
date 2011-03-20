@@ -60,7 +60,9 @@ public class TutorialsActivity extends ListActivity {
     	DataBaseHelper myDbHelper = new DataBaseHelper(this);
     	 
         try {
-        	myDbHelper.createDataBase();
+        	// XXX A modifier lors de la livraison !
+        	boolean debug = true;
+        	myDbHelper.createDataBase(debug);
 	 	} catch (IOException ioe) {
 	 		throw new Error("Unable to create database");
 	 	}
