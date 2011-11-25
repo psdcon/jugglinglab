@@ -5,18 +5,11 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
     
-    <com.markupartist.android.widget.ActionBar
-        android:id="@+id/actionbar"
-        app:title="@string/my_profile_title"
-        style="@style/ActionBar"
-    />
-    
 	<TabHost
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@android:id/tabhost"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/actionbar">
+		android:layout_height="wrap_content">
 
 		<TabWidget
 			android:id="@android:id/tabs"

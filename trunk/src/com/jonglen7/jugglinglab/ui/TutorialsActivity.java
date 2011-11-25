@@ -1,30 +1,24 @@
 package com.jonglen7.jugglinglab.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class TutorialsActivity extends ListActivity {
     
@@ -36,10 +30,6 @@ public class TutorialsActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorials);
-        
-        /** ActionBar. */
-        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
         
         pattern_list = new ArrayList<PatternRecord>();
         
@@ -77,7 +67,6 @@ public class TutorialsActivity extends ListActivity {
         	String display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
         	map = new HashMap<String, String>();
         	map.put("list_item_text", display);
-        	map.put("list_item_fav", String.valueOf(R.drawable.fav));
         	listItem.add(map);
         	String anim = createAnim(cursor);
         	pattern_list.add(new PatternRecord(display, "", "siteswap", anim));
@@ -97,13 +86,6 @@ public class TutorialsActivity extends ListActivity {
 		anim += ";prop=" + cursor.getString(3);
 		return anim;
 	}
-
-	/** ActionBar. */
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return i;
-    }
     
     /** Menu button. */
     @Override

@@ -4,12 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res/com.jonglen7.jugglinglab"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-    
-    <com.markupartist.android.widget.ActionBar
-        android:id="@+id/actionbar"
-        app:title="@string/generator_title"
-        style="@style/ActionBar"
-    />
 	
 	<Button
 		android:id="@+id/generator_btn_run"
@@ -23,8 +17,7 @@
 		android:id="@+id/generator_scrollview"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:layout_above="@id/generator_btn_run"
-		android:layout_below="@id/actionbar">
+		android:layout_above="@id/generator_btn_run">
 		<RelativeLayout
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_width="fill_parent"

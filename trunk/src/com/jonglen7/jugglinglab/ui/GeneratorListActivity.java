@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,18 +13,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class GeneratorListActivity extends ListActivity {
 	
@@ -57,13 +54,7 @@ public class GeneratorListActivity extends ListActivity {
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
-        listView.setOnItemLongClickListener(new QuickActionClickListener(pattern_list));
         listView.setAdapter(mSchedule);
-        
-        /** ActionBar. */
-        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
-        actionBar.setTitle(pattern_list.size() + " patterns found");
     }
     
     private ArrayList<HashMap<String, String>> createPatternList() {
@@ -103,18 +94,10 @@ public class GeneratorListActivity extends ListActivity {
         	//pattern_list_display.add(pattern_list.get(i).getDisplay());
         	map = new HashMap<String, String>();
         	map.put("list_item_text", pattern_list.get(i).getDisplay());
-        	map.put("list_item_fav", String.valueOf(R.drawable.fav));
         	listItem.add(map);
         }
         
         return listItem;
-    }
-
-    /** ActionBar. */
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return i;
     }
     
     /** Menu button. */

@@ -1,7 +1,6 @@
 package com.jonglen7.jugglinglab.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,18 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.jonglen7.jugglinglab.R;
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class GeneratorActivity extends Activity {
 	
@@ -82,14 +79,6 @@ public class GeneratorActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_generator);
-        
-        /** ActionBar. */
-        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
-        // TODO Rajouter les actions dans l'actionBar
-        // cf: /home/kira/Projets/Juggling Lab/Ressources/android-actionbar/actionbarexample/src/com/markupartist/android/actionbar/example/HomeActivity.java
-        //actionBar.addAction(new IntentAction(this, createShareIntent(), R.drawable.ic_title_share_default));
-        //actionBar.addAction(new IntentAction(this, new Intent(this, OtherActivity.class), R.drawable.ic_title_export_default));
 
     	/** Balls. */
     	txt_balls = (TextView) findViewById(R.id.generator_txt_balls);
@@ -163,13 +152,6 @@ public class GeneratorActivity extends Activity {
     public void onResume() {
     	super.onResume();
         switchDisplayMode();
-    }
-
-    /** ActionBar. */
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return i;
     }
     
     /** Hide or show some parameters depending if the Advanced mode is selected. */

@@ -2,12 +2,10 @@ package com.jonglen7.jugglinglab.ui;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
 
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -25,8 +23,6 @@ import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
 import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
-import com.markupartist.android.widget.ActionBar;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 
 /**
  * Generate a JMLPattern using a PatternRecord
@@ -54,16 +50,7 @@ public class JMLPatternActivity extends Activity {
         }
     	
         pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
-        
-        // ActionBar
-        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-        actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_default));
-        actionBar.setTitle(pattern_record.getDisplay());
-        ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
-        pattern_list.add(pattern_record);
-        actionBar.setOnClickListener(new QuickActionClickListener(pattern_list));
 
-       
         // 2D Square
         /*
         GLSurfaceView view = new GLSurfaceView(this);
@@ -94,17 +81,6 @@ public class JMLPatternActivity extends Activity {
         //setContentView(view);
 
     }
-    
-    
-
-    /** ActionBar. */
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, HomeActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return i;
-    }
-    
-
     
     /** Compute JMLPattern from the PatternRecord **/
     public JMLPattern getJMLPattern() {
@@ -145,7 +121,6 @@ public class JMLPatternActivity extends Activity {
     	return pattern;
     }
     
-    
 	/** Called when the activity is paused. */
     @Override
     public void onPause() {
@@ -158,8 +133,6 @@ public class JMLPatternActivity extends Activity {
     	super.onResume();
     }
     
-    
- 
     /** Menu button. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
