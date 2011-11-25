@@ -4,16 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res/com.jonglen7.jugglinglab"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-    
-    <com.markupartist.android.widget.ActionBar
-        android:id="@+id/actionbar"
-        style="@style/ActionBar"
-    />
 	
 	<FrameLayout
 		android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-		android:layout_below="@id/actionbar">
+	    android:layout_height="wrap_content">
 		<android.opengl.GLSurfaceView
             android:id="@+id/surface"
 			android:layout_width="fill_parent"

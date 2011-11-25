@@ -4,15 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res/com.jonglen7.jugglinglab"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-    
-    <com.markupartist.android.widget.ActionBar
-        android:id="@+id/actionbar"
-        style="@style/ActionBar"
-    />
 	
 	<ListView android:id="@android:id/list"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content"
-	    android:drawSelectorOnTop="false"
-		android:layout_below="@id/actionbar"/>
+	    android:drawSelectorOnTop="false"/>
 </RelativeLayout>
