@@ -2,6 +2,7 @@
 <resources>
 	<!-- App -->
     <string name="app_name">Juggling Lab</string>
+    <string name="app_url">http://code.google.com/p/jugglinglab</string>
     
     <!-- Home -->
     <string name="home_title">Juggling Lab</string>
@@ -72,7 +73,6 @@
     
     <!-- Menu -->
     <string name="menu_settings">Settings</string>
-    <string name="menu_about">About</string>
     
     <!-- Settings : Home -->
     <string name="settings_home_category_user">User</string>
@@ -117,6 +117,7 @@
     <string name="settings_animation_category_juggler_color_category_jbj_title">Juggler by Juggler</string>
     
     <!-- About -->
+    <string name="about_title">About</string>
     <string name="about_txt_todo">Bazinga !</string>
     
     <!-- QuickActions -->

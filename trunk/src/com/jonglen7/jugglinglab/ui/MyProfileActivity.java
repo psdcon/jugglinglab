@@ -1,6 +1,6 @@
 package com.jonglen7.jugglinglab.ui;
 
-import android.app.TabActivity;
+import greendroid.app.GDTabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +10,7 @@ import android.widget.TabHost;
 
 import com.jonglen7.jugglinglab.R;
 
-public class MyProfileActivity extends TabActivity {
+public class MyProfileActivity extends GDTabActivity {
 	
 	private TabHost tabHost;
 	
@@ -36,9 +36,6 @@ public class MyProfileActivity extends TabActivity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-            case R.id.menu_about:
-            	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

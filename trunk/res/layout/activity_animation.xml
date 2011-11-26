@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.jonglen7.jugglinglab"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-	
-	<FrameLayout
-		android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
-		<android.opengl.GLSurfaceView
+
+<greendroid.widget.ActionBarHost
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/gd_action_bar_host"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <greendroid.widget.ActionBar
+        android:id="@id/gd_action_bar"
+        android:layout_height="@dimen/gd_action_bar_height"
+        android:layout_width="fill_parent"
+        android:background="?attr/gdActionBarBackground" />
+
+    <FrameLayout
+        android:id="@id/gd_action_bar_content_view"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="1">
+    
+        <android.opengl.GLSurfaceView
             android:id="@+id/surface"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"/>
-	</FrameLayout>
-	
-</RelativeLayout>
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
+    </FrameLayout>
+
+</greendroid.widget.ActionBarHost>

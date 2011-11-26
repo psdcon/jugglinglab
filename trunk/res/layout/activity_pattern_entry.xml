@@ -1,152 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.jonglen7.jugglinglab"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-	
-	<Button
-		android:id="@+id/pattern_entry_btn_juggle"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:onClick="onJuggleClick"
-		android:text="@string/pattern_entry_btn_juggle"/>
-	
-	<ScrollView
-		android:id="@+id/pattern_entry_scrollview"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_above="@id/pattern_entry_btn_juggle">
-		<RelativeLayout
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
-			
-			<!-- Pattern Entry -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_pattern"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/pattern_entry_txt_pattern"/>
-			<EditText
-				android:id="@+id/pattern_entry_edit_pattern"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_txt_pattern"
-				android:text="@string/pattern_entry_edit_pattern"/>
-				
-			<!-- Hand movement -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_hand_movement"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_edit_pattern"
-				android:text="@string/pattern_entry_txt_hand_movement"/>
-			<Spinner
-				android:id="@+id/pattern_entry_spinner_hand_movement"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_edit_pattern"
-				android:layout_toRightOf="@id/pattern_entry_txt_hand_movement"/>
-			<EditText
-				android:id="@+id/pattern_entry_edit_hand_movement"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:layout_below="@id/pattern_entry_spinner_hand_movement"
-				android:layout_toRightOf="@id/pattern_entry_txt_hand_movement"/>
-				
-			<!-- Prop type -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_prop_type"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_edit_hand_movement"
-				android:text="@string/pattern_entry_txt_prop_type"/>
-			<Spinner
-				android:id="@+id/pattern_entry_spinner_prop_type"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_edit_hand_movement"
-				android:layout_toRightOf="@id/pattern_entry_txt_prop_type"/>
-			
-			<!-- Dwell beats -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_dwell_beats"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_spinner_prop_type"
-				android:text="@string/pattern_entry_txt_dwell_beats"/>
-			<TextView
-				android:id="@+id/pattern_entry_txt_dwell_beats_progress"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_spinner_prop_type"
-				android:layout_toRightOf="@id/pattern_entry_txt_dwell_beats"/>
-			<SeekBar
-				android:id="@+id/pattern_entry_seekbar_dwell_beats"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:max="20"
-				android:progress="13"
-				android:layout_below="@id/pattern_entry_spinner_prop_type"
-				android:layout_toRightOf="@id/pattern_entry_txt_dwell_beats_progress"/>
-			
-			<!-- Beats per second -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_beats_per_second"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_seekbar_dwell_beats"
-				android:text="@string/pattern_entry_txt_beats_per_second"/>
-			<TextView
-				android:id="@+id/pattern_entry_txt_beats_per_second_progress"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_seekbar_dwell_beats"
-				android:layout_toRightOf="@id/pattern_entry_txt_beats_per_second"/>
-			<SeekBar
-				android:id="@+id/pattern_entry_seekbar_beats_per_second"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:max="16"
-				android:progress="3"
-				android:layout_below="@id/pattern_entry_seekbar_dwell_beats"
-				android:layout_toRightOf="@id/pattern_entry_txt_beats_per_second_progress"/>
-				
-			<!-- Body movement -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_body_movement"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_seekbar_beats_per_second"
-				android:text="@string/pattern_entry_txt_body_movement"/>
-			<Spinner
-				android:id="@+id/pattern_entry_spinner_body_movement"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_seekbar_beats_per_second"
-				android:layout_toRightOf="@id/pattern_entry_txt_body_movement"/>
-			<EditText
-				android:id="@+id/pattern_entry_edit_body_movement"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:layout_below="@id/pattern_entry_spinner_body_movement"
-				android:layout_toRightOf="@id/pattern_entry_txt_body_movement"/>
-				
-			<!-- Manual settings -->
-			<TextView
-				android:id="@+id/pattern_entry_txt_manual_settings"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_edit_body_movement"
-				android:text="@string/pattern_entry_txt_manual_settings"/>
-			<EditText
-				android:id="@+id/pattern_entry_edit_manual_settings"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/pattern_entry_txt_manual_settings"/>
-				
-		</RelativeLayout>
-	</ScrollView>
-</RelativeLayout>
+
+<greendroid.widget.ActionBarHost
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/gd_action_bar_host"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <greendroid.widget.ActionBar
+        android:id="@id/gd_action_bar"
+        android:layout_height="@dimen/gd_action_bar_height"
+        android:layout_width="fill_parent"
+        android:background="?attr/gdActionBarBackground" />
+
+    <FrameLayout
+        android:id="@id/gd_action_bar_content_view"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="1">
+    
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res/com.jonglen7.jugglinglab"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    
+            <Button
+                android:id="@+id/pattern_entry_btn_juggle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:onClick="onJuggleClick"
+                android:text="@string/pattern_entry_btn_juggle"/>
+    
+            <ScrollView
+                android:id="@+id/pattern_entry_scrollview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@id/pattern_entry_btn_juggle">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+            
+                    <!-- Pattern Entry -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_pattern"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pattern_entry_txt_pattern"/>
+                    <EditText
+                        android:id="@+id/pattern_entry_edit_pattern"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_txt_pattern"
+                        android:text="@string/pattern_entry_edit_pattern"/>
+                
+                    <!-- Hand movement -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_hand_movement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_edit_pattern"
+                        android:text="@string/pattern_entry_txt_hand_movement"/>
+                    <Spinner
+                        android:id="@+id/pattern_entry_spinner_hand_movement"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_edit_pattern"
+                        android:layout_toRightOf="@id/pattern_entry_txt_hand_movement"/>
+                    <EditText
+                        android:id="@+id/pattern_entry_edit_hand_movement"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@id/pattern_entry_spinner_hand_movement"
+                        android:layout_toRightOf="@id/pattern_entry_txt_hand_movement"/>
+                
+                    <!-- Prop type -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_prop_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_edit_hand_movement"
+                        android:text="@string/pattern_entry_txt_prop_type"/>
+                    <Spinner
+                        android:id="@+id/pattern_entry_spinner_prop_type"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_edit_hand_movement"
+                        android:layout_toRightOf="@id/pattern_entry_txt_prop_type"/>
+            
+                    <!-- Dwell beats -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_dwell_beats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_spinner_prop_type"
+                        android:text="@string/pattern_entry_txt_dwell_beats"/>
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_dwell_beats_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_spinner_prop_type"
+                        android:layout_toRightOf="@id/pattern_entry_txt_dwell_beats"/>
+                    <SeekBar
+                        android:id="@+id/pattern_entry_seekbar_dwell_beats"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:max="20"
+                        android:progress="13"
+                        android:layout_below="@id/pattern_entry_spinner_prop_type"
+                        android:layout_toRightOf="@id/pattern_entry_txt_dwell_beats_progress"/>
+            
+                    <!-- Beats per second -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_beats_per_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_seekbar_dwell_beats"
+                        android:text="@string/pattern_entry_txt_beats_per_second"/>
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_beats_per_second_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_seekbar_dwell_beats"
+                        android:layout_toRightOf="@id/pattern_entry_txt_beats_per_second"/>
+                    <SeekBar
+                        android:id="@+id/pattern_entry_seekbar_beats_per_second"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:max="16"
+                        android:progress="3"
+                        android:layout_below="@id/pattern_entry_seekbar_dwell_beats"
+                        android:layout_toRightOf="@id/pattern_entry_txt_beats_per_second_progress"/>
+                
+                    <!-- Body movement -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_body_movement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_seekbar_beats_per_second"
+                        android:text="@string/pattern_entry_txt_body_movement"/>
+                    <Spinner
+                        android:id="@+id/pattern_entry_spinner_body_movement"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_seekbar_beats_per_second"
+                        android:layout_toRightOf="@id/pattern_entry_txt_body_movement"/>
+                    <EditText
+                        android:id="@+id/pattern_entry_edit_body_movement"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@id/pattern_entry_spinner_body_movement"
+                        android:layout_toRightOf="@id/pattern_entry_txt_body_movement"/>
+                
+                    <!-- Manual settings -->
+                    <TextView
+                        android:id="@+id/pattern_entry_txt_manual_settings"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_edit_body_movement"
+                        android:text="@string/pattern_entry_txt_manual_settings"/>
+                    <EditText
+                        android:id="@+id/pattern_entry_edit_manual_settings"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/pattern_entry_txt_manual_settings"/>
+                
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</greendroid.widget.ActionBarHost>

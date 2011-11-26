@@ -1,6 +1,6 @@
 package com.jonglen7.jugglinglab.ui;
 
-import android.app.Activity;
+import greendroid.app.GDActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.jonglen7.jugglinglab.R;
 
-public class GeneratorActivity extends Activity {
+public class GeneratorActivity extends GDActivity {
 	
 	/** Balls. */
 	TextView txt_balls;
@@ -195,9 +195,6 @@ public class GeneratorActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-            case R.id.menu_about:
-            	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

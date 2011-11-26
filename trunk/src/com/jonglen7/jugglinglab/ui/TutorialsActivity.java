@@ -1,9 +1,10 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDListActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
-public class TutorialsActivity extends ListActivity {
+public class TutorialsActivity extends GDListActivity {
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
@@ -36,7 +37,7 @@ public class TutorialsActivity extends ListActivity {
         ArrayList<HashMap<String, String>> listItem = createPatternList();
         
         SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
-                new String[] {"list_item_text", "list_item_fav"}, new int[] {R.id.list_item_text, R.id.list_item_fav});
+                new String[] {"list_item_text"}, new int[] {R.id.list_item_text});
 
         ListView listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
@@ -68,8 +69,7 @@ public class TutorialsActivity extends ListActivity {
         	map = new HashMap<String, String>();
         	map.put("list_item_text", display);
         	listItem.add(map);
-        	String anim = createAnim(cursor);
-        	pattern_list.add(new PatternRecord(display, "", "siteswap", anim));
+        	pattern_list.add(new PatternRecord(display, "", "siteswap", createAnim(cursor)));
             cursor.moveToNext();
         }
 
@@ -100,9 +100,6 @@ public class TutorialsActivity extends ListActivity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-            case R.id.menu_about:
-            	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

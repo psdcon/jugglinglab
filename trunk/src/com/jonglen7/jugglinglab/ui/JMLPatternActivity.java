@@ -1,11 +1,12 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDActivity;
+
 import java.io.IOException;
 import java.io.StringReader;
 
 import org.xml.sax.SAXException;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
  *
  */
 
-public class JMLPatternActivity extends Activity {
+public class JMLPatternActivity extends GDActivity {
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
@@ -146,9 +147,6 @@ public class JMLPatternActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsAnimationActivity.class));
-                break;
-            case R.id.menu_about:
-            	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

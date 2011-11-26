@@ -1,8 +1,9 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDActivity;
+
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +28,7 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
-public class PatternEntryActivity extends Activity {
+public class PatternEntryActivity extends GDActivity {
 
     /** Pattern. */
 	TextView txt_pattern;
@@ -172,9 +174,6 @@ public class PatternEntryActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-            case R.id.menu_about:
-            	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
