@@ -1,9 +1,10 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDListActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 
-public class GeneratorListActivity extends ListActivity {
+public class GeneratorListActivity extends GDListActivity {
 	
 	/** Settings for the generator. */
 	int max_patterns;
@@ -50,7 +51,7 @@ public class GeneratorListActivity extends ListActivity {
         ArrayList<HashMap<String, String>> listItem = createPatternList();
         
         SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
-               new String[] {"list_item_text", "list_item_fav"}, new int[] {R.id.list_item_text, R.id.list_item_fav});
+               new String[] {"list_item_text"}, new int[] {R.id.list_item_text});
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
@@ -113,9 +114,6 @@ public class GeneratorListActivity extends ListActivity {
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-            case R.id.menu_about:
-            	startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

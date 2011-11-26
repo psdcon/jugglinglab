@@ -12,13 +12,4 @@
 		android:layout_alignParentLeft="true">
 	</TextView>
 
-	<ImageView
-		android:id="@+id/list_item_fav"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_vertical"
-		android:layout_alignParentRight="true"
-		android:padding="4px">
-	</ImageView>
-
 </RelativeLayout>

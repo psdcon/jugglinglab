@@ -1,11 +1,11 @@
 package com.jonglen7.jugglinglab.ui;
 
-import android.app.Activity;
+import greendroid.app.GDActivity;
 import android.os.Bundle;
 
 import com.jonglen7.jugglinglab.R;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends GDActivity {
 
     /** Called when the activity is first created. */
     @Override
