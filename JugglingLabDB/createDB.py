@@ -23,6 +23,7 @@ createDB - Create a sqlite3 DataBase for the Juggling Lab application on Android
 @copyright: GPLv3
 """
 
+import itertools
 import sqlite3
 import sys
 
@@ -313,6 +314,19 @@ def main():
              {"pattern": "5"},
              # 3-Cascade Tricks
              {"pattern": "333355500"}
+#             {"pattern": "(4x,2)(2,4x)", "hands": },
+#             {"pattern": "(4x,2)(2,4x)", "hands": },
+#             {"pattern": "33333423", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": },
+#             {"pattern": "3", "hands": }
              # TODO: Add the remaining tricks
              ]
     for i in range(len(trick)):
@@ -337,174 +351,44 @@ def main():
     for i in range(len(collection)):
         db.insert("Collection", {"XML_LINE_NUMBER": i})
 
-    # FIXME: Find a way to factorize the code bellow
-
     ############################################################################
     ############################## TRICKTUTORIAL ###############################
     ############################################################################
-
-    ##################################
-    ##### 3-Cascade Step By Step #####
-    ##################################
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":0},
-                "Collection",
-                {"XML_LINE_NUMBER":0},
-                "TrickTutorial",
-                {"STEP":1,
-                "GOAL":30}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":1},
-                "Collection",
-                {"XML_LINE_NUMBER":0},
-                "TrickTutorial",
-                {"STEP":2,
-                "GOAL":30}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":2},
-                "Collection",
-                {"XML_LINE_NUMBER":0},
-                "TrickTutorial",
-                {"STEP":3,
-                "GOAL":30}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":3},
-                "Collection",
-                {"XML_LINE_NUMBER":0},
-                "TrickTutorial",
-                {"STEP":4,
-                "GOAL":30}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":4},
-                "Collection",
-                {"XML_LINE_NUMBER":0},
-                "TrickTutorial",
-                {"STEP":5,
-                "GOAL":30}
-                )
-
-    ##################################
-    ##### 4-Foutain Step By Step #####
-    ##################################
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":5},
-                "Collection",
-                {"XML_LINE_NUMBER":1},
-                "TrickTutorial",
-                {"STEP":1,
-                "GOAL":40}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":6},
-                "Collection",
-                {"XML_LINE_NUMBER":1},
-                "TrickTutorial",
-                {"STEP":2,
-                "GOAL":40}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":7},
-                "Collection",
-                {"XML_LINE_NUMBER":1},
-                "TrickTutorial",
-                {"STEP":3,
-                "GOAL":40}
-                )
-
-    ##################################
-    ##### 5-Cascade Step By Step #####
-    ##################################
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":8},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":1,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":9},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":2,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":10},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":3,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":11},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":4,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":12},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":5,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":13},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":6,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":14},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":7,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":15},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":8,
-                "GOAL":50}
-                )
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":16},
-                "Collection",
-                {"XML_LINE_NUMBER":2},
-                "TrickTutorial",
-                {"STEP":9,
-                "GOAL":50}
-                )
+    three_cascade_step_by_step = [{"link_values": {"GOAL": 30}} for i in range(5)]
+    four_fountain_step_by_step = [{"link_values": {"GOAL": 40}} for i in range(3)]
+    five_cascade_step_by_step = [{"link_values": {"GOAL": 50}} for i in range(9)]
+    tricktutorial = [three_cascade_step_by_step, four_fountain_step_by_step, five_cascade_step_by_step]
+    len_tricktutorial = len(tricktutorial)
+    for i in range(len(tricktutorial)):
+        for j in range(len(tricktutorial[i])):
+            tricktutorial[i][j]["where"] = {"XML_LINE_NUMBER": i}
+            tricktutorial[i][j]["link_table"] = "TrickTutorial"
+            tricktutorial[i][j]["link_values"]["STEP"] = j + 1
 
     ############################################################################
     ############################# TRICKCOLLECTION ##############################
     ############################################################################
-
-    ############################
-    ##### 3-Cascade Tricks #####
-    ############################
-    db.insert_link("Trick",
-                {"XML_DISPLAY_LINE_NUMBER":17},
-                "Collection",
-                {"XML_LINE_NUMBER":3},
-                "TrickCollection"
-                )
+    three_cascade_tricks = [{} for i in range(1)]  # TODO: Change 1 to 14 when the tricks will be in the DB
     # TODO: Add the remaining links between the tricks and the collections
+    trickcollection = [three_cascade_tricks]
+    for i in range(len(trickcollection)):
+        for j in range(len(trickcollection[i])):
+            trickcollection[i][j]["where"] = {"XML_LINE_NUMBER": len_tricktutorial + i}
+            trickcollection[i][j]["link_table"] = "TrickCollection"
+
+    ############################################################################
+    ######################### TRICKTUTORIALCOLLECTION ##########################
+    ############################################################################
+    tricktutorialcollection = tricktutorial + trickcollection
+    tricktutorialcollection = list(itertools.chain.from_iterable(tricktutorialcollection))
+    for i in range(len(tricktutorialcollection)):
+        db.insert_link("Trick",
+                       {"XML_DISPLAY_LINE_NUMBER": i},
+                       "Collection",
+                       tricktutorialcollection[i]["where"],
+                       tricktutorialcollection[i]["link_table"],
+                       tricktutorialcollection[i]["link_values"] if "link_values" in tricktutorialcollection[i] else {}
+                      )
 
     db.close()
     sys.exit(0)
