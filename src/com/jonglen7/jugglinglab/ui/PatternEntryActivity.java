@@ -326,7 +326,7 @@ public class PatternEntryActivity extends GDActivity {
             	handMovements.add(hands);
         	}
             cursor.moveToNext();
-            // TODO C'est assez moche
+            // TODO Romain: Hack pour la gestion de Custom vraiment moche
             if (code.compareTo("") == 0) {
             	hand_movement_custom_count++;
                 if (hand_movement_custom_count == 2) hand_movement_custom = hand_movement_item;
@@ -370,7 +370,7 @@ public class PatternEntryActivity extends GDActivity {
             	bodyMovements.add(bodies);
         	}
             cursor.moveToNext();
-            // TODO C'est assez moche
+            // TODO Romain: Hack pour la gestion de Custom vraiment moche
             if (code.compareTo("") == 0) {
             	body_movement_custom_count++;
                 if (body_movement_custom_count == 2) body_movement_custom = body_movement_item;
