@@ -130,6 +130,19 @@ class createDB:
         link_values.update({id_table1_name: id_table1_value, id_table2_name: id_table2_value})
         self.insert(link_table, link_values)
 
+    def find_id(self, table, where):
+        """Find the ID of an item in a table.
+
+        @type table: String
+        @param table: The name of the table
+
+        @type where: Dictionary
+        @param where: Conditions to select (column name: value)
+
+        """
+        self.select(["ID_{table}".format(table=table.upper())], [table], where)
+        return self.cursor.fetchone()[0]
+
 
 def main():
     db = createDB()
@@ -267,13 +280,30 @@ def main():
              "(10)(32.5).",
              "(32.5)(10).",
              "(32.5)(10).(10)(32.5).",
+             "(25)(12.5).(12.5)(25).",
              "(-30)(2.5).(30)(-2.5).(-30)(0).",
+             "(-20)(25).(25)(-20).",
+             "(0)(32.5).",
              "(-10,0,-50)(20,0,0).",
-             "(25,0,-50)(0,0,0).", "(0,0,0)(25,0,-50).",
+             "(25,0,-50)(0,0,0).",
+             "(0,0,0)(25,0,-50).",
              ""]
     for i in range(len(hands)):
         db.insert("Hands", {"CODE": hands[i], "XML_LINE_NUMBER": i})
-    # TODO: Add new hand movements
+    hands = ["(-25,-15)(25,30).(17.5,45)(10,45).(17.5,45)(10,45).(-25,-15)(25,30).",
+             "(-7.5,-15)(30,50).(0,40)(0,35).(0,40)(0,35).(-7.5,-15)(30,50).",
+             "(-7.5,20)(32.5).(10)(32.5).(10)(32.5).(10)(32.5).(10)(30,35).(5)(32.5).(0,35)(0,30).(-10)(32.5).",
+             "(45,20)(52.5,45).",
+             "(10)(35,15).(10)(20).(35,15)(20).",
+             "(7.5,95)(30,95).",
+             "(30)(-20).",
+             "(10)(32.5).(10)(32.5).(10)(32.5).(32.5)(25).(10)(-32.5,25).(20,-10)(32.5,-15).(0,10)(32.5).(10)(32.5).",
+             "(7.5,-10)(32.5,-15).(32.5)(25).(10)(-32.5,25).",
+             "(10)(32.5).(10)(32.5).(10)(32.5).(32.5)(25,20).(10,-15)(-40,-15).(10,20)(32.5,15).(0)(32.5).(10)(32.5).",
+             "(7.5,20)(32.5,15).(32.5)(25,20).(10)(-32.5,-25).",
+             "(-30)(-10)."]
+    for i in range(len(hands)):
+        db.insert("Hands", {"CODE": hands[i]})
 
     ############################################################################
     ################################### BODY ###################################
@@ -313,42 +343,33 @@ def main():
              {"pattern": "5551"},
              {"pattern": "5"},
              # 3-Cascade Tricks
-             {"pattern": "333355500"}
-#             {"pattern": "(4x,2)(2,4x)", "hands": },
-#             {"pattern": "(4x,2)(2,4x)", "hands": },
-#             {"pattern": "33333423", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": },
-#             {"pattern": "3", "hands": }
+             {"pattern": "333355500"},
+             {"pattern": "(4x,2)(2,4x)", "hands": "(-25,-15)(25,30).(17.5,45)(10,45).(17.5,45)(10,45).(-25,-15)(25,30)."},
+             {"pattern": "(4x,2)(2,4x)", "hands": "(-7.5,-15)(30,50).(0,40)(0,35).(0,40)(0,35).(-7.5,-15)(30,50)."},
+             {"pattern": "33333423", "hands": "(-7.5,20)(32.5).(10)(32.5).(10)(32.5).(10)(32.5).(10)(30,35).(5)(32.5).(0,35)(0,30).(-10)(32.5)."},
+             {"pattern": "3", "hands": "(45,20)(52.5,45)."},
+             {"pattern": "3", "hands": "(10)(35,15).(10)(20).(35,15)(20)."},
+             {"pattern": "3", "hands": "(7.5,95)(30,95)."},
+             {"pattern": "3", "hands": "(32.5)(10)."},
+             {"pattern": "3", "hands": "(30)(-20)."},
+             {"pattern": "3", "hands": "(10)(32.5).(10)(32.5).(10)(32.5).(32.5)(25).(10)(-32.5,25).(20,-10)(32.5,-15).(0,10)(32.5).(10)(32.5)."},
+             {"pattern": "3", "hands": "(7.5,-10)(32.5,-15).(32.5)(25).(10)(-32.5,25)."},
+             {"pattern": "3", "hands": "(10)(32.5).(10)(32.5).(10)(32.5).(32.5)(25,20).(10,-15)(-40,-15).(10,20)(32.5,15).(0)(32.5).(10)(32.5)."},
+             {"pattern": "3", "hands": "(7.5,20)(32.5,15).(32.5)(25,20).(10)(-32.5,-25)."},
+             {"pattern": "3", "hands": "(-30)(-10)."}
              # TODO: Add the remaining tricks
              ]
     for i in range(len(trick)):
         db.insert("Trick", {"PATTERN": trick[i]["pattern"],
-                            "ID_PROP": (trick[i]["prop"] if "prop" in trick[i] else 1),
-                            "ID_HANDS": (trick[i]["hands"] if "hands" in trick[i] else 1),
-                            "ID_BODY": (trick[i]["body"] if "body" in trick[i] else 1),
+                            "ID_PROP": (db.find_id("PROP", {"CODE": trick[i]["prop"]}) if "prop" in trick[i] else 1),
+                            "ID_HANDS": (db.find_id("HANDS", {"CODE": trick[i]["hands"]}) if "hands" in trick[i] else 1),
+                            "ID_BODY": (db.find_id("BODY", {"CODE": trick[i]["body"]}) if "body" in trick[i] else 1),
                             "XML_DISPLAY_LINE_NUMBER": i})
 
     ############################################################################
     ################################ COLLECTION ################################
     ############################################################################
-    collection = [
-                  # Tutorials
-                  "3-Cascade Step By Step",
-                  "4-Fountain Step By Step",
-                  "5-Cascade Step By Step",
-                  # Pattern List
-                  "3-Cascade Tricks"
-                  # TODO: Add the remaining collections
-                  ]
-    for i in range(len(collection)):
+    for i in range(23):
         db.insert("Collection", {"XML_LINE_NUMBER": i})
 
     ############################################################################
@@ -368,7 +389,7 @@ def main():
     ############################################################################
     ############################# TRICKCOLLECTION ##############################
     ############################################################################
-    three_cascade_tricks = [{} for i in range(1)]  # TODO: Change 1 to 14 when the tricks will be in the DB
+    three_cascade_tricks = [{} for i in range(14)]
     # TODO: Add the remaining links between the tricks and the collections
     trickcollection = [three_cascade_tricks]
     for i in range(len(trickcollection)):
