@@ -53,6 +53,32 @@
 		<item>None (prime only)</item>
 	</string-array>
 
+    <string-array name="collection">
+        <item>3-Cascade Step By Step</item>
+        <item>4-Fountain Step By Step</item>
+        <item>5-Cascade Step By Step</item>
+        <item>3-Cascade Tricks</item>
+        <item>3-ball Tricks</item>
+        <item>4-ball Tricks</item>
+        <item>5-ball Tricks</item>
+        <item>Shower</item>
+        <item>Mills Mess</item>
+        <item>Box</item>
+        <item>Columns</item>
+        <item>One Hand Tricks</item>
+        <item>Site Swaps</item>
+        <item>Multiplex</item>
+        <item>Synchronous</item>
+        <item>Numbers</item>
+        <item>Are You God?</item>
+        <item>Tricks by Isaac Orr</item>
+        <item>Tricks by JAG</item>
+        <item>Multiplex mills mess</item>
+        <item>Patterns by PWN</item>
+        <item>Patterns By Scotch Tom</item>
+        <item>Stupid Patterns By Chunky Kibbles</item>
+    </string-array>
+
 	<string-array name="trick">
 		<item>1 Ball out of a 3-Cascade</item>
 		<item>Throw Twice</item>
@@ -71,6 +97,19 @@
 		<item>552</item>
 		<item>5551</item>
 		<item>5-Cascade</item>
-		<item>3-ball Flash</item>
+        <item>3-ball Flash</item>
+        <item>Chop</item>
+        <item>Eating Apples</item>
+        <item>Eating an Apple (for light eaters)</item>
+        <item>Wide Cascade</item>
+        <item>Juggler\'s Tennis</item>
+        <item>Over the Head</item>
+        <item>Reverse Cascade</item>
+        <item>Wide Reverse Cascade</item>
+        <item>Reachover</item>
+        <item>Reachover (alternate)</item>
+        <item>Reachunder</item>
+        <item>Reachunder (alternate)</item>
+        <item>Crossed Arm Reverse</item>
 	</string-array>
 </resources>
