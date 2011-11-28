@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO Romain: Supprimer les arrays qui sont maintenant dans la BDD -->
 <resources>
 	<string-array name="hand_movement">
 		<item>Default</item>
 		<item>Inside throws</item>
 		<item>Outside throws</item>
 		<item>Half shower</item>
+        <item>Shower</item>
 		<item>Mills Mess</item>
+        <item>Windmill</item>
+        <item>Center</item>
 		<item>Backcrosses</item>
 		<item>Backshoulders</item>
 		<item>Backcatches</item>
 		<item>Custom</item>
-	</string-array>
-	
-	<string-array name="hand_movement_values">
-		<item></item>
-		<item>(10)(32.5).</item>
-		<item>(32.5)(10).</item>
-		<item>(32.5)(10).(10)(32.5).</item>
-		<item>(-30)(2.5).(30)(-2.5).(-30)(0).</item>
-		<item>(-10,0,-50)(20,0,0).</item>
-		<item>(25,0,-50)(0,0,0).</item>
-		<item>(0,0,0)(25,0,-50).</item>
-		<item></item>
 	</string-array>
 
 	<string-array name="body_movement">
@@ -33,16 +23,6 @@
 		<item>Side to side</item>
 		<item>Circles</item>
 		<item>Custom</item>
-	</string-array>
-
-	<string-array name="body_movement_values">
-		<item></item>
-		<item>&lt;(90).|(270,-125).|(90,125).|(270,-250).|(90,250).|(270,-375).&gt;</item>
-		<item>&lt;(90).|(270,-150,50).|(270,-150,-50).|(270,-150,150).|(270,-150,-150).&gt;</item>
-		<item>&lt;(270).|(90,-50).|(0,-25,25).|(180,-25,-25).&gt;</item>
-		<item>&lt;(0).|(0,100).|(0,-100).|(0,200).|(0,-200).|(0,300).&gt;</item>
-		<item>(0,75,0)...(90,0,75)...(180,-75,0)...(270,0,-75)...</item>
-		<item></item>
 	</string-array>
 
 	<string-array name="prop_type">

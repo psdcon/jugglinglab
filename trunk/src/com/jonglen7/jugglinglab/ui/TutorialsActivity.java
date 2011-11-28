@@ -49,7 +49,7 @@ public class TutorialsActivity extends GDListActivity {
     	
 		HashMap<String, String> map;
 		
-		// TODO Gérer les DESCRIPTION et CUSTOM_*
+		// TODO Romain: Gérer DESCRIPTION et CUSTOM_*
 	 	String query = "SELECT T.PATTERN, H.CODE, B.CODE, P.CODE, T.XML_DISPLAY_LINE_NUMBER, TT.ID_COLLECTION, TT.STEP, C.XML_LINE_NUMBER " +
 	 					"FROM Trick T, Hands H, Body B, Prop P, TrickTutorial TT, Collection C " +
 	 					"WHERE T.ID_HANDS=H.ID_HANDS " + 

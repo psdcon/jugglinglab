@@ -124,10 +124,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	// to you to create adapters for your views.
 
 	public static Cursor execQuery(Context context, String query, String[] selectionArgs) {
+		// FIXME Romain: Leak found (java.lang.IllegalStateException: /data/data/com.jonglen7.jugglinglab/databases/BDD.db SQLiteDatabase created and never closed)
     	DataBaseHelper myDbHelper = new DataBaseHelper(context);
-    	 
+    	
         try {
-        	// XXX A modifier lors de la livraison !
+        	// XXX Romain: A modifier lors de la livraison !
         	boolean debug = true;
         	myDbHelper.createDataBase(debug);
 	 	} catch (IOException ioe) {
