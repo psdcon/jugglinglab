@@ -1,3 +1,5 @@
+// http://www.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
+
 package com.jonglen7.jugglinglab.util;
 
 import java.io.FileOutputStream;
@@ -123,14 +125,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	// You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
 	// to you to create adapters for your views.
 
-	public static Cursor execQuery(Context context, String query, String[] selectionArgs) {
-		// FIXME Romain: Leak found (java.lang.IllegalStateException: /data/data/com.jonglen7.jugglinglab/databases/BDD.db SQLiteDatabase created and never closed)
-    	DataBaseHelper myDbHelper = new DataBaseHelper(context);
-    	
-        try {
-        	// XXX Romain: A modifier lors de la livraison !
-        	boolean debug = true;
-        	myDbHelper.createDataBase(debug);
+	public Cursor execQuery(String query) {
+		Cursor cursor = null;
+		try{
+			cursor = myDataBase.rawQuery(query, null);
+	    }catch(SQLException sqle){
+	 		throw sqle;
+	    }
+		return cursor;
+	}
+
+	public static DataBaseHelper init(Context context) {
+		DataBaseHelper myDbHelper = new DataBaseHelper(context);
+		
+	    try {
+	    	// XXX Romain: A modifier lors de la livraison !
+	    	boolean debug = true;
+	    	myDbHelper.createDataBase(debug);
 	 	} catch (IOException ioe) {
 	 		throw new Error("Unable to create database");
 	 	}
@@ -140,10 +151,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	 	}catch(SQLException sqle){
 	 		throw sqle;
 	 	}
-
-	 	myDbHelper.close();
-
-		return myDbHelper.getReadableDatabase().rawQuery(query, selectionArgs);
+	
+		return myDbHelper;
 	}
 	
 }

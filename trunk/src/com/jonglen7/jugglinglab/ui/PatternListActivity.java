@@ -21,6 +21,8 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
 public class PatternListActivity extends GDListActivity {
+
+	DataBaseHelper myDbHelper;
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
@@ -30,6 +32,8 @@ public class PatternListActivity extends GDListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_pattern_list);
+
+        myDbHelper = DataBaseHelper.init(this);
         
         pattern_list = new ArrayList<PatternRecord>();
         
@@ -41,6 +45,8 @@ public class PatternListActivity extends GDListActivity {
         ListView listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
         listView.setAdapter(mSchedule);
+
+        myDbHelper.close();
     }
 
     // TODO: Just a copy/paste of the methods in TutorialsActivity to see if it works, so it might needs some changes
@@ -57,7 +63,7 @@ public class PatternListActivity extends GDListActivity {
 	 					"AND T.ID_TRICK=TC.ID_TRICK " +
 	 					"AND TC.ID_COLLECTION=C.ID_COLLECTION " +
 	 					"ORDER BY TC.ID_COLLECTION";
-	 	Cursor cursor = DataBaseHelper.execQuery(this, query, null);
+    	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
 
     	String[] trick = getResources().getStringArray(R.array.trick);
