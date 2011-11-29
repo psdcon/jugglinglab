@@ -451,9 +451,55 @@ def main():
              {"pattern": "5", "hands": "(30,15)(0,15).(-15)(15).(0,15)(-30,15).(15)(-30).(-30,15)(15,15).(-30)(0).(15,15)(-15,15).(0)(30).(-15,15)(30,15).(30)(-15)."},
              {"pattern": "(6,6)", "hands": "(37.5)(22.5).(37.5)(22.5).(22.5)(7.5).(22.5)(7.5).(7.5)(37.5).(7.5)(37.5)."},
              {"pattern": "([46],[46])(0,6)(2,2)", "hands": "(32.5)(32.5).(32.5)(0).(32.5)(32.5).(0)(32.5).(32.5)(32.5).(32.5)(32.5)."},
-             # TODO: One Hand Tricks
-             # TODO: Siteswaps
-             # TODO: Multiplex
+             # One Hand Tricks
+             {"pattern": "40", "hands": "(0)(25).(32.5)(32.5).(25)(0).(32.5)(32.5)."},
+             {"pattern": "60"},
+             {"pattern": "[46]06020"},
+             {"pattern": "[46]06020[46]06020[46]060606060606020"},
+             {"pattern": "8040"},
+             {"pattern": "60", "hands": "(-5)(15).(32.5)(32.5).(15)(35).(32.5)(32.5).(35)(-5).(32.5)(32.5)."},
+             {"pattern": "60", "hands": "(5)(45).(32.5)(32.5).(25)(-15).(32.5)(32.5)."},
+             # Siteswaps
+             {"pattern": "33333333333333535051515151515151512441441441441441441"},
+             {"pattern": "53"},
+             {"pattern": "44453"},
+             {"pattern": "501"},
+             {"pattern": "531"},
+             {"pattern": "561"},
+             {"pattern": "450"},
+             {"pattern": "453"},
+             {"pattern": "720"},
+             {"pattern": "753"},
+             {"pattern": "741"},
+             {"pattern": "744"},
+             {"pattern": "6424"},
+             {"pattern": "64"},
+             {"pattern": "66661"},
+             {"pattern": "61616"},
+             {"pattern": "5241"},
+             {"pattern": "72312"},
+             {"pattern": "7272712"},
+             {"pattern": "51414"},
+             {"pattern": "7161616"},
+             {"pattern": "88333"},
+             {"pattern": "75751"},
+             {"pattern": "123456789"},
+             # Multiplex
+             {"pattern": "[34]1"},
+             {"pattern": "4[43]1"},
+             {"pattern": "[22]5[22]0[54]020"},
+             {"pattern": "[54]225[22]2"},
+             {"pattern": "[54][22]2"},
+             {"pattern": "555555522[54][22]2[54][22]2[54][22]2[52][52][52]"},
+             {"pattern": "555555522[54][22]2[54][22]2[54][22]2[54][52]"},
+             {"pattern": "[54]24522"},
+             {"pattern": "24[54]"},
+             {"pattern": "25[75]51"},
+             {"pattern": "[456][22]2"},
+             {"pattern": "([66x],2)(2,[66x])"},
+             {"pattern": "26[76]"},
+             {"pattern": "[234]57"},
+             {"pattern": "[54]"}
              # TODO: Synchronous
              # TODO: Numbers
              # TODO: Are You God?
@@ -502,10 +548,10 @@ def main():
     mills_mess = [{} for i in range(21)]
     box = [{} for i in range(9)]
     columns = [{} for i in range(12)]
+    one_hand_tricks = [{} for i in range(7)]
+    siteswaps = [{} for i in range(24)]
+    multiplex = [{} for i in range(15)]
     # TODO: Change the ranges when the tricks will be added to the DB
-    one_hand_tricks = [{} for i in range(0)]
-    siteswaps = [{} for i in range(0)]
-    multiplex = [{} for i in range(0)]
     synchronous = [{} for i in range(0)]
     numbers = [{} for i in range(0)]
     are_you_god = [{} for i in range(0)]
