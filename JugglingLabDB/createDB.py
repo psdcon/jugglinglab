@@ -679,10 +679,62 @@ def main():
              {"pattern": "[54][22]2", "hands": "(-30)(2.5).(30)(-2.5).(-30)(0)."},
              {"pattern": "24[54]", "hands": "(-30)(2.5).(30)(-2.5).(-30)(0)."},
              {"pattern": "[34]23", "hands": "(-30)(2.5).(30)(-2.5).(-30)(0)."},
-             {"pattern": "(6x,[4x4])(0,4x)(2,4x)([4x4],6x)(4x,0)(4x,2)", "hands": "(-30)(2.5).(30)(-2.5).(-30)(0)."}
-             # TODO: Patterns by PWN
-             # TODO: Patterns By Scotch Tom
-             # TODO: Stupid Patterns By Chunky Kibbles
+             {"pattern": "(6x,[4x4])(0,4x)(2,4x)([4x4],6x)(4x,0)(4x,2)", "hands": "(-30)(2.5).(30)(-2.5).(-30)(0)."},
+             # Patterns by PWN
+             {"pattern": "1[35]0"},
+             {"pattern": "[34]"},
+             {"pattern": "23[34]"},
+             {"pattern": "20[34]"},
+             {"pattern": "53[34]"},
+             {"pattern": "26[34]20[34]23[34]"},
+             {"pattern": "23[22]0[222]0[223]0[23]"},
+             {"pattern": "333323[22]0[222]0[223]0[23]"},
+             {"pattern": "[357]0030333323[22]0"},
+             {"pattern": "[135]30333323[22]0"},
+             {"pattern": "55550"},
+             {"pattern": "5551"},
+             {"pattern": "552"},
+             {"pattern": "53"},
+             {"pattern": "555504"},
+             {"pattern": "55514"},
+             {"pattern": "5524"},
+             {"pattern": "534"},
+             {"pattern": "666660"},
+             {"pattern": "66661"},
+             {"pattern": "6662"},
+             {"pattern": "663"},
+             {"pattern": "64"},
+             {"pattern": "6666605"},
+             {"pattern": "666615"},
+             {"pattern": "66625"},
+             {"pattern": "6635"},
+             {"pattern": "645"},
+             {"pattern": "7777770"},
+             {"pattern": "777771"},
+             {"pattern": "77772"},
+             {"pattern": "7773"},
+             {"pattern": "774"},
+             {"pattern": "75"},
+             {"pattern": "77777706"},
+             {"pattern": "7777716"},
+             {"pattern": "777726"},
+             {"pattern": "77736"},
+             {"pattern": "7746"},
+             {"pattern": "756"},
+             # Patterns By Scotch Tom
+             {"pattern": "12340"},
+             {"pattern": "40303"},
+             {"pattern": "4040303"},
+             {"pattern": "b444b333444"},
+             # Stupid Patterns By Chunky Kibbles
+             {"pattern": "xvtrpnljhfdb97531"},
+             {"pattern": "[rstuvw]"},
+             {"pattern": "[mnopqrstuvw]"},
+             {"pattern": "[123456789abcdefghijklmnopqrstuvw]"},
+             {"pattern": "[oqsuwy]0"},
+             {"pattern": "[31]"},
+             {"pattern": "[51]"},
+             {"pattern": "[71]"}
              ]
     for i in range(len(trick)):
         db.insert("Trick", {"PATTERN": trick[i]["pattern"],
@@ -731,10 +783,9 @@ def main():
     tricks_by_isaac_orr = [{} for i in range(142)]
     tricks_by_jag = [{} for i in range(2)]
     multiplex_mills_mess = [{} for i in range(4)]
-    # TODO: Change the ranges when the tricks will be added to the DB
-    patterns_by_pwn = [{} for i in range(0)]
-    patterns_by_scotch_tom = [{} for i in range(0)]
-    stupid_patterns_by_chunky_kibbles = [{} for i in range(0)]
+    patterns_by_pwn = [{} for i in range(40)]
+    patterns_by_scotch_tom = [{} for i in range(4)]
+    stupid_patterns_by_chunky_kibbles = [{} for i in range(8)]
     trickcollection = [three_cascade_tricks,
                        three_ball_tricks,
                        four_ball_tricks,
