@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +29,8 @@ import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
 public class PatternEntryActivity extends GDActivity {
 
+	DataBaseHelper myDbHelper;
+	
     /** Pattern. */
 	TextView txt_pattern;
 	EditText edit_pattern;
@@ -76,6 +77,8 @@ public class PatternEntryActivity extends GDActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern_entry);
 
+        myDbHelper = DataBaseHelper.init(this);
+        
         /** Pattern. */
         txt_pattern = (TextView) findViewById(R.id.pattern_entry_txt_pattern);
         edit_pattern = (EditText) findViewById(R.id.pattern_entry_edit_pattern);
@@ -133,6 +136,8 @@ public class PatternEntryActivity extends GDActivity {
         
     	/** Normal or advanced mode. */
         switchDisplayMode();
+
+        myDbHelper.close();
     }
 
 	/** Called when the activity is resumed. */
@@ -302,8 +307,8 @@ public class PatternEntryActivity extends GDActivity {
     	String query = "SELECT CODE, XML_LINE_NUMBER, CUSTOM_DISPLAY " +
     					"FROM HANDS " +
     					"ORDER BY ID_HANDS";
-    	
-    	Cursor cursor = DataBaseHelper.execQuery(this, query, null);
+
+    	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
         
         int hand_movement_custom_count = 0;
@@ -347,7 +352,7 @@ public class PatternEntryActivity extends GDActivity {
     					"FROM BODY " +
     					"ORDER BY ID_BODY";
     	
-    	Cursor cursor = DataBaseHelper.execQuery(this, query, null);
+    	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
         
         int body_movement_custom_count = 0;
@@ -391,7 +396,7 @@ public class PatternEntryActivity extends GDActivity {
     					"FROM PROP " +
     					"ORDER BY ID_PROP";
     	
-    	Cursor cursor = DataBaseHelper.execQuery(this, query, null);
+    	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
 
     	String[] prop_type = getResources().getStringArray(R.array.prop_type);
