@@ -499,10 +499,36 @@ def main():
              {"pattern": "([66x],2)(2,[66x])"},
              {"pattern": "26[76]"},
              {"pattern": "[234]57"},
-             {"pattern": "[54]"}
-             # TODO: Synchronous
-             # TODO: Numbers
-             # TODO: Are You God?
+             {"pattern": "[54]"},
+             # Synchronous
+             {"pattern": "(2,4x)(4x,2)"},
+             {"pattern": "(0,6x)(6x,0)"},
+             {"pattern": "(2x,6x)(6x,2x)"},
+             {"pattern": "(4x,2x)(2,4)"},
+             {"pattern": "(4x,6)(0,2x)"},
+             {"pattern": "(2,6x)(2x,6)(6x,2)(6,2x)"},
+             {"pattern": "(2,4)([44x],2x)"},
+             {"pattern": "(2,[62])([22],6x)([62],2)(6x,[22])"},
+             {"pattern": "(6,6)"},
+             # Numbers
+             {"pattern": "91"},
+             {"pattern": "b1"},
+             {"pattern": "d1"},
+             {"pattern": "6"},
+             {"pattern": "7"},
+             {"pattern": "8"},
+             {"pattern": "9"},
+             # Are You God?
+             {"pattern": "z"},
+             {"pattern": "z1"},
+             {"pattern": "[9bdfh][11111]"},
+             {"pattern": "333666999cccfffiiilll"},
+             {"pattern": "[b9753]0020[22]0[222]0[2222]0"},
+             {"pattern": "123456789abcdefghijklmnopqrstuv"},
+             {"pattern": "u1q1m1i1e1a1612"},
+             {"pattern": "xvtrpnljhfdb97531"},
+             {"pattern": "ken"},
+             {"pattern": "[56789]"}
              # TODO: Tricks by Isaac Orr
              # TODO: Tricks by JAG
              # TODO: Multiplex mills mess
@@ -551,10 +577,10 @@ def main():
     one_hand_tricks = [{} for i in range(7)]
     siteswaps = [{} for i in range(24)]
     multiplex = [{} for i in range(15)]
+    synchronous = [{} for i in range(9)]
+    numbers = [{} for i in range(7)]
+    are_you_god = [{} for i in range(10)]
     # TODO: Change the ranges when the tricks will be added to the DB
-    synchronous = [{} for i in range(0)]
-    numbers = [{} for i in range(0)]
-    are_you_god = [{} for i in range(0)]
     tricks_by_isaac_orr = [{} for i in range(0)]
     tricks_by_jag = [{} for i in range(0)]
     multiplex_mills_mess = [{} for i in range(0)]
