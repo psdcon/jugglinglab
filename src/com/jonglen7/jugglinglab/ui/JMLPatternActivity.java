@@ -52,6 +52,8 @@ public class JMLPatternActivity extends GDActivity {
     	
         pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
 
+        setTitle(pattern_record.getDisplay());
+
         // 2D Square
         /*
         GLSurfaceView view = new GLSurfaceView(this);
@@ -80,7 +82,6 @@ public class JMLPatternActivity extends GDActivity {
     	GLSurfaceView view = (GLSurfaceView) findViewById(R.id.surface);
         view.setRenderer(renderer);
         //setContentView(view);
-
     }
     
     /** Compute JMLPattern from the PatternRecord **/

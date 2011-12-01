@@ -54,6 +54,8 @@ public class GeneratorListActivity extends GDListActivity {
         /** The ArrayList that will populate the ListView. */
         ArrayList<HashMap<String, String>> listItem = createPatternList();
         
+        setTitle(listItem.size() + " patterns found");
+        
         SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
                new String[] {"list_item_text"}, new int[] {R.id.list_item_text});
         
