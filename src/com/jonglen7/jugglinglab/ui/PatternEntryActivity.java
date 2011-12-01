@@ -103,6 +103,9 @@ public class PatternEntryActivity extends GDActivity {
         for (int i=0; i<prop_types.size(); i++) adapter_prop_type.add(prop_types.get(i).get(0));
         adapter_prop_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_prop_type.setAdapter(adapter_prop_type);
+        // TODO Fred: Delete the setVisibility() calls when ready
+        txt_prop_type.setVisibility(View.GONE);
+        spinner_prop_type.setVisibility(View.GONE);
         
         /** Dwell beats. */
         txt_dwell_beats = (TextView) findViewById(R.id.pattern_entry_txt_dwell_beats);

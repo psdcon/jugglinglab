@@ -51,6 +51,7 @@
         </LinearLayout>
     </LinearLayout>
     
+    <!-- TODO Romain: Uncomment when ready:
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -72,4 +73,5 @@
                 android:text="@string/home_btn_video"/>
         </LinearLayout>
     </LinearLayout>
+    -->
 </LinearLayout>

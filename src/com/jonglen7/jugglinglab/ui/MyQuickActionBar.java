@@ -11,24 +11,23 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Toast;
 import greendroid.widget.QuickAction;
-import greendroid.widget.QuickActionGrid;
+import greendroid.widget.QuickActionBar;
 import greendroid.widget.QuickActionWidget;
 
-public class MyQuickActionGrid extends QuickActionGrid {
+public class MyQuickActionBar extends QuickActionBar {
 	
-	// TODO: Change the images showing in the QuickActionGrid and implement the onQuickActionClicked method
+	// TODO: Change the images showing in the QuickActionBar and implement the onQuickActionClicked method
 	
 	Context context;
 	PatternRecord pattern_record;
 
-	public MyQuickActionGrid(Context context) {
+	public MyQuickActionBar(Context context) {
 		super(context);
 		this.context = context;
         this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_star, R.string.gd_star));
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_export, R.string.gd_export));
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_add, R.string.gd_add));
+        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_add, R.string.quickactions_catches));
         this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_share, R.string.gd_share));
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_info, R.string.gd_info));
+        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_info, R.string.quickactions_stats));
 
         this.setOnQuickActionClickListener(mActionListener);
 	}

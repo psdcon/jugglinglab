@@ -30,7 +30,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
 	ArrayList<ArrayList<PatternRecord>> pattern_list;
 
     /** QuickAction. */
-    MyQuickActionGrid quickActionGrid;
+    MyQuickActionBar quickActionBar;
     
     /** Called when the activity is first created. */
     @Override
@@ -59,13 +59,13 @@ public class TutorialsActivity extends GDExpandableListActivity {
         
         ExpandableListView expandableListView = getExpandableListView();
         expandableListView.setOnChildClickListener(childClickListener);
-        expandableListView.setOnItemLongClickListener(itemLongClickListener);
+        // TODO: Uncomment when ready: expandableListView.setOnItemLongClickListener(itemLongClickListener);
         expandableListView.setAdapter(mSchedule);
 
         myDbHelper.close();
         
         /** QuickAction. */
-        quickActionGrid = new MyQuickActionGrid(this);
+        quickActionBar = new MyQuickActionBar(this);
     }
 
     private ArrayList<HashMap<String, String>> createGroupList() {
@@ -197,7 +197,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
 			if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
 	            int groupPosition = ExpandableListView.getPackedPositionGroup(id);
 	            int childPosition = ExpandableListView.getPackedPositionChild(id);
-	            quickActionGrid.show(view, pattern_list.get(groupPosition).get(childPosition));
+	            quickActionBar.show(view, pattern_list.get(groupPosition).get(childPosition));
 	            return true;
 	        }
 	        return false;

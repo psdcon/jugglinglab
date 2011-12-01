@@ -136,21 +136,22 @@ public class JMLPatternActivity extends GDActivity {
     }
     
     /** Menu button. */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-            	startActivity(new Intent(this, SettingsAnimationActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    // TODO Fred: Uncomment when ready:
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_settings:
+//            	startActivity(new Intent(this, SettingsAnimationActivity.class));
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     
 }

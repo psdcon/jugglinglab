@@ -20,10 +20,10 @@
         android:layout_weight="1">
     
         <TextView
-           android:id="@+id/about_txt_todo"
+           android:id="@+id/about_txt"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_txt_todo"/>
+            android:text="@string/about_txt"/>
 
     </FrameLayout>
 

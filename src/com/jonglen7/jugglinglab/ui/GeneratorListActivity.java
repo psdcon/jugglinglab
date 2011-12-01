@@ -43,7 +43,7 @@ public class GeneratorListActivity extends GDListActivity {
     ListView listView;
 
     /** QuickAction. */
-    MyQuickActionGrid quickActionGrid;
+    MyQuickActionBar quickActionBar;
     
     /** Called when the activity is first created. */
     @Override
@@ -61,11 +61,11 @@ public class GeneratorListActivity extends GDListActivity {
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
-        listView.setOnItemLongClickListener(itemLongClickListener);
+        // TODO: Uncomment when ready: listView.setOnItemLongClickListener(itemLongClickListener);
         listView.setAdapter(mSchedule);
         
         /** QuickAction. */
-        quickActionGrid = new MyQuickActionGrid(this);
+        quickActionBar = new MyQuickActionBar(this);
     }
     
     private ArrayList<HashMap<String, String>> createPatternList() {
@@ -145,7 +145,7 @@ public class GeneratorListActivity extends GDListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position));
+			quickActionBar.show(view, pattern_list.get(position));
 			return true;
 		}
 	};
