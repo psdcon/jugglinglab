@@ -106,6 +106,9 @@ public class GeneratorActivity extends GDActivity {
         ArrayAdapter<CharSequence> adapter_jugglers = ArrayAdapter.createFromResource(this, R.array.jugglers, android.R.layout.simple_spinner_item);
         adapter_jugglers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_jugglers.setAdapter(adapter_jugglers);
+        // TODO Fred: Delete the setVisibility() calls when ready
+        txt_jugglers.setVisibility(View.GONE);
+        spinner_jugglers.setVisibility(View.GONE);
         
         /** Compositions. */
         txt_compositions = (TextView) findViewById(R.id.generator_txt_compositions);
