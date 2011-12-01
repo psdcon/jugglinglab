@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.SimpleExpandableListAdapter;
@@ -26,6 +28,9 @@ public class TutorialsActivity extends GDExpandableListActivity {
     
     /** Pattern list. */
 	ArrayList<ArrayList<PatternRecord>> pattern_list;
+
+    /** QuickAction. */
+    MyQuickActionGrid quickActionGrid;
     
     /** Called when the activity is first created. */
     @Override
@@ -54,9 +59,13 @@ public class TutorialsActivity extends GDExpandableListActivity {
         
         ExpandableListView expandableListView = getExpandableListView();
         expandableListView.setOnChildClickListener(childClickListener);
+        expandableListView.setOnItemLongClickListener(itemLongClickListener);
         expandableListView.setAdapter(mSchedule);
 
         myDbHelper.close();
+        
+        /** QuickAction. */
+        quickActionGrid = new MyQuickActionGrid(this);
     }
 
     private ArrayList<HashMap<String, String>> createGroupList() {
@@ -178,5 +187,22 @@ public class TutorialsActivity extends GDExpandableListActivity {
 		}
     	
     };
+
+    /** QuickAction. */
+    private OnItemLongClickListener itemLongClickListener = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+			// Hack Romain: there is no OnChildLongClickListener so I found this hack here http://stackoverflow.com/a/8320128
+			if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+	            int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+	            int childPosition = ExpandableListView.getPackedPositionChild(id);
+	            quickActionGrid.show(view, pattern_list.get(groupPosition).get(childPosition));
+	            return true;
+	        }
+	        return false;
+		}
+		
+	};
 
 }

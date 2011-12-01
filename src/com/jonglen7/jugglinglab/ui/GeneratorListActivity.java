@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -37,9 +38,12 @@ public class GeneratorListActivity extends GDListActivity {
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
     //ArrayList<String> pattern_list_display;
-    
-    /** ListView */
+
+    /** ListView. */
     ListView listView;
+
+    /** QuickAction. */
+    MyQuickActionGrid quickActionGrid;
     
     /** Called when the activity is first created. */
     @Override
@@ -55,7 +59,11 @@ public class GeneratorListActivity extends GDListActivity {
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
+        listView.setOnItemLongClickListener(itemLongClickListener);
         listView.setAdapter(mSchedule);
+        
+        /** QuickAction. */
+        quickActionGrid = new MyQuickActionGrid(this);
     }
     
     private ArrayList<HashMap<String, String>> createPatternList() {
@@ -129,5 +137,15 @@ public class GeneratorListActivity extends GDListActivity {
 		}
     	
     };
+
+    /** QuickAction. */
+    private OnItemLongClickListener itemLongClickListener = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+			quickActionGrid.show(view, pattern_list.get(position));
+			return true;
+		}
+	};
     
 }
