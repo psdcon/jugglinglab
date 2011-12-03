@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="@string/settings_animation_category_animation">
+		<!-- TODO Fred: BPS, Dwell, Speed, Hands movement, Body movement, ... -->
+	</PreferenceCategory>
+	
+	<!--  Background Color -->
+	<PreferenceCategory android:title="@string/settings_animation_category_background">			
+		<com.jonglen7.jugglinglab.ui.ColorPickerPreference
+				android:key="backgroundColorPicker" 
+				android:title="@string/settings_animation_category_background_color" />
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/settings_animation_category_prop">
+		<PreferenceScreen
+			android:title="@string/settings_animation_category_prop_type">
+		</PreferenceScreen>
+		
+		<!--  Props Color -->
+		<PreferenceScreen
+			android:key="colorPrefScreen" android:title="@string/settings_animation_category_prop_color">
+		</PreferenceScreen>
+
+		<PreferenceScreen
+			android:title="@string/settings_animation_category_prop_size">
+		</PreferenceScreen>
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/settings_animation_category_juggler">
+		<!-- TODO Fred: Male/Female -->
+		<EditTextPreference
+			android:key="juggler_height"
+			android:title="@string/settings_animation_txt_juggler_height_title"
+			android:summary="@string/settings_animation_txt_juggler_height_summary"
+			android:numeric="integer"
+			android:defaultValue="170"/>
+		<EditTextPreference
+			android:key="juggler_weight"
+			android:title="@string/settings_animation_txt_juggler_weight_title"
+			android:summary="@string/settings_animation_txt_juggler_weight_summary"
+			android:numeric="integer"
+			android:defaultValue="60"/>
+		<!-- TODO Fred: Color of : skin, hair, eyes, shirt, pants, ... -->
+		<PreferenceScreen
+			android:title="@string/settings_animation_category_juggler_hat">
+		</PreferenceScreen>
+		<PreferenceScreen
+			android:title="@string/settings_animation_category_juggler_glasses">
+		</PreferenceScreen>
+		<PreferenceScreen
+			android:title="@string/settings_animation_category_juggler_beard">
+		</PreferenceScreen>
+	</PreferenceCategory>
+		
+</PreferenceScreen>

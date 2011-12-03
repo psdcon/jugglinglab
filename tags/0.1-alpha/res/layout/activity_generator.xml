@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<greendroid.widget.ActionBarHost
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/gd_action_bar_host"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <greendroid.widget.ActionBar
+        android:id="@id/gd_action_bar"
+        android:layout_height="@dimen/gd_action_bar_height"
+        android:layout_width="fill_parent"
+        android:background="?attr/gdActionBarBackground" />
+
+    <FrameLayout
+        android:id="@id/gd_action_bar_content_view"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="1">
+    
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    
+            <Button
+                android:id="@+id/generator_btn_run"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:onClick="onRunClick"
+                android:text="@string/generator_btn_run"/>
+    
+            <ScrollView
+                android:id="@+id/generator_scrollview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@id/generator_btn_run">
+
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+            
+                    <!-- Balls -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_balls"
+                            android:text="@string/generator_txt_balls"
+                            style="@style/TableRowLeft"/>
+                        <EditText
+                            android:id="@+id/generator_edit_balls"
+                            android:numeric="integer"
+                            android:text="@string/generator_edit_balls"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+            
+                    <!-- Max. throw -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_max_throw"
+                            android:text="@string/generator_txt_max_throw"
+                            style="@style/TableRowLeft"/>
+                        <EditText
+                            android:id="@+id/generator_edit_max_throw"
+                            android:numeric="integer"
+                            android:text="@string/generator_edit_max_throw"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                
+                    <!-- Rhythm -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_rhythm"
+                            android:text="@string/generator_txt_rhythm"
+                            style="@style/TableRowLeft"/>
+                        <Spinner
+                            android:id="@+id/generator_spinner_rhythm"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                
+                    <!-- Jugglers -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_jugglers"
+                            android:text="@string/generator_txt_jugglers"
+                            style="@style/TableRowLeft"/>
+                        <Spinner
+                            android:id="@+id/generator_spinner_jugglers"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+            
+                    <!-- Period -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_period"
+                            android:text="@string/generator_txt_period"
+                            style="@style/TableRowLeft"/>
+                        <EditText
+                            android:id="@+id/generator_edit_period"
+                            android:numeric="integer"
+                            android:text="@string/generator_edit_period"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                
+                    <!-- Composition -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_compositions"
+                            android:text="@string/generator_txt_compositions"
+                            style="@style/TableRowLeft"/>
+                        <Spinner
+                            android:id="@+id/generator_spinner_compositions"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                
+                    <!-- Find -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_find"
+                            android:text="@string/generator_txt_find"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_ground_state_patterns"
+                            android:checked="true"
+                            android:text="@string/generator_cb_ground_state_patterns"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_excited_state_patterns"
+                            android:checked="true"
+                            android:text="@string/generator_cb_excited_state_patterns"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_transition_throws"
+                            android:text="@string/generator_cb_transition_throws"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_pattern_rotations"
+                            android:text="@string/generator_cb_pattern_rotations"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_juggler_permutations"
+                            android:text="@string/generator_cb_juggler_permutations"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_connected_patterns_only"
+                            android:checked="true"
+                            android:text="@string/generator_cb_connected_patterns_only"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    
+                    <!-- Multiplexing -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_multiplexing"
+                            android:text="@string/generator_txt_multiplexing"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_enable"
+                            android:text="@string/generator_cb_enable"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <TextView
+                            android:id="@+id/generator_txt_simultaneous_throws"
+                            android:enabled="false"
+                            android:text="@string/generator_txt_simultaneous_throws"
+                            style="@style/TableRowRight1"/>
+                        <EditText
+                            android:id="@+id/generator_edit_simultaneous_throws"
+                            android:enabled="false"
+                            android:numeric="integer"
+                            android:text="@string/generator_edit_simultaneous_throws"
+                            style="@style/TableRowRight2"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_no_simultaneous_catches"
+                            android:checked="true"
+                            android:enabled="false"
+                            android:text="@string/generator_cb_no_simultaneous_catches"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_no_clustered_throws"
+                            android:enabled="false"
+                            android:text="@string/generator_cb_no_clustered_throws"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                    <TableRow>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:visible="false"
+                            style="@style/TableRowLeft"/>
+                        <CheckBox
+                            android:id="@+id/generator_cb_true_multiplexing_only"
+                            android:enabled="false"
+                            android:text="@string/generator_cb_true_multiplexing_only"
+                            style="@style/TableRowRight"/>
+                    </TableRow>
+                
+                    <!-- Exclude / Include -->
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_exclude_these_expressions"
+                            android:text="@string/generator_txt_exclude_these_expressions"
+                            style="@style/TableRowLeft"/>
+                        <EditText
+                            android:id="@+id/generator_edit_exclude_these_expressions"
+                            style="@style/TableRowRight3"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_include_these_expressions"
+                            android:text="@string/generator_txt_include_these_expressions"
+                            style="@style/TableRowLeft"/>
+                        <EditText
+                            android:id="@+id/generator_edit_include_these_expressions"
+                            style="@style/TableRowRight3"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/generator_txt_passing_communication_delay"
+                            android:text="@string/generator_txt_passing_communication_delay"
+                            style="@style/TableRowLeft"/>
+                        <EditText
+                            android:id="@+id/generator_edit_passing_communication_delay"
+                            android:numeric="integer"
+                            android:text="@string/generator_edit_passing_communication_delay"
+                            style="@style/TableRowRight3"/>
+                    </TableRow>
+            
+                </TableLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+</greendroid.widget.ActionBarHost>
