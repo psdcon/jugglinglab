@@ -61,7 +61,7 @@ public class GeneratorListActivity extends GDListActivity {
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
-        // TODO: Uncomment when ready: listView.setOnItemLongClickListener(itemLongClickListener);
+        // TODO Romain: Uncomment when ready: listView.setOnItemLongClickListener(itemLongClickListener);
         listView.setAdapter(mSchedule);
         
         /** QuickAction. */

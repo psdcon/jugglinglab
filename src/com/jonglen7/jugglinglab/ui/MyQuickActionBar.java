@@ -16,7 +16,7 @@ import greendroid.widget.QuickActionWidget;
 
 public class MyQuickActionBar extends QuickActionBar {
 	
-	// TODO: Change the images showing in the QuickActionBar and implement the onQuickActionClicked method
+	// TODO Romain: Change the images showing in the QuickActionBar and implement the onQuickActionClicked method
 	
 	Context context;
 	PatternRecord pattern_record;

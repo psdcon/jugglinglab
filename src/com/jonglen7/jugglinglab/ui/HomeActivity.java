@@ -25,7 +25,7 @@ public class HomeActivity extends GDActivity {
 
         addActionBarItem(getActionBar()
                 .newActionBarItem(NormalActionBarItem.class)
-                .setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_info)), R.id.action_bar_view_info);
+                .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_info)), R.id.action_bar_view_info);
     }
 
     /** ActionBar. */

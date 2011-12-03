@@ -43,6 +43,10 @@ public class JMLPatternActivity extends GDActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
         
+        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
+        // http://android.cyrilmottier.com/?p=450
+        // That might be necessary because computation takes some time
+        
         // Get the PatternRecord.
         Bundle extras = getIntent().getExtras();
         if (extras== null){
@@ -136,7 +140,7 @@ public class JMLPatternActivity extends GDActivity {
     }
     
     /** Menu button. */
-    // TODO Fred: Uncomment when ready:
+    // TODO Fred: Uncomment when ready
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater = getMenuInflater();

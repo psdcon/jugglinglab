@@ -262,7 +262,7 @@ public class Juggler {
 	
 	
 	//
-	// TODO : Here, for just one juggler, Implement for numerous jugglers
+	// TODO Fred: Here, for just one juggler, Implement for numerous jugglers
 	public void MathVectorToVertices(){
 		
 		int juggler = this.nbJuggler;

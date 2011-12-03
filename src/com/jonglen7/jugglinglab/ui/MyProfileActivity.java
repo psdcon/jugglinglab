@@ -41,12 +41,13 @@ public class MyProfileActivity extends GDTabActivity {
         return super.onOptionsItemSelected(item);
     }
     
+    /** Tabs. */
 	private void buildTabs(){
         tabHost = getTabHost();
 
-        tabHost.addTab(tabHost.newTabSpec("tab_favs").setIndicator(getString(R.string.my_profile_tab_favs)).setContent(R.id.my_profile_content));
-        tabHost.addTab(tabHost.newTabSpec("tab_practising").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(R.id.my_profile_content));
-        tabHost.addTab(tabHost.newTabSpec("tab_juggler").setIndicator(getString(R.string.my_profile_tab_juggler)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_starred").setIndicator(getString(R.string.my_profile_tab_starred)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_goals").setIndicator(getString(R.string.my_profile_tab_goals)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_practicing").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(R.id.my_profile_content));
 
         tabHost.setCurrentTab(0);
 	}

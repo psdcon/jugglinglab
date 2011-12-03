@@ -8,7 +8,7 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/foreground1</item>
+        <item name="android:textColor">@color/foreground2</item>
         <item name="android:background">@null</item>
     </style>
 
@@ -18,5 +18,32 @@
     
     <style name="TextAppearanceLarge" parent="@style/TextAppearance.Large">
         <item name="android:textSize">18sp</item>
+    </style>
+    
+    <style name="TableRow">
+        <item name="android:width">0dip</item>
+    </style>
+    
+    <style name="TableRowLeft" parent="@style/TableRow">
+        <item name="android:layout_weight">.5</item>
+    </style>
+    
+    <style name="TableRowRight" parent="@style/TableRow">
+        <item name="android:layout_weight">.5</item>
+        <item name="android:layout_marginRight">3dip</item>
+    </style>
+    
+    <style name="TableRowRight1" parent="@style/TableRow">
+        <item name="android:layout_weight">.3</item>
+        <item name="android:paddingLeft">9dip</item>
+        <item name="android:paddingRight">9dip</item>
+    </style>
+    
+    <style name="TableRowRight2" parent="@style/TableRowRight">
+        <item name="android:layout_weight">.2</item>
+    </style>
+    
+    <style name="TableRowRight3" parent="@style/TableRowRight">
+        <item name="android:layout_weight">.1</item>
     </style>
 </resources>
