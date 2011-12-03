@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory android:title="@string/settings_animation_category_animation">
-		<!-- TODO: BPS, Dwell, Speed, Hands movement, Body movement, ... -->
+		<!-- TODO Fred: BPS, Dwell, Speed, Hands movement, Body movement, ... -->
 	</PreferenceCategory>
 	
 	<!--  Background Color -->
@@ -29,7 +29,7 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/settings_animation_category_juggler">
-		<!-- TODO: Male/Female -->
+		<!-- TODO Fred: Male/Female -->
 		<EditTextPreference
 			android:key="juggler_height"
 			android:title="@string/settings_animation_txt_juggler_height_title"
@@ -42,7 +42,7 @@
 			android:summary="@string/settings_animation_txt_juggler_weight_summary"
 			android:numeric="integer"
 			android:defaultValue="60"/>
-		<!-- TODO: Color of : skin, hair, eyes, shirt, pants, ... -->
+		<!-- TODO Fred: Color of : skin, hair, eyes, shirt, pants, ... -->
 		<PreferenceScreen
 			android:title="@string/settings_animation_category_juggler_hat">
 		</PreferenceScreen>

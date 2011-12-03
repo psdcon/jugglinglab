@@ -59,7 +59,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
         
         ExpandableListView expandableListView = getExpandableListView();
         expandableListView.setOnChildClickListener(childClickListener);
-        // TODO: Uncomment when ready: expandableListView.setOnItemLongClickListener(itemLongClickListener);
+        // TODO Romain: Uncomment when ready: expandableListView.setOnItemLongClickListener(itemLongClickListener);
         expandableListView.setAdapter(mSchedule);
 
         myDbHelper.close();

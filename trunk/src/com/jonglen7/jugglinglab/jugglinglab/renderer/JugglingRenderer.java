@@ -68,7 +68,7 @@ public class JugglingRenderer implements Renderer {
 		this.overallmax= new Coordinate(40.0f, 175.0f, 35.0f);
 		this.tempc = new Coordinate();
 		
-		// TODO: Implements for multiple jugglers
+		// TODO Fred: Implements for multiple jugglers
 		this.juggler = new Juggler(1);  
 		//juggler = new FakeJuggler();
 		

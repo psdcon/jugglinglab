@@ -112,14 +112,14 @@ public class PatternEntryActivity extends GDActivity {
         txt_dwell_beats_progress = (TextView) findViewById(R.id.pattern_entry_txt_dwell_beats_progress);
         seekbar_dwell_beats = (SeekBar) findViewById(R.id.pattern_entry_seekbar_dwell_beats);
         seekbar_dwell_beats.setOnSeekBarChangeListener(seekBarChangeListenerDwellBeats);
-    	txt_dwell_beats_progress.setText(" " + (seekbar_dwell_beats.getProgress()/10.) + " ");
+    	txt_dwell_beats_progress.setText(" " + ((seekbar_dwell_beats.getProgress() + 1)/10.) + " ");
         
         /** Beats per second. */
     	txt_beats_per_second = (TextView) findViewById(R.id.pattern_entry_txt_beats_per_second);
         txt_beats_per_second_progress = (TextView) findViewById(R.id.pattern_entry_txt_beats_per_second_progress);
         seekbar_beats_per_second = (SeekBar) findViewById(R.id.pattern_entry_seekbar_beats_per_second);
         seekbar_beats_per_second.setOnSeekBarChangeListener(seekBarChangeListenerBeatsPerSecond);
-        txt_beats_per_second_progress.setText(" " + seekbar_beats_per_second.getProgress() + " ");
+        txt_beats_per_second_progress.setText(" " + (seekbar_beats_per_second.getProgress() + 1) + " ");
 
         /** Body movement. */
         txt_body_movement = (TextView) findViewById(R.id.pattern_entry_txt_body_movement);
@@ -278,7 +278,7 @@ public class PatternEntryActivity extends GDActivity {
 
 	    @Override
 	    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-	    	txt_dwell_beats_progress.setText(" " + (seekbar_dwell_beats.getProgress()/10.) + " ");
+	    	txt_dwell_beats_progress.setText(" " + ((seekbar_dwell_beats.getProgress() + 1)/10.) + " ");
 	    }
 	    
 	    @Override
@@ -293,7 +293,7 @@ public class PatternEntryActivity extends GDActivity {
 
 	    @Override
 	    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-	    	txt_beats_per_second_progress.setText(" " + seekbar_beats_per_second.getProgress() + " ");
+	    	txt_beats_per_second_progress.setText(" " + (seekbar_beats_per_second.getProgress() + 1) + " ");
 	    }
 	    
 	    @Override

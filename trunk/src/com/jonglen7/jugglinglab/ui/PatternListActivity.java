@@ -59,7 +59,7 @@ public class PatternListActivity extends GDExpandableListActivity {
         
         ExpandableListView expandableListView = getExpandableListView();
         expandableListView.setOnChildClickListener(childClickListener);
-        // TODO: Uncomment when ready: expandableListView.setOnItemLongClickListener(itemLongClickListener);
+        // TODO Romain: Uncomment when ready: expandableListView.setOnItemLongClickListener(itemLongClickListener);
         expandableListView.setAdapter(mSchedule);
 
         myDbHelper.close();
@@ -68,7 +68,7 @@ public class PatternListActivity extends GDExpandableListActivity {
         quickActionBar = new MyQuickActionBar(this);
     }
 
-    // TODO: Just a copy/paste of the methods in TutorialsActivity to see if it works, so it might needs some changes
+    // TODO Romain: Just a copy/paste of the methods in TutorialsActivity to see if it works, so it might needs some changes
     private ArrayList<HashMap<String, String>> createGroupList() {
     	ArrayList<HashMap<String, String>> listGroup = new ArrayList<HashMap<String, String>>();
     	
