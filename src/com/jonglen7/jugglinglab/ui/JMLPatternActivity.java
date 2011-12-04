@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.jonglen7.jugglinglab.R;
@@ -35,6 +36,7 @@ public class JMLPatternActivity extends GDActivity {
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
+	boolean isOnPause = false;
 
     /** Called when the activity is first created. */
     @Override
@@ -125,6 +127,16 @@ public class JMLPatternActivity extends GDActivity {
     	Log.v("JMLPatternActivity", pattern.toString());
     	
     	return pattern;
+    }
+    
+    // TODO Fred: J'ai fais ça vite fait pour pauser/reprendre l'anim, il y a peut-être (surement) mieux
+    public void pause(View view) {
+    	if (isOnPause) {
+    		((GLSurfaceView) view).onResume();
+    	} else {
+    		((GLSurfaceView) view).onPause();
+    	}
+    	isOnPause = !isOnPause;
     }
     
 	/** Called when the activity is paused. */

@@ -21,11 +21,12 @@
 
 	<style name="Theme.GDCatalog" parent="@style/Theme.GreenDroid.NoTitleBar">
 	
-		<item name="gdActionBarTitleColor">@android:color/white</item>
+		<item name="gdActionBarTitleColor">@color/orange</item>
 		<item name="gdActionBarBackground">@drawable/action_bar_background</item>
 		<item name="gdActionBarDividerDrawable">@drawable/action_bar_divider</item>
 		<item name="gdActionBarDividerWidth">2px</item>
         <item name="gdActionBarApplicationDrawable">@drawable/jugglinglab_application_logo</item>
+        <item name="gdActionBarItemColorNormal">@color/orange</item>
 	
 	</style>
     
