@@ -179,6 +179,7 @@ def main():
                      ("ID_PROP", "INTEGER NOT NULL"),
                      ("ID_HANDS", "INTEGER NOT NULL"),
                      ("ID_BODY", "INTEGER NOT NULL"),
+                     ("STARRED", "INTEGER"),
                      ("XML_DISPLAY_LINE_NUMBER", "INTEGER"),
                      ("XML_DESCRIPTION_LINE_NUMBER", "INTEGER"),
                      ("CUSTOM_DISPLAY", "TEXT"),
