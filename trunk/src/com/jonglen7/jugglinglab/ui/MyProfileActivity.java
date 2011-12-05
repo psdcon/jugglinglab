@@ -19,7 +19,6 @@ public class MyProfileActivity extends GDTabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
-        
         buildTabs();
     }
     
@@ -44,10 +43,11 @@ public class MyProfileActivity extends GDTabActivity {
     /** Tabs. */
 	private void buildTabs(){
         tabHost = getTabHost();
+        Intent intent = new Intent(this, MyProfileTabActivity.class);
 
-        tabHost.addTab(tabHost.newTabSpec("tab_starred").setIndicator(getString(R.string.my_profile_tab_starred)).setContent(R.id.my_profile_content));
-        tabHost.addTab(tabHost.newTabSpec("tab_goals").setIndicator(getString(R.string.my_profile_tab_goals)).setContent(R.id.my_profile_content));
-        tabHost.addTab(tabHost.newTabSpec("tab_practicing").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(R.id.my_profile_content));
+        tabHost.addTab(tabHost.newTabSpec("tab_starred").setIndicator(getString(R.string.my_profile_tab_starred)).setContent(intent.putExtra("tab", "starred")));
+        tabHost.addTab(tabHost.newTabSpec("tab_goals").setIndicator(getString(R.string.my_profile_tab_goals)).setContent(intent.putExtra("tab", "goals")));
+        tabHost.addTab(tabHost.newTabSpec("tab_practicing").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(intent.putExtra("tab", "practicing")));
 
         tabHost.setCurrentTab(0);
 	}

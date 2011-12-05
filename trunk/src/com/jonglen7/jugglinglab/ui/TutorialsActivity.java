@@ -24,6 +24,7 @@ import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
 public class TutorialsActivity extends GDExpandableListActivity {
 
+	/** DataBase. */
 	DataBaseHelper myDbHelper;
     
     /** Pattern list. */
@@ -103,7 +104,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
 		HashMap<String, String> map;
 		
 		// TODO Romain: Gérer DESCRIPTION et CUSTOM_*
-	 	String query = "SELECT T.PATTERN, H.CODE, B.CODE, P.CODE, T.XML_DISPLAY_LINE_NUMBER, TT.ID_COLLECTION, TT.STEP, C.XML_LINE_NUMBER " +
+	 	String query = "SELECT T.PATTERN, H.CODE AS HANDS, B.CODE AS BODY, P.CODE AS PROP, T.XML_DISPLAY_LINE_NUMBER, TT.ID_COLLECTION, TT.STEP, C.XML_LINE_NUMBER " +
 	 					"FROM Trick T, Hands H, Body B, Prop P, TrickTutorial TT, Collection C " +
 	 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 	 					"AND T.ID_BODY=B.ID_BODY " +
@@ -136,7 +137,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
         		lastCollection = collection;
         	}
         	collectionTricks.add(map);
-        	patterns.add(new PatternRecord(display, "", "siteswap", createAnim(cursor)));
+        	patterns.add(new PatternRecord(display, "", "siteswap", cursor));
             cursor.moveToNext();
         }
         if (collectionTricks != null) {
@@ -147,15 +148,6 @@ public class TutorialsActivity extends GDExpandableListActivity {
 	 	cursor.close();
     	
 		return listItem;
-	}
-
-	private String createAnim(Cursor cursor) {
-		String anim = "";
-		anim += "pattern=" + cursor.getString(cursor.getColumnIndex("PATTERN"));
-		anim += ";hands=" + cursor.getString(1);
-		anim += ";body=" + cursor.getString(2);
-		anim += ";prop=" + cursor.getString(3);
-		return anim;
 	}
     
     /** Menu button. */

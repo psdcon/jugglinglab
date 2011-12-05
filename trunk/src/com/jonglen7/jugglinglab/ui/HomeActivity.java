@@ -1,16 +1,15 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import greendroid.app.GDActivity;
-import greendroid.graphics.drawable.ActionBarDrawable;
-import greendroid.widget.ActionBarItem;
-import greendroid.widget.NormalActionBarItem;
 
 import com.jonglen7.jugglinglab.R;
 

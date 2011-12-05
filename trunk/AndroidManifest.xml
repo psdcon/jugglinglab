@@ -17,6 +17,7 @@
         <activity android:name=".ui.TutorialsActivity" android:label="@string/tutorials_title"></activity>
         <activity android:name=".ui.PatternListActivity" android:label="@string/pattern_list_title"></activity>
         <activity android:name=".ui.MyProfileActivity" android:label="@string/my_profile_title"></activity>
+        <activity android:name=".ui.MyProfileTabActivity"></activity>
         <activity android:name=".ui.VideoActivity" android:label="@string/video_title"></activity>
         <activity android:name=".ui.SettingsHomeActivity"></activity>
         <activity android:name=".ui.SettingsAnimationActivity"></activity>

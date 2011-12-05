@@ -1,8 +1,8 @@
 package com.jonglen7.jugglinglab.ui;
 
-import com.jonglen7.jugglinglab.R;
-import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
-
+import greendroid.widget.QuickAction;
+import greendroid.widget.QuickActionBar;
+import greendroid.widget.QuickActionWidget;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -10,9 +10,9 @@ import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Toast;
-import greendroid.widget.QuickAction;
-import greendroid.widget.QuickActionBar;
-import greendroid.widget.QuickActionWidget;
+
+import com.jonglen7.jugglinglab.R;
+import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 
 public class MyQuickActionBar extends QuickActionBar {
 	
