@@ -24,6 +24,7 @@ import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
 public class PatternListActivity extends GDExpandableListActivity {
 
+	/** DataBase. */
 	DataBaseHelper myDbHelper;
     
     /** Pattern list. */
@@ -104,7 +105,7 @@ public class PatternListActivity extends GDExpandableListActivity {
 		HashMap<String, String> map;
 		
 		// TODO Romain: Gérer DESCRIPTION et CUSTOM_*
-	 	String query = "SELECT T.PATTERN, H.CODE, B.CODE, P.CODE, T.XML_DISPLAY_LINE_NUMBER, TC.ID_COLLECTION, C.XML_LINE_NUMBER " +
+	 	String query = "SELECT T.PATTERN, H.CODE AS HANDS, B.CODE AS BODY, P.CODE AS PROP, T.XML_DISPLAY_LINE_NUMBER, TC.ID_COLLECTION, C.XML_LINE_NUMBER " +
 					"FROM Trick T, Hands H, Body B, Prop P, TrickCollection TC, Collection C " +
 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 					"AND T.ID_BODY=B.ID_BODY " +
@@ -137,7 +138,7 @@ public class PatternListActivity extends GDExpandableListActivity {
         		lastCollection = collection;
         	}
         	collectionTricks.add(map);
-        	patterns.add(new PatternRecord(display, "", "siteswap", createAnim(cursor)));
+        	patterns.add(new PatternRecord(display, "", "siteswap", cursor));
             cursor.moveToNext();
         }
         if (collectionTricks != null) {
@@ -148,48 +149,6 @@ public class PatternListActivity extends GDExpandableListActivity {
 	 	cursor.close();
     	
 		return listItem;
-	}
-    
-//    private ArrayList<HashMap<String, String>> createPatternList() {
-//    	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-//    	
-//		HashMap<String, String> map;
-//		
-//	 	String query = "SELECT T.PATTERN, H.CODE, B.CODE, P.CODE, T.XML_DISPLAY_LINE_NUMBER, TC.ID_COLLECTION, C.XML_LINE_NUMBER " +
-//	 					"FROM Trick T, Hands H, Body B, Prop P, TrickCollection TC, Collection C " +
-//	 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
-//	 					"AND T.ID_BODY=B.ID_BODY " +
-//	 					"AND T.ID_PROP=P.ID_PROP " +
-//	 					"AND T.ID_TRICK=TC.ID_TRICK " +
-//	 					"AND TC.ID_COLLECTION=C.ID_COLLECTION " +
-//	 					"ORDER BY TC.ID_COLLECTION";
-//    	Cursor cursor = myDbHelper.execQuery(query);
-//        startManagingCursor(cursor);
-//
-//    	String[] trick = getResources().getStringArray(R.array.trick);
-//	 	
-//	 	cursor.moveToFirst();
-//        while (!cursor.isAfterLast()) {
-//        	String display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
-//        	map = new HashMap<String, String>();
-//        	map.put("list_item_text", display);
-//        	listItem.add(map);
-//        	pattern_list.add(new PatternRecord(display, "", "siteswap", createAnim(cursor)));
-//            cursor.moveToNext();
-//        }
-//
-//	 	cursor.close();
-//    	
-//		return listItem;
-//	}
-
-	private String createAnim(Cursor cursor) {
-		String anim = "";
-		anim += "pattern=" + cursor.getString(cursor.getColumnIndex("PATTERN"));
-		anim += ";hands=" + cursor.getString(1);
-		anim += ";body=" + cursor.getString(2);
-		anim += ";prop=" + cursor.getString(3);
-		return anim;
 	}
     
     /** Menu button. */

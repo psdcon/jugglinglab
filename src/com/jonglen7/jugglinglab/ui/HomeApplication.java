@@ -1,8 +1,8 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDApplication;
 import android.content.Intent;
 import android.net.Uri;
-import greendroid.app.GDApplication;
 
 import com.jonglen7.jugglinglab.R;
 

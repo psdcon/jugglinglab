@@ -1,5 +1,6 @@
 package com.jonglen7.jugglinglab.jugglinglab.core;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,6 +20,19 @@ public class PatternRecord implements Parcelable {
         this.notation = not;
         this.anim = ani;
     }
+
+    public PatternRecord(String dis, String ap, String not, Cursor cursor) {
+        this(dis, ap, not, createAnimFromCursor(cursor));
+    }
+
+	private static String createAnimFromCursor(Cursor cursor) {
+		String anim = "";
+		anim += "pattern=" + cursor.getString(cursor.getColumnIndex("PATTERN"));
+		anim += ";hands=" + cursor.getString(cursor.getColumnIndex("HANDS"));
+		anim += ";body=" + cursor.getString(cursor.getColumnIndex("BODY"));
+		anim += ";prop=" + cursor.getString(cursor.getColumnIndex("PROP"));
+		return anim;
+	}
     
     public String getDisplay() {
 		return display;
