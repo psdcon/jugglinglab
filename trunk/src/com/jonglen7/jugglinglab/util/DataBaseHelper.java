@@ -38,8 +38,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	/**
 	 * Creates a empty database on the system and rewrites it with your own database.
 	 */
-	public void createDataBase(boolean debug) throws IOException{
-		boolean dbExist = !debug && checkDataBase();
+	public void createDataBase() throws IOException{
+		boolean dbExist = checkDataBase();
 		if(dbExist){
 			//do nothing - database already exist
 		}else{
@@ -139,9 +139,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		DataBaseHelper myDbHelper = new DataBaseHelper(context);
 		
 	    try {
-	    	// XXX Romain: A modifier lors de la livraison !
-	    	boolean debug = true;
-	    	myDbHelper.createDataBase(debug);
+	    	myDbHelper.createDataBase();
 	 	} catch (IOException ioe) {
 	 		throw new Error("Unable to create database");
 	 	}
