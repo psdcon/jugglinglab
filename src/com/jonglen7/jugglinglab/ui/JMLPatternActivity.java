@@ -1,12 +1,16 @@
 package com.jonglen7.jugglinglab.ui;
 
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 import java.io.IOException;
 import java.io.StringReader;
 
 import org.xml.sax.SAXException;
 
+import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +51,10 @@ public class JMLPatternActivity extends GDActivity {
     	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
+
+        addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+                .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_edit)), R.id.action_bar_edit);
         
         /** QuickAction. */
         quickActionBar = new MyQuickActionBar(this);
@@ -153,7 +161,7 @@ public class JMLPatternActivity extends GDActivity {
 			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
 		}
 		
-    	Log.v("JMLPatternActivity", pattern.toString());
+    	//Log.v("JMLPatternActivity", pattern.toString());
     	
     	return pattern;
     }
@@ -198,6 +206,21 @@ public class JMLPatternActivity extends GDActivity {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
+
+    /** ActionBar. */
+    @Override
+    public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_edit:
+            	Intent intent = new Intent(this, PatternEntryActivity.class);
+            	intent.putExtra("pattern_record", pattern_record);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onHandleActionBarItemClick(item, position);
+        }
+    }
 
 	/** QuickAction. */
 	private OnClickListener clickListener = new OnClickListener() {

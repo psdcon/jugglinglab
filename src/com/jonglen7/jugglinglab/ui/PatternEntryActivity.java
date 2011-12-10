@@ -3,6 +3,7 @@ package com.jonglen7.jugglinglab.ui;
 import greendroid.app.GDActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
@@ -104,8 +107,8 @@ public class PatternEntryActivity extends GDActivity {
         adapter_prop_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_prop_type.setAdapter(adapter_prop_type);
         // TODO Fred: Delete the setVisibility() calls when ready
-        txt_prop_type.setVisibility(View.GONE);
-        spinner_prop_type.setVisibility(View.GONE);
+//        txt_prop_type.setVisibility(View.GONE);
+//        spinner_prop_type.setVisibility(View.GONE);
         
         /** Dwell beats. */
         txt_dwell_beats = (TextView) findViewById(R.id.pattern_entry_txt_dwell_beats);
@@ -141,6 +144,36 @@ public class PatternEntryActivity extends GDActivity {
         switchDisplayMode();
 
         myDbHelper.close();
+        
+        /** Get the PatternRecord. */
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+        	HashMap<String, String> pattern_record_values = ((PatternRecord) extras.getParcelable("pattern_record")).getValuesFromAnim();
+
+        	if (pattern_record_values.get("pattern").length() > 0) {
+                edit_pattern.setText(pattern_record_values.get("pattern"));
+            }
+
+        	if (pattern_record_values.get("hands").length() > 0) {
+                edit_hand_movement.setText(pattern_record_values.get("hands"));
+            }
+
+        	if (pattern_record_values.get("prop").length() > 0) {
+                spinner_prop_type.setSelection(adapter_prop_type.getPosition(pattern_record_values.get("prop")));
+            }
+
+        	if (pattern_record_values.get("dwell").length() > 0) {
+                seekbar_dwell_beats.setProgress((int) (10 * Double.parseDouble(pattern_record_values.get("dwell"))) - 1);
+            }
+
+        	if (pattern_record_values.get("bps").length() > 0) {
+                seekbar_beats_per_second.setProgress(Integer.parseInt(pattern_record_values.get("bps")) - 1);
+            }
+
+        	if (pattern_record_values.get("body").length() > 0) {
+                edit_body_movement.setText(pattern_record_values.get("body"));
+            }
+        }
     }
 
 	/** Called when the activity is resumed. */
