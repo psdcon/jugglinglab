@@ -50,7 +50,7 @@ public class MyQuickActionBar extends QuickActionBar {
             
         	switch (position) {
         	case 0: // Star
-        		HashMap<String, String> values = pattern_record.getValuesForDB();
+        		HashMap<String, String> values = pattern_record.getValuesFromAnim();
         		
         		// Search the DB
     			query = "SELECT T.ID_TRICK, T.STARRED " +

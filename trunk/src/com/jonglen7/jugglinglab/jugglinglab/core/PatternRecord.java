@@ -36,45 +36,61 @@ public class PatternRecord implements Parcelable {
 		return anim;
 	}
 	
-	public HashMap<String, String> getValuesForDB() {
+	public HashMap<String, String> getValuesFromAnim() {
 		HashMap<String, String> values = new HashMap<String, String>();
-		String pattern = this.anim, hands = "", body = "", prop = "";
-		int indexOfPattern, indexOfHands, indexOfBody, indexOfProp;
-		String patternRegExp = "pattern=", handsRegExp = "hands=", bodyRegExp = "body=", propRegExp = "prop=";
+		String pattern = this.anim, hands = "", body = "", prop = "", dwell = "", bps = "";
+		int patternIndex, handsIndex, bodyIndex, propIndex, dwellIndex, bpsIndex;
+		String patternRegExp = "pattern=", handsRegExp = "hands=", bodyRegExp = "body=", propRegExp = "prop=", dwellRegExp = "dwell=", bpsRegExp = "bps=";
 		int end;
 		
-		indexOfPattern = this.anim.indexOf(patternRegExp);
-		if (indexOfPattern >= 0) {
-			end = this.anim.indexOf(";", indexOfPattern + patternRegExp.length());
+		patternIndex = this.anim.indexOf(patternRegExp);
+		if (patternIndex >= 0) {
+			end = this.anim.indexOf(";", patternIndex + patternRegExp.length());
 			if (end < 0) end = this.anim.length();
-			pattern = this.anim.substring(indexOfPattern + patternRegExp.length(), end);
+			pattern = this.anim.substring(patternIndex + patternRegExp.length(), end).trim();
 		}
 		
-		indexOfHands = this.anim.indexOf(handsRegExp);
-		if (indexOfHands >= 0) {
-			end = this.anim.indexOf(";", indexOfHands + handsRegExp.length());
+		handsIndex = this.anim.indexOf(handsRegExp);
+		if (handsIndex >= 0) {
+			end = this.anim.indexOf(";", handsIndex + handsRegExp.length());
 			if (end < 0) end = this.anim.length();
-			hands = this.anim.substring(indexOfHands + handsRegExp.length(), end);
+			hands = this.anim.substring(handsIndex + handsRegExp.length(), end).trim();
 		}
 		
-		indexOfBody = this.anim.indexOf(bodyRegExp);
-		if (indexOfBody >= 0) {
-			end = this.anim.indexOf(";", indexOfBody + bodyRegExp.length());
+		bodyIndex = this.anim.indexOf(bodyRegExp);
+		if (bodyIndex >= 0) {
+			end = this.anim.indexOf(";", bodyIndex + bodyRegExp.length());
 			if (end < 0) end = this.anim.length();
-			body = this.anim.substring(indexOfBody + bodyRegExp.length(), end);
+			body = this.anim.substring(bodyIndex + bodyRegExp.length(), end).trim();
 		}
 		
-		indexOfProp = this.anim.indexOf(propRegExp);
-		if (indexOfProp >= 0) {
-			end = this.anim.indexOf(";", indexOfProp + propRegExp.length());
+		propIndex = this.anim.indexOf(propRegExp);
+		if (propIndex >= 0) {
+			end = this.anim.indexOf(";", propIndex + propRegExp.length());
 			if (end < 0) end = this.anim.length();
-			prop = this.anim.substring(indexOfProp + propRegExp.length(), end);
+			prop = this.anim.substring(propIndex + propRegExp.length(), end).trim();
+		}
+		
+		dwellIndex = this.anim.indexOf(dwellRegExp);
+		if (dwellIndex >= 0) {
+			end = this.anim.indexOf(";", dwellIndex + dwellRegExp.length());
+			if (end < 0) end = this.anim.length();
+			dwell = this.anim.substring(dwellIndex + dwellRegExp.length(), end).trim();
+		}
+		
+		bpsIndex = this.anim.indexOf(bpsRegExp);
+		if (bpsIndex >= 0) {
+			end = this.anim.indexOf(";", bpsIndex + bpsRegExp.length());
+			if (end < 0) end = this.anim.length();
+			bps = this.anim.substring(bpsIndex + bpsRegExp.length(), end).trim();
 		}
 		
 		values.put("pattern", pattern);
 		values.put("hands", hands);
 		values.put("body", body);
 		values.put("prop", prop);
+		values.put("dwell", dwell);
+		values.put("bps", bps);
 		return values;
 	}
     
