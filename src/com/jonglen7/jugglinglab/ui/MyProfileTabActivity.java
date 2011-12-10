@@ -50,7 +50,7 @@ public class MyProfileTabActivity extends ListActivity {
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
-        // TODO Romain: Uncomment when ready: listView.setOnItemLongClickListener(itemLongClickListener);
+        listView.setOnItemLongClickListener(itemLongClickListener);
         listView.setAdapter(mSchedule);
 
         myDbHelper.close();
@@ -67,7 +67,7 @@ public class MyProfileTabActivity extends ListActivity {
 		String query = "";
 		if (tab.equals("starred")) {
 			// TODO Romain: Gérer CUSTOM_* et cie
-		 	query = "SELECT T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
 		 					"FROM Trick T, Hands H, Prop P, Body B " +
 		 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 		 					"AND T.ID_BODY=B.ID_BODY " +
@@ -75,7 +75,7 @@ public class MyProfileTabActivity extends ListActivity {
 		 					"AND T.STARRED=1";
 		} else if (tab.equals("goals")) {
 			// TODO Romain: Gérer CUSTOM_* et cie (date, un seul goal par trick)
-		 	query = "SELECT T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
 		 					"FROM Trick T, Hands H, Prop P, Body B, Goal G " +
 		 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 		 					"AND T.ID_BODY=B.ID_BODY " +
@@ -83,7 +83,7 @@ public class MyProfileTabActivity extends ListActivity {
 		 					"AND T.ID_TRICK=G.ID_TRICK";
 		} else if (tab.equals("practicing")) {
 			// TODO Romain: Gérer CUSTOM_* et cie (date)
-		 	query = "SELECT T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
 		 					"FROM Trick T, Hands H, Prop P, Body B, Catch C " +
 		 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 		 					"AND T.ID_BODY=B.ID_BODY " +
@@ -98,7 +98,10 @@ public class MyProfileTabActivity extends ListActivity {
     	
 	 	cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-        	String display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
+        	String display = cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY"));
+        	if (display == null) {
+            	display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
+        	}
         	map = new HashMap<String, String>();
         	map.put("list_item_text", display);
         	listItem.add(map);

@@ -11,6 +11,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
@@ -37,12 +38,18 @@ public class JMLPatternActivity extends GDActivity {
 	PatternRecord pattern_record = null;
 	boolean isOnPause = false;
 
+    /** QuickAction. */
+    MyQuickActionBar quickActionBar;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
+        
+        /** QuickAction. */
+        quickActionBar = new MyQuickActionBar(this);
         
         // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
         // http://android.cyrilmottier.com/?p=450
@@ -58,6 +65,8 @@ public class JMLPatternActivity extends GDActivity {
         pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
 
         setTitle(pattern_record.getDisplay());
+        
+        getActionBar().setOnClickListener(clickListener);
 
         // 2D Square
         /*
@@ -108,7 +117,6 @@ public class JMLPatternActivity extends GDActivity {
                 //ignorer
             }
         });
-        
     }
     
     /** Compute JMLPattern from the PatternRecord **/
@@ -156,7 +164,6 @@ public class JMLPatternActivity extends GDActivity {
     		((GLSurfaceView) view).onResume();
     	} else {
     		((GLSurfaceView) view).onPause();
-    		
     	}
     	isOnPause = !isOnPause;
     }
@@ -191,5 +198,14 @@ public class JMLPatternActivity extends GDActivity {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
-   
+
+	/** QuickAction. */
+	private OnClickListener clickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View view) {
+			quickActionBar.show(view, pattern_record);
+		}
+	};
+    
 }

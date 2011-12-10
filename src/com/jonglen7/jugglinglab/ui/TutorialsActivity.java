@@ -60,7 +60,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
         
         ExpandableListView expandableListView = getExpandableListView();
         expandableListView.setOnChildClickListener(childClickListener);
-        // TODO Romain: Uncomment when ready: expandableListView.setOnItemLongClickListener(itemLongClickListener);
+        expandableListView.setOnItemLongClickListener(itemLongClickListener);
         expandableListView.setAdapter(mSchedule);
 
         myDbHelper.close();
@@ -104,7 +104,7 @@ public class TutorialsActivity extends GDExpandableListActivity {
 		HashMap<String, String> map;
 		
 		// TODO Romain: Gérer DESCRIPTION et CUSTOM_*
-	 	String query = "SELECT T.PATTERN, H.CODE AS HANDS, B.CODE AS BODY, P.CODE AS PROP, T.XML_DISPLAY_LINE_NUMBER, TT.ID_COLLECTION, TT.STEP, C.XML_LINE_NUMBER " +
+	 	String query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, B.CODE AS BODY, P.CODE AS PROP, T.XML_DISPLAY_LINE_NUMBER, TT.ID_COLLECTION, TT.STEP, C.XML_LINE_NUMBER " +
 	 					"FROM Trick T, Hands H, Body B, Prop P, TrickTutorial TT, Collection C " +
 	 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 	 					"AND T.ID_BODY=B.ID_BODY " +
