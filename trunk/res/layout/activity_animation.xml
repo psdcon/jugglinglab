@@ -19,11 +19,28 @@
         android:layout_width="fill_parent"
         android:layout_weight="1">
     
+    <RelativeLayout
+            android:layout_width="fill_parent"
+          	android:layout_height="fill_parent">
+        
         <android.opengl.GLSurfaceView
             android:id="@+id/surface"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:onClick="pause"/>
+  
+        <SeekBar
+            android:id="@+id/animation_speed_seekbar" 
+          	android:max="19"
+          	android:progress="18"
+          	android:layout_width="fill_parent"
+          	android:layout_height="wrap_content"
+          	android:layout_alignBottom="@id/surface"
+          	android:layout_alignLeft="@id/surface"
+          	android:padding="10dip"/>
+        
+    </RelativeLayout>
+        
 
     </FrameLayout>
 

@@ -378,5 +378,13 @@ public class JugglingRenderer implements Renderer {
     	//Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
     }
     
+	public AnimatorPrefs getPrefs() {
+		return prefs;
+	}
+
+	public void setPrefs(AnimatorPrefs prefs) {
+		this.prefs = prefs;
+	}
+    
 
 }
