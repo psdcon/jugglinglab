@@ -11,9 +11,12 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 import com.jonglen7.jugglinglab.R;
+import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLParser;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
@@ -84,6 +87,28 @@ public class JMLPatternActivity extends GDActivity {
     	GLSurfaceView view = (GLSurfaceView) findViewById(R.id.surface);
         view.setRenderer(renderer);
         //setContentView(view);
+        
+        // Assign Speed SeekBar Listener
+        SeekBar speedSeekbar = (SeekBar) findViewById(R.id.animation_speed_seekbar);
+        speedSeekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+ 
+            public void onProgressChanged(SeekBar seekBar, int progress,
+            boolean fromTouch) {
+
+            	AnimatorPrefs prefs = renderer.getPrefs();
+            	prefs.slowdown = 20 - (double)progress;
+            	renderer.setPrefs(prefs);
+            	renderer.syncToPattern();
+           
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //ignorer
+            }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //ignorer
+            }
+        });
+        
     }
     
     /** Compute JMLPattern from the PatternRecord **/
@@ -131,6 +156,7 @@ public class JMLPatternActivity extends GDActivity {
     		((GLSurfaceView) view).onResume();
     	} else {
     		((GLSurfaceView) view).onPause();
+    		
     	}
     	isOnPause = !isOnPause;
     }
@@ -165,5 +191,5 @@ public class JMLPatternActivity extends GDActivity {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
-    
+   
 }
