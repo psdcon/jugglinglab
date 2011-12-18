@@ -3,7 +3,6 @@ package com.jonglen7.jugglinglab.ui;
 import greendroid.app.GDListActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.jonglen7.jugglinglab.R;
@@ -25,6 +23,7 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.util.ListAdaptater;
 
 public class GeneratorListActivity extends GDListActivity {
 	
@@ -37,39 +36,34 @@ public class GeneratorListActivity extends GDListActivity {
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
-    //ArrayList<String> pattern_list_display;
 
     /** ListView. */
     ListView listView;
 
     /** QuickAction. */
-    MyQuickActionBar quickActionBar;
+    QuickActionBarTrick quickActionBar;
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generator_list);
+        setContentView(R.layout.activity_collection);
         
         /** The ArrayList that will populate the ListView. */
-        ArrayList<HashMap<String, String>> listItem = createPatternList();
+        pattern_list = createPatternList();
         
-        setTitle(listItem.size() + " patterns found");
-        
-        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
-               new String[] {"list_item_text"}, new int[] {R.id.list_item_text});
+        setTitle(pattern_list.size() + " patterns found");
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
-        listView.setAdapter(mSchedule);
+        listView.setAdapter(new ListAdaptater(listView, getLayoutInflater(), pattern_list, this));
         
         /** QuickAction. */
-        quickActionBar = new MyQuickActionBar(this);
+        quickActionBar = new QuickActionBarTrick(this);
     }
-    
-    private ArrayList<HashMap<String, String>> createPatternList() {
-    	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
+
+    private ArrayList<PatternRecord> createPatternList() {
     	
         /** Settings for the generator. */
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -96,19 +90,8 @@ public class GeneratorListActivity extends GDListActivity {
 		} catch (JuggleExceptionUser e) {
 			e.printStackTrace();
 		}
-		
-		/** Pattern list */
-		pattern_list = target.getPattern_list();
-        //pattern_list_display = new ArrayList<String>();
-		HashMap<String, String> map;
-        for (int i=0; i<pattern_list.size(); i++) {
-        	//pattern_list_display.add(pattern_list.get(i).getDisplay());
-        	map = new HashMap<String, String>();
-        	map.put("list_item_text", pattern_list.get(i).getDisplay());
-        	listItem.add(map);
-        }
-        
-        return listItem;
+
+        return target.getPattern_list();
     }
     
     /** Menu button. */

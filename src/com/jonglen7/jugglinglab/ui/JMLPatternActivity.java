@@ -43,7 +43,7 @@ public class JMLPatternActivity extends GDActivity {
 	boolean isOnPause = false;
 
     /** QuickAction. */
-    MyQuickActionBar quickActionBar;
+    QuickActionBarTrick quickActionBar;
 
     /** Called when the activity is first created. */
     @Override
@@ -57,7 +57,7 @@ public class JMLPatternActivity extends GDActivity {
                 .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_edit)), R.id.action_bar_edit);
         
         /** QuickAction. */
-        quickActionBar = new MyQuickActionBar(this);
+        quickActionBar = new QuickActionBarTrick(this);
         
         // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
         // http://android.cyrilmottier.com/?p=450
