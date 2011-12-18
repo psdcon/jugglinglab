@@ -1,7 +1,6 @@
 package com.jonglen7.jugglinglab.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -12,11 +11,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
+import com.jonglen7.jugglinglab.util.ListAdaptater;
 
 public class MyProfileTabActivity extends ListActivity {
 
@@ -30,7 +29,7 @@ public class MyProfileTabActivity extends ListActivity {
     ListView listView;
 
     /** QuickAction. */
-    MyQuickActionBar quickActionBar;
+    QuickActionBarTrick quickActionBar;
 	
     /** Called when the activity is first created. */
     @Override
@@ -40,29 +39,22 @@ public class MyProfileTabActivity extends ListActivity {
 
         myDbHelper = DataBaseHelper.init(this);
         
-        pattern_list = new ArrayList<PatternRecord>();
-        
         /** The ArrayList that will populate the ListView. */
-        ArrayList<HashMap<String, String>> listItem = createPatternList(getIntent().getStringExtra("tab"));
-        
-        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.list_item,
-               new String[] {"list_item_text"}, new int[] {R.id.list_item_text});
+        pattern_list = createPatternList(getIntent().getStringExtra("tab"));
         
         listView = getListView();
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
-        listView.setAdapter(mSchedule);
+        listView.setAdapter(new ListAdaptater(listView, getLayoutInflater(), pattern_list, this));
 
         myDbHelper.close();
         
         /** QuickAction. */
-        quickActionBar = new MyQuickActionBar(this);
+        quickActionBar = new QuickActionBarTrick(this);
     }
     
-    private ArrayList<HashMap<String, String>> createPatternList(String tab) {
-    	ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-    	
-		HashMap<String, String> map;
+    private ArrayList<PatternRecord> createPatternList(String tab) {
+    	ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
 		
 		String query = "";
 		if (tab.equals("starred")) {
@@ -102,16 +94,13 @@ public class MyProfileTabActivity extends ListActivity {
         	if (display == null) {
             	display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
         	}
-        	map = new HashMap<String, String>();
-        	map.put("list_item_text", display);
-        	listItem.add(map);
         	pattern_list.add(new PatternRecord(display, "", "siteswap", cursor));
             cursor.moveToNext();
         }
 
 	 	cursor.close();
-        
-        return listItem;
+	 	
+		return pattern_list;
     }
     
     private OnItemClickListener itemClickListener = new OnItemClickListener() {

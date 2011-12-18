@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="horizontal"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+ 
+    <com.jonglen7.jugglinglab.widget.DontPressWithParentCheckBox
+        android:id="@+id/btn_star"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:button="@android:drawable/btn_star"/>
  
 	<TextView
 		android:id="@+id/list_item_text"
 		android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical">
-	</TextView>
+        android:gravity="center_vertical"/>
 
-</RelativeLayout>
+</LinearLayout>
