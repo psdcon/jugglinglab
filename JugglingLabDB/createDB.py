@@ -179,7 +179,6 @@ def main():
                      ("ID_PROP", "INTEGER NOT NULL"),
                      ("ID_HANDS", "INTEGER NOT NULL"),
                      ("ID_BODY", "INTEGER NOT NULL"),
-                     ("STARRED", "INTEGER"),
                      ("XML_DISPLAY_LINE_NUMBER", "INTEGER"),
                      ("XML_DESCRIPTION_LINE_NUMBER", "INTEGER"),
                      ("CUSTOM_DISPLAY", "TEXT"),
@@ -208,6 +207,7 @@ def main():
 
     db.create_table("Collection",
                     [("ID_COLLECTION", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                     ("IS_TUTORIAL", "INTEGER NOT NULL"),
                      ("XML_LINE_NUMBER", "INTEGER"),
                      ("CUSTOM_DISPLAY", "TEXT")]
                    )
@@ -215,16 +215,8 @@ def main():
     db.create_table("TrickCollection",
                     [("ID_TRICK", "INTEGER NOT NULL"),
                      ("ID_COLLECTION", "INTEGER NOT NULL"),
-                     ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
-                     ("FOREIGN KEY (ID_COLLECTION)", "REFERENCES Collection(ID_COLLECTION)"),
-                     ("PRIMARY KEY (ID_TRICK, ID_COLLECTION)", "")]
-                   )
-
-    db.create_table("TrickTutorial",
-                    [("ID_TRICK", "INTEGER NOT NULL"),
-                     ("ID_COLLECTION", "INTEGER NOT NULL"),
-                     ("STEP", "INTEGER NOT NULL"),
-                     ("GOAL", "INTEGER NOT NULL"),
+                     ("STEP", "INTEGER"),
+                     ("GOAL", "INTEGER"),
                      ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
                      ("FOREIGN KEY (ID_COLLECTION)", "REFERENCES Collection(ID_COLLECTION)"),
                      ("PRIMARY KEY (ID_TRICK, ID_COLLECTION)", "")]
@@ -748,10 +740,10 @@ def main():
     ################################ COLLECTION ################################
     ############################################################################
     for i in range(23):
-        db.insert("Collection", {"XML_LINE_NUMBER": i})
+        db.insert("Collection", {"XML_LINE_NUMBER": i, "IS_TUTORIAL": 1 if i < 3 else 0})
 
     ############################################################################
-    ############################## TRICKTUTORIAL ###############################
+    ############################# TRICKCOLLECTION ##############################
     ############################################################################
     three_cascade_step_by_step = [{"link_values": {"GOAL": 30}} for i in range(5)]
     four_fountain_step_by_step = [{"link_values": {"GOAL": 40}} for i in range(3)]
@@ -761,12 +753,9 @@ def main():
     for i in range(len(tricktutorial)):
         for j in range(len(tricktutorial[i])):
             tricktutorial[i][j]["where"] = {"XML_LINE_NUMBER": i}
-            tricktutorial[i][j]["link_table"] = "TrickTutorial"
+            tricktutorial[i][j]["link_table"] = "TrickCollection"
             tricktutorial[i][j]["link_values"]["STEP"] = j + 1
 
-    ############################################################################
-    ############################# TRICKCOLLECTION ##############################
-    ############################################################################
     three_cascade_tricks = [{} for i in range(14)]
     three_ball_tricks = [{} for i in range(25)]
     four_ball_tricks = [{} for i in range(7)]
@@ -826,9 +815,11 @@ def main():
                        tricktutorialcollection[i]["link_values"] if "link_values" in tricktutorialcollection[i] else {}
                       )
 
+    # Starred
+    db.insert("Collection", {"XML_LINE_NUMBER": 23, "IS_TUTORIAL": 0})
+
     for table in ["PROP", "HANDS", "BODY", "TRICK", "SPIN", "TRICKSPIN",
-                  "COLLECTION", "TRICKCOLLECTION", "TRICKTUTORIAL", "CATCH",
-                  "GOAL", "JUGGLER"]:
+                  "COLLECTION", "TRICKCOLLECTION", "CATCH", "GOAL", "JUGGLER"]:
         db.select(["COUNT(*)"], [table])
         print("{table}: {nb} lines".format(table=table, nb=db.cursor.fetchone()[0]))
 
