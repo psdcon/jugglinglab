@@ -27,5 +27,5 @@
 			android:theme="@android:style/Theme.Dialog" />
         <activity android:name="org.achartengine.GraphicalActivity"></activity>
     </application>
-<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
 </manifest> 

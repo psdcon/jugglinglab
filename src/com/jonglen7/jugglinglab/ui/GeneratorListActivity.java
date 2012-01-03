@@ -23,7 +23,9 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
-import com.jonglen7.jugglinglab.util.ListAdaptater;
+import com.jonglen7.jugglinglab.util.DataBaseHelper;
+import com.jonglen7.jugglinglab.util.MyListAdapter;
+import com.jonglen7.jugglinglab.util.Trick;
 
 public class GeneratorListActivity extends GDListActivity {
 	
@@ -33,6 +35,9 @@ public class GeneratorListActivity extends GDListActivity {
     
     /** GeneratorTarget. */
     GeneratorTarget target;
+
+	/** DataBase. */
+	DataBaseHelper myDbHelper;
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
@@ -41,30 +46,35 @@ public class GeneratorListActivity extends GDListActivity {
     ListView listView;
 
     /** QuickAction. */
-    QuickActionBarTrick quickActionBar;
+    QuickActionGridTrick quickActionBar;
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
+
+        myDbHelper = DataBaseHelper.init(this);
         
         /** The ArrayList that will populate the ListView. */
         pattern_list = createPatternList();
         
         setTitle(pattern_list.size() + " patterns found");
-        
+
         listView = getListView();
+        MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+        
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
-        listView.setAdapter(new ListAdaptater(listView, getLayoutInflater(), pattern_list, this));
+        listView.setAdapter(mSchedule);
+
+        myDbHelper.close();
         
         /** QuickAction. */
-        quickActionBar = new QuickActionBarTrick(this);
+        quickActionBar = new QuickActionGridTrick(this);
     }
 
     private ArrayList<PatternRecord> createPatternList() {
-    	
         /** Settings for the generator. */
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         max_patterns = Integer.parseInt(preferences.getString("generator_max_patterns", "100"));
@@ -91,7 +101,16 @@ public class GeneratorListActivity extends GDListActivity {
 			e.printStackTrace();
 		}
 
-        return target.getPattern_list();
+        ArrayList<PatternRecord> pattern_list = target.getPattern_list();
+        
+        /** Get the names of the patterns (if there is one) */
+        for (PatternRecord pattern_record : pattern_list) {
+        	String display = new Trick(pattern_record, this).getCUSTOM_DISPLAY();
+        	if (display != "") pattern_record.setDisplay(display);
+        	pattern_record.setDisplay(pattern_record.getDisplay().trim());
+        }
+        
+        return pattern_list;
     }
     
     /** Menu button. */

@@ -65,8 +65,9 @@
     <!-- My profile -->
     <string name="my_profile_title">My profile</string>
     <string name="my_profile_tab_starred">Starred</string>
+    <string name="my_profile_tab_unsorted">Unsorted</string>
     <string name="my_profile_tab_goals">Goals</string>
-    <string name="my_profile_tab_practicing">Practicing</string>
+    <string name="my_profile_tab_training">Training</string>
     
     <!-- Video -->
     <string name="video_title">Video</string>
@@ -121,14 +122,12 @@
     <string name="about_txt">Juggling Lab is based on the desktop application also called Juggling Lab http://jugglinglab.sourceforge.net/.\n\nJuggling Lab is an application for creating and animating juggling patterns. Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.</string>
     
     <!-- QuickActions -->
-    <string name="quickactions_fav">Fav</string>
-    <string name="quickactions_catches">Catches</string>
-    <string name="quickactions_goal">Goal</string>
-    <string name="quickactions_share">Share</string>
-    <!-- TODO Romain: See http://android.cyrilmottier.com/?p=288 -->
-    <string name="quickactions_share_working">I am working on the</string>
-    <string name="quickactions_share_thanks">thanks to Juggling Lab for Android !</string>
-    <string name="quickactions_stats">Stats</string>
+    <string name="quickactions_trick_collections">Labels</string>
+    <string name="quickactions_trick_share">Share using</string>
+    <string name="quickactions_trick_share_training">Training %1$s thanks to Juggling Lab for Android !</string>
+    <string name="quickactions_trick_catches">Catches</string>
+    <string name="quickactions_trick_stats">Stats</string>
+    <string name="quickactions_delete">Delete</string>
     
     <!-- Other -->
     <string name="txt_no_patterns">No patterns found!</string>

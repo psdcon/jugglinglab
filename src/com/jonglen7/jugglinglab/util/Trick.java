@@ -1,4 +1,5 @@
 package com.jonglen7.jugglinglab.util;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.ContentValues;
@@ -6,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.jonglen7.jugglinglab.R;
+import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 
 
 public class Trick {
@@ -13,16 +15,18 @@ public class Trick {
 	private HashMap<String, String> pattern_record_values;
 	private Context context;
 	private int ID_TRICK;
-	private int STARRED;
+	private ArrayList<Collection> collections;
 	private String CUSTOM_DISPLAY;
-	
-	public Trick(HashMap<String, String> pattern_record_values, Context context) {
-		this.pattern_record_values = pattern_record_values;
+	private Collection starredCollection;
+
+	public Trick(PatternRecord pattern_record, Context context) {
+		this.pattern_record_values = PatternRecord.animToValues(pattern_record.getAnim());
 		this.context = context;
+		this.collections = new ArrayList<Collection>();
 		DataBaseHelper myDbHelper = DataBaseHelper.init(context);
 
 		Cursor cursor = null;
-		String query = "SELECT T.ID_TRICK, T.STARRED, T.CUSTOM_DISPLAY " +
+		String query = "SELECT T.ID_TRICK, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
 					"FROM Trick T, Hands H, Body B, Prop P " +
 					"WHERE T.ID_HANDS = H.ID_HANDS " +
 					"AND T.ID_BODY = B.ID_BODY " +
@@ -33,20 +37,47 @@ public class Trick {
 		query += (pattern_record_values.get("prop").length() > 0) ? (" AND P.CODE = '" + pattern_record_values.get("prop") + "'") : " AND P.XML_LINE_NUMBER=0";
 		cursor = myDbHelper.execQuery(query);
 		cursor.moveToFirst();
-		
+
+    	String[] trick = context.getResources().getStringArray(R.array.trick);
 		if (!cursor.isAfterLast()) {
 			this.ID_TRICK = cursor.getInt(cursor.getColumnIndex("ID_TRICK"));
-			this.STARRED = cursor.getInt(cursor.getColumnIndex("STARRED"));
-			this.CUSTOM_DISPLAY = cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY"));
+			this.CUSTOM_DISPLAY = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))]);
+
+	    	cursor.close();
+			query = "SELECT C.ID_COLLECTION AS ID_COLLECTION, IS_TUTORIAL, XML_LINE_NUMBER, CUSTOM_DISPLAY " +
+					"FROM TrickCollection TC, Collection C " +
+					"WHERE TC.ID_TRICK=" + this.ID_TRICK + " " +
+					"AND TC.ID_COLLECTION = C.ID_COLLECTION";
+			cursor = myDbHelper.execQuery(query);
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				this.collections.add(new Collection(cursor, context));
+	            cursor.moveToNext();
+			}
 		} else {
 			this.ID_TRICK = -1;
-			this.STARRED = 0;
 			this.CUSTOM_DISPLAY = "";
 		}
 
     	if (cursor != null) cursor.close();
+		
+		query = "SELECT ID_COLLECTION, IS_TUTORIAL, XML_LINE_NUMBER, CUSTOM_DISPLAY " +
+				"FROM Collection " +
+				"WHERE XML_LINE_NUMBER=" + Collection.STARRED_XML_LINE_NUMBER;
+		cursor = myDbHelper.execQuery(query);
+		cursor.moveToFirst();
+		this.starredCollection = new Collection(cursor, context);
+		cursor.close();
 
         myDbHelper.close();
+	}
+
+	public String getCUSTOM_DISPLAY() {
+		return CUSTOM_DISPLAY;
+	}
+	
+	public ArrayList<Collection> getCollections() {
+		return collections;
 	}
 	
 	private void insertInDB() {
@@ -74,6 +105,7 @@ public class Trick {
 			cv.put("CODE", pattern_record_values.get("hands"));
 			ID_HANDS = (int) myDbHelper.getWritableDatabase().insert("Hands", null, cv);
 		}
+    	if (cursor != null) cursor.close();
 
 		// Body
 		int ID_BODY;
@@ -90,6 +122,7 @@ public class Trick {
 			cv.put("CODE", pattern_record_values.get("body"));
 			ID_BODY = (int) myDbHelper.getWritableDatabase().insert("Body", null, cv);
 		}
+    	if (cursor != null) cursor.close();
 
 		// Prop
 		int ID_PROP;
@@ -127,7 +160,6 @@ public class Trick {
 		
 		
 		this.ID_TRICK = (int) myDbHelper.getWritableDatabase().insert("Trick", null, cv);
-		this.STARRED = 0;
 		this.CUSTOM_DISPLAY = display;
 
     	if (cursor != null) cursor.close();
@@ -136,16 +168,50 @@ public class Trick {
 	}
 	
 	public void star() {
+		updateCollection(starredCollection);
+	}
+
+	public void edit(String CUSTOM_DISPLAY) {
+		this.CUSTOM_DISPLAY = CUSTOM_DISPLAY;
 		if (this.ID_TRICK < 0) insertInDB();
 		ContentValues cv = new ContentValues();
-		cv.put("STARRED", 1 - this.STARRED);
+		cv.put("CUSTOM_DISPLAY", this.CUSTOM_DISPLAY);
 		DataBaseHelper myDbHelper = DataBaseHelper.init(this.context);
 		myDbHelper.getWritableDatabase().update("Trick", cv, "ID_TRICK=" + ID_TRICK, null);
         myDbHelper.close();
 	}
+	
+	public void updateCollection(Collection collection) {
+		if (this.ID_TRICK < 0) insertInDB();
+		DataBaseHelper myDbHelper = DataBaseHelper.init(this.context);
 
-	public int getSTARRED() {
-		return STARRED;
+		String query = "SELECT * " +
+						"FROM TrickCollection " +
+						"WHERE ID_COLLECTION=" + collection.getID_COLLECTION();
+		Cursor cursor = myDbHelper.execQuery(query);
+	 	cursor.moveToFirst();
+        cursor.close();
+        
+        int index = collection.indexOf(collections);
+		if (index >= 0) {
+			collections.remove(index);
+			myDbHelper.getWritableDatabase().delete("TrickCollection", "ID_TRICK=" + this.ID_TRICK + " AND ID_COLLECTION=" + collection.getID_COLLECTION(), null);
+		} else{
+			collections.add(collection);
+			ContentValues cv = new ContentValues();
+			cv.put("ID_TRICK", this.ID_TRICK);
+			cv.put("ID_COLLECTION", collection.getID_COLLECTION());
+			myDbHelper.getWritableDatabase().insert("TrickCollection", null, cv);
+		}
+		
+        myDbHelper.close();
+	}
+
+	public void delete() {
+		DataBaseHelper myDbHelper = DataBaseHelper.init(this.context);
+		myDbHelper.getWritableDatabase().delete("Trick", "ID_TRICK=" + this.ID_TRICK, null);
+		myDbHelper.getWritableDatabase().delete("TrickCollection", "ID_TRICK=" + this.ID_TRICK, null);
+        myDbHelper.close();
 	}
 	
 }

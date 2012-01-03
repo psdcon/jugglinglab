@@ -71,14 +71,14 @@ public class HomeActivity extends GDActivity {
     /** Handle "Tutorials" action. */
     public void onTutorialsClick(View v) {
     	Intent i = new Intent(this, CollectionsActivity.class);
-    	i.putExtra("table", "TrickTutorial");
+    	i.putExtra("IS_TUTORIAL", 1);
         startActivity(i);
     }
     
     /** Handle "Pattern List" action. */
     public void onPatternListClick(View v) {
     	Intent i = new Intent(this, CollectionsActivity.class);
-    	i.putExtra("table", "TrickCollection");
+    	i.putExtra("IS_TUTORIAL", 0);
         startActivity(i);
     }
     

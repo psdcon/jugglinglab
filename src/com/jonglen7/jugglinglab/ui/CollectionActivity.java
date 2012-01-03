@@ -20,7 +20,7 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
-import com.jonglen7.jugglinglab.util.ListAdaptater;
+import com.jonglen7.jugglinglab.util.MyListAdapter;
 
 public class CollectionActivity extends GDListActivity {
 
@@ -37,7 +37,7 @@ public class CollectionActivity extends GDListActivity {
     ListView listView;
 
     /** QuickAction. */
-    QuickActionBarTrick quickActionBar;
+    QuickActionGridTrick quickActionBar;
     
     /** Called when the activity is first created. */
     @Override
@@ -55,34 +55,35 @@ public class CollectionActivity extends GDListActivity {
             /** The ArrayList that will populate the ListView. */
             pattern_list = createPatternList();
             
-            setTitle(collection.getDisplay());
-            
+            setTitle(collection.getCUSTOM_DISPLAY());
+
             listView = getListView();
+            MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+            
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
-            listView.setAdapter(new ListAdaptater(listView, getLayoutInflater(), pattern_list, this));
+            listView.setAdapter(mSchedule);
 
             myDbHelper.close();
 
             /** QuickAction. */
-            quickActionBar = new QuickActionBarTrick(this);
+            quickActionBar = new QuickActionGridTrick(this);
         }
     }
 
     private ArrayList<PatternRecord> createPatternList() {
     	ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
 		
-		// TODO Romain: Gérer DESCRIPTION et CUSTOM_*
-	 	String query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, B.CODE AS BODY, P.CODE AS PROP, T.XML_DISPLAY_LINE_NUMBER, TTC.ID_COLLECTION, C.XML_LINE_NUMBER" +
-	 				((collection.getTable().compareTo("TrickTutorial") == 0)? ", TTC.STEP": "") + " " +
-					"FROM Trick T, Hands H, Body B, Prop P, " + collection.getTable() + " TTC, Collection C " +
+	 	String query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, B.CODE AS BODY, P.CODE AS PROP, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY, TC.ID_COLLECTION, C.XML_LINE_NUMBER" +
+	 				((collection.getIS_TUTORIAL() == 1)? ", TC.STEP": "") + " " +
+					"FROM Trick T, Hands H, Body B, Prop P, TrickCollection TC, Collection C " +
 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
 					"AND T.ID_BODY=B.ID_BODY " +
 					"AND T.ID_PROP=P.ID_PROP " +
-					"AND T.ID_TRICK=TTC.ID_TRICK " +
-					"AND TTC.ID_COLLECTION=C.ID_COLLECTION " +
-					"AND TTC.ID_COLLECTION=" + collection.getID_COLLECTION() +
-	 				((collection.getTable().compareTo("TrickTutorial") == 0)? " ORDER BY TTC.STEP": "");
+					"AND T.ID_TRICK=TC.ID_TRICK " +
+					"AND TC.ID_COLLECTION=C.ID_COLLECTION " +
+					"AND TC.ID_COLLECTION=" + collection.getID_COLLECTION() +
+	 				((collection.getIS_TUTORIAL() == 1)? " ORDER BY TC.STEP": "");
     	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
 
@@ -90,7 +91,7 @@ public class CollectionActivity extends GDListActivity {
     	
 	 	cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-        	String display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
+        	String display = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))]);
         	pattern_list.add(new PatternRecord(display, "", "siteswap", cursor));
             cursor.moveToNext();
         }
