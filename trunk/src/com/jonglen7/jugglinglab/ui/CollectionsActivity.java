@@ -1,10 +1,15 @@
 package com.jonglen7.jugglinglab.ui;
 
 import greendroid.app.GDListActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -15,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -24,7 +30,7 @@ import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
 public class CollectionsActivity extends GDListActivity {
 	
-	String table;
+	int IS_TUTORIAL;
 
 	/** DataBase. */
 	DataBaseHelper myDbHelper;
@@ -36,19 +42,23 @@ public class CollectionsActivity extends GDListActivity {
     ListView listView;
 
     /** QuickAction. */
-    QuickActionBarCollection quickActionBar;
+    QuickActionGridCollection quickActionBar;
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-    	table = (String) getIntent().getStringExtra("table");
+        IS_TUTORIAL = getIntent().getIntExtra("IS_TUTORIAL", 0);
     	
-    	setTitle((new HashMap<String, String>() {
-        	{ put("TrickTutorial", getString(R.string.tutorials_title));}
-        	{ put("TrickCollection", getString(R.string.pattern_list_title));}
-        	}).get(table));
+    	setTitle((new HashMap<Integer, String>() {
+        	{ put(0, getString(R.string.pattern_list_title));}
+        	{ put(1, getString(R.string.tutorials_title));}
+        	}).get(IS_TUTORIAL));
+    	
+        addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+                .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_add)), R.id.action_bar_add);
 
         myDbHelper = DataBaseHelper.init(this);
 
@@ -65,27 +75,23 @@ public class CollectionsActivity extends GDListActivity {
         myDbHelper.close();
 
         /** QuickAction. */
-        quickActionBar = new QuickActionBarCollection(this);
+        quickActionBar = new QuickActionGridCollection(this);
     }
 
     private ArrayList<Collection> createCollectionList() {
     	ArrayList<Collection> collections = new ArrayList<Collection>();
 		
-		// TODO Romain: Gérer CUSTOM_*
-	 	String query = "SELECT DISTINCT TT.ID_COLLECTION AS ID_COLLECTION, XML_LINE_NUMBER " +
-	 					"FROM " + table + " TT, Collection C " +
-	 					"WHERE TT.ID_COLLECTION=C.ID_COLLECTION " +
-	 					"ORDER BY TT.ID_COLLECTION";
+	 	String query = "SELECT ID_COLLECTION, IS_TUTORIAL, XML_LINE_NUMBER, CUSTOM_DISPLAY " +
+	 					"FROM Collection C " +
+	 					"WHERE C.IS_TUTORIAL=" + this.IS_TUTORIAL + " " +
+	 					"ORDER BY C.ID_COLLECTION";
     	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
-
-    	String[] collection = getResources().getStringArray(R.array.collection);
     	
 	 	cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-        	int ID_COLLECTION = cursor.getInt(cursor.getColumnIndex("ID_COLLECTION"));
-        	String display = collection[cursor.getInt(cursor.getColumnIndex("XML_LINE_NUMBER"))];
-        	collections.add(new Collection(table, ID_COLLECTION, display));
+        	Collection c = new Collection(cursor, this);
+        	if (!c.isStarred()) collections.add(c);
             cursor.moveToNext();
         }
 
@@ -100,11 +106,42 @@ public class CollectionsActivity extends GDListActivity {
 		HashMap<String, String> map;
     	for (Collection c: collections) {
         	map = new HashMap<String, String>();
-        	map.put("list_group_text", c.getDisplay());
+        	map.put("list_group_text", c.getCUSTOM_DISPLAY());
         	hashmaps.add(map);
     	}
     	
     	return hashmaps;
+    }
+
+    /** ActionBar. */
+    @Override
+    public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_add:
+            	final EditText input = new EditText(this);
+        		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        		builder.setView(input);
+        		builder.setTitle(this.getString(R.string.gd_add));
+        		
+        		builder.setPositiveButton(this.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	        			Collection collection = new Collection(IS_TUTORIAL, CollectionsActivity.this);
+		        		collection.edit(input.getText().toString());
+		        		// TODO Romain (update ListView): Add the name in the ListView
+	        		}
+        		});
+
+        		builder.setNegativeButton(this.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	        			dialog.cancel();
+	        		}
+        		});
+        		builder.show();
+                return true;
+
+            default:
+                return super.onHandleActionBarItemClick(item, position);
+        }
     }
     
     /** Menu button. */

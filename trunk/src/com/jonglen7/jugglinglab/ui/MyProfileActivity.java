@@ -46,7 +46,8 @@ public class MyProfileActivity extends GDTabActivity {
         Intent intent = new Intent(this, MyProfileTabActivity.class);
 
         tabHost.addTab(tabHost.newTabSpec("tab_starred").setIndicator(getString(R.string.my_profile_tab_starred)).setContent(intent.putExtra("tab", "starred")));
-        // TODO Romain: Uncomment when ready
+        tabHost.addTab(tabHost.newTabSpec("tab_unsorted").setIndicator(getString(R.string.my_profile_tab_unsorted)).setContent(intent.putExtra("tab", "unsorted")));
+        // TODO Romain (stats): Uncomment when ready (Goals, practicing)
 //        tabHost.addTab(tabHost.newTabSpec("tab_goals").setIndicator(getString(R.string.my_profile_tab_goals)).setContent(intent.putExtra("tab", "goals")));
 //        tabHost.addTab(tabHost.newTabSpec("tab_practicing").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(intent.putExtra("tab", "practicing")));
 

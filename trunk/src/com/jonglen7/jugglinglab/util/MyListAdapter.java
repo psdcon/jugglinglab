@@ -21,7 +21,7 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
  * 
  * @author Cyril Mottier
  */
-public class ListAdaptater extends BaseAdapter {
+public class MyListAdapter extends BaseAdapter {
 
 	// TODO Romain: Do we need all this ?
 	private ListView listView;
@@ -29,7 +29,7 @@ public class ListAdaptater extends BaseAdapter {
 	private ArrayList<PatternRecord> pattern_list;
 	private Context context;
 
-    public ListAdaptater(ListView listView, LayoutInflater layoutInflater, ArrayList<PatternRecord> pattern_list, Context context) {
+    public MyListAdapter(ListView listView, LayoutInflater layoutInflater, ArrayList<PatternRecord> pattern_list, Context context) {
     	this.listView = listView;
     	this.layoutInflater = layoutInflater;
     	this.pattern_list = pattern_list;
@@ -78,8 +78,15 @@ public class ListAdaptater extends BaseAdapter {
          * our listener by temporary removing the listener.
          */
         holder.star.setOnCheckedChangeListener(null);
-    	Trick trick = new Trick(pattern_list.get(position).getValuesFromAnim(), context);
-    	holder.star.setChecked(trick.getSTARRED() > 0);
+        
+    	// Check if the trick is starred
+        Trick trick = new Trick(pattern_list.get(position), context);
+    	boolean isStarred = false;
+    	for (Collection collection : trick.getCollections()) {
+    		if (collection.isStarred()) isStarred = true;
+    	}
+    	
+    	holder.star.setChecked(isStarred);
         holder.star.setOnCheckedChangeListener(mStarCheckedChanceChangeListener);
 
         holder.list_item_text.setText(this.pattern_list.get(position).getDisplay());
@@ -90,9 +97,10 @@ public class ListAdaptater extends BaseAdapter {
     private OnCheckedChangeListener mStarCheckedChanceChangeListener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        	System.out.println(listView);
             final int position = listView.getPositionForView(buttonView);
             if (position != ListView.INVALID_POSITION) {
-            	Trick trick = new Trick(pattern_list.get(position).getValuesFromAnim(), context);
+            	Trick trick = new Trick(pattern_list.get(position), context);
             	trick.star();
             }
         }

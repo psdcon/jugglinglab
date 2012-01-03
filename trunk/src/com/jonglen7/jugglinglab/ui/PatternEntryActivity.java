@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
+import com.jonglen7.jugglinglab.util.Trick;
 
 public class PatternEntryActivity extends GDActivity {
 
@@ -146,7 +147,7 @@ public class PatternEntryActivity extends GDActivity {
         /** Get the PatternRecord. */
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-        	HashMap<String, String> pattern_record_values = ((PatternRecord) extras.getParcelable("pattern_record")).getValuesFromAnim();
+        	HashMap<String, String> pattern_record_values = PatternRecord.animToValues(((PatternRecord) extras.getParcelable("pattern_record")).getAnim());
 
         	if (pattern_record_values.get("pattern").length() > 0) {
                 edit_pattern.setText(pattern_record_values.get("pattern"));
@@ -223,7 +224,6 @@ public class PatternEntryActivity extends GDActivity {
     	StringBuffer text = new StringBuffer(256);
     	text.append("pattern=" + edit_pattern.getText().toString());
 		text.append((edit_hand_movement.getText().toString().length() > 0) ? (";hands=" + edit_hand_movement.getText().toString()) : "");
-    	//text.append(";prop=" + spinner_prop_type.getSelectedItem().toString().toLowerCase());
     	text.append(";prop=" + prop_types.get(spinner_prop_type.getSelectedItemPosition()).get(1));
     	text.append(";dwell=" + txt_dwell_beats_progress.getText().toString());
     	text.append(";bps=" + txt_beats_per_second_progress.getText().toString());
@@ -234,8 +234,12 @@ public class PatternEntryActivity extends GDActivity {
 		if (spinner_hand_movement.getSelectedItemPosition() != 0 && spinner_hand_movement.getSelectedItemPosition() != spinner_hand_movement.getCount() - 1)
 			display += " " + getResources().getStringArray(R.array.hand_movement)[spinner_hand_movement.getSelectedItemPosition()];
 		
+		PatternRecord pattern_record = new PatternRecord(display, "", "siteswap", text.toString());
+    	display = new Trick(pattern_record, this).getCUSTOM_DISPLAY();
+    	if (display != "") pattern_record.setDisplay(display);
+		
 		Intent i = new Intent(this, JMLPatternActivity.class);
-        i.putExtra("pattern_record", new PatternRecord(display, "", "siteswap", text.toString()));
+        i.putExtra("pattern_record", pattern_record);
         startActivity(i);
     }
     

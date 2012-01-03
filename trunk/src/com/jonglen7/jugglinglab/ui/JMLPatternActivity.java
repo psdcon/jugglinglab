@@ -43,7 +43,7 @@ public class JMLPatternActivity extends GDActivity {
 	boolean isOnPause = false;
 
     /** QuickAction. */
-    QuickActionBarTrick quickActionBar;
+    QuickActionGridTrick quickActionBar;
 
     /** Called when the activity is first created. */
     @Override
@@ -57,7 +57,7 @@ public class JMLPatternActivity extends GDActivity {
                 .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_edit)), R.id.action_bar_edit);
         
         /** QuickAction. */
-        quickActionBar = new QuickActionBarTrick(this);
+        quickActionBar = new QuickActionGridTrick(this);
         
         // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
         // http://android.cyrilmottier.com/?p=450
@@ -166,7 +166,7 @@ public class JMLPatternActivity extends GDActivity {
     	return pattern;
     }
     
-    // TODO Fred: J'ai fais ça vite fait pour pauser/reprendre l'anim, il y a peut-être (surement) mieux
+    // TODO Fred: Comm de Romain: J'ai fais ça vite fait pour pauser/reprendre l'anim, il y a peut-être (surement) mieux
     public void pause(View view) {
     	if (isOnPause) {
     		((GLSurfaceView) view).onResume();

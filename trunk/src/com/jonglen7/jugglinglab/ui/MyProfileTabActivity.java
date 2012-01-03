@@ -14,8 +14,9 @@ import android.widget.ListView;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
+import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
-import com.jonglen7.jugglinglab.util.ListAdaptater;
+import com.jonglen7.jugglinglab.util.MyListAdapter;
 
 public class MyProfileTabActivity extends ListActivity {
 
@@ -29,7 +30,7 @@ public class MyProfileTabActivity extends ListActivity {
     ListView listView;
 
     /** QuickAction. */
-    QuickActionBarTrick quickActionBar;
+    QuickActionGridTrick quickActionBar;
 	
     /** Called when the activity is first created. */
     @Override
@@ -41,16 +42,18 @@ public class MyProfileTabActivity extends ListActivity {
         
         /** The ArrayList that will populate the ListView. */
         pattern_list = createPatternList(getIntent().getStringExtra("tab"));
-        
+
         listView = getListView();
+        MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+        
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
-        listView.setAdapter(new ListAdaptater(listView, getLayoutInflater(), pattern_list, this));
+        listView.setAdapter(mSchedule);
 
         myDbHelper.close();
         
         /** QuickAction. */
-        quickActionBar = new QuickActionBarTrick(this);
+        quickActionBar = new QuickActionGridTrick(this);
     }
     
     private ArrayList<PatternRecord> createPatternList(String tab) {
@@ -58,29 +61,37 @@ public class MyProfileTabActivity extends ListActivity {
 		
 		String query = "";
 		if (tab.equals("starred")) {
-			// TODO Romain: Gérer CUSTOM_* et cie
 		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
-		 					"FROM Trick T, Hands H, Prop P, Body B " +
-		 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
-		 					"AND T.ID_BODY=B.ID_BODY " +
-		 					"AND T.ID_PROP=P.ID_PROP " +
-		 					"AND T.STARRED=1";
+ 					"FROM Trick T, Hands H, Prop P, Body B, TrickCollection TC, Collection C " +
+ 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
+ 					"AND T.ID_BODY=B.ID_BODY " +
+ 					"AND T.ID_PROP=P.ID_PROP " +
+ 					"AND T.ID_TRICK=TC.ID_TRICK " +
+ 					"AND TC.ID_COLLECTION = C.ID_COLLECTION " + 
+ 					"AND C.XML_LINE_NUMBER=" + Collection.STARRED_XML_LINE_NUMBER;
+		} else if (tab.equals("unsorted")) {
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
+ 					"FROM Trick T, Hands H, Prop P, Body B " +
+ 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
+ 					"AND T.ID_BODY=B.ID_BODY " +
+ 					"AND T.ID_PROP=P.ID_PROP " +
+ 					"AND T.ID_TRICK NOT IN (SELECT ID_TRICK FROM TrickCollection)";
 		} else if (tab.equals("goals")) {
-			// TODO Romain: Gérer CUSTOM_* et cie (date, un seul goal par trick)
+			// TODO Romain (stats): Gérer date, un seul goal par trick
 		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
-		 					"FROM Trick T, Hands H, Prop P, Body B, Goal G " +
-		 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
-		 					"AND T.ID_BODY=B.ID_BODY " +
-		 					"AND T.ID_PROP=P.ID_PROP " +
-		 					"AND T.ID_TRICK=G.ID_TRICK";
-		} else if (tab.equals("practicing")) {
-			// TODO Romain: Gérer CUSTOM_* et cie (date)
+ 					"FROM Trick T, Hands H, Prop P, Body B, Goal G " +
+ 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
+ 					"AND T.ID_BODY=B.ID_BODY " +
+ 					"AND T.ID_PROP=P.ID_PROP " +
+ 					"AND T.ID_TRICK=G.ID_TRICK";
+		} else if (tab.equals("training")) {
+			// TODO Romain (stats): Gérer date
 		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
-		 					"FROM Trick T, Hands H, Prop P, Body B, Catch C " +
-		 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
-		 					"AND T.ID_BODY=B.ID_BODY " +
-		 					"AND T.ID_PROP=P.ID_PROP " +
-		 					"AND T.ID_TRICK=C.ID_TRICK";
+ 					"FROM Trick T, Hands H, Prop P, Body B, Catch C " +
+ 					"WHERE T.ID_HANDS=H.ID_HANDS " + 
+ 					"AND T.ID_BODY=B.ID_BODY " +
+ 					"AND T.ID_PROP=P.ID_PROP " +
+ 					"AND T.ID_TRICK=C.ID_TRICK";
 		}
 		
     	Cursor cursor = myDbHelper.execQuery(query);
@@ -90,10 +101,7 @@ public class MyProfileTabActivity extends ListActivity {
     	
 	 	cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-        	String display = cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY"));
-        	if (display == null) {
-            	display = trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))];
-        	}
+        	String display = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))]);
         	pattern_list.add(new PatternRecord(display, "", "siteswap", cursor));
             cursor.moveToNext();
         }
