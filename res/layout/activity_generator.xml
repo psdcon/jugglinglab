@@ -39,7 +39,7 @@
 
                 <TableLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_height="wrap_content">
             
                     <!-- Balls -->
                     <TableRow>
@@ -49,7 +49,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/generator_edit_balls"
-                            android:numeric="integer"
+                            android:inputType="number"
                             android:text="@string/generator_edit_balls"
                             style="@style/TableRowRight"/>
                     </TableRow>
@@ -62,7 +62,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/generator_edit_max_throw"
-                            android:numeric="integer"
+                            android:inputType="number"
                             android:text="@string/generator_edit_max_throw"
                             style="@style/TableRowRight"/>
                     </TableRow>
@@ -97,7 +97,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/generator_edit_period"
-                            android:numeric="integer"
+                            android:inputType="number"
                             android:text="@string/generator_edit_period"
                             style="@style/TableRowRight"/>
                     </TableRow>
@@ -196,7 +196,7 @@
                         <EditText
                             android:id="@+id/generator_edit_simultaneous_throws"
                             android:enabled="false"
-                            android:numeric="integer"
+                            android:inputType="number"
                             android:text="@string/generator_edit_simultaneous_throws"
                             style="@style/TableRowRight2"/>
                     </TableRow>
@@ -222,8 +222,6 @@
                             style="@style/TableRowRight"/>
                     </TableRow>
                     <TableRow>
-                    </TableRow>
-                    <TableRow>
                         <TextView
                             android:visible="false"
                             style="@style/TableRowLeft"/>
@@ -242,6 +240,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/generator_edit_exclude_these_expressions"
+                            android:inputType="textImeMultiLine"
                             style="@style/TableRowRight3"/>
                     </TableRow>
                     <TableRow>
@@ -251,6 +250,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/generator_edit_include_these_expressions"
+                            android:inputType="textImeMultiLine"
                             style="@style/TableRowRight3"/>
                     </TableRow>
                     <TableRow>
@@ -260,7 +260,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/generator_edit_passing_communication_delay"
-                            android:numeric="integer"
+                            android:inputType="number"
                             android:text="@string/generator_edit_passing_communication_delay"
                             style="@style/TableRowRight3"/>
                     </TableRow>

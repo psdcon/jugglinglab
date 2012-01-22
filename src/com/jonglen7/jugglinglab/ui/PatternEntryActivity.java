@@ -221,8 +221,10 @@ public class PatternEntryActivity extends GDActivity {
     
     /** Handle "Juggle" action. */
     public void onJuggleClick(View v) {
+		String display = edit_pattern.getText().toString().toLowerCase();
+		
     	StringBuffer text = new StringBuffer(256);
-    	text.append("pattern=" + edit_pattern.getText().toString());
+    	text.append("pattern=" + display);
 		text.append((edit_hand_movement.getText().toString().length() > 0) ? (";hands=" + edit_hand_movement.getText().toString()) : "");
     	text.append(";prop=" + prop_types.get(spinner_prop_type.getSelectedItemPosition()).get(1));
     	text.append(";dwell=" + txt_dwell_beats_progress.getText().toString());
@@ -230,7 +232,6 @@ public class PatternEntryActivity extends GDActivity {
 		text.append((edit_body_movement.getText().toString().length() > 0) ? (";body=" + edit_body_movement.getText().toString()) : "");
 		text.append((edit_manual_settings.getText().toString().length() > 0) ? (";" + edit_manual_settings.getText().toString()) : "");
 		
-		String display = edit_pattern.getText().toString();
 		if (spinner_hand_movement.getSelectedItemPosition() != 0 && spinner_hand_movement.getSelectedItemPosition() != spinner_hand_movement.getCount() - 1)
 			display += " " + getResources().getStringArray(R.array.hand_movement)[spinner_hand_movement.getSelectedItemPosition()];
 		

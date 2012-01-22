@@ -3,6 +3,7 @@
       package="com.jonglen7.jugglinglab"
       android:versionCode="1"
       android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@style/Theme.GDCatalog" android:name=".ui.HomeApplication">
         <activity android:label="@string/app_name" android:name=".ui.HomeActivity">
             <intent-filter>
@@ -27,5 +28,4 @@
 			android:theme="@android:style/Theme.Dialog" />
         <activity android:name="org.achartengine.GraphicalActivity"></activity>
     </application>
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"></uses-sdk>
 </manifest> 
