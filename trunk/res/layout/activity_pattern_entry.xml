@@ -39,7 +39,7 @@
 
                 <TableLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_height="wrap_content">
             
                     <!-- Pattern Entry -->
                     <TableRow>
@@ -49,6 +49,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/pattern_entry_edit_pattern"
+                            android:inputType="textImeMultiLine"
                             android:text="@string/pattern_entry_edit_pattern"
                             style="@style/TableRowRight"/>
                     </TableRow>
@@ -69,6 +70,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/pattern_entry_edit_hand_movement"
+                            android:inputType="textImeMultiLine"
                             style="@style/TableRowRight"/>
                     </TableRow>
                 
@@ -131,6 +133,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/pattern_entry_edit_body_movement"
+                            android:inputType="textImeMultiLine"
                             style="@style/TableRowRight"/>
                     </TableRow>
                 
@@ -142,6 +145,7 @@
                             style="@style/TableRowLeft"/>
                         <EditText
                             android:id="@+id/pattern_entry_edit_manual_settings"
+                            android:inputType="textImeMultiLine"
                             style="@style/TableRowRight"/>
                     </TableRow>
                 
