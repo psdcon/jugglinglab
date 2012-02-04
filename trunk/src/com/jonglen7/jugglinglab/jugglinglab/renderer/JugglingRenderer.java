@@ -49,6 +49,10 @@ public class JugglingRenderer implements Renderer {
     
 	private Coordinate cameraCenter;
 	
+	double roiHalfHeight;
+	double depthValue;
+	double FOVY = 45;
+	
 	
 	
 	
@@ -81,10 +85,14 @@ public class JugglingRenderer implements Renderer {
 		}
 		
         syncToPattern();
-    	Log.v("JugglingRenderer","OverallMin Coordinate\tX=" + this.overallmin.x + "\tY=" + this.overallmin.y + "\tZ=" + this.overallmin.z);
-    	Log.v("JugglingRenderer","OverallMax Coordinate\tX=" + this.overallmax.x + "\tY=" + this.overallmax.y + "\tZ=" + this.overallmax.z);
+    	Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
+    	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
     	
         setCameraCoordinate();
+		roiHalfHeight = 0.5*(this.overallmax.z + this.overallmin.z);
+		Log.v("JugglingRenderer", "roiHalfHeight = " + roiHalfHeight);
+		depthValue = 2*(roiHalfHeight/Math.tan(FOVY*Math.PI/180));
+		Log.v("JugglingRenderer", "depth = " + depthValue);
 	}
 
 	/*
@@ -121,20 +129,47 @@ public class JugglingRenderer implements Renderer {
 		
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+		
+		// Select the modelview matrix
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		
 		// Replace the current matrix with the identity matrix
 		gl.glLoadIdentity();
+		
 		// Save the current matrix.
 		gl.glPushMatrix();
-		// Translates 10 units into the screen.
-		gl.glTranslatef(0, -150.0f, -100.0f); 
-		//gl.glTranslatef(0.0f, 0.0f, -100.0f);
+		
+		// Translates into the screen to draw
+		gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
+		//gl.glTranslatef(0.0f, -150.0f, -100.0f);
 		//gl.glTranslatef((float)-this.cameraCenter.z, (float)-this.cameraCenter.y, -100.0f); 
 				
 		// Draw the Frame
 		drawEffectiveFrame(gl);
+		
 		// Restore the last matrix.
 		gl.glPopMatrix();
-		//GLU.gluLookAt(gl, (float)cameraCenter.x, (float)cameraCenter.z, 100.0f, (float)cameraCenter.x, (float)cameraCenter.z, (float)cameraCenter.y, 0.0f, 1.0f, 0.0f);
+		
+		gl.glLoadIdentity();
+		
+		/*
+		// Select the projection matrix
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		
+		// Reset the projection matrix
+		gl.glLoadIdentity();
+		
+		// Calculate the aspect ratio of the window
+		GLU.gluPerspective(gl, 45.0f, (float) gl. / (float) height, 1.0f, 100.0f);
+		//gl.glFrustumf((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, 0.0f, (float)this.overallmax.y);
+		//gl.glOrthof((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, (float)this.overallmin.y, (float)this.overallmax.y);
+		
+		// Select the modelview matrix
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		
+		// Reset the modelview matrix
+		gl.glLoadIdentity();
+		*/
 		
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
@@ -175,6 +210,15 @@ public class JugglingRenderer implements Renderer {
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		// Sets the current view port to the new size.
 		gl.glViewport(0, 0, width, height);
+		
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glLoadIdentity();
+		//GLU.gluOrtho2D(gl, (float)(this.overallmin.x - 10), (float)(this.overallmax.x + 10), (float)(this.overallmin.z - 10), (float)(this.overallmax.z + 10));
+		//gl.glOrthof((float)(this.overallmin.x - 10), (float)(this.overallmax.x + 10), (float)(this.overallmin.z - 10), (float)(this.overallmax.z + 10), 1.0f, (float)(depthValue + 10) );
+		GLU.gluPerspective(gl, (float) FOVY, (float) width / (float) height, 1.0f, (float)(depthValue+10));
+		
+		
+		/*
 		// Select the projection matrix
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		// Reset the projection matrix
@@ -187,6 +231,7 @@ public class JugglingRenderer implements Renderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		// Reset the modelview matrix
 		gl.glLoadIdentity();
+		*/
 	}
 
 
