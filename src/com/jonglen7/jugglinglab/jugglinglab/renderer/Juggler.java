@@ -323,7 +323,7 @@ public class Juggler {
         
     	gl.glDisable(gl.GL_BLEND);
     	gl.glColor4f(0.0f,0.0f,1.0f,1.0f);
-    	gl.glLineWidth(3.0f);
+    	gl.glLineWidth(10.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
         
