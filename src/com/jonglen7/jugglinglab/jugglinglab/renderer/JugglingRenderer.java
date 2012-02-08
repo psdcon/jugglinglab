@@ -89,9 +89,10 @@ public class JugglingRenderer implements Renderer {
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
     	
         setCameraCoordinate();
-		roiHalfHeight = 0.5*(this.overallmax.z + this.overallmin.z);
+		roiHalfHeight = 0.5*(Math.abs(this.overallmax.z) + Math.abs(this.overallmin.z));
 		Log.v("JugglingRenderer", "roiHalfHeight = " + roiHalfHeight);
-		depthValue = 2*(roiHalfHeight/Math.tan(FOVY*Math.PI/180));
+		depthValue = 3*(roiHalfHeight/Math.tan(FOVY*Math.PI/180));
+		//depthValue = (1 + Math.round(roiHalfHeight/250)) * roiHalfHeight;
 		Log.v("JugglingRenderer", "depth = " + depthValue);
 	}
 
@@ -215,7 +216,7 @@ public class JugglingRenderer implements Renderer {
 		gl.glLoadIdentity();
 		//GLU.gluOrtho2D(gl, (float)(this.overallmin.x - 10), (float)(this.overallmax.x + 10), (float)(this.overallmin.z - 10), (float)(this.overallmax.z + 10));
 		//gl.glOrthof((float)(this.overallmin.x - 10), (float)(this.overallmax.x + 10), (float)(this.overallmin.z - 10), (float)(this.overallmax.z + 10), 1.0f, (float)(depthValue + 10) );
-		GLU.gluPerspective(gl, (float) FOVY, (float) width / (float) height, 1.0f, (float)(depthValue+10));
+		GLU.gluPerspective(gl, (float) FOVY, (float) width / (float) height, 1.0f, (float)(depthValue + 50));
 		
 		
 		/*
@@ -342,10 +343,10 @@ public class JugglingRenderer implements Renderer {
 
         // make sure jugglers' bodies are visible
         this.overallmax = Coordinate.max(handmax, getJugglerWindowMax());
-        this.overallmax = Coordinate.max(overallmax, patternmax);
+        this.overallmax = Coordinate.max(this.overallmax, patternmax);
 
         this.overallmin = Coordinate.min(handmin, getJugglerWindowMin());
-        this.overallmin = Coordinate.min(overallmin, patternmin);
+        this.overallmin = Coordinate.min(this.overallmin, patternmin);
 
         if (com.jonglen7.jugglinglab.jugglinglab.core.Constants.DEBUG_LAYOUT) {
             System.out.println("Hand max = " + handmax);
@@ -357,8 +358,8 @@ public class JugglingRenderer implements Renderer {
             System.out.println("Overall max = " + this.overallmax);
             System.out.println("Overall min = " + this.overallmin);
 
-            this.overallmax = new Coordinate(100.0,0.0,500.0);
-            this.overallmin = new Coordinate(-100.0,0.0,-100.0);
+            //this.overallmax = new Coordinate(100.0,0.0,500.0);
+            //this.overallmin = new Coordinate(-100.0,0.0,-100.0);
         }
     }
 
