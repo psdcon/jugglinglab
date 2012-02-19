@@ -32,6 +32,8 @@
         <item name="android:textSize">18sp</item>
     </style>
     
+    <!-- TODO Romain: Terrible hack, doesn't work for every screen, find a better way -->
+    
     <style name="TableRow">
         <item name="android:width">0dip</item>
     </style>

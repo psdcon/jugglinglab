@@ -147,7 +147,7 @@ public class GeneratorListActivity extends GDListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, pattern_list.get(position));
+			quickActionBar.show(view, pattern_list.get(position), getIntent(), GeneratorListActivity.this);
 			return true;
 		}
 	};

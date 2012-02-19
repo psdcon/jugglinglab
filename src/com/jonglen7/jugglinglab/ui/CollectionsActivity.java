@@ -127,7 +127,9 @@ public class CollectionsActivity extends GDListActivity {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 	        			Collection collection = new Collection(IS_TUTORIAL, CollectionsActivity.this);
 		        		collection.edit(input.getText().toString());
-		        		// TODO Romain (update ListView): Add the name in the ListView
+		        		Intent intent = getIntent();
+		        		finish();
+		        		startActivity(intent);
 	        		}
         		});
 
@@ -178,7 +180,7 @@ public class CollectionsActivity extends GDListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, collection_list.get(position));
+			quickActionBar.show(view, collection_list.get(position), getIntent(), CollectionsActivity.this);
 			return true;
 		}
 	};

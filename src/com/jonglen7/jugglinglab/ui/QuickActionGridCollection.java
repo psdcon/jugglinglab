@@ -2,9 +2,11 @@ package com.jonglen7.jugglinglab.ui;
 
 import greendroid.widget.QuickActionGrid;
 import greendroid.widget.QuickActionWidget;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -13,8 +15,13 @@ import com.jonglen7.jugglinglab.util.Collection;
 
 public class QuickActionGridCollection extends QuickActionGrid {
 	
+	final static int EDIT = 0;
+	final static int DELETE = 1;
+	
 	Context context;
 	Collection collection;
+	Intent intent;
+	Activity activity;
 
 	public QuickActionGridCollection(Context context) {
 		super(context);
@@ -26,10 +33,11 @@ public class QuickActionGridCollection extends QuickActionGrid {
 
     private OnQuickActionClickListener mActionListener = new OnQuickActionClickListener() {
         public void onQuickActionClicked(QuickActionWidget widget, int position) {
+    		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    		
         	switch (position) {
-        	case 0: // Edit
+        	case EDIT:
         		final EditText input = new EditText(context);
-        		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         		builder.setView(input);
         		builder.setTitle(context.getString(R.string.gd_edit));
         		input.setText(collection.getCUSTOM_DISPLAY());
@@ -37,7 +45,8 @@ public class QuickActionGridCollection extends QuickActionGrid {
         		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 		        		collection.edit(input.getText().toString());
-		        		// TODO Romain (update ListView): Modify the name in the ListView
+		        		activity.finish();
+		        		activity.startActivity(intent);
 	        		}
         		});
 
@@ -49,8 +58,23 @@ public class QuickActionGridCollection extends QuickActionGrid {
         		builder.show();
         		break;
         		
-        	case 1: // Delete
-        		collection.delete();
+        	case DELETE:
+        		builder.setTitle(R.string.alert_dialog_two_buttons_title);
+        		
+        		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	            		collection.delete();
+		        		activity.finish();
+		        		activity.startActivity(intent);
+	        		}
+        		});
+
+        		builder.setNegativeButton(context.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	        			dialog.cancel();
+	        		}
+        		});
+        		builder.show();
         		break;
         		
         	default:
@@ -59,8 +83,10 @@ public class QuickActionGridCollection extends QuickActionGrid {
         }
     };
     
-    public void show(View view, Collection collection) {
+    public void show(View view, Collection collection, Intent intent, Activity activity) {
     	this.collection = collection;
+    	this.intent = intent;
+    	this.activity = activity;
     	super.show(view);
     }
 }
