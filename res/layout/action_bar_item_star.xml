@@ -24,7 +24,7 @@
 	<include
 		layout="@layout/gd_action_bar_item_base" />
 
-    <!-- TDDO Romain: Centrer la CheckBox -->
+    <!-- TODO Romain: Centrer la CheckBox -->
 
     <CheckBox
         android:id="@+id/btn_star"

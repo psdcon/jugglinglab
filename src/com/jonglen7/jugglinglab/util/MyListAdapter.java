@@ -23,7 +23,6 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
  */
 public class MyListAdapter extends BaseAdapter {
 
-	// TODO Romain: Do we need all this ?
 	private ListView listView;
 	private LayoutInflater layoutInflater;
 	private ArrayList<PatternRecord> pattern_list;

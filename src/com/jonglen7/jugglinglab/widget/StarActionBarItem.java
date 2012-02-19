@@ -18,6 +18,7 @@ public class StarActionBarItem extends NormalActionBarItem {
     }
     
     public void setTrick(Trick trick) {
+    	super.getItemView();  // To prevent NullPointerException
     	this.trick = trick;
     	boolean isStarred = false;
     	for (Collection collection : trick.getCollections()) {
