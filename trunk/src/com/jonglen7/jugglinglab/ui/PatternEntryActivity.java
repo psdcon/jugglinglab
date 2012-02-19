@@ -370,7 +370,10 @@ public class PatternEntryActivity extends GDActivity {
             	handMovements.add(hands);
         	}
             cursor.moveToNext();
-            // TODO Romain: Hack pour la gestion de Custom vraiment moche
+            
+            // We need to know the index of the custom movement, since there are
+            // two movements in the DataBase with CODE="" (Default and Custom),
+            // we need this kind of hack to find this index
             if (code.compareTo("") == 0) {
             	hand_movement_custom_count++;
                 if (hand_movement_custom_count == 2) hand_movement_custom = hand_movement_item;
@@ -414,7 +417,10 @@ public class PatternEntryActivity extends GDActivity {
             	bodyMovements.add(bodies);
         	}
             cursor.moveToNext();
-            // TODO Romain: Hack pour la gestion de Custom vraiment moche
+            
+            // We need to know the index of the custom movement, since there are
+            // two movements in the DataBase with CODE="" (Default and Custom),
+            // we need this kind of hack to find this index
             if (code.compareTo("") == 0) {
             	body_movement_custom_count++;
                 if (body_movement_custom_count == 2) body_movement_custom = body_movement_item;
