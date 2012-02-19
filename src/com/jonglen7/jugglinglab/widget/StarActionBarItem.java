@@ -23,8 +23,7 @@ public class StarActionBarItem extends NormalActionBarItem {
     	for (Collection collection : trick.getCollections()) {
     		if (collection.isStarred()) isStarred = true;
     	}
-    	// TODO Romain: java.lang.NullPointerException :(
-    	//mCheckBox.setChecked(isStarred);
+    	this.mCheckBox.setChecked(isStarred);
 	}
 
     @Override
@@ -46,6 +45,7 @@ public class StarActionBarItem extends NormalActionBarItem {
     
     public void changeStarred() {
     	mCheckBox.setChecked(!mCheckBox.isChecked());
+    	// TODO Romain: checkbox star isn't update in the previous Activity ListView
     	trick.star();
 	}
 	
