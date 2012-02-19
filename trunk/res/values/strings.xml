@@ -131,5 +131,6 @@
     
     <!-- Other -->
     <string name="txt_no_patterns">No patterns found!</string>
+    <string name="alert_dialog_two_buttons_title">Are you sure ?</string>
     
 </resources>

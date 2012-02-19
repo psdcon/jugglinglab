@@ -127,7 +127,7 @@ public class MyProfileTabActivity extends ListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, pattern_list.get(position));
+			quickActionBar.show(view, pattern_list.get(position), getIntent(), MyProfileTabActivity.this);
 			return true;
 		}
 	};

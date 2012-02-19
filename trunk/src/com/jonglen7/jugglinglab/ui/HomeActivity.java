@@ -1,9 +1,7 @@
 package com.jonglen7.jugglinglab.ui;
 
 import greendroid.app.GDActivity;
-import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBarItem;
-import greendroid.widget.NormalActionBarItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,9 +20,7 @@ public class HomeActivity extends GDActivity {
         /** ActionBar. */
         setActionBarContentView(R.layout.activity_home);
 
-        addActionBarItem(getActionBar()
-                .newActionBarItem(NormalActionBarItem.class)
-                .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_info)), R.id.action_bar_view_info);
+        addActionBarItem(ActionBarItem.Type.Info, R.id.action_bar_view_info);
     }
 
     /** ActionBar. */

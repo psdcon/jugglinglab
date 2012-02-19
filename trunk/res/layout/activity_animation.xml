@@ -28,7 +28,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:onClick="pause"/>
-      
+
             <SeekBar
                 android:id="@+id/animation_speed_seekbar" 
                 android:max="19"

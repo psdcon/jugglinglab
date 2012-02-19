@@ -1,9 +1,7 @@
 package com.jonglen7.jugglinglab.ui;
 
 import greendroid.app.GDActivity;
-import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBarItem;
-import greendroid.widget.NormalActionBarItem;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -29,6 +27,8 @@ import com.jonglen7.jugglinglab.jugglinglab.notation.Notation;
 import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
+import com.jonglen7.jugglinglab.util.Trick;
+import com.jonglen7.jugglinglab.widget.StarActionBarItem;
 
 /**
  * Generate a JMLPattern using a PatternRecord
@@ -51,17 +51,6 @@ public class JMLPatternActivity extends GDActivity {
     	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
-
-        addActionBarItem(getActionBar()
-                .newActionBarItem(NormalActionBarItem.class)
-                .setDrawable(new ActionBarDrawable(this, R.drawable.gd_action_bar_edit)), R.id.action_bar_edit);
-        
-        /** QuickAction. */
-        quickActionBar = new QuickActionGridTrick(this);
-        
-        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
-        // http://android.cyrilmottier.com/?p=450
-        // That might be necessary because computation takes some time
         
         // Get the PatternRecord.
         Bundle extras = getIntent().getExtras();
@@ -75,6 +64,21 @@ public class JMLPatternActivity extends GDActivity {
         setTitle(pattern_record.getDisplay());
         
         getActionBar().setOnClickListener(clickListener);
+
+        StarActionBarItem starItem = (StarActionBarItem) getActionBar()
+        		.newActionBarItem(StarActionBarItem.class)
+        		.setContentDescription(R.string.gd_star);
+        starItem.setTrick(new Trick(pattern_record, this));
+        
+        addActionBarItem(starItem);
+        addActionBarItem(ActionBarItem.Type.Edit, R.id.action_bar_edit);
+        
+        /** QuickAction. */
+        quickActionBar = new QuickActionGridTrick(this);
+        
+        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
+        // http://android.cyrilmottier.com/?p=450
+        // That might be necessary because computation takes some time
 
         // 2D Square
         /*
@@ -227,7 +231,7 @@ public class JMLPatternActivity extends GDActivity {
 
 		@Override
 		public void onClick(View view) {
-			quickActionBar.show(view, pattern_record);
+			quickActionBar.show(view, pattern_record, getIntent(), JMLPatternActivity.this);
 		}
 	};
     

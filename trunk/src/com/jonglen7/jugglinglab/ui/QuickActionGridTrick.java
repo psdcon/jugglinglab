@@ -5,6 +5,7 @@ import greendroid.widget.QuickActionWidget;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,9 +21,17 @@ import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.Trick;
 
 public class QuickActionGridTrick extends QuickActionGrid {
-	
+
+	final static int STAR = 0;
+	final static int EDIT = 1;
+	final static int LIST = 2;
+	final static int SHARE = 3;
+	final static int DELETE = 4;
+
 	Context context;
 	PatternRecord pattern_record;
+	Intent intent;
+	Activity activity;
 
 	public QuickActionGridTrick(Context context) {
 		super(context);
@@ -45,14 +54,13 @@ public class QuickActionGridTrick extends QuickActionGrid {
     		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
     		
         	switch (position) {
-	    	case 0: // Star
+	    	case STAR:
 	    		trick.star();
-	            // TODO Romain (update ListView): Change the value of the star next to the pattern
-                // Pb: the callback will be called, so maybe we should ONLY
-                // change the value of the star (i.e. delete the call to trick.star())
+        		activity.finish();
+        		activity.startActivity(intent);
 	    		break;
 	    		
-        	case 1: // Edit
+        	case EDIT:
         		final EditText input = new EditText(context);
         		builder.setView(input);
         		builder.setTitle(context.getString(R.string.gd_edit));
@@ -61,7 +69,11 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 		        		trick.edit(input.getText().toString());
-		        		// TODO Romain (update ListView): Modify the name in the ListView
+		        		// For the animation, since it gets the display from the pattern_record,
+		        		// that is put in the Intent, we need to update it too
+		        		pattern_record.setDisplay(input.getText().toString());
+		        		activity.finish();
+		        		activity.startActivity(intent);
 	        		}
         		});
 
@@ -73,7 +85,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		builder.show();
         		break;
         		
-        	case 2: // Labels
+        	case LIST:
         		final ArrayList<Collection> collections = createCollectionList();
         		ArrayList<String> collections_displays = new ArrayList<String>();
         		for (Collection c: collections) collections_displays.add(c.getCUSTOM_DISPLAY());
@@ -97,7 +109,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		builder.show();
         		break;
         		
-        	case 3: // Share
+        	case SHARE:
         		Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
         		shareIntent.setType("text/plain");
         		shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
@@ -114,8 +126,23 @@ public class QuickActionGridTrick extends QuickActionGrid {
 //        		Toast.makeText(context, "Stats (activity)", Toast.LENGTH_LONG).show();
 //        		break;
         		
-        	case 4: // Delete
-        		trick.delete();
+        	case DELETE:
+        		builder.setTitle(R.string.alert_dialog_two_buttons_title);
+        		
+        		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	            		trick.delete();
+		        		activity.finish();
+		        		activity.startActivity(intent);
+	        		}
+        		});
+
+        		builder.setNegativeButton(context.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	        			dialog.cancel();
+	        		}
+        		});
+        		builder.show();
         		break;
         		
         	default:
@@ -124,8 +151,10 @@ public class QuickActionGridTrick extends QuickActionGrid {
         }
     };
     
-    public void show(View view, PatternRecord pattern_record) {
+    public void show(View view, PatternRecord pattern_record, Intent intent, Activity activity) {
     	this.pattern_record = pattern_record;
+    	this.intent = intent;
+    	this.activity = activity;
     	super.show(view);
     }
     

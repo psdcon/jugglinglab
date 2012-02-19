@@ -97,7 +97,6 @@ public class MyListAdapter extends BaseAdapter {
     private OnCheckedChangeListener mStarCheckedChanceChangeListener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        	System.out.println(listView);
             final int position = listView.getPositionForView(buttonView);
             if (position != ListView.INVALID_POSITION) {
             	Trick trick = new Trick(pattern_list.get(position), context);
