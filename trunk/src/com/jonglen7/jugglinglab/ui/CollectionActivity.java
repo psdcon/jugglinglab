@@ -35,6 +35,7 @@ public class CollectionActivity extends GDListActivity {
 
     /** ListView. */
     ListView listView;
+    MyListAdapter mSchedule;
 
     /** QuickAction. */
     QuickActionGridTrick quickActionBar;
@@ -58,7 +59,7 @@ public class CollectionActivity extends GDListActivity {
             setTitle(collection.getCUSTOM_DISPLAY());
 
             listView = getListView();
-            MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+            mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
@@ -69,6 +70,13 @@ public class CollectionActivity extends GDListActivity {
             /** QuickAction. */
             quickActionBar = new QuickActionGridTrick(this);
         }
+    }
+    
+    /** Called when the activity is resumed. */
+    @Override
+    public void onResume() {
+    	mSchedule.notifyDataSetChanged();
+    	super.onResume();
     }
 
     private ArrayList<PatternRecord> createPatternList() {

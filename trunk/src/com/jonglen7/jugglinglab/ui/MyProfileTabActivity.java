@@ -28,6 +28,7 @@ public class MyProfileTabActivity extends ListActivity {
 
     /** ListView. */
     ListView listView;
+    MyListAdapter mSchedule;
 
     /** QuickAction. */
     QuickActionGridTrick quickActionBar;
@@ -44,7 +45,7 @@ public class MyProfileTabActivity extends ListActivity {
         pattern_list = createPatternList(getIntent().getStringExtra("tab"));
 
         listView = getListView();
-        MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+        mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -54,6 +55,13 @@ public class MyProfileTabActivity extends ListActivity {
         
         /** QuickAction. */
         quickActionBar = new QuickActionGridTrick(this);
+    }
+    
+    /** Called when the activity is resumed. */
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	mSchedule.notifyDataSetChanged();
     }
     
     private ArrayList<PatternRecord> createPatternList(String tab) {

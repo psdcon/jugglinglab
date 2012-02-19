@@ -43,13 +43,28 @@ public class MyProfileActivity extends GDTabActivity {
     /** Tabs. */
 	private void buildTabs(){
         tabHost = getTabHost();
-        Intent intent = new Intent(this, MyProfileTabActivity.class);
 
-        tabHost.addTab(tabHost.newTabSpec("tab_starred").setIndicator(getString(R.string.my_profile_tab_starred)).setContent(intent.putExtra("tab", "starred")));
-        tabHost.addTab(tabHost.newTabSpec("tab_unsorted").setIndicator(getString(R.string.my_profile_tab_unsorted)).setContent(intent.putExtra("tab", "unsorted")));
+        tabHost.addTab(tabHost.newTabSpec("tab_starred")
+        		.setIndicator(getString(R.string.my_profile_tab_starred))
+        		.setContent(new Intent(this, MyProfileTabActivity.class)
+        				.putExtra("tab", "starred")
+        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+        tabHost.addTab(tabHost.newTabSpec("tab_unsorted")
+        		.setIndicator(getString(R.string.my_profile_tab_unsorted))
+        		.setContent(new Intent(this, MyProfileTabActivity.class)
+        				.putExtra("tab", "unsorted")
+        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
         // TODO Romain (stats): Uncomment when ready (Goals, practicing)
-//        tabHost.addTab(tabHost.newTabSpec("tab_goals").setIndicator(getString(R.string.my_profile_tab_goals)).setContent(intent.putExtra("tab", "goals")));
-//        tabHost.addTab(tabHost.newTabSpec("tab_practicing").setIndicator(getString(R.string.my_profile_tab_practicing)).setContent(intent.putExtra("tab", "practicing")));
+//        tabHost.addTab(tabHost.newTabSpec("tab_goals")
+//        		.setIndicator(getString(R.string.my_profile_tab_goals))
+//        		.setContent(new Intent(this, MyProfileTabActivity.class)
+//        				.putExtra("tab", "goals")
+//        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+//        tabHost.addTab(tabHost.newTabSpec("tab_practicing")
+//        		.setIndicator(getString(R.string.my_profile_tab_practicing))
+//        		.setContent(new Intent(this, MyProfileTabActivity.class)
+//        				.putExtra("tab", "practicing")
+//        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
         tabHost.setCurrentTab(0);
 	}

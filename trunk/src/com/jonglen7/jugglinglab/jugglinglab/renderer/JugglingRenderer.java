@@ -85,6 +85,7 @@ public class JugglingRenderer implements Renderer {
 		}
 		
         syncToPattern();
+        // TODO Fred: Delete Logging
     	Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
     	
