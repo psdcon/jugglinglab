@@ -40,13 +40,8 @@ public class StarActionBarItem extends NormalActionBarItem {
 	@Override
     protected void onItemClicked() {
         super.onItemClicked();
-        changeStarred();
-    }
-    
-    public void changeStarred() {
     	mCheckBox.setChecked(!mCheckBox.isChecked());
-    	// TODO Romain: checkbox star isn't update in the previous Activity ListView
     	trick.star();
-	}
+    }
 	
 }

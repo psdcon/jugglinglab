@@ -68,6 +68,7 @@ public class JMLPatternActivity extends GDActivity {
         StarActionBarItem starItem = (StarActionBarItem) getActionBar()
         		.newActionBarItem(StarActionBarItem.class)
         		.setContentDescription(R.string.gd_star);
+        // TODO Romain: "Hack" to avoid the NullPointerException => Better solution ?
         starItem.getItemView();
         starItem.setTrick(new Trick(pattern_record, this));
         
