@@ -68,6 +68,7 @@ public class JMLPatternActivity extends GDActivity {
         StarActionBarItem starItem = (StarActionBarItem) getActionBar()
         		.newActionBarItem(StarActionBarItem.class)
         		.setContentDescription(R.string.gd_star);
+        starItem.getItemView();
         starItem.setTrick(new Trick(pattern_record, this));
         
         addActionBarItem(starItem);
