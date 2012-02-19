@@ -24,12 +24,11 @@
 	<include
 		layout="@layout/gd_action_bar_item_base" />
 
-    <!-- TODO Romain: Centrer la CheckBox -->
-
     <CheckBox
         android:id="@+id/btn_star"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_gravity="right|bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clickable="false"
         android:button="@android:drawable/btn_star"/>
 
