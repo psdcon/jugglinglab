@@ -142,6 +142,8 @@ class createDB:
         self.select(["ID_{table}".format(table=table.upper())], [table], where)
         res = self.cursor.fetchone()
         if not res:
+            if table.upper() in ["BODY", "HANDS"] and "IS_HIDDEN" not in where:
+                where["IS_HIDDEN"] = 1
             self.insert(table, where)
             res = [self.find_id(table, where)]
         return res[0]
@@ -163,14 +165,16 @@ def main():
                     [("ID_HANDS", "INTEGER PRIMARY KEY AUTOINCREMENT"),
                      ("CODE", "TEXT NOT NULL"),
                      ("XML_LINE_NUMBER", "INTEGER"),
-                     ("CUSTOM_DISPLAY", "TEXT")]
+                     ("CUSTOM_DISPLAY", "TEXT"),
+                     ("IS_HIDDEN", "INTEGER NOT NULL")]
                    )
 
     db.create_table("Body",
                     [("ID_BODY", "INTEGER PRIMARY KEY AUTOINCREMENT"),
                      ("CODE", "TEXT NOT NULL"),
                      ("XML_LINE_NUMBER", "INTEGER"),
-                     ("CUSTOM_DISPLAY", "TEXT")]
+                     ("CUSTOM_DISPLAY", "TEXT"),
+                     ("IS_HIDDEN", "INTEGER NOT NULL")]
                    )
 
     db.create_table("Trick",
@@ -285,7 +289,7 @@ def main():
              "(0,0,0)(25,0,-50).",
              ""]
     for i in range(len(hands)):
-        db.insert("Hands", {"CODE": hands[i], "XML_LINE_NUMBER": i})
+        db.insert("Hands", {"CODE": hands[i], "XML_LINE_NUMBER": i, "IS_HIDDEN": 0})
 
     ############################################################################
     ################################### BODY ###################################
@@ -298,7 +302,7 @@ def main():
             "(0,75,0)...(90,0,75)...(180,-75,0)...(270,0,-75)...",
             ""]
     for i in range(len(body)):
-        db.insert("Body", {"CODE": body[i], "XML_LINE_NUMBER": i})
+        db.insert("Body", {"CODE": body[i], "XML_LINE_NUMBER": i, "IS_HIDDEN": 0})
 
     ############################################################################
     ################################## TRICK ###################################
