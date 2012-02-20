@@ -72,6 +72,7 @@ public class JMLPatternActivity extends GDActivity {
         
         addActionBarItem(starItem);
         addActionBarItem(ActionBarItem.Type.Edit, R.id.action_bar_edit);
+        addActionBarItem(ActionBarItem.Type.Info, R.id.action_bar_view_info);
         
         /** QuickAction. */
         quickActionBar = new QuickActionGridTrick(this);
@@ -214,9 +215,16 @@ public class JMLPatternActivity extends GDActivity {
     /** ActionBar. */
     @Override
     public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+    	Intent intent;
         switch (item.getItemId()) {
             case R.id.action_bar_edit:
-            	Intent intent = new Intent(this, PatternEntryActivity.class);
+            	intent = new Intent(this, PatternEntryActivity.class);
+            	intent.putExtra("pattern_record", pattern_record);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_bar_view_info:
+            	intent = new Intent(this, PatternInfoActivity.class);
             	intent.putExtra("pattern_record", pattern_record);
                 startActivity(intent);
                 return true;
