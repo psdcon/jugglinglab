@@ -119,6 +119,7 @@ public class CollectionsActivity extends GDListActivity {
         switch (item.getItemId()) {
             case R.id.action_bar_add:
             	final EditText input = new EditText(this);
+            	input.setSingleLine();
         		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         		builder.setView(input);
         		builder.setTitle(this.getString(R.string.gd_add));

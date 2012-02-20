@@ -39,230 +39,200 @@
 
                 <TableLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1,2">
             
                     <!-- Balls -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_balls"
-                            android:text="@string/generator_txt_balls"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_balls"/>
                         <EditText
                             android:id="@+id/generator_edit_balls"
                             android:inputType="number"
-                            android:text="@string/generator_edit_balls"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_edit_balls"/>
                     </TableRow>
             
                     <!-- Max. throw -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_max_throw"
-                            android:text="@string/generator_txt_max_throw"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_max_throw"/>
                         <EditText
                             android:id="@+id/generator_edit_max_throw"
                             android:inputType="number"
-                            android:text="@string/generator_edit_max_throw"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_edit_max_throw"/>
                     </TableRow>
                 
                     <!-- Rhythm -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_rhythm"
-                            android:text="@string/generator_txt_rhythm"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_rhythm"/>
                         <Spinner
                             android:id="@+id/generator_spinner_rhythm"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"/>
                     </TableRow>
                 
                     <!-- Jugglers -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_jugglers"
-                            android:text="@string/generator_txt_jugglers"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_jugglers"/>
                         <Spinner
                             android:id="@+id/generator_spinner_jugglers"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"/>
                     </TableRow>
             
                     <!-- Period -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_period"
-                            android:text="@string/generator_txt_period"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_period"/>
                         <EditText
                             android:id="@+id/generator_edit_period"
                             android:inputType="number"
-                            android:text="@string/generator_edit_period"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_edit_period"/>
                     </TableRow>
                 
                     <!-- Composition -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_compositions"
-                            android:text="@string/generator_txt_compositions"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_compositions"/>
                         <Spinner
                             android:id="@+id/generator_spinner_compositions"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"/>
                     </TableRow>
                 
                     <!-- Find -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_find"
-                            android:text="@string/generator_txt_find"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_find"/>
                         <CheckBox
                             android:id="@+id/generator_cb_ground_state_patterns"
                             android:checked="true"
-                            android:text="@string/generator_cb_ground_state_patterns"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_ground_state_patterns"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_excited_state_patterns"
                             android:checked="true"
-                            android:text="@string/generator_cb_excited_state_patterns"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_excited_state_patterns"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_transition_throws"
-                            android:text="@string/generator_cb_transition_throws"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_transition_throws"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_pattern_rotations"
-                            android:text="@string/generator_cb_pattern_rotations"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_pattern_rotations"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_juggler_permutations"
-                            android:text="@string/generator_cb_juggler_permutations"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_juggler_permutations"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_connected_patterns_only"
                             android:checked="true"
-                            android:text="@string/generator_cb_connected_patterns_only"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_connected_patterns_only"/>
                     </TableRow>
                     
                     <!-- Multiplexing -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_multiplexing"
-                            android:text="@string/generator_txt_multiplexing"
-                            style="@style/TableRowLeft"/>
+                            android:text="@string/generator_txt_multiplexing"/>
                         <CheckBox
                             android:id="@+id/generator_cb_enable"
-                            android:text="@string/generator_cb_enable"
-                            style="@style/TableRowRight"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_enable"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
-                        <TextView
-                            android:id="@+id/generator_txt_simultaneous_throws"
-                            android:enabled="false"
-                            android:text="@string/generator_txt_simultaneous_throws"
-                            style="@style/TableRowRight1"/>
                         <EditText
                             android:id="@+id/generator_edit_simultaneous_throws"
                             android:enabled="false"
                             android:inputType="number"
-                            android:text="@string/generator_edit_simultaneous_throws"
-                            style="@style/TableRowRight2"/>
+                            android:layout_column="1"
+                            android:text="@string/generator_edit_simultaneous_throws"/>
+                        <TextView
+                            android:id="@+id/generator_txt_simultaneous_throws"
+                            android:enabled="false"
+                            android:text="@string/generator_txt_simultaneous_throws"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_no_simultaneous_catches"
                             android:checked="true"
                             android:enabled="false"
-                            android:text="@string/generator_cb_no_simultaneous_catches"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_no_simultaneous_catches"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_no_clustered_throws"
                             android:enabled="false"
-                            android:text="@string/generator_cb_no_clustered_throws"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_no_clustered_throws"/>
                     </TableRow>
                     <TableRow>
-                        <TextView
-                            android:visible="false"
-                            style="@style/TableRowLeft"/>
                         <CheckBox
                             android:id="@+id/generator_cb_true_multiplexing_only"
                             android:enabled="false"
-                            android:text="@string/generator_cb_true_multiplexing_only"
-                            style="@style/TableRowRight"/>
+                            android:layout_column="1"
+                            android:layout_span="2"
+                            android:text="@string/generator_cb_true_multiplexing_only"/>
                     </TableRow>
                 
                     <!-- Exclude / Include -->
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_exclude_these_expressions"
-                            android:text="@string/generator_txt_exclude_these_expressions"
-                            style="@style/TableRowLeft"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_txt_exclude_these_expressions"/>
                         <EditText
                             android:id="@+id/generator_edit_exclude_these_expressions"
-                            android:inputType="textImeMultiLine"
-                            style="@style/TableRowRight3"/>
+                            android:inputType="textImeMultiLine"/>
                     </TableRow>
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_include_these_expressions"
-                            android:text="@string/generator_txt_include_these_expressions"
-                            style="@style/TableRowLeft"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_txt_include_these_expressions"/>
                         <EditText
                             android:id="@+id/generator_edit_include_these_expressions"
-                            android:inputType="textImeMultiLine"
-                            style="@style/TableRowRight3"/>
+                            android:inputType="textImeMultiLine"/>
                     </TableRow>
                     <TableRow>
                         <TextView
                             android:id="@+id/generator_txt_passing_communication_delay"
-                            android:text="@string/generator_txt_passing_communication_delay"
-                            style="@style/TableRowLeft"/>
+                            android:layout_span="2"
+                            android:text="@string/generator_txt_passing_communication_delay"/>
                         <EditText
                             android:id="@+id/generator_edit_passing_communication_delay"
                             android:inputType="number"
-                            android:text="@string/generator_edit_passing_communication_delay"
-                            style="@style/TableRowRight3"/>
+                            android:text="@string/generator_edit_passing_communication_delay"/>
                     </TableRow>
             
                 </TableLayout>
