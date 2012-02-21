@@ -73,7 +73,7 @@ public class JugglingRenderer implements Renderer {
 		this.tempc = new Coordinate();
 		
 		// TODO Fred: Implements for multiple jugglers
-		this.juggler = new Juggler(1);  
+		this.juggler = new Juggler(this.pattern.getNumberOfJugglers());  
 		//juggler = new FakeJuggler();
 		
 		try {
@@ -250,7 +250,6 @@ public class JugglingRenderer implements Renderer {
 	 */
 	private void drawEffectiveFrame(GL10 gl) {
 		try {
-			
 			// Draw the Jugglers 
 			for (int j = 1; j <= pattern.getNumberOfJugglers(); j++) {
 				juggler.findJugglerCoordinates(this.pattern, time);

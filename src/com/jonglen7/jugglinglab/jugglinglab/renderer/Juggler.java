@@ -85,7 +85,7 @@ public class Juggler {
 	
 	
 	// Array for openGL
-	private float vertices[];
+	private float vertices[][];
     private byte indices[] = {
             0, 4,    1, 5,						// Left and Right Hand
             4, 2,    5, 3,						// Left and Right Arm
@@ -121,10 +121,10 @@ public class Juggler {
     	
 		this.jugglerDescription = new MathVector[nbJuggler][12];
 		
-		int size = nbJuggler*3*12;	// NbJuggler x 3 coordinates x 12 description points
-		this.vertices = new float[size];
+		int size = 3*12;	// 3 coordinates x 12 description points
+		this.vertices = new float[nbJuggler][size];
     	
-		vbb = ByteBuffer.allocateDirect(size*4);  			
+		vbb = ByteBuffer.allocateDirect(size*4); 			
         vbb.order(ByteOrder.nativeOrder());
         mVertexBuffer = vbb.asFloatBuffer();
         
@@ -136,7 +136,7 @@ public class Juggler {
 	
 	// Find the pixeled position of the juggler description points regarding the pattern
     // Stock the result in MathVector[][] structure
-    // TODO: Stock directly in the vertices[] to be exploited by openGL methods
+    // TODO:FRED Stock directly in the vertices[] to be exploited by openGL methods
 	public void findJugglerCoordinates(JMLPattern pat, double time) throws JuggleExceptionInternal {
 		
 		for (int juggler = 1; juggler <= pat.getNumberOfJugglers(); juggler++) {
@@ -261,46 +261,46 @@ public class Juggler {
 	}
 	
 	
-	//
-	// TODO Fred: Here, for just one juggler, Implement for numerous jugglers
+	// Convert from MatVector structure to vertices OpenGL structure
 	public void MathVectorToVertices(){
-		
-		int juggler = this.nbJuggler;
 		int i = 0;
-		for (int j=0; j<4; j++){
-			vertices[i] = (int)jugglerDescription[juggler-1][j].x;
-			vertices[i+1] = (int)jugglerDescription[juggler-1][j].y;
-			vertices[i+2] = (int)jugglerDescription[juggler-1][j].z;
+		for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
+			i = 0;
+			for (int j=0; j<4; j++){
+				vertices[juggler-1][i] = (int)jugglerDescription[juggler-1][j].x;
+				vertices[juggler-1][i+1] = (int)jugglerDescription[juggler-1][j].y;
+				vertices[juggler-1][i+2] = (int)jugglerDescription[juggler-1][j].z;
+				i+=3;
+			}
+			
+			// Sometimes leftelbow is null
+			// When this happen the line shoulder-hand is the whole arm
+			if (jugglerDescription[juggler-1][4] != null) {			
+				vertices[juggler-1][i] = (int)jugglerDescription[juggler-1][4].x;
+				vertices[juggler-1][i+1] = (int)jugglerDescription[juggler-1][4].y;
+				vertices[juggler-1][i+2] = (int)jugglerDescription[juggler-1][4].z;	
+			} else {
+				bNullLeftelbow = true;
+			}
 			i+=3;
-		}
-		
-		// Sometimes leftelbow is null
-		// When this happen the line shoulder-hand is the whole arm
-		if (jugglerDescription[juggler-1][4] != null) {
-			vertices[i] = (int)jugglerDescription[juggler-1][4].x;
-			vertices[i+1] = (int)jugglerDescription[juggler-1][4].y;
-			vertices[i+2] = (int)jugglerDescription[juggler-1][4].z;	
-		} else {
-			bNullLeftelbow = true;
-		}
-		i+=3;
-		
-		// Sometimes righttelbow is null
-		// When this happen the line shoulder-hand is the whole arm
-		if (jugglerDescription[juggler-1][5] != null) {
-			vertices[i] = (int)jugglerDescription[juggler-1][5].x;
-			vertices[i+1] = (int)jugglerDescription[juggler-1][5].y;
-			vertices[i+2] = (int)jugglerDescription[juggler-1][5].z;
-		} else {
-			bNullRightelbow = true;
-		}		
-		i+=3;
-		
-		for (int j=6; j<12; j++){
-			vertices[i] = (int)jugglerDescription[juggler-1][j].x;
-			vertices[i+1] = (int)jugglerDescription[juggler-1][j].y;
-			vertices[i+2] = (int)jugglerDescription[juggler-1][j].z;
+			
+			// Sometimes righttelbow is null
+			// When this happen the line shoulder-hand is the whole arm
+			if (jugglerDescription[juggler-1][5] != null) {
+				vertices[juggler-1][i] = (int)jugglerDescription[juggler-1][5].x;
+				vertices[juggler-1][i+1] = (int)jugglerDescription[juggler-1][5].y;
+				vertices[juggler-1][i+2] = (int)jugglerDescription[juggler-1][5].z;
+			} else {
+				bNullRightelbow = true;
+			}		
 			i+=3;
+			
+			for (int j=6; j<12; j++){
+				vertices[juggler-1][i] = (int)jugglerDescription[juggler-1][j].x;
+				vertices[juggler-1][i+1] = (int)jugglerDescription[juggler-1][j].y;
+				vertices[juggler-1][i+2] = (int)jugglerDescription[juggler-1][j].z;
+				i+=3;
+			}
 		}
 	}
 	
@@ -317,29 +317,30 @@ public class Juggler {
         // Buffers with multi-byte datatypes (e.g., short, int, float)
         // must have their byte order set to native order
 
-        
-        mVertexBuffer.put(vertices);
-        mVertexBuffer.position(0);
-        
     	gl.glDisable(gl.GL_BLEND);
     	gl.glColor4f(0.0f,0.0f,1.0f,1.0f);
     	gl.glLineWidth(3.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
         
-        // Draw the lines
-        if (bNullLeftelbow) {
-            mIndexBuffer.put(indicesWithoutLeftelbow);
-            mIndexBuffer.position(0);
-        	gl.glDrawElements(gl.GL_LINES, indicesWithoutLeftelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
-        } else if (bNullRightelbow){
-            mIndexBuffer.put(indicesWithoutRightelbow);
-            mIndexBuffer.position(0);
-        	gl.glDrawElements(gl.GL_LINES, indicesWithoutRightelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
-        } else {
-            mIndexBuffer.put(indices);
-            mIndexBuffer.position(0);
-        	gl.glDrawElements(gl.GL_LINES, indices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
+        	mVertexBuffer.put(vertices[juggler-1]);
+            mVertexBuffer.position(0);
+        
+	        // Draw the lines
+	        if (bNullLeftelbow) {
+	            mIndexBuffer.put(indicesWithoutLeftelbow);
+	            mIndexBuffer.position(0);
+	        	gl.glDrawElements(gl.GL_LINES, indicesWithoutLeftelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        } else if (bNullRightelbow){
+	            mIndexBuffer.put(indicesWithoutRightelbow);
+	            mIndexBuffer.position(0);
+	        	gl.glDrawElements(gl.GL_LINES, indicesWithoutRightelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        } else {
+	            mIndexBuffer.put(indices);
+	            mIndexBuffer.position(0);
+	        	gl.glDrawElements(gl.GL_LINES, indices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        }
         }
     }
 	
