@@ -21,6 +21,92 @@
 
         <!-- TODO Romain (PatternInfo): Add elements to the layout -->
 
+        <ScrollView
+            android:id="@+id/pattern_info_scrollview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="1">
+        
+                <!-- Display -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_display"
+                        android:text="@string/pattern_info_txt_display"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_display_value"/>
+                </TableRow>
+        
+                <!-- Pattern -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_pattern"
+                        android:text="@string/pattern_info_txt_pattern"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_pattern_value"/>
+                </TableRow>
+            
+                <!-- Hand movement -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_hand_movement"
+                        android:text="@string/pattern_entry_txt_hand_movement"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_hand_movement_code"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_hand_movement_display"
+                        android:layout_column="1"/>
+                </TableRow>
+            
+                <!-- Prop type -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_prop_type"
+                        android:text="@string/pattern_entry_txt_prop_type"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_prop_type_code"/>
+                </TableRow>
+        
+                <!-- Dwell beats -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_dwell_beats"
+                        android:text="@string/pattern_entry_txt_dwell_beats"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_dwell_beats_code"/>
+                </TableRow>
+        
+                <!-- Beats per second -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_beats_per_second"
+                        android:text="@string/pattern_entry_txt_beats_per_second"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_beats_per_second_code"/>
+                </TableRow>
+            
+                <!-- Body movement -->
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_body_movement"
+                        android:text="@string/pattern_entry_txt_body_movement"/>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_body_movement_code"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/pattern_info_txt_body_movement_display"
+                        android:layout_column="1"/>
+                </TableRow>
+            
+            </TableLayout>
+        </ScrollView>
+
     </FrameLayout>
 
 </greendroid.widget.ActionBarHost>
