@@ -25,6 +25,10 @@
     <string name="pattern_entry_txt_manual_settings">Manual settings</string>
     <string name="pattern_entry_btn_juggle">Juggle</string>
     
+    <!-- Pattern info -->
+    <string name="pattern_info_txt_display">Display</string>
+    <string name="pattern_info_txt_pattern">Pattern</string>
+    
     <!-- Generator -->
     <string name="generator_title">Generator</string>
     <string name="generator_txt_balls">Balls</string>

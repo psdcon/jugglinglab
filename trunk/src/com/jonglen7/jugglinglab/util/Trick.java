@@ -38,8 +38,8 @@ public class Trick {
 		cursor = myDbHelper.execQuery(query);
 		cursor.moveToFirst();
 
-    	String[] trick = context.getResources().getStringArray(R.array.trick);
 		if (!cursor.isAfterLast()) {
+	    	String[] trick = context.getResources().getStringArray(R.array.trick);
 			this.ID_TRICK = cursor.getInt(cursor.getColumnIndex("ID_TRICK"));
 			this.CUSTOM_DISPLAY = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))]);
 
