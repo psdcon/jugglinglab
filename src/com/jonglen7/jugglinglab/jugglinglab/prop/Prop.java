@@ -40,7 +40,7 @@ public abstract class Prop {
     }
     
     protected String initString;
-    public static final String[] builtinProps = { "Ball", "Image", "Ring" };
+    public static final String[] builtinProps = { "Ball", "Image", "Ring", "Cube", "Club" };
 
     public static Prop getProp(String name) throws JuggleExceptionUser {
         try {
