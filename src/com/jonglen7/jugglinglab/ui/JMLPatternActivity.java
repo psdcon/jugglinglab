@@ -43,7 +43,7 @@ public class JMLPatternActivity extends GDActivity {
 	boolean isOnPause = false;
 
     /** QuickAction. */
-    QuickActionGridTrick quickActionBar;
+    QuickActionGridTrick quickActionGrid;
 
     /** Called when the activity is first created. */
     @Override
@@ -75,7 +75,7 @@ public class JMLPatternActivity extends GDActivity {
         addActionBarItem(ActionBarItem.Type.Info, R.id.action_bar_view_info);
         
         /** QuickAction. */
-        quickActionBar = new QuickActionGridTrick(this);
+        quickActionGrid = new QuickActionGridTrick(this);
         
         // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
         // http://android.cyrilmottier.com/?p=450
@@ -239,7 +239,7 @@ public class JMLPatternActivity extends GDActivity {
 
 		@Override
 		public void onClick(View view) {
-			quickActionBar.show(view, pattern_record, getIntent(), JMLPatternActivity.this);
+			quickActionGrid.show(view, pattern_record, getIntent(), JMLPatternActivity.this);
 		}
 	};
     

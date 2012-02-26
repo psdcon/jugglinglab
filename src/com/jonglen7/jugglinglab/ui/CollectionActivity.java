@@ -38,7 +38,7 @@ public class CollectionActivity extends GDListActivity {
     MyListAdapter mSchedule;
 
     /** QuickAction. */
-    QuickActionGridTrick quickActionBar;
+    QuickActionGridTrick quickActionGrid;
     
     /** Called when the activity is first created. */
     @Override
@@ -59,7 +59,7 @@ public class CollectionActivity extends GDListActivity {
             setTitle(collection.getCUSTOM_DISPLAY());
 
             listView = getListView();
-            mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+            mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this, getIntent(), CollectionActivity.this);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
@@ -68,7 +68,7 @@ public class CollectionActivity extends GDListActivity {
             myDbHelper.close();
 
             /** QuickAction. */
-            quickActionBar = new QuickActionGridTrick(this);
+            quickActionGrid = new QuickActionGridTrick(this);
         }
     }
     
@@ -143,7 +143,7 @@ public class CollectionActivity extends GDListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, pattern_list.get(position), getIntent(), CollectionActivity.this);
+			quickActionGrid.show(view, pattern_list.get(position), getIntent(), CollectionActivity.this);
 			return true;
 		}
 	};

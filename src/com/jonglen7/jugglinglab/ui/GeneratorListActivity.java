@@ -46,7 +46,7 @@ public class GeneratorListActivity extends GDListActivity {
     ListView listView;
 
     /** QuickAction. */
-    QuickActionGridTrick quickActionBar;
+    QuickActionGridTrick quickActionGrid;
     
     /** Called when the activity is first created. */
     @Override
@@ -62,7 +62,7 @@ public class GeneratorListActivity extends GDListActivity {
         setTitle(pattern_list.size() + " patterns found");
 
         listView = getListView();
-        MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+        MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this, getIntent(), GeneratorListActivity.this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -71,7 +71,7 @@ public class GeneratorListActivity extends GDListActivity {
         myDbHelper.close();
         
         /** QuickAction. */
-        quickActionBar = new QuickActionGridTrick(this);
+        quickActionGrid = new QuickActionGridTrick(this);
     }
 
     private ArrayList<PatternRecord> createPatternList() {
@@ -147,7 +147,7 @@ public class GeneratorListActivity extends GDListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, pattern_list.get(position), getIntent(), GeneratorListActivity.this);
+			quickActionGrid.show(view, pattern_list.get(position), getIntent(), GeneratorListActivity.this);
 			return true;
 		}
 	};

@@ -2,6 +2,7 @@ package com.jonglen7.jugglinglab.util;
 
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -13,4 +14,5 @@ import android.widget.TextView;
 public class ListViewHolder {
     public CheckBox star;
     public TextView list_item_text;
+    public ImageView quick_action;
 }

@@ -31,7 +31,7 @@ public class MyProfileTabActivity extends ListActivity {
     MyListAdapter mSchedule;
 
     /** QuickAction. */
-    QuickActionGridTrick quickActionBar;
+    QuickActionGridTrick quickActionGrid;
 	
     /** Called when the activity is first created. */
     @Override
@@ -45,7 +45,7 @@ public class MyProfileTabActivity extends ListActivity {
         pattern_list = createPatternList(getIntent().getStringExtra("tab"));
 
         listView = getListView();
-        mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this);
+        mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this, getIntent(), MyProfileTabActivity.this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -54,7 +54,7 @@ public class MyProfileTabActivity extends ListActivity {
         myDbHelper.close();
         
         /** QuickAction. */
-        quickActionBar = new QuickActionGridTrick(this);
+        quickActionGrid = new QuickActionGridTrick(this);
     }
     
     /** Called when the activity is resumed. */
@@ -135,7 +135,7 @@ public class MyProfileTabActivity extends ListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, pattern_list.get(position), getIntent(), MyProfileTabActivity.this);
+			quickActionGrid.show(view, pattern_list.get(position), getIntent(), MyProfileTabActivity.this);
 			return true;
 		}
 	};

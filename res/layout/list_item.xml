@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants">
  
-    <com.jonglen7.jugglinglab.widget.DontPressWithParentCheckBox
+    <CheckBox
         android:id="@+id/btn_star"
+        android:button="@android:drawable/btn_star"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:button="@android:drawable/btn_star"/>
+        android:layout_height="?android:attr/listPreferredItemHeight"/>
+
+    <ImageView
+        android:id="@+id/i_quick_action"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:src="@android:drawable/ic_menu_more"/>
  
 	<TextView
 		android:id="@+id/list_item_text"
+        android:gravity="center_vertical"
 		android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical"/>
+        android:layout_toLeftOf="@id/i_quick_action"
+        android:layout_toRightOf="@id/btn_star"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-</LinearLayout>
+</RelativeLayout>
