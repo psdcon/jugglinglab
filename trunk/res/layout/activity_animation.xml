@@ -23,11 +23,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
             
-            <android.opengl.GLSurfaceView
+            <com.jonglen7.jugglinglab.widget.TouchSurfaceView
                 android:id="@+id/surface"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:onClick="pause"/>
+                android:layout_height="wrap_content"/>
 
             <SeekBar
                 android:id="@+id/animation_speed_seekbar" 

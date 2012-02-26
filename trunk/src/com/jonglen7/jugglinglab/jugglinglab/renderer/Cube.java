@@ -13,7 +13,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
  */
 class Cube
 {
-	
+	// TODO Fred: si c'est inutile, supprimer le fichier
     int one = 0x10000;
     
     int cubeVertices[] = {

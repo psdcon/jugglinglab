@@ -54,7 +54,9 @@ public class JugglingRenderer implements Renderer {
 	double FOVY = 45;
 	
 	
-	
+	// Romain: Added for rotation
+    public float mAngleX;
+    public float mAngleY;
 	
 	
 	
@@ -146,6 +148,10 @@ public class JugglingRenderer implements Renderer {
 		//gl.glTranslatef(0.0f, -150.0f, -100.0f);
 		//gl.glTranslatef((float)-this.cameraCenter.z, (float)-this.cameraCenter.y, -100.0f); 
 				
+
+        gl.glRotatef(mAngleX, 0, 1, 0);
+        gl.glRotatef(mAngleY, 1, 0, 0);
+		
 		// Draw the Frame
 		drawEffectiveFrame(gl);
 		

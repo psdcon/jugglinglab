@@ -40,8 +40,8 @@ public class JMLPatternActivity extends GDActivity {
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
-	boolean isOnPause = false;
-
+	GLSurfaceView mGLSurfaceView;
+	
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
 
@@ -90,7 +90,7 @@ public class JMLPatternActivity extends GDActivity {
         
    		// 3D Cube
         /*
-        GLSurfaceView mGLSurfaceView;
+        TouchSurfaceView mGLSurfaceView;
         mGLSurfaceView = new TouchSurfaceView(this);
         setContentView(mGLSurfaceView);
         mGLSurfaceView.requestFocus();
@@ -106,8 +106,8 @@ public class JMLPatternActivity extends GDActivity {
         
         // Initialize Renderer and View
     	renderer = new JugglingRenderer(this);
-    	GLSurfaceView view = (GLSurfaceView) findViewById(R.id.surface);
-        view.setRenderer(renderer);
+    	mGLSurfaceView = (GLSurfaceView) findViewById(R.id.surface);
+    	mGLSurfaceView.setRenderer(renderer);
         //setContentView(view);
         
         // Assign Speed SeekBar Listener
@@ -165,32 +165,22 @@ public class JMLPatternActivity extends GDActivity {
 		} else {
 			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
 		}
-		
-    	//Log.v("JMLPatternActivity", pattern.toString());
     	
     	return pattern;
-    }
-    
-    // TODO Fred: Comm de Romain: J'ai fais ça vite fait pour pauser/reprendre l'anim, il y a peut-être (surement) mieux
-    public void pause(View view) {
-    	if (isOnPause) {
-    		((GLSurfaceView) view).onResume();
-    	} else {
-    		((GLSurfaceView) view).onPause();
-    	}
-    	isOnPause = !isOnPause;
     }
     
 	/** Called when the activity is paused. */
     @Override
     public void onPause() {
     	super.onPause();
+        mGLSurfaceView.onPause();
     }
     
 	/** Called when the activity is resumed. */
     @Override
     public void onResume() {
     	super.onResume();
+        mGLSurfaceView.onResume();
     }
     
     /** Menu button. */

@@ -54,7 +54,7 @@ public class MyProfileActivity extends GDTabActivity {
         		.setContent(new Intent(this, MyProfileTabActivity.class)
         				.putExtra("tab", "unsorted")
         				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-        // TODO Romain (stats): Uncomment when ready (Goals, practicing)
+        // TODO Romain (Stats): Uncomment when ready (Goals, practicing)
 //        tabHost.addTab(tabHost.newTabSpec("tab_goals")
 //        		.setIndicator(getString(R.string.my_profile_tab_goals))
 //        		.setContent(new Intent(this, MyProfileTabActivity.class)
