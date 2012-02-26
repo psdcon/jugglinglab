@@ -22,7 +22,7 @@
         android:src="@android:drawable/ic_menu_more"/>
  
 	<TextView
-		android:id="@+id/list_item_text"
+		android:id="@+id/list_text"
         android:gravity="center_vertical"
 		android:layout_width="fill_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"

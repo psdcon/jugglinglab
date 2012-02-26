@@ -22,11 +22,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
+import com.jonglen7.jugglinglab.util.ListAdapterCollection;
 
 public class CollectionsActivity extends GDListActivity {
 	
@@ -40,6 +40,7 @@ public class CollectionsActivity extends GDListActivity {
 
     /** ListView. */
     ListView listView;
+    ListAdapterCollection mSchedule;
 
     /** QuickAction. */
     QuickActionGridCollection quickActionGrid;
@@ -64,10 +65,9 @@ public class CollectionsActivity extends GDListActivity {
 
         collection_list = createCollectionList();
         
-        SimpleAdapter mSchedule = new SimpleAdapter (this.getBaseContext(), collectionsToHashMaps(collection_list), R.layout.list_group,
-                new String[] {"list_group_text"}, new int[] {R.id.list_group_text});
-        
         listView = getListView();
+        mSchedule = new ListAdapterCollection(listView, getLayoutInflater(), collection_list, this, getIntent(), CollectionsActivity.this);
+        
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
         listView.setAdapter(mSchedule);
@@ -76,6 +76,13 @@ public class CollectionsActivity extends GDListActivity {
 
         /** QuickAction. */
         quickActionGrid = new QuickActionGridCollection(this);
+    }
+    
+    /** Called when the activity is resumed. */
+    @Override
+    public void onResume() {
+    	mSchedule.notifyDataSetChanged();
+    	super.onResume();
     }
 
     private ArrayList<Collection> createCollectionList() {

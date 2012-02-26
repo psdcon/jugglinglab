@@ -20,7 +20,7 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
-import com.jonglen7.jugglinglab.util.MyListAdapter;
+import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 
 public class CollectionActivity extends GDListActivity {
 
@@ -35,7 +35,7 @@ public class CollectionActivity extends GDListActivity {
 
     /** ListView. */
     ListView listView;
-    MyListAdapter mSchedule;
+    ListAdapterTrick mSchedule;
 
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
@@ -59,7 +59,7 @@ public class CollectionActivity extends GDListActivity {
             setTitle(collection.getCUSTOM_DISPLAY());
 
             listView = getListView();
-            mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this, getIntent(), CollectionActivity.this);
+            mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, this, getIntent(), CollectionActivity.this);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
