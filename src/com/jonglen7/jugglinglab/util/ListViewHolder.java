@@ -13,6 +13,6 @@ import android.widget.TextView;
  */
 public class ListViewHolder {
     public CheckBox star;
-    public TextView list_item_text;
+    public TextView list_text;
     public ImageView quick_action;
 }

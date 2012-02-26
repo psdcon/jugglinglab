@@ -88,7 +88,8 @@ public class QuickActionGridTrick extends QuickActionGrid {
         	case LIST:
         		final ArrayList<Collection> collections = createCollectionList();
         		ArrayList<String> collections_displays = new ArrayList<String>();
-        		for (Collection c: collections) collections_displays.add(c.getCUSTOM_DISPLAY());
+        		// TODO Romain (QuickActionGrid): Is there a better way to distinguish Tutorials and Pattern List ?
+        		for (Collection c: collections) collections_displays.add((c.getIS_TUTORIAL() != 0? "Tutorial" : "Pattern List") + ": " + c.getCUSTOM_DISPLAY());
         		String[] collections_display = (String[])collections_displays.toArray(new String[0]);
         		
         		boolean[] checkedItems = new boolean[collections.size()];
@@ -127,7 +128,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
 //        		break;
         		
         	case DELETE:
-        		builder.setTitle(R.string.alert_dialog_two_buttons_title);
+        		builder.setTitle(String.format(context.getString(R.string.alert_dialog_two_buttons_title, trick.getCUSTOM_DISPLAY())));
         		
         		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {

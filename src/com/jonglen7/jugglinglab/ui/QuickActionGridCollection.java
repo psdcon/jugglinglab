@@ -59,7 +59,7 @@ public class QuickActionGridCollection extends QuickActionGrid {
         		break;
         		
         	case DELETE:
-        		builder.setTitle(R.string.alert_dialog_two_buttons_title);
+        		builder.setTitle(String.format(context.getString(R.string.alert_dialog_two_buttons_title, collection.getCUSTOM_DISPLAY())));
         		
         		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {

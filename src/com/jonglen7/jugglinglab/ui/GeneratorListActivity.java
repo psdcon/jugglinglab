@@ -24,7 +24,7 @@ import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
-import com.jonglen7.jugglinglab.util.MyListAdapter;
+import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 import com.jonglen7.jugglinglab.util.Trick;
 
 public class GeneratorListActivity extends GDListActivity {
@@ -62,7 +62,7 @@ public class GeneratorListActivity extends GDListActivity {
         setTitle(pattern_list.size() + " patterns found");
 
         listView = getListView();
-        MyListAdapter mSchedule = new MyListAdapter(listView, getLayoutInflater(), pattern_list, this, getIntent(), GeneratorListActivity.this);
+        ListAdapterTrick mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, this, getIntent(), GeneratorListActivity.this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
