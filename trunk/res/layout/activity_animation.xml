@@ -38,6 +38,22 @@
                 android:layout_alignLeft="@id/surface"
                 android:padding="10dip"/>
             
+            <ZoomButton
+                android:id="@+id/animation_btn_zoom_out"
+		        android:background="@drawable/btn_zoom_down"
+                android:layout_alignLeft="@id/surface"
+                android:layout_alignTop="@id/surface"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+		    
+		    <ZoomButton
+		        android:id="@+id/animation_btn_zoom_in"
+                android:background="@drawable/btn_zoom_up"
+                android:layout_alignTop="@id/surface"
+                android:layout_toRightOf="@id/animation_btn_zoom_out"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+            
         </RelativeLayout>
 
     </FrameLayout>

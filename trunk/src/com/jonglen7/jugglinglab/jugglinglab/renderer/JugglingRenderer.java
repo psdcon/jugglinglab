@@ -59,6 +59,14 @@ public class JugglingRenderer implements Renderer {
     public float mAngleY;
 	
 	
+    // Romain: Added for zoom
+    public float mZoom;
+	
+    
+	// Romain: Added for translation
+    public float mTranslateX;
+    public float mTranslateY;
+    
 	
 	// Constructors
 	// Parameter context is used to acces JMLPattern and SharedPreferences
@@ -151,6 +159,10 @@ public class JugglingRenderer implements Renderer {
 
         gl.glRotatef(mAngleX, 0, 1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
+        
+        gl.glScalef(mZoom, mZoom, mZoom);
+        
+        gl.glTranslatef(mTranslateX, mTranslateY, 0);
 		
 		// Draw the Frame
 		drawEffectiveFrame(gl);
