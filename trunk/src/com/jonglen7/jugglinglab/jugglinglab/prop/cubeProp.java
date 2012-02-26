@@ -1,4 +1,4 @@
-// ballProp.java
+// cubeProp.java
 //
 // Copyright 2004 by Jack Boyce (jboyce@users.sourceforge.net) and others
 
@@ -38,7 +38,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.ParameterDescriptor;
 import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
 
 
-public class ballProp extends Prop {
+public class cubeProp extends Prop {
 	
 	
     // -------------------------------------
@@ -73,24 +73,22 @@ public class ballProp extends Prop {
     // Constructors
     // -------------------------------------
 	
-    public ballProp(){
+    public cubeProp(){
     	
         size = new Coordinate(ball_pixel_size, ball_pixel_size);
         center = new Coordinate();
         grip = new Coordinate();
-        
         // Draw Initialization
-        this.mRaduis = 3.0;	//TODO: Fred 25 is a hardcoded value 
-        this.mStep = 25.0;	//TODO: Fred 25 is a hardcoded value 
-        
-        ByteBuffer vbb = ByteBuffer.allocateDirect(40000); //TODO: Fred 40000 is a hardcoded value 
+        ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length*4);
         vbb.order(ByteOrder.nativeOrder());
-        sphereVertex = vbb.asFloatBuffer();       
-        
-        //mPoints = this.build();
-    }
+        mVertexBuffer = vbb.asFloatBuffer();
+        mVertexBuffer.put(vertices);
+        mVertexBuffer.position(0);
 
-        
+        mIndexBuffer = ByteBuffer.allocateDirect(indices.length);
+        mIndexBuffer.put(indices);
+        mIndexBuffer.position(0);
+    }
     
 
     // -------------------------------------
@@ -225,7 +223,7 @@ public class ballProp extends Prop {
     // -------------------------------------
     
     public String getName() {
-        return "Ball";
+        return "Cube";
     }
     
     public ParameterDescriptor[] getParameterDescriptors() {
@@ -260,61 +258,58 @@ public class ballProp extends Prop {
     // Drawing Attributes and methods
     // -------------------------------------
     
-    private FloatBuffer sphereVertex;
-    private double mRaduis;
-    private double mStep;
-    private float mVertices[];
-    private static double DEG = Math.PI/180;
-    private int mPoints;
+    float one = 3.0f;
+    private float cubeVertices[] = {
+	            -one, -one, -one,
+	            one, -one, -one,
+	            one,  one, -one,
+	            -one,  one, -one,
+	            -one, -one,  one,
+	            one, -one,  one,
+	            one,  one,  one,
+	            -one,  one,  one,
+	    };
+    private float vertices[] = {
+            -one, -one, -one,
+            one, -one, -one,
+            one,  one, -one,
+            -one,  one, -one,
+            -one, -one,  one,
+            one, -one,  one,
+            one,  one,  one,
+            -one,  one,  one,
+    };
+
+    byte indices[] = {
+            0, 4, 5,    0, 5, 1,
+            1, 5, 6,    1, 6, 2,
+            2, 6, 7,    2, 7, 3,
+            3, 7, 4,    3, 4, 0,
+            4, 7, 6,    4, 6, 5,
+            3, 0, 1,    3, 1, 2
+    };
     
-    private int build() {
-
-        /**
-         * x = p * sin(phi) * cos(theta)
-         * y = p * sin(phi) * sin(theta)
-         * z = p * cos(phi)
-         */
-        double dTheta = mStep * DEG;
-        double dPhi = dTheta;
-        int points = 0;
-
-        for(double phi = -(Math.PI); phi <= Math.PI; phi+=dPhi) {
-            //for each stage calculating the slices
-            for(double theta = 0.0; theta <= (Math.PI * 2); theta+=dTheta) {
-                sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.cos(theta)) + (float)center.x); // TODO: Hack Fred
-                sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.sin(theta)) + (float)center.z); // to simulate 
-                sphereVertex.put((float) (mRaduis * Math.cos(phi)) + (float)center.y);					 // centerProp()
-                points++;
-
-            }
-        }
-        sphereVertex.position(0);
-        return points;
-    }
+    private FloatBuffer   mVertexBuffer;
+    private ByteBuffer  mIndexBuffer;
+    
     public void centerProp() {
-    	//TODO Fred HACK, supposed to be in the constructor
-    	//              simulate the centerProp()
-    	
-        mPoints = this.build();
-        /*
     	for (int i= 0; i<8; i++){
-    		sphereVertex.[3*i]   = sphereVertex[3*i] + (float)center.x;
-    		sphereVertex[3*i+1] = sphereVertex[3*i+1] + (float)center.z;
-    		sphereVertex[3*i+2] = sphereVertex[3*i+2] + (float)center.y;
+    		vertices[3*i]   = cubeVertices[3*i] + (float)center.x;
+    		vertices[3*i+1] = cubeVertices[3*i+1] + (float)center.z;
+    		vertices[3*i+2] = cubeVertices[3*i+2] + (float)center.y;
     	}
-    	*/
-    	
     }
     
     public void draw(GL10 gl)
     {
-       
+        mVertexBuffer.put(vertices);
+        mVertexBuffer.position(0);
+        
         gl.glFrontFace(gl.GL_CW);
         gl.glColor4f(((float)Color.red(color))/255.0f, ((float)Color.green(color))/255.0f, ((float)Color.blue(color))/255.0f, 1.0f);
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, sphereVertex);
+        gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
-        gl.glDrawArrays(GL10.GL_POINTS, 0, mPoints);
-        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+        gl.glDrawElements(gl.GL_TRIANGLES, 36, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
 
     }
 }
