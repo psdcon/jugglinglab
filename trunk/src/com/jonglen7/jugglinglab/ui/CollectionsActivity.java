@@ -42,7 +42,7 @@ public class CollectionsActivity extends GDListActivity {
     ListView listView;
 
     /** QuickAction. */
-    QuickActionGridCollection quickActionBar;
+    QuickActionGridCollection quickActionGrid;
     
     /** Called when the activity is first created. */
     @Override
@@ -75,7 +75,7 @@ public class CollectionsActivity extends GDListActivity {
         myDbHelper.close();
 
         /** QuickAction. */
-        quickActionBar = new QuickActionGridCollection(this);
+        quickActionGrid = new QuickActionGridCollection(this);
     }
 
     private ArrayList<Collection> createCollectionList() {
@@ -181,7 +181,7 @@ public class CollectionsActivity extends GDListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionBar.show(view, collection_list.get(position), getIntent(), CollectionsActivity.this);
+			quickActionGrid.show(view, collection_list.get(position), getIntent(), CollectionsActivity.this);
 			return true;
 		}
 	};

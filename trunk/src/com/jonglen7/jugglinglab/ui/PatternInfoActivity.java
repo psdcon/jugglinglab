@@ -1,8 +1,9 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.app.GDActivity;
+
 import java.util.HashMap;
 
-import greendroid.app.GDActivity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;

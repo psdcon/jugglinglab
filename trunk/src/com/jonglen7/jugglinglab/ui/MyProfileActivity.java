@@ -60,10 +60,10 @@ public class MyProfileActivity extends GDTabActivity {
 //        		.setContent(new Intent(this, MyProfileTabActivity.class)
 //        				.putExtra("tab", "goals")
 //        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
-//        tabHost.addTab(tabHost.newTabSpec("tab_practicing")
-//        		.setIndicator(getString(R.string.my_profile_tab_practicing))
+//        tabHost.addTab(tabHost.newTabSpec("tab_training")
+//        		.setIndicator(getString(R.string.my_profile_tab_training))
 //        		.setContent(new Intent(this, MyProfileTabActivity.class)
-//        				.putExtra("tab", "practicing")
+//        				.putExtra("tab", "training")
 //        				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
         tabHost.setCurrentTab(0);
