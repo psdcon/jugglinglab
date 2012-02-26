@@ -40,7 +40,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_edit, R.string.gd_edit));
         this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections));
         this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_share, R.string.gd_share));
-        //TODO Romain (stats): Uncomment when ready (Catches, Stats), cf icons http://androiddrawableexplorer.appspot.com/
+        //TODO Romain (Stats): Uncomment when ready (Catches, Stats), cf icons http://androiddrawableexplorer.appspot.com/
 //        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_add, R.string.quickactions_trick_catches));
 //        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_info, R.string.quickactions_trick_stats));
         this.addQuickAction(new MyQuickAction(context, android.R.drawable.ic_delete, R.string.quickactions_delete));
@@ -88,7 +88,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         	case LIST:
         		final ArrayList<Collection> collections = createCollectionList();
         		ArrayList<String> collections_displays = new ArrayList<String>();
-        		// TODO Romain (QuickActionGrid): Is there a better way to distinguish Tutorials and Pattern List ?
+        		// TODO Romain (QuickActionGridTrick): Is there a better way to distinguish Tutorials and Pattern List ?
         		for (Collection c: collections) collections_displays.add((c.getIS_TUTORIAL() != 0? "Tutorial" : "Pattern List") + ": " + c.getCUSTOM_DISPLAY());
         		String[] collections_display = (String[])collections_displays.toArray(new String[0]);
         		
@@ -119,11 +119,11 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.quickactions_trick_share)));
         		break;
         		
-//        	case 4: // TODO Romain (stats): Catches
+//        	case 4: // TODO Romain (Stats): Catches
 //        		Toast.makeText(context, "Catches (popup)", Toast.LENGTH_LONG).show();
 //        		break;
 //        		
-//        	case 5: // TODO Romain (stats): Stats
+//        	case 5: // TODO Romain (Stats): Stats
 //        		Toast.makeText(context, "Stats (activity)", Toast.LENGTH_LONG).show();
 //        		break;
         		

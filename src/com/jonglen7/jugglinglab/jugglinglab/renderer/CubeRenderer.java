@@ -5,6 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
 
+//TODO Fred: si c'est inutile, supprimer le fichier
 public class CubeRenderer implements GLSurfaceView.Renderer {
     public CubeRenderer() {
         mCube = new Cube();

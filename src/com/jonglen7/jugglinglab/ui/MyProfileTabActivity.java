@@ -85,7 +85,7 @@ public class MyProfileTabActivity extends ListActivity {
  					"AND T.ID_PROP=P.ID_PROP " +
  					"AND T.ID_TRICK NOT IN (SELECT ID_TRICK FROM TrickCollection)";
 		} else if (tab.equals("goals")) {
-			// TODO Romain (stats): Gérer date, un seul goal par trick
+			// TODO Romain (Stats): Gérer date, un seul goal par trick
 		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
  					"FROM Trick T, Hands H, Prop P, Body B, Goal G " +
  					"WHERE T.ID_HANDS=H.ID_HANDS " + 
@@ -93,7 +93,7 @@ public class MyProfileTabActivity extends ListActivity {
  					"AND T.ID_PROP=P.ID_PROP " +
  					"AND T.ID_TRICK=G.ID_TRICK";
 		} else if (tab.equals("training")) {
-			// TODO Romain (stats): Gérer date
+			// TODO Romain (Stats): Gérer date
 		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
  					"FROM Trick T, Hands H, Prop P, Body B, Catch C " +
  					"WHERE T.ID_HANDS=H.ID_HANDS " + 

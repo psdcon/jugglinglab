@@ -19,7 +19,7 @@ import com.jonglen7.jugglinglab.ui.QuickActionGridCollection;
 
 public class ListAdapterCollection  extends BaseAdapter {
 
-	// TODO Romain (ListAdapterTrick): Can't we reduce the number of needed attributes ?
+	// TODO Romain (ListAdapterCollection): Can't we reduce the number of needed attributes ?
 	private ListView listView;
 	private LayoutInflater layoutInflater;
 	private ArrayList<Collection> collection_list;
