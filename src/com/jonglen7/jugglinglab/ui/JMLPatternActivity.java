@@ -9,7 +9,6 @@ import java.io.StringReader;
 import org.xml.sax.SAXException;
 
 import android.content.Intent;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
+import android.widget.ZoomButton;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
@@ -29,6 +29,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.util.Trick;
 import com.jonglen7.jugglinglab.widget.StarActionBarItem;
+import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
 
 /**
  * Generate a JMLPattern using a PatternRecord
@@ -40,7 +41,11 @@ public class JMLPatternActivity extends GDActivity {
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
-	GLSurfaceView mGLSurfaceView;
+	TouchSurfaceView mGLSurfaceView;
+	
+	/** ZoomButtons. */
+    private ZoomButton mZoomIn;
+    private ZoomButton mZoomOut;
 	
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
@@ -106,7 +111,7 @@ public class JMLPatternActivity extends GDActivity {
         
         // Initialize Renderer and View
     	renderer = new JugglingRenderer(this);
-    	mGLSurfaceView = (GLSurfaceView) findViewById(R.id.surface);
+    	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
     	mGLSurfaceView.setRenderer(renderer);
         //setContentView(view);
         
@@ -130,6 +135,24 @@ public class JMLPatternActivity extends GDActivity {
                 //ignorer
             }
         });
+
+    	/** ZoomButtons. */
+        mZoomIn = (ZoomButton) findViewById(R.id.animation_btn_zoom_in);
+        mZoomOut = (ZoomButton) findViewById(R.id.animation_btn_zoom_out);
+        
+        mZoomIn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mGLSurfaceView.zoomIn();
+			}
+		});
+        
+        mZoomOut.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mGLSurfaceView.zoomOut();
+			}
+		});
     }
     
     /** Compute JMLPattern from the PatternRecord **/

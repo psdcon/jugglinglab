@@ -27,6 +27,8 @@ import android.view.ViewGroup;
  */
 public class DashboardLayout extends ViewGroup {
 
+	// TODO Romain (DashboardLayout): Pourquoi ça s'affiche sur une colonne sur mon tel ?
+	
     private static final int UNEVEN_GRID_PENALTY_MULTIPLIER = 10;
 
     private int mMaxChildWidth = 0;
