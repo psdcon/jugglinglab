@@ -1,7 +1,9 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.widget.ActionBarItem;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -76,6 +78,8 @@ public class GeneratorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     	setActionBarContentView(R.layout.activity_generator);
 
+        addActionBarItem(ActionBarItem.Type.Eye, R.id.action_bar_switch_display_mode);
+
     	/** Balls. */
     	txt_balls = (TextView) findViewById(R.id.generator_txt_balls);
     	edit_balls = (EditText) findViewById(R.id.generator_edit_balls);
@@ -148,6 +152,23 @@ public class GeneratorActivity extends BaseActivity {
     public void onResume() {
     	super.onResume();
         switchDisplayMode();
+    }
+
+    /** ActionBar. */
+    @Override
+    public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_switch_display_mode:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                Editor editor = preferences.edit();
+                editor.putBoolean("user_advanced_mode", !preferences.getBoolean("user_advanced_mode", false));
+                editor.commit();
+                switchDisplayMode();
+                return true;
+
+            default:
+                return super.onHandleActionBarItemClick(item, position);
+        }
     }
     
     /** Hide or show some parameters depending if the Advanced mode is selected. */

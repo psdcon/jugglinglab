@@ -1,10 +1,13 @@
 package com.jonglen7.jugglinglab.ui;
 
+import greendroid.widget.ActionBarItem;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -74,6 +77,8 @@ public class PatternEntryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setActionBarContentView(R.layout.activity_pattern_entry);
 
+        addActionBarItem(ActionBarItem.Type.Eye, R.id.action_bar_switch_display_mode);
+        
         myDbHelper = DataBaseHelper.init(this);
         
         /** Pattern. */
@@ -175,6 +180,23 @@ public class PatternEntryActivity extends BaseActivity {
     public void onResume() {
     	super.onResume();
     	switchDisplayMode();
+    }
+
+    /** ActionBar. */
+    @Override
+    public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_switch_display_mode:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                Editor editor = preferences.edit();
+                editor.putBoolean("user_advanced_mode", !preferences.getBoolean("user_advanced_mode", false));
+                editor.commit();
+                switchDisplayMode();
+                return true;
+
+            default:
+                return super.onHandleActionBarItemClick(item, position);
+        }
     }
     
     /** Hide or show some parameters depending if the Advanced mode is selected. */
