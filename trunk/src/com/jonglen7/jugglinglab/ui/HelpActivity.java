@@ -13,6 +13,8 @@ public class HelpActivity extends BaseActivity {
 
         /** ActionBar. */
         setActionBarContentView(R.layout.activity_help);
+        
+        // TODO Romain (Help): Find a way to display the help
     }
 
 }

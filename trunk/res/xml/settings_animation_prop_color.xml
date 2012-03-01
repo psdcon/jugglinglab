@@ -2,21 +2,21 @@
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	
-	<PreferenceCategory android:title="@string/settings_animation_category_prop_color_category_all">
+	<PreferenceCategory android:title="@string/settings_category_prop_color_category_all">
 		<com.jonglen7.jugglinglab.ui.ColorPickerPreference
 			android:key="colorPicker" 
-			android:title="@string/settings_animation_category_prop_color_color" />
+			android:title="@string/settings_category_prop_color_color" />
 				
 		<CheckBoxPreference 
 			android:key="use_mixed_color" 
-			android:title="@string/settings_animation_category_prop_color_category_mixed_title" 
-			android:summary="@string/settings_animation_category_prop_color_category_mixed_summary"/>
+			android:title="@string/settings_category_prop_color_category_mixed_title" 
+			android:summary="@string/settings_category_prop_color_category_mixed_summary"/>
 	</PreferenceCategory>
 	
 	
 	<PreferenceCategory 
 		android:key="prop_by_prop_category"
-		android:title="@string/settings_animation_category_prop_color_category_pbp_title">
+		android:title="@string/settings_category_prop_color_category_pbp_title">
 			<!-- Prop by Prop ColorPickerPreference list -->
 	</PreferenceCategory>
 	

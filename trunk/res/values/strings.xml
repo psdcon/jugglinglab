@@ -5,7 +5,6 @@
     <string name="app_url">http://code.google.com/p/jugglinglab</string>
     
     <!-- Home -->
-    <string name="home_title">Juggling Lab</string>
     <string name="home_btn_pattern_entry">Pattern Entry</string>
     <string name="home_btn_generator">Generator</string>
     <string name="home_btn_tutorials">Tutorials</string>
@@ -80,52 +79,12 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_help">Help</string>
     <string name="menu_about">About</string>
-    
-    <!-- Settings : Home -->
-    <string name="settings_home_category_user">User</string>
-    <string name="settings_home_cb_advanced_mode_title">Advanced mode</string>
-    <string name="settings_home_cb_advanced_mode_summary">Activate the advanced mode</string>
-    <string name="settings_home_category_generator">Generator</string>
-    <string name="settings_home_txt_max_patterns_title">Patterns</string>
-    <string name="settings_home_txt_max_patterns_summary">Maximum number of patterns to print</string>
-    <string name="settings_home_txt_max_seconds_title">Time</string>
-    <string name="settings_home_txt_max_seconds_summary">Maximum number of seconds</string>
-    <string name="settings_home_category_animation">Animation</string>
-    
-    <!-- Settings : Animation -->
-    <string name="settings_animation_category_animation">Animation</string>
-    <string name="settings_animation_category_prop">Prop</string>
-    <string name="settings_animation_category_prop_type">Type</string>
-    <string name="settings_animation_category_prop_color">Color</string>
-    <string name="settings_animation_category_prop_size">Size</string>
-    <string name="settings_animation_category_juggler">Juggler</string>
-    <string name="settings_animation_txt_juggler_height_title">Height</string>
-    <string name="settings_animation_txt_juggler_height_summary">The height of the juggler</string>
-    <string name="settings_animation_txt_juggler_weight_title">Weight</string>
-    <string name="settings_animation_txt_juggler_weight_summary">The weight of the juggler</string>
-    <string name="settings_animation_category_juggler_hat">Hat</string>
-    <string name="settings_animation_category_juggler_glasses">Glasses</string>
-    <string name="settings_animation_category_juggler_beard">Beard</string>
-    <string name="settings_animation_category_background">Background</string>
-    <string name="settings_animation_category_background_color">Color</string>
-    
-    <!-- Settings : Animation/Prop/Color -->
-    <string name="settings_animation_category_prop_color_category_all">All Props</string>
-    <string name="settings_animation_category_prop_color_color">One Color</string>    
-    <string name="settings_animation_category_prop_color_category_mixed_title">Mixed</string>
-    <string name="settings_animation_category_prop_color_category_mixed_summary">Use predefined mixed colors</string>
-    <string name="settings_animation_category_prop_color_category_pbp_title">Prop by Prop</string>
-    
-     <!-- Settings : Animation/Juggler/Color -->
-     <string name="settings_animation_category_juggler_color_category_all">All Props</string>
-    <string name="settings_animation_category_juggler_color_color">One Color</string>  
-    <string name="settings_animation_category_juggler_color_category_mixed_title">Mixed</string>
-    <string name="settings_animation_category_juggler_color_category_mixed_summary">Use predefined mixed colors</string>
-    <string name="settings_animation_category_juggler_color_category_jbj_title">Juggler by Juggler</string>
-    
+
     <!-- About -->
     <string name="about_title">About</string>
     <string name="about_txt">Juggling Lab is based on the desktop application also called Juggling Lab http://jugglinglab.sourceforge.net/.\n\nJuggling Lab is an application for creating and animating juggling patterns. Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.</string>
+    
+    <!-- TODO Romain (Help): Help -->
     
     <!-- QuickActions -->
     <string name="quickactions_trick_collections">Labels</string>
@@ -134,9 +93,53 @@
     <string name="quickactions_trick_catches">Catches</string>
     <string name="quickactions_trick_stats">Stats</string>
     <string name="quickactions_delete">Delete</string>
+    <string name="quickactions_delete_confirmation">Delete %s ?</string>
     
     <!-- Other -->
     <string name="txt_no_patterns">No patterns found!</string>
-    <string name="alert_dialog_two_buttons_title">Delete %s ?</string>
+    
+    <!-- Settings -->
+    <string name="settings_category_user">User</string>
+    <string name="settings_cb_advanced_mode_title">Advanced mode</string>
+    <string name="settings_cb_advanced_mode_summary">Activate the advanced mode</string>
+
+    <string name="settings_category_generator">Generator</string>
+    <string name="settings_txt_max_patterns_title">Patterns</string>
+    <string name="settings_txt_max_patterns_summary">Maximum number of patterns to print</string>
+    <string name="settings_txt_max_seconds_title">Time</string>
+    <string name="settings_txt_max_seconds_summary">Maximum number of seconds</string>
+
+    <!-- TODO Fred: Change the names of the strings to follow the pattern settings_{type}_{name} with type in [category, txt, cb, ...]-->
+    <string name="settings_category_animation">Animation</string>
+
+    <string name="settings_category_background">Background</string>
+    <string name="settings_category_background_color">Color</string>
+
+    <string name="settings_category_prop">Prop</string>
+    <string name="settings_category_prop_type">Type</string>
+    <string name="settings_category_prop_color">Color</string>
+    <string name="settings_category_prop_color_category_all">All Props</string>
+    <string name="settings_category_prop_color_color">One Color</string>    
+    <string name="settings_category_prop_color_category_mixed_title">Mixed</string>
+    <string name="settings_category_prop_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_category_prop_color_category_pbp_title">Prop by Prop</string>
+    <string name="settings_category_prop_size">Size</string>
+
+    <string name="settings_category_juggler">Juggler</string>
+    <string name="settings_category_juggler_color_category_all">All Props</string>
+    <string name="settings_category_juggler_color_color">One Color</string>  
+    <string name="settings_category_juggler_color_category_mixed_title">Mixed</string>
+    <string name="settings_category_juggler_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_category_juggler_color_category_jbj_title">Juggler by Juggler</string>
+    <string name="settings_txt_juggler_height_title">Height</string>
+    <string name="settings_txt_juggler_height_summary">The height of the juggler</string>
+    <string name="settings_txt_juggler_weight_title">Weight</string>
+    <string name="settings_txt_juggler_weight_summary">The weight of the juggler</string>
+
+    <string name="settings_category_juggler_hat">Hat</string>
+
+    <string name="settings_category_juggler_glasses">Glasses</string>
+
+    <string name="settings_category_juggler_beard">Beard</string>
     
 </resources>
