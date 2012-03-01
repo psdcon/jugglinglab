@@ -5,12 +5,12 @@ import android.preference.PreferenceActivity;
 
 import com.jonglen7.jugglinglab.R;
 
-public class SettingsHomeActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.settings_home);
+		addPreferencesFromResource(R.xml.settings);
 	}
 	
 	@Override

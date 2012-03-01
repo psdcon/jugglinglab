@@ -1,6 +1,5 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDActivity;
 import greendroid.widget.ActionBarItem;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
  *
  */
 
-public class JMLPatternActivity extends GDActivity {
+public class JMLPatternActivity extends BaseActivity {
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
@@ -55,7 +54,7 @@ public class JMLPatternActivity extends GDActivity {
     public void onCreate(Bundle savedInstanceState) {
     	
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_animation);
+        setActionBarContentView(R.layout.activity_animation);
         
         // Get the PatternRecord.
         Bundle extras = getIntent().getExtras();
@@ -205,25 +204,6 @@ public class JMLPatternActivity extends GDActivity {
     	super.onResume();
         mGLSurfaceView.onResume();
     }
-    
-    /** Menu button. */
-    // TODO Fred: Uncomment when ready
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_settings:
-//            	startActivity(new Intent(this, SettingsAnimationActivity.class));
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     /** ActionBar. */
     @Override

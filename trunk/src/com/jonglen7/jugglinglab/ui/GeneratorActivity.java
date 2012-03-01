@@ -1,14 +1,10 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -22,7 +18,7 @@ import android.widget.TextView;
 
 import com.jonglen7.jugglinglab.R;
 
-public class GeneratorActivity extends GDActivity {
+public class GeneratorActivity extends BaseActivity {
 	
 	/** Balls. */
 	TextView txt_balls;
@@ -78,7 +74,7 @@ public class GeneratorActivity extends GDActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    	setContentView(R.layout.activity_generator);
+    	setActionBarContentView(R.layout.activity_generator);
 
     	/** Balls. */
     	txt_balls = (TextView) findViewById(R.id.generator_txt_balls);
@@ -180,24 +176,6 @@ public class GeneratorActivity extends GDActivity {
     	edit_include_these_expressions.setVisibility(visibility);
     	txt_passing_communication_delay.setVisibility(visibility);
     	edit_passing_communication_delay.setVisibility(visibility);
-    }
-    
-    /** Menu button. */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-            	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     /** Handle "Run" action. */

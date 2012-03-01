@@ -1,7 +1,5 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDActivity;
-
 import java.util.HashMap;
 
 import android.database.Cursor;
@@ -12,7 +10,7 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
-public class PatternInfoActivity extends GDActivity {
+public class PatternInfoActivity extends BaseActivity {
 
 	/** Display. */
 	TextView txt_display_value;
@@ -41,7 +39,7 @@ public class PatternInfoActivity extends GDActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pattern_info);
+        setActionBarContentView(R.layout.activity_pattern_info);
 
     	/** Display. */
         txt_display_value = (TextView) findViewById(R.id.pattern_info_txt_display_value);

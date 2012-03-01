@@ -1,7 +1,5 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,9 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -29,7 +24,7 @@ import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.Trick;
 
-public class PatternEntryActivity extends GDActivity {
+public class PatternEntryActivity extends BaseActivity {
 
 	DataBaseHelper myDbHelper;
 	
@@ -77,7 +72,7 @@ public class PatternEntryActivity extends GDActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pattern_entry);
+        setActionBarContentView(R.layout.activity_pattern_entry);
 
         myDbHelper = DataBaseHelper.init(this);
         
@@ -199,24 +194,6 @@ public class PatternEntryActivity extends GDActivity {
     	edit_body_movement.setVisibility(visibility);
     	txt_manual_settings.setVisibility(visibility);
     	edit_manual_settings.setVisibility(visibility);
-    }
-    
-    /** Menu button. */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-            	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     /** Handle "Juggle" action. */

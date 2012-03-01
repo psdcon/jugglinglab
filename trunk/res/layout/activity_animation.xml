@@ -1,61 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<greendroid.widget.ActionBarHost
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/gd_action_bar_host"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <greendroid.widget.ActionBar
-        android:id="@id/gd_action_bar"
-        android:layout_height="@dimen/gd_action_bar_height"
+    android:layout_height="fill_parent">
+    
+    <com.jonglen7.jugglinglab.widget.TouchSurfaceView
+        android:id="@+id/surface"
         android:layout_width="fill_parent"
-        android:background="?attr/gdActionBarBackground" />
+        android:layout_height="wrap_content"/>
 
-    <FrameLayout
-        android:id="@id/gd_action_bar_content_view"
-        android:layout_height="0dp"
+    <SeekBar
+        android:id="@+id/animation_speed_seekbar" 
+        android:max="19"
+        android:progress="18"
         android:layout_width="fill_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/surface"
+        android:layout_alignLeft="@id/surface"
+        android:padding="10dip"/>
+    
+    <ZoomButton
+        android:id="@+id/animation_btn_zoom_out"
+        android:background="@drawable/btn_zoom_down"
+        android:layout_alignLeft="@id/surface"
+        android:layout_alignTop="@id/surface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            
-            <com.jonglen7.jugglinglab.widget.TouchSurfaceView
-                android:id="@+id/surface"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
-
-            <SeekBar
-                android:id="@+id/animation_speed_seekbar" 
-                android:max="19"
-                android:progress="18"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/surface"
-                android:layout_alignLeft="@id/surface"
-                android:padding="10dip"/>
-            
-            <ZoomButton
-                android:id="@+id/animation_btn_zoom_out"
-		        android:background="@drawable/btn_zoom_down"
-                android:layout_alignLeft="@id/surface"
-                android:layout_alignTop="@id/surface"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"/>
-		    
-		    <ZoomButton
-		        android:id="@+id/animation_btn_zoom_in"
-                android:background="@drawable/btn_zoom_up"
-                android:layout_alignTop="@id/surface"
-                android:layout_toRightOf="@id/animation_btn_zoom_out"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"/>
-            
-        </RelativeLayout>
-
-    </FrameLayout>
-
-</greendroid.widget.ActionBarHost>
+    <ZoomButton
+        android:id="@+id/animation_btn_zoom_in"
+        android:background="@drawable/btn_zoom_up"
+        android:layout_alignTop="@id/surface"
+        android:layout_toRightOf="@id/animation_btn_zoom_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+</RelativeLayout>

@@ -1,145 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<greendroid.widget.ActionBarHost
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/gd_action_bar_host"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_height="fill_parent">
 
-    <greendroid.widget.ActionBar
-        android:id="@id/gd_action_bar"
-        android:layout_height="@dimen/gd_action_bar_height"
+    <Button
+        android:id="@+id/pattern_entry_btn_juggle"
         android:layout_width="fill_parent"
-        android:background="?attr/gdActionBarBackground" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="onJuggleClick"
+        android:text="@string/pattern_entry_btn_juggle"/>
 
-    <FrameLayout
-        android:id="@id/gd_action_bar_content_view"
-        android:layout_height="0dp"
+    <ScrollView
+        android:id="@+id/pattern_entry_scrollview"
         android:layout_width="fill_parent"
-        android:layout_weight="1">
-    
-        <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_above="@id/pattern_entry_btn_juggle">
+
+        <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
     
-            <Button
-                android:id="@+id/pattern_entry_btn_juggle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:onClick="onJuggleClick"
-                android:text="@string/pattern_entry_btn_juggle"/>
+            <!-- Pattern Entry -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_pattern"
+                    android:text="@string/pattern_entry_txt_pattern"/>
+                <EditText
+                    android:id="@+id/pattern_entry_edit_pattern"
+                    android:inputType="textImeMultiLine"
+                    android:text="@string/pattern_entry_edit_pattern"
+                    android:layout_span="2"/>
+            </TableRow>
+        
+            <!-- Hand movement -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_hand_movement"
+                    android:text="@string/pattern_entry_txt_hand_movement"/>
+                <Spinner
+                    android:id="@+id/pattern_entry_spinner_hand_movement"
+                    android:layout_span="2"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/pattern_entry_edit_hand_movement"
+                    android:inputType="textImeMultiLine"
+                    android:layout_column="1"
+                    android:layout_span="2"
+                    />
+            </TableRow>
+        
+            <!-- Prop type -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_prop_type"
+                    android:text="@string/pattern_entry_txt_prop_type"/>
+                <Spinner
+                    android:id="@+id/pattern_entry_spinner_prop_type"
+                    android:layout_span="2"/>
+            </TableRow>
     
-            <ScrollView
-                android:id="@+id/pattern_entry_scrollview"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_above="@id/pattern_entry_btn_juggle">
+            <!-- Dwell beats -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_dwell_beats"
+                    android:text="@string/pattern_entry_txt_dwell_beats"/>
+                <SeekBar
+                    android:id="@+id/pattern_entry_seekbar_dwell_beats"
+                    android:max="18"
+                    android:progress="12"/>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_dwell_beats_progress"/>
+            </TableRow>
+    
+            <!-- Beats per second -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_beats_per_second"
+                    android:text="@string/pattern_entry_txt_beats_per_second"/>
+                <SeekBar
+                    android:id="@+id/pattern_entry_seekbar_beats_per_second"
+                    android:max="9"
+                    android:progress="2"/>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_beats_per_second_progress"/>
+            </TableRow>
+        
+            <!-- Body movement -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_body_movement"
+                    android:text="@string/pattern_entry_txt_body_movement"/>
+                <Spinner
+                    android:id="@+id/pattern_entry_spinner_body_movement"
+                    android:layout_span="2"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/pattern_entry_edit_body_movement"
+                    android:inputType="textImeMultiLine"
+                    android:layout_column="1"
+                    android:layout_span="2"/>
+            </TableRow>
+        
+            <!-- Manual settings -->
+            <TableRow>
+                <TextView
+                    android:id="@+id/pattern_entry_txt_manual_settings"
+                    android:text="@string/pattern_entry_txt_manual_settings"/>
+                <EditText
+                    android:id="@+id/pattern_entry_edit_manual_settings"
+                    android:inputType="textImeMultiLine"
+                    android:layout_span="2"/>
+            </TableRow>
+        
+        </TableLayout>
 
-                <TableLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="1">
-            
-                    <!-- Pattern Entry -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_pattern"
-                            android:text="@string/pattern_entry_txt_pattern"/>
-                        <EditText
-                            android:id="@+id/pattern_entry_edit_pattern"
-                            android:inputType="textImeMultiLine"
-                            android:text="@string/pattern_entry_edit_pattern"
-                            android:layout_span="2"/>
-                    </TableRow>
-                
-                    <!-- Hand movement -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_hand_movement"
-                            android:text="@string/pattern_entry_txt_hand_movement"/>
-                        <Spinner
-                            android:id="@+id/pattern_entry_spinner_hand_movement"
-                            android:layout_span="2"/>
-                    </TableRow>
-                    <TableRow>
-                        <EditText
-                            android:id="@+id/pattern_entry_edit_hand_movement"
-                            android:inputType="textImeMultiLine"
-                            android:layout_column="1"
-                            android:layout_span="2"
-                            />
-                    </TableRow>
-                
-                    <!-- Prop type -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_prop_type"
-                            android:text="@string/pattern_entry_txt_prop_type"/>
-                        <Spinner
-                            android:id="@+id/pattern_entry_spinner_prop_type"
-                            android:layout_span="2"/>
-                    </TableRow>
-            
-                    <!-- Dwell beats -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_dwell_beats"
-                            android:text="@string/pattern_entry_txt_dwell_beats"/>
-                        <SeekBar
-                            android:id="@+id/pattern_entry_seekbar_dwell_beats"
-                            android:max="18"
-                            android:progress="12"/>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_dwell_beats_progress"/>
-                    </TableRow>
-            
-                    <!-- Beats per second -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_beats_per_second"
-                            android:text="@string/pattern_entry_txt_beats_per_second"/>
-                        <SeekBar
-                            android:id="@+id/pattern_entry_seekbar_beats_per_second"
-                            android:max="9"
-                            android:progress="2"/>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_beats_per_second_progress"/>
-                    </TableRow>
-                
-                    <!-- Body movement -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_body_movement"
-                            android:text="@string/pattern_entry_txt_body_movement"/>
-                        <Spinner
-                            android:id="@+id/pattern_entry_spinner_body_movement"
-                            android:layout_span="2"/>
-                    </TableRow>
-                    <TableRow>
-                        <EditText
-                            android:id="@+id/pattern_entry_edit_body_movement"
-                            android:inputType="textImeMultiLine"
-                            android:layout_column="1"
-                            android:layout_span="2"/>
-                    </TableRow>
-                
-                    <!-- Manual settings -->
-                    <TableRow>
-                        <TextView
-                            android:id="@+id/pattern_entry_txt_manual_settings"
-                            android:text="@string/pattern_entry_txt_manual_settings"/>
-                        <EditText
-                            android:id="@+id/pattern_entry_edit_manual_settings"
-                            android:inputType="textImeMultiLine"
-                            android:layout_span="2"/>
-                    </TableRow>
-                
-                </TableLayout>
-            </ScrollView>
-        </RelativeLayout>
+    </ScrollView>
 
-    </FrameLayout>
-
-</greendroid.widget.ActionBarHost>
+</RelativeLayout>

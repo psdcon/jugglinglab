@@ -1,15 +1,10 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDListActivity;
-
 import java.util.ArrayList;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,7 +17,7 @@ import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 
-public class CollectionActivity extends GDListActivity {
+public class CollectionActivity extends BaseListActivity {
 
 	/** DataBase. */
 	DataBaseHelper myDbHelper;
@@ -44,7 +39,6 @@ public class CollectionActivity extends GDListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collection);
         
         /** Get the Collection. */
         Bundle extras = getIntent().getExtras();
@@ -79,6 +73,11 @@ public class CollectionActivity extends GDListActivity {
     	super.onResume();
     }
 
+    @Override
+    public int createLayout() {
+    	return R.layout.activity_collection;
+    }
+
     private ArrayList<PatternRecord> createPatternList() {
     	ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
 		
@@ -107,24 +106,6 @@ public class CollectionActivity extends GDListActivity {
 	 	cursor.close();
     	
 		return pattern_list;
-    }
-    
-    /** Menu button. */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-            	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     private OnItemClickListener itemClickListener = new OnItemClickListener() {

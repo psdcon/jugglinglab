@@ -1,18 +1,15 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDActivity;
 import greendroid.widget.ActionBarItem;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.jonglen7.jugglinglab.R;
 
-public class HomeActivity extends GDActivity {
-    /** Called when the activity is first created. */
+public class HomeActivity extends BaseActivity {
+
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,24 +31,6 @@ public class HomeActivity extends GDActivity {
             default:
                 return super.onHandleActionBarItemClick(item, position);
         }
-    }
-
-    /** Menu button. */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-            	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     /** Handle "Pattern Entry" action. */
