@@ -136,7 +136,7 @@ public class Juggler {
 	
 	// Find the pixeled position of the juggler description points regarding the pattern
     // Stock the result in MathVector[][] structure
-    // TODO:FRED Stock directly in the vertices[] to be exploited by openGL methods
+    // TODO Fred: Stock directly in the vertices[] to be exploited by openGL methods
 	public void findJugglerCoordinates(JMLPattern pat, double time) throws JuggleExceptionInternal {
 		
 		for (int juggler = 1; juggler <= pat.getNumberOfJugglers(); juggler++) {

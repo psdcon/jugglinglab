@@ -12,19 +12,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.AboutActivity" android:label="@string/about_title"></activity>
-        <activity android:name=".ui.PatternEntryActivity" android:label="@string/pattern_entry_title"></activity>
-        <activity android:name=".ui.PatternInfoActivity"></activity>
+        <activity android:name=".ui.CollectionActivity"></activity>
+        <activity android:name=".ui.CollectionsActivity"></activity>
+        <activity android:name=".ui.ColorPreferenceActivity"></activity>
+        <activity android:name=".ui.HelpActivity"></activity>
         <activity android:name=".ui.GeneratorActivity" android:label="@string/generator_title"></activity>
         <activity android:name=".ui.GeneratorListActivity"></activity>
-        <activity android:name=".ui.CollectionsActivity"></activity>
-        <activity android:name=".ui.CollectionActivity"></activity>
+        <activity android:name=".ui.JMLPatternActivity"></activity>
         <activity android:name=".ui.MyProfileActivity" android:label="@string/my_profile_title"></activity>
         <activity android:name=".ui.MyProfileTabActivity"></activity>
-        <activity android:name=".ui.VideoActivity" android:label="@string/video_title"></activity>
-        <activity android:name=".ui.SettingsHomeActivity"></activity>
+        <activity android:name=".ui.PatternEntryActivity" android:label="@string/pattern_entry_title"></activity>
+        <activity android:name=".ui.PatternInfoActivity"></activity>
         <activity android:name=".ui.SettingsAnimationActivity"></activity>
-        <activity android:name=".ui.JMLPatternActivity"></activity>
-        <activity android:name=".ui.ColorPreferenceActivity"></activity>
+        <activity android:name=".ui.SettingsActivity"></activity>
+        <activity android:name=".ui.VideoActivity" android:label="@string/video_title"></activity>
         <activity android:name="org.superdry.util.colorpicker.lib.SuperdryColorPicker"
 			android:theme="@android:style/Theme.Dialog" />
         <activity android:name="org.achartengine.GraphicalActivity"></activity>

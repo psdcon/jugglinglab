@@ -51,7 +51,7 @@ public class Collection implements Parcelable {
 
 	@Override
 	public int describeContents() {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		return 0;
 	}
 

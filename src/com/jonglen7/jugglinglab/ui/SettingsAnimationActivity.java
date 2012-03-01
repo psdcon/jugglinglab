@@ -10,6 +10,7 @@ import android.preference.PreferenceScreen;
 
 import com.jonglen7.jugglinglab.R;
 
+// TODO Fred: Merge with SettingsActivity
 public class SettingsAnimationActivity extends PreferenceActivity {
 
 	PreferenceScreen colorPrefScreen;

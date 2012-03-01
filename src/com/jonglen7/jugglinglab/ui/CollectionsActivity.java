@@ -1,6 +1,5 @@
 package com.jonglen7.jugglinglab.ui;
 
-import greendroid.app.GDListActivity;
 import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.NormalActionBarItem;
@@ -13,9 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,7 +24,7 @@ import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.ListAdapterCollection;
 
-public class CollectionsActivity extends GDListActivity {
+public class CollectionsActivity extends BaseListActivity {
 	
 	int IS_TUTORIAL;
 
@@ -49,7 +45,6 @@ public class CollectionsActivity extends GDListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collection);
         IS_TUTORIAL = getIntent().getIntExtra("IS_TUTORIAL", 0);
     	
     	setTitle((new HashMap<Integer, String>() {
@@ -85,6 +80,11 @@ public class CollectionsActivity extends GDListActivity {
     	super.onResume();
     }
 
+    @Override
+    public int createLayout() {
+    	return R.layout.activity_collection;
+    }
+    
     private ArrayList<Collection> createCollectionList() {
     	ArrayList<Collection> collections = new ArrayList<Collection>();
 		
@@ -152,24 +152,6 @@ public class CollectionsActivity extends GDListActivity {
             default:
                 return super.onHandleActionBarItemClick(item, position);
         }
-    }
-    
-    /** Menu button. */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-            	startActivity(new Intent(this, SettingsHomeActivity.class));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     private OnItemClickListener itemClickListener = new OnItemClickListener() {

@@ -80,10 +80,10 @@ public class ballProp extends Prop {
         grip = new Coordinate();
         
         // Draw Initialization
-        this.mRaduis = 3.0;	//TODO: Fred 25 is a hardcoded value 
-        this.mStep = 25.0;	//TODO: Fred 25 is a hardcoded value 
+        this.mRaduis = 3.0;	//TODO Fred: 25 is a hardcoded value 
+        this.mStep = 25.0;	//TODO Fred: 25 is a hardcoded value 
         
-        ByteBuffer vbb = ByteBuffer.allocateDirect(40000); //TODO: Fred 40000 is a hardcoded value 
+        ByteBuffer vbb = ByteBuffer.allocateDirect(40000); //TODO Fred: 40000 is a hardcoded value 
         vbb.order(ByteOrder.nativeOrder());
         sphereVertex = vbb.asFloatBuffer();       
         
@@ -281,7 +281,7 @@ public class ballProp extends Prop {
         for(double phi = -(Math.PI); phi <= Math.PI; phi+=dPhi) {
             //for each stage calculating the slices
             for(double theta = 0.0; theta <= (Math.PI * 2); theta+=dTheta) {
-                sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.cos(theta)) + (float)center.x); // TODO: Hack Fred
+                sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.cos(theta)) + (float)center.x); // TODO Fred: Hack Fred
                 sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.sin(theta)) + (float)center.z); // to simulate 
                 sphereVertex.put((float) (mRaduis * Math.cos(phi)) + (float)center.y);					 // centerProp()
                 points++;
@@ -292,7 +292,7 @@ public class ballProp extends Prop {
         return points;
     }
     public void centerProp() {
-    	//TODO Fred HACK, supposed to be in the constructor
+    	//TODO Fred: HACK, supposed to be in the constructor
     	//              simulate the centerProp()
     	
         mPoints = this.build();

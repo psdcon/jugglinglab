@@ -4,12 +4,15 @@ import android.os.Bundle;
 
 import com.jonglen7.jugglinglab.R;
 
-public class AboutActivity extends BaseActivity {
+public class HelpActivity extends BaseActivity {
 
-    /** Called when the activity is first created. */
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setActionBarContentView(R.layout.activity_about);
+
+        /** ActionBar. */
+        setActionBarContentView(R.layout.activity_help);
     }
+
 }
