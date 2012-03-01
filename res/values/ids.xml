@@ -22,6 +22,7 @@
     <item type="id" name="action_bar_add" />
     <item type="id" name="action_bar_compose" />
     <item type="id" name="action_bar_star" />
+    <item type="id" name="action_bar_switch_display_mode" />
 	<item type="id" name="action_bar_view_info" />
 
 </resources>
