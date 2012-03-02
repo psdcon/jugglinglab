@@ -1,0 +1,39 @@
+<com.jonglen7.jugglinglab.widget.DashboardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1">
+
+    <!-- TODO Fred|Romain: Change the icons -->
+
+    <Button android:id="@+id/home_btn_pattern_entry"
+        style="@style/DashboardButton"
+        android:text="@string/home_btn_pattern_entry"
+        android:onClick="onPatternEntryClick"
+        android:drawableTop="@drawable/icon" />
+
+    <Button android:id="@+id/home_btn_generator"
+        style="@style/DashboardButton"
+        android:text="@string/home_btn_generator"
+        android:onClick="onGeneratorClick"
+        android:drawableTop="@drawable/icon" />
+
+    <Button android:id="@+id/home_btn_tutorials"
+        style="@style/DashboardButton"
+        android:text="@string/home_btn_tutorials"
+        android:onClick="onTutorialsClick"
+        android:drawableTop="@drawable/icon" />
+
+    <Button android:id="@+id/home_btn_pattern_list"
+        style="@style/DashboardButton"
+        android:text="@string/home_btn_pattern_list"
+        android:onClick="onPatternListClick"
+        android:drawableTop="@drawable/icon" />
+
+    <Button android:id="@+id/home_btn_my_profile"
+        style="@style/DashboardButton"
+        android:text="@string/home_btn_my_profile"
+        android:onClick="onMyProfileClick"
+        android:drawableTop="@drawable/icon" />
+
+</com.jonglen7.jugglinglab.widget.DashboardLayout>

@@ -26,10 +26,9 @@ import android.view.ViewGroup;
  * vertical whitespace.
  */
 public class DashboardLayout extends ViewGroup {
-
-	// TODO Romain (DashboardLayout): Pourquoi ça s'affiche sur une colonne sur mon tel ?
 	
     private static final int UNEVEN_GRID_PENALTY_MULTIPLIER = 10;
+    private static final int OVERLAP_PENALTY_MULTIPLIER = 10;
 
     private int mMaxChildWidth = 0;
     private int mMaxChildHeight = 0;
@@ -134,6 +133,12 @@ public class DashboardLayout extends ViewGroup {
             spaceDifference = Math.abs(vSpace - hSpace);
             if (rows * cols != visibleCount) {
                 spaceDifference *= UNEVEN_GRID_PENALTY_MULTIPLIER;
+            }
+            if (hSpace < 0) {
+                spaceDifference *= OVERLAP_PENALTY_MULTIPLIER;
+            }
+            if (vSpace < 0) {
+                spaceDifference *= OVERLAP_PENALTY_MULTIPLIER;
             }
 
             if (spaceDifference < bestSpaceDifference) {
