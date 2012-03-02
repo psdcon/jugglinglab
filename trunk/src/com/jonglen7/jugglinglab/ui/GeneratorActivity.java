@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -161,9 +162,11 @@ public class GeneratorActivity extends BaseActivity {
             case R.id.action_bar_switch_display_mode:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 Editor editor = preferences.edit();
-                editor.putBoolean("user_advanced_mode", !preferences.getBoolean("user_advanced_mode", false));
+                boolean user_advanced_mode = !preferences.getBoolean("user_advanced_mode", false);
+                editor.putBoolean("user_advanced_mode", user_advanced_mode);
                 editor.commit();
                 switchDisplayMode();
+                Toast.makeText(this, getString(R.string.advanced_mode) + " " + (user_advanced_mode ? getString(R.string.activated) : getString(R.string.deactivated)), Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
