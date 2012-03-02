@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
@@ -18,9 +17,6 @@ import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 
 public class CollectionActivity extends BaseListActivity {
-
-	/** DataBase. */
-	DataBaseHelper myDbHelper;
 	
 	/** Collection. */
 	Collection collection;
@@ -29,7 +25,6 @@ public class CollectionActivity extends BaseListActivity {
     ArrayList<PatternRecord> pattern_list;
 
     /** ListView. */
-    ListView listView;
     ListAdapterTrick mSchedule;
 
     /** QuickAction. */
@@ -71,11 +66,6 @@ public class CollectionActivity extends BaseListActivity {
     public void onResume() {
     	mSchedule.notifyDataSetChanged();
     	super.onResume();
-    }
-
-    @Override
-    public int createLayout() {
-    	return R.layout.activity_collection;
     }
 
     private ArrayList<PatternRecord> createPatternList() {

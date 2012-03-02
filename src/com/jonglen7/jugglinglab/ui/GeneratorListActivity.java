@@ -10,10 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.jugglinglab.generator.GeneratorTarget;
 import com.jonglen7.jugglinglab.jugglinglab.generator.siteswapGenerator;
@@ -30,15 +28,12 @@ public class GeneratorListActivity extends BaseListActivity {
     
     /** GeneratorTarget. */
     GeneratorTarget target;
-
-	/** DataBase. */
-	DataBaseHelper myDbHelper;
     
     /** Pattern list. */
     ArrayList<PatternRecord> pattern_list;
 
     /** ListView. */
-    ListView listView;
+    ListAdapterTrick mSchedule;
 
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
@@ -56,7 +51,7 @@ public class GeneratorListActivity extends BaseListActivity {
         setTitle(pattern_list.size() + " patterns found");
 
         listView = getListView();
-        ListAdapterTrick mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, this, getIntent(), GeneratorListActivity.this);
+        mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, this, getIntent(), GeneratorListActivity.this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -66,11 +61,6 @@ public class GeneratorListActivity extends BaseListActivity {
         
         /** QuickAction. */
         quickActionGrid = new QuickActionGridTrick(this);
-    }
-
-    @Override
-    public int createLayout() {
-    	return R.layout.activity_collection;
     }
 
     private ArrayList<PatternRecord> createPatternList() {
