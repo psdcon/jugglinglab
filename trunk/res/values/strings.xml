@@ -11,6 +11,7 @@
     <string name="home_btn_pattern_list">Pattern List</string>
     <string name="home_btn_my_profile">My Profile</string>
     <string name="home_btn_video">Video</string>
+    <string name="footer_txt_last">Last trick practiced:</string>
     
     <!-- Pattern entry -->
     <string name="pattern_entry_title">Pattern Entry</string>
