@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.util.Collection;
@@ -27,15 +26,11 @@ import com.jonglen7.jugglinglab.util.ListAdapterCollection;
 public class CollectionsActivity extends BaseListActivity {
 	
 	int IS_TUTORIAL;
-
-	/** DataBase. */
-	DataBaseHelper myDbHelper;
     
 	/** Collection list. */
 	ArrayList<Collection> collection_list;
 
     /** ListView. */
-    ListView listView;
     ListAdapterCollection mSchedule;
 
     /** QuickAction. */
@@ -78,11 +73,6 @@ public class CollectionsActivity extends BaseListActivity {
     public void onResume() {
     	mSchedule.notifyDataSetChanged();
     	super.onResume();
-    }
-
-    @Override
-    public int createLayout() {
-    	return R.layout.activity_collection;
     }
     
     private ArrayList<Collection> createCollectionList() {

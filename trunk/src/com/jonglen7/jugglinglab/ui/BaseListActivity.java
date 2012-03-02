@@ -5,11 +5,24 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.jonglen7.jugglinglab.R;
+import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
 // TODO Romain (BaseListActivity): Possibility to factorize with BaseActivity ?
 public class BaseListActivity extends GDListActivity {
+
+	/** DataBase. */
+	DataBaseHelper myDbHelper;
+
+    /** ListView. */
+    ListView listView;
+
+    @Override
+    public int createLayout() {
+    	return R.layout.activity_collection;
+    }
 
     /** Menu button. */
     @Override
