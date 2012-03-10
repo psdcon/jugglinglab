@@ -206,7 +206,7 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     	display = new Trick(pattern_record, this).getCUSTOM_DISPLAY();
     	if (display != "") pattern_record.setDisplay(display);
 		
-		Intent i = new Intent(this, JMLPatternActivity.class);
+		Intent i = new Intent(this, AnimationActivity.class);
         i.putExtra("pattern_record", pattern_record);
         startActivity(i);
     }

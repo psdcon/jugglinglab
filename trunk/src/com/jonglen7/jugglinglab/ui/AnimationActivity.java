@@ -30,13 +30,7 @@ import com.jonglen7.jugglinglab.util.Trick;
 import com.jonglen7.jugglinglab.widget.StarActionBarItem;
 import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
 
-/**
- * Generate a JMLPattern using a PatternRecord
- * @author Richard Romain
- *
- */
-
-public class JMLPatternActivity extends BaseActivity {
+public class AnimationActivity extends BaseActivity {
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
@@ -109,7 +103,8 @@ public class JMLPatternActivity extends BaseActivity {
    		*/
         
         // Initialize Renderer and View
-    	renderer = new JugglingRenderer(this);
+//    	renderer = new JugglingRenderer(this);
+    	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
     	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
     	mGLSurfaceView.setRenderer(renderer);
         //setContentView(view);
@@ -154,8 +149,45 @@ public class JMLPatternActivity extends BaseActivity {
 		});
     }
     
+//    /** Compute JMLPattern from the PatternRecord **/
+//    public JMLPattern getJMLPattern() {
+//    	
+//    	JMLPattern pattern = null;
+//    	
+//		if (pattern_record.getNotation().compareTo("siteswap") == 0) {
+//			try {
+//				Notation ssn = Notation.getNotation("siteswap");
+//				pattern = ssn.getJMLPattern(pattern_record.getAnim());
+//			} catch (JuggleExceptionUser e) {
+//				e.printStackTrace();
+//			} catch (JuggleExceptionInternal e) {
+//				e.printStackTrace();
+//			}
+//		} else if (pattern_record.getNotation().compareTo("jml") == 0) {
+//			JMLParser p = new JMLParser();
+//			
+//			try {
+//				p.parse(new StringReader(pattern_record.getAnim()));
+//			} catch (SAXException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//
+//            try {
+//				pattern = new JMLPattern(p.getTree());
+//			} catch (JuggleExceptionUser e) {
+//				e.printStackTrace();
+//			}
+//		} else {
+//			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
+//		}
+//    	
+//    	return pattern;
+//    }
+    
     /** Compute JMLPattern from the PatternRecord **/
-    public JMLPattern getJMLPattern() {
+    private JMLPattern getJMLPattern(PatternRecord pattern_record) {
     	
     	JMLPattern pattern = null;
     	
@@ -232,7 +264,7 @@ public class JMLPatternActivity extends BaseActivity {
 
 		@Override
 		public void onClick(View view) {
-			quickActionGrid.show(view, pattern_record, getIntent(), JMLPatternActivity.this);
+			quickActionGrid.show(view, pattern_record, getIntent(), AnimationActivity.this);
 		}
 	};
     
