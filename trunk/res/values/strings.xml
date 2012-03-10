@@ -60,6 +60,10 @@
     <string name="generator_edit_passing_communication_delay">0</string>
     <string name="generator_btn_run">Run</string>
     
+    <!-- Generator List -->
+    <string name="generator_list_title">%d patterns found</string>
+    <string name="generator_list_generating_siteswaps">Generating siteswaps</string>
+    
     <!-- Tutorials -->
     <string name="tutorials_title">Tutorials</string>
     
@@ -76,10 +80,8 @@
     <!-- Video -->
     <string name="video_title">Video</string>
     
-    <!-- Menu -->
-    <string name="menu_settings">Settings</string>
-    <string name="menu_help">Help</string>
-    <string name="menu_about">About</string>
+    <!-- Animation -->
+    <string name="animation_rendering">Rendering</string>
 
     <!-- About -->
     <string name="about_title">About</string>
@@ -87,11 +89,13 @@
         called Juggling Lab http://jugglinglab.sourceforge.net.\n\n
         Juggling Lab is an application for creating and animating juggling patterns.
         Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.</string>
-    <string name="advanced_mode">Advanced mode</string>
-    <string name="activated">activated</string>
-    <string name="deactivated">deactivated</string>
     
     <!-- TODO Romain (Help): Help -->
+    
+    <!-- Menu -->
+    <string name="menu_settings">Settings</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_about">About</string>
     
     <!-- QuickActions -->
     <string name="quickactions_trick_collections">Labels</string>
@@ -103,7 +107,12 @@
     <string name="quickactions_delete_confirmation">Delete %s ?</string>
     
     <!-- Other -->
+    <string name="advanced_mode">Advanced mode</string>
+    <string name="activated">activated</string>
+    <string name="deactivated">deactivated</string>
     <string name="txt_no_patterns">No patterns found!</string>
+    <string name="error_pattern">Couldn\'t find the pattern!</string>
+    <string name="please_wait">Please wait...</string>
     
     <!-- Settings -->
     <string name="settings_category_user">User</string>
