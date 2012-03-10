@@ -19,7 +19,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JLMath;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
-import com.jonglen7.jugglinglab.ui.JMLPatternActivity;
+import com.jonglen7.jugglinglab.ui.AnimationActivity;
 
 public class JugglingRenderer implements Renderer {
 	
@@ -70,11 +70,13 @@ public class JugglingRenderer implements Renderer {
 	
 	// Constructors
 	// Parameter context is used to acces JMLPattern and SharedPreferences
-	public JugglingRenderer(Context context) {
+//	public JugglingRenderer(Context context) {
+	public JugglingRenderer(Context context, JMLPattern pattern) {
 		
 		// Initialize class attributes
 		this.context = context;
-		this.pattern = ((JMLPatternActivity)context).getJMLPattern();
+//		this.pattern = ((JMLPatternActivity)context).getJMLPattern();
+		this.pattern = pattern;
 		this.preferences = context.getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
 		this.prefs = new AnimatorPrefs();
 		this.cameraCenter = new Coordinate();

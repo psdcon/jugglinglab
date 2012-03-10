@@ -106,7 +106,7 @@ public class GeneratorListActivity extends BaseListActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Intent i = new Intent(GeneratorListActivity.this, JMLPatternActivity.class);
+			Intent i = new Intent(GeneratorListActivity.this, AnimationActivity.class);
 	        i.putExtra("pattern_record", pattern_list.get(position));
 	        startActivity(i);
 		}
