@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,7 +38,11 @@ public class BaseDisplayModeActivity extends BaseActivity {
                 editor.putBoolean("user_advanced_mode", user_advanced_mode);
                 editor.commit();
                 switchDisplayMode();
-                Toast.makeText(this, getString(R.string.advanced_mode) + " " + (user_advanced_mode ? getString(R.string.activated) : getString(R.string.deactivated)), Toast.LENGTH_SHORT).show();
+                Toast t = Toast.makeText(this,
+                		getString(R.string.advanced_mode) + " " + getString((user_advanced_mode ? R.string.activated : R.string.deactivated)),
+                		Toast.LENGTH_SHORT);
+                t.setGravity(Gravity.TOP, 0, 0);
+                t.show();
                 return true;
 
             default:

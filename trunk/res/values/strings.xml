@@ -83,7 +83,10 @@
 
     <!-- About -->
     <string name="about_title">About</string>
-    <string name="about_txt">Juggling Lab is based on the desktop application also called Juggling Lab http://jugglinglab.sourceforge.net/.\n\nJuggling Lab is an application for creating and animating juggling patterns. Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.</string>
+    <string name="about_txt">Juggling Lab is based on the desktop application also
+        called Juggling Lab http://jugglinglab.sourceforge.net.\n\n
+        Juggling Lab is an application for creating and animating juggling patterns.
+        Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.</string>
     <string name="advanced_mode">Advanced mode</string>
     <string name="activated">activated</string>
     <string name="deactivated">deactivated</string>

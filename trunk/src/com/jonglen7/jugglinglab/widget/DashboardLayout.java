@@ -55,7 +55,7 @@ public class DashboardLayout extends ViewGroup {
         int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
                 MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.AT_MOST);
         int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.AT_MOST);
+                MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.AT_MOST);
 
         final int count = getChildCount();
         for (int i = 0; i < count; i++) {
