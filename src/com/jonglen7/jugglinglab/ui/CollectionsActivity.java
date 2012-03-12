@@ -43,7 +43,8 @@ public class CollectionsActivity extends BaseListActivity {
         IS_TUTORIAL = getIntent().getIntExtra("IS_TUTORIAL", 0);
     	
     	setTitle((new HashMap<Integer, String>() {
-        	{ put(0, getString(R.string.pattern_list_title));}
+			private static final long serialVersionUID = -5084533515278427020L;
+			{ put(0, getString(R.string.pattern_list_title));}
         	{ put(1, getString(R.string.tutorials_title));}
         	}).get(IS_TUTORIAL));
     	
@@ -56,7 +57,7 @@ public class CollectionsActivity extends BaseListActivity {
         collection_list = createCollectionList();
         
         listView = getListView();
-        mSchedule = new ListAdapterCollection(listView, getLayoutInflater(), collection_list, this, getIntent(), CollectionsActivity.this);
+        mSchedule = new ListAdapterCollection(listView, collection_list, CollectionsActivity.this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -96,19 +97,6 @@ public class CollectionsActivity extends BaseListActivity {
     	
 		return collections;
 	}
-    
-    private ArrayList<HashMap<String, String>> collectionsToHashMaps(ArrayList<Collection> collections) {
-    	ArrayList<HashMap<String, String>> hashmaps = new ArrayList<HashMap<String, String>>();
-    	
-		HashMap<String, String> map;
-    	for (Collection c: collections) {
-        	map = new HashMap<String, String>();
-        	map.put("list_group_text", c.getCUSTOM_DISPLAY());
-        	hashmaps.add(map);
-    	}
-    	
-    	return hashmaps;
-    }
 
     /** ActionBar. */
     @Override
@@ -160,7 +148,7 @@ public class CollectionsActivity extends BaseListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, collection_list.get(position), getIntent(), CollectionsActivity.this);
+			quickActionGrid.show(view, collection_list.get(position));
 			return true;
 		}
 	};

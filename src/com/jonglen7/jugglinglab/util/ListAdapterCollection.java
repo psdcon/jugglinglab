@@ -3,9 +3,6 @@ package com.jonglen7.jugglinglab.util;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -17,22 +14,15 @@ import android.widget.TextView;
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.ui.QuickActionGridCollection;
 
-public class ListAdapterCollection  extends BaseAdapter {
+public class ListAdapterCollection extends BaseAdapter {
 
-	// TODO Romain (ListAdapterCollection): Can't we reduce the number of needed attributes ?
 	private ListView listView;
-	private LayoutInflater layoutInflater;
 	private ArrayList<Collection> collection_list;
-	private Context context;
-	private Intent intent;
 	private Activity activity;
 
-    public ListAdapterCollection(ListView listView, LayoutInflater layoutInflater, ArrayList<Collection> collection_list, Context context, Intent intent, Activity activity) {
+    public ListAdapterCollection(ListView listView, ArrayList<Collection> collection_list, Activity activity) {
     	this.listView = listView;
-    	this.layoutInflater = layoutInflater;
     	this.collection_list = collection_list;
-		this.context = context;
-		this.intent = intent;
 		this.activity = activity;
     }
 
@@ -57,7 +47,7 @@ public class ListAdapterCollection  extends BaseAdapter {
 		ListViewHolder holder = null;
 
         if (convertView == null) {
-            convertView = this.layoutInflater.inflate(R.layout.list_group, parent, false);
+            convertView = this.activity.getLayoutInflater().inflate(R.layout.list_group, parent, false);
 
             holder = new ListViewHolder();
             holder.list_text = (TextView) convertView.findViewById(R.id.list_text);
@@ -80,9 +70,9 @@ public class ListAdapterCollection  extends BaseAdapter {
 
 		@Override
 		public void onClick(View view) {
-			QuickActionGridCollection quickActionGrid = new QuickActionGridCollection(context);
+			QuickActionGridCollection quickActionGrid = new QuickActionGridCollection(activity);
             final int position = listView.getPositionForView(view);
-			quickActionGrid.show(view, getItem(position), intent, activity);
+			quickActionGrid.show(view, getItem(position));
 		}
 
 	};
