@@ -19,7 +19,6 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JLMath;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
-import com.jonglen7.jugglinglab.ui.AnimationActivity;
 
 public class JugglingRenderer implements Renderer {
 	

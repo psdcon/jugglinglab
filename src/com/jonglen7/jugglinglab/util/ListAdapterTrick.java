@@ -25,12 +25,8 @@ import com.jonglen7.jugglinglab.ui.QuickActionGridTrick;
  */
 public class ListAdapterTrick extends BaseAdapter {
 
-	// TODO Romain (ListAdapterTrick): Can't we reduce the number of needed attributes ?
 	private ListView listView;
-//	private LayoutInflater layoutInflater;
 	private ArrayList<PatternRecord> pattern_list;
-//	private Context context;
-//	private Intent intent;
 	private Activity activity;
 
     public ListAdapterTrick(ListView listView, ArrayList<PatternRecord> pattern_list, Activity activity) {
