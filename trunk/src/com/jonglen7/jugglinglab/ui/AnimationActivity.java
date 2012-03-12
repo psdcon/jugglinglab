@@ -264,7 +264,7 @@ public class AnimationActivity extends BaseActivity {
 
 		@Override
 		public void onClick(View view) {
-			quickActionGrid.show(view, pattern_record, getIntent(), AnimationActivity.this);
+			quickActionGrid.show(view, pattern_record);
 		}
 	};
     

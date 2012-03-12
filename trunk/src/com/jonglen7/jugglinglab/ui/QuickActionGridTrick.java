@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
@@ -26,58 +26,58 @@ public class QuickActionGridTrick extends QuickActionGrid {
 	final static int EDIT = 1;
 	final static int LIST = 2;
 	final static int SHARE = 3;
-	final static int DELETE = 4;
+	final static int CATCHES = 4;
+	final static int STATS = 5;
+	final static int DELETE = 6;
 
-	Context context;
 	PatternRecord pattern_record;
-	Intent intent;
 	Activity activity;
 
-	public QuickActionGridTrick(Context context) {
-		super(context);
-		this.context = context;
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_star, R.string.gd_star));
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_edit, R.string.gd_edit));
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections));
-        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_share, R.string.gd_share));
-        //TODO Romain (Stats): Uncomment when ready (Catches, Stats), cf icons http://androiddrawableexplorer.appspot.com/
-//        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_add, R.string.quickactions_trick_catches));
-//        this.addQuickAction(new MyQuickAction(context, R.drawable.gd_action_bar_info, R.string.quickactions_trick_stats));
-        this.addQuickAction(new MyQuickAction(context, android.R.drawable.ic_delete, R.string.quickactions_delete));
+	public QuickActionGridTrick(Activity activity) {
+		super(activity);
+		this.activity = activity;
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_star, R.string.gd_star));
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit));
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections));
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_share, R.string.gd_share));
+        //TODO Romain (Stats): cf icons http://androiddrawableexplorer.appspot.com/
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_add, R.string.quickactions_trick_catches));
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.quickactions_trick_stats));
+        this.addQuickAction(new MyQuickAction(activity, android.R.drawable.ic_delete, R.string.quickactions_delete));
 
         this.setOnQuickActionClickListener(mActionListener);
 	}
 
     private OnQuickActionClickListener mActionListener = new OnQuickActionClickListener() {
         public void onQuickActionClicked(QuickActionWidget widget, int position) {
-    		final Trick trick = new Trick(pattern_record, context);
-    		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    		final Trick trick = new Trick(pattern_record, activity);
+    		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
     		
         	switch (position) {
 	    	case STAR:
 	    		trick.star();
         		activity.finish();
-        		activity.startActivity(intent);
+        		activity.startActivity(activity.getIntent());
 	    		break;
 	    		
         	case EDIT:
-        		final EditText input = new EditText(context);
+        		final EditText input = new EditText(activity);
         		builder.setView(input);
-        		builder.setTitle(context.getString(R.string.gd_edit));
+        		builder.setTitle(activity.getString(R.string.gd_edit));
         		input.setText(trick.getCUSTOM_DISPLAY());
         		
-        		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+        		builder.setPositiveButton(activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 		        		trick.edit(input.getText().toString());
 		        		// For the animation, since it gets the display from the pattern_record,
 		        		// that is put in the Intent, we need to update it too
 		        		pattern_record.setDisplay(input.getText().toString());
 		        		activity.finish();
-		        		activity.startActivity(intent);
+		        		activity.startActivity(activity.getIntent());
 	        		}
         		});
 
-        		builder.setNegativeButton(context.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+        		builder.setNegativeButton(activity.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 	        			dialog.cancel();
 	        		}
@@ -106,7 +106,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
 					}
         		});
         		
-        		builder.setTitle(context.getString(R.string.quickactions_trick_collections));
+        		builder.setTitle(activity.getString(R.string.quickactions_trick_collections));
         		builder.show();
         		break;
         		
@@ -114,31 +114,35 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
         		shareIntent.setType("text/plain");
         		shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-        				context.getString(R.string.quickactions_trick_share_training, pattern_record.getDisplay()) + "\n" +
+        				activity.getString(R.string.quickactions_trick_share_training, pattern_record.getDisplay()) + "\n" +
         				"http://jugglinglab.sourceforge.net/siteswap.php?" + pattern_record.getAnim());
-        		context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.quickactions_trick_share)));
+        		activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.quickactions_trick_share)));
         		break;
         		
-//        	case 4: // TODO Romain (Stats): Catches
-//        		Toast.makeText(context, "Catches (popup)", Toast.LENGTH_LONG).show();
-//        		break;
-//        		
-//        	case 5: // TODO Romain (Stats): Stats
-//        		Toast.makeText(context, "Stats (activity)", Toast.LENGTH_LONG).show();
-//        		break;
+        	case CATCHES: // TODO Romain (Stats): Catches (use builder to display an EditText to enter how many catches, maybe add something to set the date too)
+        		Toast.makeText(activity, "Catches", Toast.LENGTH_SHORT).show();
+        		break;
+        		
+        	case STATS: // TODO Romain (Stats): Stats
+//        		Intent i = (new StatsActivity()).execute(context);
+        		Toast.makeText(activity, "Stats", Toast.LENGTH_SHORT).show();
+//        		Intent i = new Intent(activity, StatsActivity.class);
+//                i.putExtra("pattern_record", pattern_record);
+//                activity.startActivity(i);
+        		break;
         		
         	case DELETE:
-        		builder.setTitle(String.format(context.getString(R.string.quickactions_delete_confirmation, trick.getCUSTOM_DISPLAY())));
+        		builder.setTitle(String.format(activity.getString(R.string.quickactions_delete_confirmation, trick.getCUSTOM_DISPLAY())));
         		
-        		builder.setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+        		builder.setPositiveButton(activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 	            		trick.delete();
 		        		activity.finish();
-		        		activity.startActivity(intent);
+		        		activity.startActivity(activity.getIntent());
 	        		}
         		});
 
-        		builder.setNegativeButton(context.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+        		builder.setNegativeButton(activity.getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
 	        			dialog.cancel();
 	        		}
@@ -152,15 +156,8 @@ public class QuickActionGridTrick extends QuickActionGrid {
         }
     };
     
-    public void show(View view, PatternRecord pattern_record, Intent intent, Activity activity) {
-    	this.pattern_record = pattern_record;
-    	this.intent = intent;
-    	this.activity = activity;
-    	super.show(view);
-    }
-    
     private ArrayList<Collection> createCollectionList() {
-    	DataBaseHelper myDbHelper = DataBaseHelper.init(context);
+    	DataBaseHelper myDbHelper = DataBaseHelper.init(activity);
         
     	ArrayList<Collection> collections = new ArrayList<Collection>();
 		
@@ -171,7 +168,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
     	
 	 	cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-        	Collection c = new Collection(cursor, context);
+        	Collection c = new Collection(cursor, activity);
         	if (!c.isStarred()) collections.add(c);
             cursor.moveToNext();
         }
@@ -182,5 +179,10 @@ public class QuickActionGridTrick extends QuickActionGrid {
     	
 		return collections;
 	}
+    
+    public void show(View view, PatternRecord pattern_record) {
+    	this.pattern_record = pattern_record;
+    	super.show(view);
+    }
 
 }

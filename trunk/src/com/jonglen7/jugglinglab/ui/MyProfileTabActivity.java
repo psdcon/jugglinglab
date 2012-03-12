@@ -45,7 +45,7 @@ public class MyProfileTabActivity extends ListActivity {
         pattern_list = createPatternList(getIntent().getStringExtra("tab"));
 
         listView = getListView();
-        mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, this, getIntent(), MyProfileTabActivity.this);
+        mSchedule = new ListAdapterTrick(listView, pattern_list, MyProfileTabActivity.this);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -135,7 +135,7 @@ public class MyProfileTabActivity extends ListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position), getIntent(), MyProfileTabActivity.this);
+			quickActionGrid.show(view, pattern_list.get(position));
 			return true;
 		}
 	};
