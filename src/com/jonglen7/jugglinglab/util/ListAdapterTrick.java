@@ -3,9 +3,6 @@ package com.jonglen7.jugglinglab.util;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -30,18 +27,15 @@ public class ListAdapterTrick extends BaseAdapter {
 
 	// TODO Romain (ListAdapterTrick): Can't we reduce the number of needed attributes ?
 	private ListView listView;
-	private LayoutInflater layoutInflater;
+//	private LayoutInflater layoutInflater;
 	private ArrayList<PatternRecord> pattern_list;
-	private Context context;
-	private Intent intent;
+//	private Context context;
+//	private Intent intent;
 	private Activity activity;
 
-    public ListAdapterTrick(ListView listView, LayoutInflater layoutInflater, ArrayList<PatternRecord> pattern_list, Context context, Intent intent, Activity activity) {
+    public ListAdapterTrick(ListView listView, ArrayList<PatternRecord> pattern_list, Activity activity) {
     	this.listView = listView;
-    	this.layoutInflater = layoutInflater;
     	this.pattern_list = pattern_list;
-		this.context = context;
-		this.intent = intent;
 		this.activity = activity;
     }
     
@@ -66,7 +60,7 @@ public class ListAdapterTrick extends BaseAdapter {
     	ListViewHolder holder = null;
 
         if (convertView == null) {
-            convertView = this.layoutInflater.inflate(R.layout.list_item, parent, false);
+            convertView = this.activity.getLayoutInflater().inflate(R.layout.list_item, parent, false);
 
             holder = new ListViewHolder();
             holder.star = (CheckBox) convertView.findViewById(R.id.btn_star);
@@ -90,7 +84,7 @@ public class ListAdapterTrick extends BaseAdapter {
         holder.star.setOnCheckedChangeListener(null);
         
     	// Check if the trick is starred
-        Trick trick = new Trick(getItem(position), context);
+        Trick trick = new Trick(getItem(position), this.activity);
     	boolean isStarred = false;
     	for (Collection collection : trick.getCollections()) {
     		if (collection.isStarred()) isStarred = true;
@@ -111,7 +105,7 @@ public class ListAdapterTrick extends BaseAdapter {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             final int position = listView.getPositionForView(buttonView);
             if (position != ListView.INVALID_POSITION) {
-            	Trick trick = new Trick(getItem(position), context);
+            	Trick trick = new Trick(getItem(position), activity);
             	trick.star();
             }
         }
@@ -122,9 +116,9 @@ public class ListAdapterTrick extends BaseAdapter {
 
 		@Override
 		public void onClick(View view) {
-			QuickActionGridTrick quickActionGrid = new QuickActionGridTrick(context);
+			QuickActionGridTrick quickActionGrid = new QuickActionGridTrick(activity);
             final int position = listView.getPositionForView(view);
-			quickActionGrid.show(view, getItem(position), intent, activity);
+			quickActionGrid.show(view, getItem(position));
 		}
 
 	};

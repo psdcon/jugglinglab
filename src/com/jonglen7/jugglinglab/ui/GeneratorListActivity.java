@@ -101,7 +101,7 @@ public class GeneratorListActivity extends BaseListActivity implements Runnable 
             setTitle(getResources().getString(R.string.generator_list_title, pattern_list.size()));
 
             listView = getListView();
-            mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, GeneratorListActivity.this, getIntent(), GeneratorListActivity.this);
+            mSchedule = new ListAdapterTrick(listView, pattern_list, GeneratorListActivity.this);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
@@ -127,7 +127,7 @@ public class GeneratorListActivity extends BaseListActivity implements Runnable 
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position), getIntent(), GeneratorListActivity.this);
+			quickActionGrid.show(view, pattern_list.get(position));
 			return true;
 		}
 	};

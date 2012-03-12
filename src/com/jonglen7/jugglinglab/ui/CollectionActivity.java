@@ -48,7 +48,7 @@ public class CollectionActivity extends BaseListActivity {
             setTitle(collection.getCUSTOM_DISPLAY());
 
             listView = getListView();
-            mSchedule = new ListAdapterTrick(listView, getLayoutInflater(), pattern_list, this, getIntent(), CollectionActivity.this);
+            mSchedule = new ListAdapterTrick(listView, pattern_list, CollectionActivity.this);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
@@ -114,7 +114,7 @@ public class CollectionActivity extends BaseListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position), getIntent(), CollectionActivity.this);
+			quickActionGrid.show(view, pattern_list.get(position));
 			return true;
 		}
 	};

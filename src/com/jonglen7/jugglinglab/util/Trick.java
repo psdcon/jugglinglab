@@ -56,7 +56,7 @@ public class Trick {
 			}
 		} else {
 			this.ID_TRICK = -1;
-			this.CUSTOM_DISPLAY = "";
+			this.CUSTOM_DISPLAY = pattern_record.getDisplay();
 		}
 
     	if (cursor != null) cursor.close();
