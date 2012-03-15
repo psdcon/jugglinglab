@@ -5,13 +5,13 @@ import greendroid.widget.ActionBarItem;
 import greendroid.widget.NormalActionBarItem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -41,9 +41,8 @@ public class CollectionsActivity extends BaseListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         IS_TUTORIAL = getIntent().getIntExtra("IS_TUTORIAL", 0);
-    	
-    	setTitle((new HashMap<Integer, String>() {
-			private static final long serialVersionUID = -5084533515278427020L;
+
+    	setTitle((new SparseArray<String>() {
 			{ put(0, getString(R.string.pattern_list_title));}
         	{ put(1, getString(R.string.tutorials_title));}
         	}).get(IS_TUTORIAL));
