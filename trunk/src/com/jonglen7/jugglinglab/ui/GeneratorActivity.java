@@ -168,7 +168,10 @@ public class GeneratorActivity extends BaseDisplayModeActivity {
     	edit_passing_communication_delay.setVisibility(visibility);
     }
     
-    /** Handle "Run" action. */
+    /** Handle "Run" action.
+     * Create a string to pass to the siteswap generator.
+     * @param v The View
+     */
     public void onRunClick(View v) {
     	StringBuffer text = new StringBuffer(256);
         text.append(edit_balls.getText().toString() + " " + ((edit_max_throw.getText().length() > 0) ? edit_max_throw.getText().toString() : "-") + " " + ((edit_period.getText().length() > 0) ? edit_period.getText().toString() : "-"));
