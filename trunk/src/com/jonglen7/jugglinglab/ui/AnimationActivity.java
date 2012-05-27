@@ -104,6 +104,7 @@ public class AnimationActivity extends BaseActivity {
         
         // Initialize Renderer and View
 //    	renderer = new JugglingRenderer(this);
+        // TODO Fred: Catch exceptions to prevent a bad pattern_record to crash JL
     	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
     	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
     	mGLSurfaceView.setRenderer(renderer);

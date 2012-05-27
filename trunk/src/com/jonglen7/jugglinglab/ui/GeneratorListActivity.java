@@ -23,6 +23,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 import com.jonglen7.jugglinglab.util.Trick;
 
+// TODO Romain (Perfs): Instead of "implements Runnable" and "Thread thread = new Thread(this);", see http://www.tutos-android.com/asynctask-android-traitement-asynchrone-background
 public class GeneratorListActivity extends BaseListActivity implements Runnable {
     
     /** Pattern list. */

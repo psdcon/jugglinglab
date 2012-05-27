@@ -25,7 +25,8 @@ import com.jonglen7.jugglinglab.util.Trick;
 /**
  * The Pattern Entry activity.
  * 
- * TODO: Factorize getHandMovements(), getPropTypes() and getBodyMovements()
+ * TODO: Factorize getValuesFromDB() and getPropTypes() if we allow custom
+ * names for the props
  * 
  * @author Romain Richard
  */
@@ -177,8 +178,9 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     
     /**
      * Handle "Juggle" action.
-     * TODO Romain (Comments)
-     * @param v
+     * Create the String corresponding to the pattern according to the notation
+     * found here: http://jugglinglab.sourceforge.net/html/sspanel.html
+     * @param v The View
      */
     public void onJuggleClick(View v) {
 		String display = edit_pattern.getText().toString().toLowerCase();
@@ -206,8 +208,10 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     
     /** Hand movement. */
     /**
-     * TODO Romain (Comments)
-     * @return
+     * Returns the list of hand movements found in the database.
+     * Each element of this list is a list containing two elements: the name
+     * of the movement and its code.
+     * @return The list of hand movements found in the database
      */
     private ArrayList<ArrayList<String>> getHandMovements() {
     	return getValuesFromDB("HANDS");
@@ -247,8 +251,10 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     
     /** Prop type. */
     /**
-     * TODO Romain (Comments)
-     * @return
+     * Returns the list of prop types found in the database.
+     * Each element of this list is a list containing two elements: the name
+     * of the prop and its code.
+     * @return The list of prop types found in the database
      */
     private ArrayList<ArrayList<String>> getPropTypes() {
     	ArrayList<ArrayList<String>> propTypes = new ArrayList<ArrayList<String>>();
@@ -311,8 +317,10 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     
     /** Body movement. */
     /**
-     * TODO Romain (Comments)
-     * @return
+     * Returns the list of body movements found in the database.
+     * Each element of this list is a list containing two elements: the name
+     * of the movement and its code.
+     * @return The list of body movements found in the database
      */
     private ArrayList<ArrayList<String>> getBodyMovements() {
     	return getValuesFromDB("BODY");
@@ -351,9 +359,11 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     };
 
     /**
-     * TODO Romain (Comments)
-     * @param table
-     * @return
+     * Returns the list of movements found in the database in the chosen table.
+     * Each element of this list is a list containing two elements: the name
+     * of the movement and its code.
+     * @param table The name of the table to use
+     * @return The list of movements found in the database
      */
     private ArrayList<ArrayList<String>> getValuesFromDB(String table) {
     	ArrayList<ArrayList<String>> values = new ArrayList<ArrayList<String>>();
