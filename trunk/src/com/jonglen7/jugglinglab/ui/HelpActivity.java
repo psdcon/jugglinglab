@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.jonglen7.jugglinglab.R;
 
+/** The Help Activity that displays help about the application. */
 public class HelpActivity extends BaseActivity {
 
 	/** Called when the activity is first created. */

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.jonglen7.jugglinglab.R;
 
+/** The About Activity that displays information about the application. */
 public class AboutActivity extends BaseActivity {
 
     /** Called when the activity is first created. */

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.jonglen7.jugglinglab.R;
 
+/** The Home Activity that displays the dashboard. */
 public class HomeActivity extends BaseActivity {
 
 	/** Called when the activity is first created. */

@@ -30,6 +30,7 @@ import com.jonglen7.jugglinglab.util.Trick;
 import com.jonglen7.jugglinglab.widget.StarActionBarItem;
 import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
 
+/** The Animation Activity that display the juggling animation. */
 public class AnimationActivity extends BaseActivity {
 	
 	JugglingRenderer renderer = null;

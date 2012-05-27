@@ -7,6 +7,9 @@ import android.widget.TabHost;
 
 import com.jonglen7.jugglinglab.R;
 
+/**
+ * The My Profile Activity.
+ */
 public class MyProfileActivity extends BaseTabActivity {
 	
 	private TabHost tabHost;
@@ -15,7 +18,6 @@ public class MyProfileActivity extends BaseTabActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_my_profile);
         buildTabs();
     }
 

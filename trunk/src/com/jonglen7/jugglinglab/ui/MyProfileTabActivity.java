@@ -18,6 +18,9 @@ import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 
+/**
+ * The My Profile Tab Activity that holds the content of a tab in the My Profile Activity.
+ */
 public class MyProfileTabActivity extends ListActivity {
 
 	/** DataBase. */
@@ -64,6 +67,7 @@ public class MyProfileTabActivity extends ListActivity {
     	mSchedule.notifyDataSetChanged();
     }
     
+    /** Create the list of patterns to display in the tab. */
     private ArrayList<PatternRecord> createPatternList(String tab) {
     	ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
 		

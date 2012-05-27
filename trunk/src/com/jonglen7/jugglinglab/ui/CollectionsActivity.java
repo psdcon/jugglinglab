@@ -23,8 +23,13 @@ import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.ListAdapterCollection;
 
+/**
+ * The Collections Activity that displays the list of collections of tricks
+ * (tutorials or pattern list).
+ */
 public class CollectionsActivity extends BaseListActivity {
 	
+	/** Used to differentiate Tutorials and Pattern List */
 	int IS_TUTORIAL;
     
 	/** Collection list. */
@@ -75,6 +80,7 @@ public class CollectionsActivity extends BaseListActivity {
     	super.onResume();
     }
     
+    /** Get the list of collections. */
     private ArrayList<Collection> createCollectionList() {
     	ArrayList<Collection> collections = new ArrayList<Collection>();
 		
