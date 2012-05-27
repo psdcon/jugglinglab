@@ -16,6 +16,9 @@ import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 import com.jonglen7.jugglinglab.util.ListAdapterTrick;
 
+/**
+ * The Collection Activity that displays the list of tricks (tutorials or pattern list).
+ */
 public class CollectionActivity extends BaseListActivity {
 	
 	/** Collection. */
@@ -68,6 +71,7 @@ public class CollectionActivity extends BaseListActivity {
     	super.onResume();
     }
 
+    /** Get the list of patterns. */
     private ArrayList<PatternRecord> createPatternList() {
     	ArrayList<PatternRecord> pattern_list = new ArrayList<PatternRecord>();
 		

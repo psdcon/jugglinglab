@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.jonglen7.jugglinglab.R;
 
+/**
+ * The Generator Activity.
+ */
 public class GeneratorActivity extends BaseDisplayModeActivity {
 	
 	/** Balls. */

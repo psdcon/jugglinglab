@@ -10,6 +10,7 @@ import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.PatternRecord;
 import com.jonglen7.jugglinglab.util.DataBaseHelper;
 
+/** The Pattern Info Activity that displays information about a pattern. */
 public class PatternInfoActivity extends BaseActivity {
 
 	/** Display. */

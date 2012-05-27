@@ -27,8 +27,6 @@ import com.jonglen7.jugglinglab.util.Trick;
  * 
  * TODO: Factorize getValuesFromDB() and getPropTypes() if we allow custom
  * names for the props
- * 
- * @author Romain Richard
  */
 public class PatternEntryActivity extends BaseDisplayModeActivity {
 
