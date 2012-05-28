@@ -113,6 +113,7 @@
     <string name="txt_no_patterns">No patterns found!</string>
     <string name="error_pattern">Couldn\'t find the pattern!</string>
     <string name="please_wait">Please wait...</string>
+    <string name="invalid_pattern">Invalid pattern!</string>
     
     <!-- Settings -->
     <string name="settings_category_user">User</string>

@@ -105,8 +105,24 @@ public class AnimationActivity extends BaseActivity {
         
         // Initialize Renderer and View
 //    	renderer = new JugglingRenderer(this);
-        // TODO Fred: Catch exceptions to prevent a bad pattern_record to crash JL
-    	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
+        // TODO Fred: Do something if there is an exception to prevent a crash of JL
+        try {
+        	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
+        } catch (NullPointerException e) {
+        	// Note de Romain: J'ai juste testé ça vite fait, ça a l'air d'empêcher
+        	// le crash de l'appli donc c'est cool, mais bon c'est pas super propre car:
+        	// 1/ finish(); return; => je ne sais même pas pourquoi on a besoin des 2
+        	//    En cherchant sur le net seul finish(); devrait suffir, mais pas là
+        	//    i.e. ça marche mais je ne sais pas pourquoi :s
+        	// 2/ On carche des exceptions dans getJMLPattern(), c'est là que l'on
+        	//    devrait gérer les erreurs en toute logique, mais pas réussi :(
+        	// C'est plus un problème lié à Android qu'à l'animation, mais vu que
+        	// tu vas surement reprendre à coder en étudiant ce problème, ça t'aidera
+        	// à te remettre dans le bain :p
+        	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
+        	finish();
+        	return;
+        }
     	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
     	mGLSurfaceView.setRenderer(renderer);
         //setContentView(view);
@@ -192,7 +208,7 @@ public class AnimationActivity extends BaseActivity {
     private JMLPattern getJMLPattern(PatternRecord pattern_record) {
     	
     	JMLPattern pattern = null;
-    	
+
 		if (pattern_record.getNotation().compareTo("siteswap") == 0) {
 			try {
 				Notation ssn = Notation.getNotation("siteswap");
