@@ -91,8 +91,8 @@ public class QuickActionGridTrick extends QuickActionGrid {
         	case LIST:
         		final ArrayList<Collection> collections = createCollectionList();
         		ArrayList<String> collections_displays = new ArrayList<String>();
-        		// TODO Romain (QuickActionGridTrick): Is there a better way to distinguish Tutorials and Pattern List ?
-        		for (Collection c: collections) collections_displays.add((c.getIS_TUTORIAL() != 0? "Tutorial" : "Pattern List") + ": " + c.getCUSTOM_DISPLAY());
+        		// TODO Romain (QuickActionGridTrick): Is there a better way to distinguish Tutorials and Pattern List ? https://groups.google.com/group/android-beginners/browse_thread/thread/4a757ecf893e42a1/dbf32ce04f1cc7af?#dbf32ce04f1cc7af
+        		for (Collection c: collections) collections_displays.add("[" + (c.getIS_TUTORIAL() != 0? activity.getString(R.string.tutorials_title) : activity.getString(R.string.pattern_list_title)) + "] " + c.getCUSTOM_DISPLAY());
         		String[] collections_display = (String[])collections_displays.toArray(new String[0]);
         		
         		boolean[] checkedItems = new boolean[collections.size()];
