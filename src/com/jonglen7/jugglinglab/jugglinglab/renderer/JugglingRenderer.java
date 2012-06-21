@@ -26,6 +26,7 @@ public class JugglingRenderer implements Renderer {
 	// Attributes
 	private Context context = null;
 	private JMLPattern pattern = null;
+	private Floor floor = null;
 	private Juggler juggler = null;
 	private SharedPreferences preferences = null;
 	private AnimatorPrefs prefs = null;
@@ -82,6 +83,9 @@ public class JugglingRenderer implements Renderer {
 		this.overallmin = new Coordinate(-40.0f, 70.0f, -30.0f);
 		this.overallmax= new Coordinate(40.0f, 175.0f, 35.0f);
 		this.tempc = new Coordinate();
+		
+		
+		this.floor = new Floor();
 		
 		// TODO Fred: Implements for multiple jugglers
 		this.juggler = new Juggler(this.pattern.getNumberOfJugglers());  
@@ -269,6 +273,11 @@ public class JugglingRenderer implements Renderer {
 	 */
 	private void drawEffectiveFrame(GL10 gl) {
 		try {
+			
+			// Draw the Floor
+			floor.draw(gl);
+			
+			
 			// Draw the Jugglers 
 			for (int j = 1; j <= pattern.getNumberOfJugglers(); j++) {
 				juggler.findJugglerCoordinates(this.pattern, time);
