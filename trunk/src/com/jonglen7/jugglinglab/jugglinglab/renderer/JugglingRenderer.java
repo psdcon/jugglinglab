@@ -52,6 +52,13 @@ public class JugglingRenderer implements Renderer {
 	double roiHalfHeight;
 	double depthValue;
 	double FOVY = 45;
+	double Z;
+	float zNear;
+	float zFar;
+	float top;
+	float bottom;
+	float right;
+	float left;
 	
 	
 	// Romain: Added for rotation
@@ -70,7 +77,6 @@ public class JugglingRenderer implements Renderer {
 	
 	// Constructors
 	// Parameter context is used to acces JMLPattern and SharedPreferences
-//	public JugglingRenderer(Context context) {
 	public JugglingRenderer(Context context, JMLPattern pattern) {
 		
 		// Initialize class attributes
@@ -100,16 +106,25 @@ public class JugglingRenderer implements Renderer {
 		}
 		
         syncToPattern();
-        // TODO Fred: Delete Logging
+ 	
+        setCameraCoordinate();
+
+		roiHalfHeight = 0.5*(Math.abs(this.overallmax.z) + Math.abs(this.overallmin.z));
+		depthValue = 2 * roiHalfHeight;
+		Z = Math.max(Math.abs(this.overallmax.y), Math.abs(this.overallmin.y));
+		zNear = (float)(depthValue - Z);
+		zFar = (float)(depthValue + Z);
+		top = (float)(roiHalfHeight * ((depthValue - Z)/ depthValue));
+		bottom = -top;
+		right = (float)(roiHalfHeight * ((depthValue - Z)/ depthValue));
+		left = - right;
+		
+		// TODO Fred Remove Log
     	Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
-    	
-        setCameraCoordinate();
-		roiHalfHeight = 0.5*(Math.abs(this.overallmax.z) + Math.abs(this.overallmin.z));
 		Log.v("JugglingRenderer", "roiHalfHeight = " + roiHalfHeight);
-		depthValue = 3*(roiHalfHeight/Math.tan(FOVY*Math.PI/180));
-		//depthValue = (1 + Math.round(roiHalfHeight/250)) * roiHalfHeight;
 		Log.v("JugglingRenderer", "depth = " + depthValue);
+	
 	}
 
 	/*
@@ -146,10 +161,7 @@ public class JugglingRenderer implements Renderer {
 		
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-		
-		// Select the modelview matrix
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		
+			
 		// Replace the current matrix with the identity matrix
 		gl.glLoadIdentity();
 		
@@ -158,8 +170,6 @@ public class JugglingRenderer implements Renderer {
 		
 		// Translates into the screen to draw
 		gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
-		//gl.glTranslatef(0.0f, -150.0f, -100.0f);
-		//gl.glTranslatef((float)-this.cameraCenter.z, (float)-this.cameraCenter.y, -100.0f); 
 				
 
         gl.glRotatef(mAngleX, 0, 1, 0);
@@ -167,7 +177,8 @@ public class JugglingRenderer implements Renderer {
         
         gl.glScalef(mZoom, mZoom, mZoom);
         
-        gl.glTranslatef(mTranslateX, mTranslateY, 0);
+        gl.glTranslatef(mTranslateX, mTranslateY, 0);  
+		
 		
 		// Draw the Frame
 		drawEffectiveFrame(gl);
@@ -176,26 +187,7 @@ public class JugglingRenderer implements Renderer {
 		gl.glPopMatrix();
 		
 		gl.glLoadIdentity();
-		
-		/*
-		// Select the projection matrix
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		
-		// Reset the projection matrix
-		gl.glLoadIdentity();
-		
-		// Calculate the aspect ratio of the window
-		GLU.gluPerspective(gl, 45.0f, (float) gl. / (float) height, 1.0f, 100.0f);
-		//gl.glFrustumf((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, 0.0f, (float)this.overallmax.y);
-		//gl.glOrthof((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, (float)this.overallmin.y, (float)this.overallmax.y);
-		
-		// Select the modelview matrix
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		
-		// Reset the modelview matrix
-		gl.glLoadIdentity();
-		*/
-		
+
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
         
@@ -233,30 +225,18 @@ public class JugglingRenderer implements Renderer {
 	 * .khronos.opengles.GL10, int, int)
 	 */
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		
 		// Sets the current view port to the new size.
 		gl.glViewport(0, 0, width, height);
 		
+		// Set the Projection
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		//GLU.gluOrtho2D(gl, (float)(this.overallmin.x - 10), (float)(this.overallmax.x + 10), (float)(this.overallmin.z - 10), (float)(this.overallmax.z + 10));
-		//gl.glOrthof((float)(this.overallmin.x - 10), (float)(this.overallmax.x + 10), (float)(this.overallmin.z - 10), (float)(this.overallmax.z + 10), 1.0f, (float)(depthValue + 10) );
-		GLU.gluPerspective(gl, (float) FOVY, (float) width / (float) height, 1.0f, (float)(depthValue + 50));
+		gl.glFrustumf(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
 		
-		
-		/*
-		// Select the projection matrix
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		// Reset the projection matrix
-		gl.glLoadIdentity();
-		// Calculate the aspect ratio of the window
-		GLU.gluPerspective(gl, 90.0f, (float) width / (float) height, 0.1f, 100.0f);
-		//gl.glFrustumf((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, 0.0f, (float)this.overallmax.y);
-		//gl.glOrthof((float)this.overallmin.x, (float)this.overallmax.x, (float)this.overallmin.z, (float)this.overallmax.z, (float)this.overallmin.y, (float)this.overallmax.y);
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		// Reset the modelview matrix
-		gl.glLoadIdentity();
-		*/
+		
 	}
 
 
