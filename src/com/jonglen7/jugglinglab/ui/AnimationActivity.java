@@ -30,8 +30,12 @@ import com.jonglen7.jugglinglab.util.Trick;
 import com.jonglen7.jugglinglab.widget.StarActionBarItem;
 import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
 
-/** The Animation Activity that display the juggling animation. */
+/** 
+ * Display the juggling animation. 
+ * 
+ */
 public class AnimationActivity extends BaseActivity {
+	
 	
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
@@ -77,8 +81,8 @@ public class AnimationActivity extends BaseActivity {
         quickActionGrid = new QuickActionGridTrick(this);
         
         // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
-        // http://android.cyrilmottier.com/?p=450
-        // That might be necessary because computation takes some time
+        //                http://android.cyrilmottier.com/?p=450
+        //            That might be necessary because computation takes some time
 
         // 2D Square
         /*
@@ -104,21 +108,12 @@ public class AnimationActivity extends BaseActivity {
    		*/
         
         // Initialize Renderer and View
-//    	renderer = new JugglingRenderer(this);
-        // TODO Fred: Do something if there is an exception to prevent a crash of JL
         try {
         	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
-        } catch (NullPointerException e) {
-        	// Note de Romain: J'ai juste testé ça vite fait, ça a l'air d'empêcher
-        	// le crash de l'appli donc c'est cool, mais bon c'est pas super propre car:
-        	// 1/ finish(); return; => je ne sais même pas pourquoi on a besoin des 2
-        	//    En cherchant sur le net seul finish(); devrait suffir, mais pas là
-        	//    i.e. ça marche mais je ne sais pas pourquoi :s
-        	// 2/ On carche des exceptions dans getJMLPattern(), c'est là que l'on
-        	//    devrait gérer les erreurs en toute logique, mais pas réussi :(
-        	// C'est plus un problème lié à Android qu'à l'animation, mais vu que
-        	// tu vas surement reprendre à coder en étudiant ce problème, ça t'aidera
-        	// à te remettre dans le bain :p
+        } catch (Exception e) {
+        	// N.B FRED
+        	// Necessity to have the 2 following instruction to exit Activity: finish(); return;
+        	// because  finish() does not work until onCreate() return control to system.
         	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
         	finish();
         	return;
@@ -167,44 +162,9 @@ public class AnimationActivity extends BaseActivity {
 		});
     }
     
-//    /** Compute JMLPattern from the PatternRecord **/
-//    public JMLPattern getJMLPattern() {
-//    	
-//    	JMLPattern pattern = null;
-//    	
-//		if (pattern_record.getNotation().compareTo("siteswap") == 0) {
-//			try {
-//				Notation ssn = Notation.getNotation("siteswap");
-//				pattern = ssn.getJMLPattern(pattern_record.getAnim());
-//			} catch (JuggleExceptionUser e) {
-//				e.printStackTrace();
-//			} catch (JuggleExceptionInternal e) {
-//				e.printStackTrace();
-//			}
-//		} else if (pattern_record.getNotation().compareTo("jml") == 0) {
-//			JMLParser p = new JMLParser();
-//			
-//			try {
-//				p.parse(new StringReader(pattern_record.getAnim()));
-//			} catch (SAXException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//
-//            try {
-//				pattern = new JMLPattern(p.getTree());
-//			} catch (JuggleExceptionUser e) {
-//				e.printStackTrace();
-//			}
-//		} else {
-//			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
-//		}
-//    	
-//    	return pattern;
-//    }
-    
-    /** Compute JMLPattern from the PatternRecord **/
+    /** 
+     * Compute JMLPattern from the PatternRecord 
+     */ 
     private JMLPattern getJMLPattern(PatternRecord pattern_record) {
     	
     	JMLPattern pattern = null;
