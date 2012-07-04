@@ -9,7 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * 
  * Class Floor
- * Build a 9x9 grid floor
+ * Build a 8x8 grid floor
  * 
  * @author frédéric.rayar
  * @date 21/06/2012
