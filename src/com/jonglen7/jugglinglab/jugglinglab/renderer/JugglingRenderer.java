@@ -164,21 +164,20 @@ public class JugglingRenderer implements Renderer {
 			
 		// Replace the current matrix with the identity matrix
 		gl.glLoadIdentity();
-		
+			
 		// Save the current matrix.
 		gl.glPushMatrix();
 		
-		// Translates into the screen to draw
-		gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
-				
-
-        gl.glRotatef(mAngleX, 0, 1, 0);
+		// Rotate/Scale/Translate the scene
+        gl.glTranslatef(0, (float)(this.overallmax.z/2), (float)(-depthValue));
+        //gl.glTranslatef(mTranslateX, mTranslateY, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
-        
+        gl.glRotatef(mAngleX, 0, 1, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
+        gl.glTranslatef(0, (float)(-this.overallmax.z/2), (float)(depthValue));
         
-        gl.glTranslatef(mTranslateX, mTranslateY, 0);  
-		
+		// Translates into the screen to draw
+        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
 		
 		// Draw the Frame
 		drawEffectiveFrame(gl);
@@ -191,39 +190,17 @@ public class JugglingRenderer implements Renderer {
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
         
-        
-        
-		/*
-		// Fake Juggler + Fake Ball
-		
-		// Clears the screen and depth buffer.
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-		// Replace the current matrix with the identity matrix
-		gl.glLoadIdentity();
-		// Save the current matrix.
-		gl.glPushMatrix();
-		// Translates 10 units into the screen.
-		gl.glTranslatef(0.0f, -100.0f, -100.0f); 
-		//int x=11, y=30, z=139;
-		juggler.draw(gl);
-		int x=11, y=30, z=139;
-		Prop pr = new ballProp();
-		pr.setPropCenter(new Coordinate(x, y, z));
-        pr.centerProp();
-        pr.draw(gl);
-		// Restore the last matrix.
-		gl.glPopMatrix();
-        */
-        
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.opengl.GLSurfaceView.Renderer#onSurfaceChanged(javax.microedition
-	 * .khronos.opengles.GL10, int, int)
-	 */
+
+	
+    /*
+     * 
+     * Set our projection matrix. This doesn't have to be done
+     * each time we draw, but usually a new projection needs to
+     * be set when the viewport is resized.
+     * 
+     */
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		
 		// Sets the current view port to the new size.
@@ -236,6 +213,7 @@ public class JugglingRenderer implements Renderer {
 		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		gl.glLoadIdentity();
 		
 	}
 
@@ -256,7 +234,6 @@ public class JugglingRenderer implements Renderer {
 			
 			// Draw the Floor
 			floor.draw(gl);
-			
 			
 			// Draw the Jugglers 
 			for (int j = 1; j <= pattern.getNumberOfJugglers(); j++) {

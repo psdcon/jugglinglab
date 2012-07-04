@@ -107,7 +107,7 @@ public class AnimationActivity extends BaseActivity {
    		setContentView(view);
    		*/
         
-        // Initialize Renderer and View
+        // Initialize Juggling Renderer and View
         try {
         	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
         } catch (Exception e) {
@@ -143,7 +143,7 @@ public class AnimationActivity extends BaseActivity {
             }
         });
 
-    	/** ZoomButtons. */
+    	// ZoomButtons
         mZoomIn = (ZoomButton) findViewById(R.id.animation_btn_zoom_in);
         mZoomOut = (ZoomButton) findViewById(R.id.animation_btn_zoom_out);
         
@@ -160,6 +160,7 @@ public class AnimationActivity extends BaseActivity {
 				mGLSurfaceView.zoomOut();
 			}
 		});
+
     }
     
     /** 
