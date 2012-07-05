@@ -109,21 +109,31 @@ public class JugglingRenderer implements Renderer {
  	
         setCameraCoordinate();
 
-		roiHalfHeight = 0.5*(Math.abs(this.overallmax.z) + Math.abs(this.overallmin.z));
-		depthValue = 2 * roiHalfHeight;
-		Z = Math.max(Math.abs(this.overallmax.y), Math.abs(this.overallmin.y));
+        // Bounding Boxes
+		double boundingBoxeMaxSize = Math.max((Math.abs(this.overallmax.z)), 
+				Math.max((Math.abs(this.overallmax.x) + Math.abs(this.overallmin.x)), (Math.abs(this.overallmax.y) + Math.abs(this.overallmin.y)))
+				);
+		boundingBoxeMaxSize += 50;
+		
+		roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
+		depthValue = boundingBoxeMaxSize;
+		
+		Z = boundingBoxeMaxSize/2;
 		zNear = (float)(depthValue - Z);
 		zFar = (float)(depthValue + Z);
-		top = (float)(roiHalfHeight * ((depthValue - Z)/ depthValue));
+		top = (float)Z;
 		bottom = -top;
-		right = (float)(roiHalfHeight * ((depthValue - Z)/ depthValue));
-		left = - right;
+		right = (float)Z;
+		left = - right;	
 		
 		// TODO Fred Remove Log
     	Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
 		Log.v("JugglingRenderer", "roiHalfHeight = " + roiHalfHeight);
 		Log.v("JugglingRenderer", "depth = " + depthValue);
+    	Log.v("JugglingRenderer","BoundingBoxeMaxSize=" + boundingBoxeMaxSize);
+    	Log.v("JugglingRenderer", "Z = " + Z);
+    	Log.v("JugglingRenderer", "zNear = " + zNear + ", zfar = " + zFar);
 	
 	}
 
@@ -135,6 +145,7 @@ public class JugglingRenderer implements Renderer {
 	 * .khronos.opengles.GL10, javax.microedition.khronos.egl.EGLConfig)
 	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+		
 		// Set the background color ( rgba ).
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 		// Enable Smooth Shading, default not really needed.
@@ -157,35 +168,27 @@ public class JugglingRenderer implements Renderer {
 	 * khronos.opengles.GL10)
 	 */
 	public void onDrawFrame(GL10 gl) {
-
 		
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 			
-		// Replace the current matrix with the identity matrix
-		gl.glLoadIdentity();
-			
 		// Save the current matrix.
 		gl.glPushMatrix();
 		
+		// Translates into center of the bounding box
+        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
+		
 		// Rotate/Scale/Translate the scene
-        gl.glTranslatef(0, (float)(this.overallmax.z/2), (float)(-depthValue));
         //gl.glTranslatef(mTranslateX, mTranslateY, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
         gl.glRotatef(mAngleX, 0, 1, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
-        gl.glTranslatef(0, (float)(-this.overallmax.z/2), (float)(depthValue));
         
-		// Translates into the screen to draw
-        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
-		
 		// Draw the Frame
 		drawEffectiveFrame(gl);
 		
 		// Restore the last matrix.
 		gl.glPopMatrix();
-		
-		gl.glLoadIdentity();
 
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
