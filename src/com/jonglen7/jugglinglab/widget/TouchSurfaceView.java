@@ -88,7 +88,7 @@ public class TouchSurfaceView extends GLSurfaceView {
                     mRenderer.mAngleY += dy * TOUCH_SCALE_FACTOR;
                     requestRender();
                     move += Math.abs(dx) + Math.abs(dy);
-        		} else if (mode == ZOOM) {
+        		} else if (mode == ZOOM) {											
         			float newDist = spacing(e);
         			if (Math.abs((newDist - oldDist)/oldDist) < distEpsilon) {
         				midPoint(mNewMid, e);
@@ -99,8 +99,8 @@ public class TouchSurfaceView extends GLSurfaceView {
         				requestRender();
         				mPreviousMid.set(mNewMid);
         			} else if (newDist > 10f) {
-        				zoom(newDist / oldDist);
-        				mRenderer.mZoom = newDist / oldDist;
+        				zoom(newDist / oldDist);							// TODO FRED: Correct TouchZoom (cf usbkey.JLD2.txt)
+        				mRenderer.mZoom = newDist / oldDist;				//           Issue here : double and inconsistent modification of mRenderer.mZoom ?!
         				requestRender();
         			}
         		}

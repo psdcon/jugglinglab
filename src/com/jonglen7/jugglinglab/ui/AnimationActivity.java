@@ -37,9 +37,10 @@ import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
 public class AnimationActivity extends BaseActivity {
 	
 	
+	/** Attributes. */
 	JugglingRenderer renderer = null;
 	PatternRecord pattern_record = null;
-	TouchSurfaceView mGLSurfaceView;
+	TouchSurfaceView mGLSurfaceView = null;
 	
 	/** ZoomButtons. */
     private ZoomButton mZoomIn;
@@ -47,6 +48,7 @@ public class AnimationActivity extends BaseActivity {
 	
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
+    
 
     /** Called when the activity is first created. */
     @Override
@@ -83,36 +85,12 @@ public class AnimationActivity extends BaseActivity {
         // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
         //                http://android.cyrilmottier.com/?p=450
         //            That might be necessary because computation takes some time
-
-        // 2D Square
-        /*
-        GLSurfaceView view = new GLSurfaceView(this);
-   		view.setRenderer(new OpenGLRenderer());
-   		setContentView(view);
-   		*/
-        
-   		// 3D Cube
-        /*
-        TouchSurfaceView mGLSurfaceView;
-        mGLSurfaceView = new TouchSurfaceView(this);
-        setContentView(mGLSurfaceView);
-        mGLSurfaceView.requestFocus();
-        mGLSurfaceView.setFocusableInTouchMode(true);
-        */
-        
-        // Fake Juggler and Fake Ball
-   		/*
-        GLSurfaceView view = new GLSurfaceView(this);
-   		view.setRenderer(new JugglingRenderer());
-   		setContentView(view);
-   		*/
         
         // Initialize Juggling Renderer and View
         try {
         	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
         } catch (Exception e) {
-        	// N.B FRED
-        	// Necessity to have the 2 following instruction to exit Activity: finish(); return;
+        	// Note: Necessity to have the 2 following instruction to exit Activity: finish(); return;
         	// because  finish() does not work until onCreate() return control to system.
         	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
         	finish();

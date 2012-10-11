@@ -81,7 +81,7 @@ public class JugglingRenderer implements Renderer {
 		
 		// Initialize class attributes
 		this.context = context;
-//		this.pattern = ((JMLPatternActivity)context).getJMLPattern();
+		//this.pattern = ((JMLPatternActivity)context).getJMLPattern();
 		this.pattern = pattern;
 		this.preferences = context.getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
 		this.prefs = new AnimatorPrefs();
@@ -91,12 +91,11 @@ public class JugglingRenderer implements Renderer {
 		this.tempc = new Coordinate();
 		
 		
+		// Create juggler(s) and Floor
+		this.juggler = new Juggler(this.pattern.getNumberOfJugglers()); 
 		this.floor = new Floor();
-		
-		// TODO Fred: Implements for multiple jugglers
-		this.juggler = new Juggler(this.pattern.getNumberOfJugglers());  
-		//juggler = new FakeJuggler();
-		
+
+		// Lay out the spatial paths in the pattern
 		try {
 			pattern.layoutPattern();
 		} catch (JuggleExceptionInternal e) {
@@ -105,36 +104,32 @@ public class JugglingRenderer implements Renderer {
 			e.printStackTrace();
 		}
 		
+		// Update space-time attributes regarding pattern
         syncToPattern();
- 	
         setCameraCoordinate();
 
-        // Bounding Boxes
-		double boundingBoxeMaxSize = Math.max((Math.abs(this.overallmax.z)), 
-				Math.max((Math.abs(this.overallmax.x) + Math.abs(this.overallmin.x)), (Math.abs(this.overallmax.y) + Math.abs(this.overallmin.y)))
-				);
-		boundingBoxeMaxSize += 50;
+        
+        // Compute max dimensions
+        double boundingBoxeMaxSize = Math.max(Math.abs(this.overallmax.z - this.overallmin.z), 
+											  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
+        
+      
+		this.roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
+		this.depthValue = boundingBoxeMaxSize + 20;
+        this.top = (float)this.overallmax.z;
+        this.bottom = -this.top;
+        this.left = this.top;
+        this.right = -this.top;
+        this.zNear = 10.0f;
+        this.zFar = 2.0f*(float)depthValue;
+        
 		
-		roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
-		depthValue = boundingBoxeMaxSize;
-		
-		Z = boundingBoxeMaxSize/2;
-		zNear = (float)(depthValue - Z);
-		zFar = (float)(depthValue + Z);
-		top = (float)Z;
-		bottom = -top;
-		right = (float)Z;
-		left = - right;	
-		
-		// TODO Fred Remove Log
-    	Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
+		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
-		Log.v("JugglingRenderer", "roiHalfHeight = " + roiHalfHeight);
-		Log.v("JugglingRenderer", "depth = " + depthValue);
     	Log.v("JugglingRenderer","BoundingBoxeMaxSize=" + boundingBoxeMaxSize);
-    	Log.v("JugglingRenderer", "Z = " + Z);
-    	Log.v("JugglingRenderer", "zNear = " + zNear + ", zfar = " + zFar);
-	
+    	Log.v("JugglingRenderer", "roiHalfHeight = " + this.roiHalfHeight + ", depth = " + this.depthValue);
+    	Log.v("JugglingRenderer", "top = " + this.top + ", bottom = " + this.bottom + ", left = " + this.left + ", right = " + this.right + ", zNear = " + this.zNear + ", zfar = " + this.zFar);  	
+        	
 	}
 
 	/*
@@ -177,16 +172,16 @@ public class JugglingRenderer implements Renderer {
 		
 		// Translates into center of the bounding box
         gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
-		
+        
 		// Rotate/Scale/Translate the scene
         //gl.glTranslatef(mTranslateX, mTranslateY, 0);
-        gl.glRotatef(mAngleY, 1, 0, 0);
         gl.glRotatef(mAngleX, 0, 1, 0);
+        gl.glRotatef(mAngleY, 1, 0, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
         
 		// Draw the Frame
 		drawEffectiveFrame(gl);
-		
+        
 		// Restore the last matrix.
 		gl.glPopMatrix();
 
@@ -212,7 +207,8 @@ public class JugglingRenderer implements Renderer {
 		// Set the Projection
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glFrustumf(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
+		//gl.glFrustumf(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
+		gl.glOrthof(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
 		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
