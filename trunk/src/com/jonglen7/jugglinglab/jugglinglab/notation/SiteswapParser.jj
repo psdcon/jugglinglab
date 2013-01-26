@@ -204,7 +204,7 @@ SiteswapTreeItem SoloPairedThrow() :
 }
 
 SiteswapTreeItem SoloMultiThrow() :
-{ SiteswapTreeItem b, c; }
+{ SiteswapTreeItem b, c, d; }
 {
 	{ b = new SiteswapTreeItem(SiteswapTreeItem.TYPE_SOLO_MULTI_THROW); }	
 	(
@@ -221,11 +221,17 @@ SiteswapTreeItem SoloMultiThrow() :
 		"]" [<SPC>]
 	|
 		"{" [<SPC>]
+		c=SoloSingleThrow()
 		(
-			c=SoloSingleThrow()
-				{ b.addChild(c); }
+		    d=SoloSingleThrow()
+			{ c.value = c.value * 36 + d.value;
+			  c.dest_juggler = d.dest_juggler;
+			  c.x = d.x;
+			  c.mod = d.mod;
+			}
 		[<SPC>]
-		)+
+		)*
+		{ b.addChild(c); }
 		"}" [<SPC>]
 	)
 	{
@@ -401,7 +407,7 @@ SiteswapTreeItem PassingPairedThrow() :
 }
 
 SiteswapTreeItem PassingMultiThrow() :
-{ SiteswapTreeItem b, c; }
+{ SiteswapTreeItem b, c, d; Boolean end_loop;}
 {
 	{ b = new SiteswapTreeItem(SiteswapTreeItem.TYPE_PASSING_MULTI_THROW); }
 	(
@@ -418,11 +424,17 @@ SiteswapTreeItem PassingMultiThrow() :
 		"]" [<SPC>]
 	|
 		"{" [<SPC>]
+		c=PassingSingleThrow()
 		(
-			c=PassingSingleThrow()
-				{ b.addChild(c); }
-			[<SPC>]
-		)+
+		    d=PassingSingleThrow()
+			{ c.value = c.value * 36 + d.value;
+			  c.dest_juggler = d.dest_juggler;
+			  c.x = d.x;
+			  c.mod = d.mod;
+			}
+		[<SPC>]
+		)*
+		{ b.addChild(c); }
 		"}" [<SPC>]
 	)
 	{
