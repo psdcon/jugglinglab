@@ -175,7 +175,7 @@ public class JugglingRenderer implements Renderer {
         
 		// Rotate/Scale/Translate the scene
         //gl.glTranslatef(mTranslateX, mTranslateY, 0);
-        gl.glRotatef(mAngleX, 0, 1, 0);
+        gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
         
