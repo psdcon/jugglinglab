@@ -30,12 +30,14 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		/*
 		colorPrefScreen = (PreferenceScreen) this.getPreferenceScreen().findPreference("colorPrefScreen");
 		colorPrefScreen.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
 				return onPropColorPreferenceClick(preference);
 			}
 		});
+		*/
 	}
 	
 	private boolean onPropColorPreferenceClick(Preference pref) {
