@@ -85,10 +85,34 @@
 
     <!-- About -->
     <string name="about_title">About</string>
-    <string name="about_txt">Juggling Lab is based on the desktop application also
+    <string name="about_jugglinglab">
+    
+    	\nJuggling Lab is based on the desktop application also
         called Juggling Lab http://jugglinglab.sourceforge.net.\n\n
+        
         Juggling Lab is an application for creating and animating juggling patterns.
-        Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.</string>
+        Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.\n\n
+        
+        Features:\n
+         - Animates all solo siteswap patterns, including synchronous and multiplexed patterns, and patterns involving movement of the juggler bodies\n
+    	 - XML-based pattern description language JML (Juggling Markup Language), permits fine-grained control of ball, hand, and body movements\n
+    	 - Realistic hand model, with cubic spline hand paths that match the velocities of balls at throwing points\n
+    	 - Integrated siteswap pattern generator\n
+    	 - Integrated tutorials and pattern list (over 400 patterns)\n\n
+    	 
+    	Authors:\n
+		This application has been developed by Frédéric RAYAR, and Romain RICHARD.\n
+		If you have any questions, comments, or suggestions,\n
+		please contact us at [frederic.rayar@gmail.com] or [romain.richard.IT.engineer@gmail.com].\n\n
+		
+		License:\n
+		This software is provided under LGPL v.3 license.\n
+		Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.html\n\n
+		
+		Acknowledgments:\n
+		External libraries are used in the project, and makes extensive use of the following persons code:\n
+		 - GreenDroid, by Cyril Mottier - https://github.com/cyrilmottier/GreenDroid
+        </string>
     
     <!-- TODO Romain (Help): Help -->
     
