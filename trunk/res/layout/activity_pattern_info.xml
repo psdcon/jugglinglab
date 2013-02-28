@@ -9,79 +9,190 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:shrinkColumns="1">
-
+        android:stretchColumns="*">
+        
+        
         <!-- Display -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_display"
-                android:text="@string/pattern_info_txt_display"/>
+                android:text="@string/pattern_info_txt_display"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_display_value"/>
+                android:id="@+id/pattern_info_txt_display_value"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
+
 
         <!-- Pattern -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_pattern"
-                android:text="@string/pattern_info_txt_pattern"/>
+                android:text="@string/pattern_info_txt_pattern"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_pattern_value"/>
+                android:id="@+id/pattern_info_txt_pattern_value"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
+    
     
         <!-- Hand movement -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_hand_movement"
-                android:text="@string/pattern_entry_txt_hand_movement"/>
+                android:text="@string/pattern_entry_txt_hand_movement"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_hand_movement_code"/>
+                android:id="@+id/pattern_info_txt_hand_movement_code"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
-        <TableRow>
+        
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/pattern_info_txt_hand_movement_display"
-                android:layout_column="1"/>
+                android:layout_column="1"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
     
+    
         <!-- Prop type -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_prop_type"
-                android:text="@string/pattern_entry_txt_prop_type"/>
+                android:text="@string/pattern_entry_txt_prop_type"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_prop_type_code"/>
+                android:id="@+id/pattern_info_txt_prop_type_code"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
 
+
         <!-- Dwell beats -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_dwell_beats"
-                android:text="@string/pattern_entry_txt_dwell_beats"/>
+                android:text="@string/pattern_entry_txt_dwell_beats"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_dwell_beats_code"/>
+                android:id="@+id/pattern_info_txt_dwell_beats_code"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
 
         <!-- Beats per second -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_beats_per_second"
-                android:text="@string/pattern_entry_txt_beats_per_second"/>
+                android:text="@string/pattern_entry_txt_beats_per_second"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_beats_per_second_code"/>
+                android:id="@+id/pattern_info_txt_beats_per_second_code"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
     
+    
         <!-- Body movement -->
-        <TableRow>
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
             <TextView
                 android:id="@+id/pattern_info_txt_body_movement"
-                android:text="@string/pattern_entry_txt_body_movement"/>
+                android:text="@string/pattern_entry_txt_body_movement"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
             <TextView
-                android:id="@+id/pattern_info_txt_body_movement_code"/>
+                android:id="@+id/pattern_info_txt_body_movement_code"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
-        <TableRow>
+        
+        <TableRow
+        	android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/pattern_info_txt_body_movement_display"
-                android:layout_column="1"/>
+                android:layout_column="1"
+                android:padding="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </TableRow>
     
     </TableLayout>
