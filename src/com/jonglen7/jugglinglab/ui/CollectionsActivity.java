@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
@@ -157,5 +158,22 @@ public class CollectionsActivity extends BaseListActivity {
 			return true;
 		}
 	};
+	
+	
+    /**
+     * To solve the following error for honeycomb:
+     * 		java.lang.RuntimeException: Unable to resume activity 
+     *  	java.lang.IllegalStateException: trying to re-query an already closed cursor
+     *  
+     *  @TODO : startManagingCursor(Cursor c) and stopManagingCursor(Cursor c) have been deprecated in API level 11 (Android 3.0.X HoneyComb)
+     *          Use the new CursorLoader class with LoaderManager instead; 
+     *          this is also available on older platforms through the Android compatibility package. 
+     */
+    @Override
+    public void startManagingCursor(Cursor c) {
+        if (Build.VERSION.SDK_INT < 11) {
+            super.startManagingCursor(c);
+        }
+    }
 
 }
