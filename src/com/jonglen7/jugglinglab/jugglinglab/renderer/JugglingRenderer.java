@@ -6,7 +6,6 @@ import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.opengl.GLSurfaceView.Renderer;
-import android.opengl.GLU;
 import android.util.Log;
 
 import com.jonglen7.jugglinglab.R;
@@ -49,6 +48,7 @@ public class JugglingRenderer implements Renderer {
     
 	private Coordinate cameraCenter;
 	
+	double boundingBoxeMaxSize;
 	double roiHalfHeight;
 	double depthValue;
 	double FOVY = 45;
@@ -59,6 +59,7 @@ public class JugglingRenderer implements Renderer {
 	float bottom;
 	float right;
 	float left;
+	boolean updateView = false;
 	
 	
 	// Romain: Added for rotation
@@ -110,8 +111,8 @@ public class JugglingRenderer implements Renderer {
 
         
         // Compute max dimensions
-        double boundingBoxeMaxSize = Math.max(Math.abs(this.overallmax.z - this.overallmin.z), 
-											  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
+        // this.overallmax.z to handle from floor to highest prop position
+        boundingBoxeMaxSize = Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
         
       
 		this.roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
@@ -123,12 +124,13 @@ public class JugglingRenderer implements Renderer {
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
         
-		
+		/*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
     	Log.v("JugglingRenderer","BoundingBoxeMaxSize=" + boundingBoxeMaxSize);
     	Log.v("JugglingRenderer", "roiHalfHeight = " + this.roiHalfHeight + ", depth = " + this.depthValue);
-    	Log.v("JugglingRenderer", "top = " + this.top + ", bottom = " + this.bottom + ", left = " + this.left + ", right = " + this.right + ", zNear = " + this.zNear + ", zfar = " + this.zFar);  	
+    	Log.v("JugglingRenderer", "top = " + this.top + ", bottom = " + this.bottom + ", left = " + this.left + ", right = " + this.right + ", zNear = " + this.zNear + ", zfar = " + this.zFar);
+    	*/  	
         	
 	}
 
@@ -187,6 +189,24 @@ public class JugglingRenderer implements Renderer {
 
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
+        
+        
+        // Workaround to handle objects disappearance
+        if (updateView)
+        {
+	        boundingBoxeMaxSize =  Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y))); 
+			depthValue = mZoom* (boundingBoxeMaxSize + 20);
+	        zFar = 2.0f*(float)depthValue;
+	        
+	        // Update camera viewport
+	        gl.glMatrixMode(GL10.GL_PROJECTION);
+			gl.glLoadIdentity();
+			gl.glOrthof(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
+			gl.glMatrixMode(GL10.GL_MODELVIEW);
+			gl.glLoadIdentity();
+			
+			updateView = false;
+        }
         
 	}
 
@@ -414,6 +434,12 @@ public class JugglingRenderer implements Renderer {
 
 	public void setPrefs(AnimatorPrefs prefs) {
 		this.prefs = prefs;
+	}
+
+	public void SetZoomValue(float newZoomValue) {
+		mZoom = newZoomValue;
+		updateView = true;
+		
 	}
     
 
