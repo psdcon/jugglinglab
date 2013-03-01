@@ -6,8 +6,8 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="7" />
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
 
     <application
         android:name=".ui.HomeApplication"
