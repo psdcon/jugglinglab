@@ -1,39 +1,82 @@
-<com.jonglen7.jugglinglab.widget.DashboardLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1">
-
+    android:layout_height="fill_parent">
+    
     <!-- TODO Fred|Romain: Change the icons -->
-
-    <Button android:id="@+id/home_btn_pattern_entry"
-        style="@style/DashboardButton"
-        android:text="@string/home_btn_pattern_entry"
-        android:onClick="onPatternEntryClick"
-        android:drawableTop="@drawable/icon" />
-
-    <Button android:id="@+id/home_btn_generator"
-        style="@style/DashboardButton"
-        android:text="@string/home_btn_generator"
-        android:onClick="onGeneratorClick"
-        android:drawableTop="@drawable/icon" />
-
-    <Button android:id="@+id/home_btn_tutorials"
-        style="@style/DashboardButton"
-        android:text="@string/home_btn_tutorials"
-        android:onClick="onTutorialsClick"
-        android:drawableTop="@drawable/icon" />
-
-    <Button android:id="@+id/home_btn_pattern_list"
-        style="@style/DashboardButton"
-        android:text="@string/home_btn_pattern_list"
-        android:onClick="onPatternListClick"
-        android:drawableTop="@drawable/icon" />
-
-    <Button android:id="@+id/home_btn_my_profile"
-        style="@style/DashboardButton"
-        android:text="@string/home_btn_my_profile"
-        android:onClick="onMyProfileClick"
-        android:drawableTop="@drawable/icon" />
-
-</com.jonglen7.jugglinglab.widget.DashboardLayout>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="6dip">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <Button android:id="@+id/home_btn_pattern_entry"
+                style="@style/HomeButton"
+                android:text="@string/home_btn_pattern_entry"
+                android:onClick="onPatternEntryClick"
+                android:drawableTop="@drawable/icon" />
+            <Button android:id="@+id/home_btn_generator"
+                style="@style/HomeButton"
+                android:text="@string/home_btn_generator"
+                android:onClick="onGeneratorClick"
+                android:drawableTop="@drawable/icon" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="6dip">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <Button android:id="@+id/home_btn_tutorials"
+                style="@style/HomeButton"
+                android:text="@string/home_btn_tutorials"
+                android:onClick="onTutorialsClick"
+                android:drawableTop="@drawable/icon" />
+            <Button android:id="@+id/home_btn_pattern_list"
+                style="@style/HomeButton"
+                android:text="@string/home_btn_pattern_list"
+                android:onClick="onPatternListClick"
+                android:drawableTop="@drawable/icon" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="6dip">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <Button android:id="@+id/home_btn_my_profile"
+                style="@style/HomeButton"
+                android:text="@string/home_btn_my_profile"
+                android:onClick="onMyProfileClick"
+                android:drawableTop="@drawable/icon" />
+            <!-- TODO Romain: Unhide when ready -->
+            <Button android:id="@+id/home_btn_video"
+                style="@style/HomeButton"
+                android:text="@string/home_btn_video"
+                android:onClick="onVideoClick"
+                android:drawableTop="@drawable/icon"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
