@@ -23,6 +23,8 @@ public class JugglingRenderer implements Renderer {
 	
 	
 	// Attributes
+	private float BACKGROUND_COLOR[] = {0.0f, 0.0f, 0.0f, 0.5f}; 
+	
 	private Context context = null;
 	private JMLPattern pattern = null;
 	private Floor floor = null;
@@ -144,7 +146,7 @@ public class JugglingRenderer implements Renderer {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		
 		// Set the background color ( rgba ).
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+		gl.glClearColor(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3]);
 		// Enable Smooth Shading, default not really needed.
 		gl.glShadeModel(GL10.GL_SMOOTH);
 		// Depth buffer setup.

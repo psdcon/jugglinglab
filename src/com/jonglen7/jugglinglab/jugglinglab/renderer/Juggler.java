@@ -40,6 +40,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.MathVector;
 
 public class Juggler {
 	
+	private float JUGGLER_COLOR[] = {0.0f, 0.0f, 1.0f, 1.0f}; 
 	
 	// Juggler dimensions, in cm
 	public final static double shoulder_hw = 23.0;	// shoulder half-width (m)
@@ -76,6 +77,7 @@ public class Juggler {
 	
 	// Number of juggler
 	private int nbJuggler;
+	
 	// Structure that will contains the pixel positions of the juggler
 	private MathVector[][] jugglerDescription;
 	
@@ -318,7 +320,7 @@ public class Juggler {
         // must have their byte order set to native order
 
     	gl.glDisable(gl.GL_BLEND);
-    	gl.glColor4f(0.0f,0.0f,1.0f,1.0f);
+    	gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
     	gl.glLineWidth(3.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
