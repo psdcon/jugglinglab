@@ -260,6 +260,7 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     	
     	String query = "SELECT CODE, XML_LINE_NUMBER " +
     					"FROM PROP " +
+    					"WHERE CODE in ('ball', 'cube')" +  // TODO Fred (Props): Modify/Delete this when new props available
     					"ORDER BY ID_PROP";
     	
     	Cursor cursor = myDbHelper.execQuery(query);
