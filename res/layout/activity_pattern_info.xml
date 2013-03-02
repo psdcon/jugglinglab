@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO Romain (PatternInfo): Add elements to the layout -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pattern_info_scrollview"
