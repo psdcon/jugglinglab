@@ -85,6 +85,7 @@
 
     <!-- About -->
     <string name="about_title">About</string>
+    <string name="about_version">Version</string>
     <string name="about_jugglinglab">
 Juggling Lab is based on the desktop application also called Juggling Lab http://jugglinglab.sourceforge.net.\n
 
@@ -105,6 +106,8 @@ Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.
         </string>
     
     <!-- TODO Romain (Help): Help -->
+    <string name="help_title">Help</string>
+    <string name="help_jugglinglab">Please refer to http://jugglinglab.sourceforge.net/</string>
     
     <!-- Menu -->
     <string name="menu_settings">Settings</string>

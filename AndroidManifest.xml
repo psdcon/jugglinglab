@@ -36,7 +36,9 @@
 
         <activity android:name=".ui.ColorPreferenceActivity" />
 
-        <activity android:name=".ui.HelpActivity" />
+        <activity
+            android:name=".ui.HelpActivity"
+            android:label="@string/help_title" />
 
         <activity
             android:name=".ui.GeneratorActivity"

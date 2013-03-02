@@ -17,15 +17,13 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setActionBarContentView(R.layout.activity_about);
         
-        
-        
         /// Version      
-        TextView  txt_version = (TextView) findViewById(R.id.about_version);
+        TextView txt_version = (TextView) findViewById(R.id.about_version_number);
         PackageManager manager = this.getPackageManager();
         PackageInfo info;
 		try {
 			info = manager.getPackageInfo(this.getPackageName(), 0);
-			 txt_version.setText("Version " + info.versionName);
+			txt_version.setText(info.versionName);
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
