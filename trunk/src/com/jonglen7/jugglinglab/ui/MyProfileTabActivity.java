@@ -58,6 +58,9 @@ public class MyProfileTabActivity extends ListActivity {
         myDbHelper.close();
         
         /** QuickAction. */
+        // TODO Romain (QuickAction): when on MyProfile, if (for example) the
+        // STAR option is used, MyProfileTabActivity won't be restarted but
+        // just the content of the tab (i.e. no ActionBar, no tabs, ...)
         quickActionGrid = new QuickActionGridTrick(this);
     }
     

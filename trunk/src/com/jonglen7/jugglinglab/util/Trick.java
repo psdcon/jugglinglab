@@ -214,6 +214,7 @@ public class Trick {
 	public void delete() {
 		DataBaseHelper myDbHelper = DataBaseHelper.init(this.context);
 		myDbHelper.getWritableDatabase().delete("Trick", "ID_TRICK=" + this.ID_TRICK, null);
+		// TODO Romain (Trick): Will delete all the collections the trick is in, should only delete the one it is currently in
 		myDbHelper.getWritableDatabase().delete("TrickCollection", "ID_TRICK=" + this.ID_TRICK, null);
         myDbHelper.close();
 	}
