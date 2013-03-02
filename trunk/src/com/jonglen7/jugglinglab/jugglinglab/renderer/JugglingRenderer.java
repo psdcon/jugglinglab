@@ -23,7 +23,7 @@ public class JugglingRenderer implements Renderer {
 	
 	
 	// Attributes
-	private float BACKGROUND_COLOR[] = {0.0f, 0.0f, 0.0f, 0.5f}; 
+	private float BACKGROUND_COLOR[] = {1.0f, 1.0f, 1.0f, 0.5f}; 
 	
 	private Context context = null;
 	private JMLPattern pattern = null;

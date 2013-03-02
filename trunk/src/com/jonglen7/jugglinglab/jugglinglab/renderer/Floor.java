@@ -22,7 +22,7 @@ public class Floor {
 	 * Attributes
 	 * 
 	 */
-	private float FLOOR_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f}; 
+	private float FLOOR_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f}; 
     private FloatBuffer   mVertexBuffer;
     private ByteBuffer  mIndexBuffer;
     private ByteBuffer vbb;
@@ -109,7 +109,7 @@ public class Floor {
         
     	gl.glDisable(gl.GL_BLEND);
     	gl.glColor4f(FLOOR_COLOR[0],FLOOR_COLOR[1],FLOOR_COLOR[2],FLOOR_COLOR[3]);
-    	gl.glLineWidth(3.0f);
+    	gl.glLineWidth(1.0f);
         gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
               
