@@ -26,13 +26,14 @@ public class QuickActionGridTrick extends QuickActionGrid {
 	final static int EDIT = 1;
 	final static int LIST = 2;
 	final static int SHARE = 3;
-	final static int CATCHES = 4;
-	final static int STATS = 5;
-	final static int INFO = 6;
-	final static int DELETE = 7;
+//	final static int CATCHES = 4;
+//	final static int STATS = 5;
+	final static int INFO = 4;
+	final static int DELETE = 5;
 
 	PatternRecord pattern_record;
 	Activity activity;
+	MyQuickAction qa_delete;
 
 	public QuickActionGridTrick(Activity activity) {
 		super(activity);
@@ -43,10 +44,10 @@ public class QuickActionGridTrick extends QuickActionGrid {
         this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections));
         this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_share, R.string.gd_share));
         //TODO Romain (Stats): cf icons http://androiddrawableexplorer.appspot.com/
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_add, R.string.quickactions_trick_catches));
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.quickactions_trick_stats)); // TODO Romain (Stats): change the icon
+//        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_add, R.string.quickactions_trick_catches));
+//        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.quickactions_trick_stats)); // TODO Romain (Stats): change the icon
         this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.gd_info));
-        this.addQuickAction(new MyQuickAction(activity, android.R.drawable.ic_delete, R.string.quickactions_delete));
+        qa_delete = new MyQuickAction(activity, android.R.drawable.ic_delete, R.string.quickactions_delete);
 
         this.setOnQuickActionClickListener(mActionListener);
 	}
@@ -122,17 +123,17 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.quickactions_trick_share)));
         		break;
         		
-        	case CATCHES: // TODO Romain (Stats): Catches (use builder to display an EditText to enter how many catches, maybe add something to set the date too)
-        		Toast.makeText(activity, "Catches", Toast.LENGTH_SHORT).show();
-        		break;
-        		
-        	case STATS: // TODO Romain (Stats): Stats
-//        		Intent intent = (new StatsActivity()).execute(context);
-        		Toast.makeText(activity, "Stats", Toast.LENGTH_SHORT).show();
-//        		Intent intent = new Intent(activity, StatsActivity.class);
-//                intent.putExtra("pattern_record", pattern_record);
-//                activity.startActivity(i);
-        		break;
+//        	case CATCHES: // TODO Romain (Stats): Catches (use builder to display an EditText to enter how many catches, maybe add something to set the date too)
+//        		Toast.makeText(activity, "Catches", Toast.LENGTH_SHORT).show();
+//        		break;
+//        		
+//        	case STATS: // TODO Romain (Stats): Stats
+////        		Intent intent = (new StatsActivity()).execute(context);
+//        		Toast.makeText(activity, "Stats", Toast.LENGTH_SHORT).show();
+////        		Intent intent = new Intent(activity, StatsActivity.class);
+////                intent.putExtra("pattern_record", pattern_record);
+////                activity.startActivity(i);
+//        		break;
         		
         	case INFO:
         		Intent intent = new Intent(activity, PatternInfoActivity.class);
@@ -191,6 +192,8 @@ public class QuickActionGridTrick extends QuickActionGrid {
     
     public void show(View view, PatternRecord pattern_record) {
     	this.pattern_record = pattern_record;
+    	if ((new Trick(pattern_record, activity)).getID_TRICK() >= 0)
+    	    this.addQuickAction(qa_delete);
     	super.show(view);
     }
 

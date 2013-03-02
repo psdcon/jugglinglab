@@ -15,7 +15,7 @@ public class Trick {
 	private HashMap<String, String> pattern_record_values;
 	private Context context;
 	private int ID_TRICK;
-	private ArrayList<Collection> collections;
+    private ArrayList<Collection> collections;
 	private String CUSTOM_DISPLAY;
 	private Collection starredCollection;
 
@@ -71,6 +71,10 @@ public class Trick {
 
         myDbHelper.close();
 	}
+
+    public int getID_TRICK() {
+        return ID_TRICK;
+    }
 
 	public String getCUSTOM_DISPLAY() {
 		return CUSTOM_DISPLAY;
