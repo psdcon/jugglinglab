@@ -59,7 +59,7 @@ public class TouchSurfaceView extends GLSurfaceView {
     public void setRenderer(Renderer renderer) 
     {
     	mRenderer = (JugglingRenderer) renderer;
-    	mRenderer.mZoom = 1;
+    	mRenderer.mZoom = mRenderer.ZOOM_INIT;
     	super.setRenderer(mRenderer);
     }
     
@@ -141,12 +141,12 @@ public class TouchSurfaceView extends GLSurfaceView {
     
     /** Zoom In **/
     public void zoomIn() {
-    	mRenderer.SetZoomValue(mRenderer.mZoom + .1f);
+    	mRenderer.SetZoomValue(mRenderer.mZoom + mRenderer.ZOOM_STEP);
     }
     
     /** Zoom Out **/
     public void zoomOut() {
-    	mRenderer.SetZoomValue(mRenderer.mZoom - .1f);
+        mRenderer.SetZoomValue(mRenderer.mZoom - mRenderer.ZOOM_STEP);
     }
     
     /** ScaleListener for Pinch To Zoom **/

@@ -71,6 +71,9 @@ public class JugglingRenderer implements Renderer {
 	
     // Romain: Added for zoom
     public float mZoom;
+    public final float ZOOM_INIT = 1.0f;
+    public final float ZOOM_MIN = 0.0f;
+    public final float ZOOM_STEP = 0.1f;
 	
     
 	// Romain: Added for translation
@@ -439,10 +442,10 @@ public class JugglingRenderer implements Renderer {
 	}
 
 	public void SetZoomValue(float newZoomValue) {
-		mZoom = newZoomValue;
+	    // The zoom can't go lower than ZOOM_MIN
+		mZoom = Math.max(ZOOM_MIN, newZoomValue);
 		updateView = true;
 		
 	}
-    
 
 }
