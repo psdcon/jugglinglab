@@ -1,31 +1,9 @@
-// ballProp.java
-//
-// Copyright 2004 by Jack Boyce (jboyce@users.sourceforge.net) and others
-
-/*
-    This file is part of Juggling Lab.
-
-    Juggling Lab is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    Juggling Lab is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Juggling Lab; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
 package com.jonglen7.jugglinglab.jugglinglab.prop;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.StringTokenizer;
+import java.nio.IntBuffer;
 import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -35,16 +13,20 @@ import android.graphics.Color;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.ParameterDescriptor;
-import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
-
 
 public class ballProp extends Prop {
-	
 	
     // -------------------------------------
     // Attributes
     // -------------------------------------
-	
+    private FloatBuffer strip, fan_top, fan_bottom;
+    private FloatBuffer tex_strip, tex_fan_top, tex_fan_bottom;
+    private float radius;
+    private int stacks,  slices;
+    private int tex;
+    
+    private float PROP_COLOR[] = {1.0f, 0.0f, 0.0f, 1.0f}; 
+    
     static String[] colornames = {"black", "blue", "cyan", "gray",
         "green", "magenta", "red", "white", "yellow"};
     static int[] colorvals = {Color.BLACK, Color.BLUE, Color.CYAN, Color.GRAY, 
@@ -65,116 +47,30 @@ public class ballProp extends Prop {
     protected Coordinate size = null;
     protected Coordinate center = null;
 	protected Coordinate grip = null;
-
-	
-	
-	
+       
+        
     // -------------------------------------
     // Constructors
     // -------------------------------------
-	
-    public ballProp(){
+    public ballProp() 
+    {
+            this.tex = 1;
+            this.stacks = 12;
+            this.slices = 12;
+            this.radius = 4;
+            
+    }
+    
+    
+    // -------------------------------------
+    // Initialization method
+    // -------------------------------------
+    protected void init(String st) throws JuggleExceptionUser 
+    {
     	
-        size = new Coordinate(ball_pixel_size, ball_pixel_size);
-        center = new Coordinate();
-        grip = new Coordinate();
-        
-        // Draw Initialization
-        this.mRaduis = 3.0;	//TODO Fred: 25 is a hardcoded value 
-        this.mStep = 25.0;	//TODO Fred: 25 is a hardcoded value 
-        
-        ByteBuffer vbb = ByteBuffer.allocateDirect(40000); //TODO Fred: 40000 is a hardcoded value 
-        vbb.order(ByteOrder.nativeOrder());
-        sphereVertex = vbb.asFloatBuffer();       
-        
-        //mPoints = this.build();
-    }
-
-        
-    
-
-    // -------------------------------------
-    // Initialization methods
-    // -------------------------------------
-
-    protected void init(String st) throws JuggleExceptionUser {
-        color = colornum_def;
-
-        if (st == null) return;
-        ParameterList pl = new ParameterList(st);
-
-        String colorstr = pl.getParameter("color");
-        if (colorstr != null) {
-            int temp = -1;
-            if (colorstr.indexOf((int)',') == -1) { // color name
-                temp = Color.parseColor(colorstr);
-            } else {								// RGB triplet
-                // delete the '{' and '}' characters first
-                String str = colorstr;
-                int pos;
-                while ((pos = str.indexOf('{')) >= 0) {
-                    str = str.substring(0,pos) + str.substring(pos+1,str.length());
-                }
-                while ((pos = str.indexOf('}')) >= 0) {
-                    str = str.substring(0,pos) + str.substring(pos+1,str.length());
-                }
-                int red = 0, green = 0, blue = 0;
-                StringTokenizer st2 = new StringTokenizer(str, ",", false);
-                if (st2.hasMoreTokens())
-                    red = Integer.valueOf(st2.nextToken()).intValue();
-                if (st2.hasMoreTokens())
-                    green = Integer.valueOf(st2.nextToken()).intValue();
-                if (st2.hasMoreTokens())
-                    blue = Integer.valueOf(st2.nextToken()).intValue();
-                temp = Color.rgb(red, green, blue);
-            }
-
-            if (temp != -1)
-                color = temp;
-            else
-                throw new JuggleExceptionUser(errorstrings.getString("Error_prop_color")+": '"+colorstr+"'");
-        }
-
-        String diamstr = pl.getParameter("diam");
-        if (diamstr != null) {
-            try {
-                Double ddiam = Double.valueOf(diamstr);
-                double temp = ddiam.doubleValue();
-                if (temp > 0.0)
-                    diam = temp;
-                else
-                    throw new JuggleExceptionUser(errorstrings.getString("Error_prop_diameter"));
-            } catch (NumberFormatException nfe) {
-                throw new JuggleExceptionUser(errorstrings.getString("Error_number_format_prefix")+" 'diam' "+
-                                              errorstrings.getString("Error_number_format_suffix"));
-            }
-        }
-
-        String highlightstr = pl.getParameter("highlight");
-        if (highlightstr != null) {
-            Boolean bhighlight = Boolean.valueOf(highlightstr);
-            highlight = bhighlight.booleanValue();
-        }
-        
     }
     
-	protected void init(double zoom) {
-    	
-        ball_pixel_size = (int)(0.5 + zoom * diam);
-        
-        if (ball_pixel_size < 1)
-            ball_pixel_size = 1;
-
-        size = new Coordinate(ball_pixel_size, ball_pixel_size);
-        //center = new Coordinate(ball_pixel_size/2, ball_pixel_size/2);
-        //grip = new Coordinate(ball_pixel_size/2, ball_pixel_size);
-
-        lastzoom = zoom;
-    }
-    
-	
-	
-    // -------------------------------------
+ // -------------------------------------
     // Attributes Getters & Setters
     // -------------------------------------
     
@@ -255,66 +151,155 @@ public class ballProp extends Prop {
 
 
     
-    
     // -------------------------------------
-    // Drawing Attributes and methods
+    // Drawing method
     // -------------------------------------
-    
-    private FloatBuffer sphereVertex;
-    private double mRaduis;
-    private double mStep;
-    private float mVertices[];
-    private static double DEG = Math.PI/180;
-    private int mPoints;
-    
-    private int build() {
+    public void draw(GL10 gl) {
+            //gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
+    		gl.glColor4f(PROP_COLOR[0],PROP_COLOR[1],PROP_COLOR[2],PROP_COLOR[3]);
+           
+            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fan_top);
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+   
+            gl.glNormalPointer(GL10.GL_FLOAT, 0, fan_top);
+            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+           
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tex_fan_top);
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, slices + 2);
+           
+            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, strip);
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+   
+            gl.glNormalPointer(GL10.GL_FLOAT, 0, strip);
+            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, (slices + 1) * 2 * stacks);
+           
+            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fan_bottom);
+            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+   
+            gl.glNormalPointer(GL10.GL_FLOAT, 0, fan_bottom);
+            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+           
 
-        /**
-         * x = p * sin(phi) * cos(theta)
-         * y = p * sin(phi) * sin(theta)
-         * z = p * cos(phi)
-         */
-        double dTheta = mStep * DEG;
-        double dPhi = dTheta;
-        int points = 0;
-
-        for(double phi = -(Math.PI); phi <= Math.PI; phi+=dPhi) {
-            //for each stage calculating the slices
-            for(double theta = 0.0; theta <= (Math.PI * 2); theta+=dTheta) {
-                sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.cos(theta)) + (float)center.x); // TODO Fred: Hack Fred
-                sphereVertex.put((float) (mRaduis * Math.sin(phi) * Math.sin(theta)) + (float)center.z); // to simulate 
-                sphereVertex.put((float) (mRaduis * Math.cos(phi)) + (float)center.y);					 // centerProp()
-                points++;
-
+            gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tex_fan_bottom);
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+           
+            gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, slices + 2);
+    }
+   
+    protected FloatBuffer[] makeEndCap(int stacks, int slices, boolean top) {
+            // Calculate the Triangle Fan for the endcaps
+            int triangleFanVertexCount = slices + 2;
+            float dtheta = (float)(2.0 * Math.PI / slices);
+            float drho =  (float)(Math.PI / stacks);
+            float[] fanVertices = new float[triangleFanVertexCount * 3];
+            float[] fanTextures = new float[triangleFanVertexCount * 2];
+            float theta = 0;
+            float sin_drho = (float)Math.sin(drho);
+            //float cos_drho = (float)Math.cos(Math.PI / stacks);
+            int tex_index = 0;
+            fanTextures[tex_index++] = (top ? 0 : 1.0f);
+            fanTextures[tex_index++] = 0.5f;
+           
+            int index = 0;
+            fanVertices[index++] = 0.0f;
+            fanVertices[index++] = 0.0f;
+            fanVertices[index++] = (top ? 1 : -1);
+           
+           
+            for (int j = 0; j <= slices; j++)
+            {
+                    theta = (j == slices) ? 0.0f : j * (top ? 1 : -1) * dtheta;
+                    float x = (float)-Math.sin(theta) * sin_drho;
+                    float y = (float)Math.cos(theta) * sin_drho;
+                    float z = (top ? 1 : -1) * (float)Math.cos(drho);
+                   
+                    fanTextures[tex_index++] = x;
+                    fanTextures[tex_index++] = y;
+                   
+                    fanVertices[index++] = x;
+                    fanVertices[index++] = y;
+                    fanVertices[index++] = z;
+                   
             }
-        }
-        sphereVertex.position(0);
-        return points;
+
+            FloatBuffer[] result = new FloatBuffer[2];
+            result[0] = makeFloatBuffer(fanVertices);
+            result[1] = makeFloatBuffer(fanTextures);
+            return result;
     }
-    public void centerProp() {
-    	//TODO Fred: HACK, supposed to be in the constructor
-    	//              simulate the centerProp()
-    	
-        mPoints = this.build();
-        /*
-    	for (int i= 0; i<8; i++){
-    		sphereVertex.[3*i]   = sphereVertex[3*i] + (float)center.x;
-    		sphereVertex[3*i+1] = sphereVertex[3*i+1] + (float)center.z;
-    		sphereVertex[3*i+2] = sphereVertex[3*i+2] + (float)center.y;
-    	}
-    	*/
-    	
+   
+    protected void unitSphere(int stacks, int slices) {
+            float drho =  (float)(Math.PI / stacks);
+            float dtheta = (float)(2.0 * Math.PI / slices);
+
+            FloatBuffer[] buffs = makeEndCap(stacks, slices, true);
+            fan_top = buffs[0];
+            tex_fan_top = buffs[1];
+            buffs = makeEndCap(stacks, slices, false);
+            fan_bottom = buffs[0];
+            tex_fan_bottom = buffs[1];
+           
+            // Calculate the triangle strip for the sphere body
+            int triangleStripVertexCount = (slices + 1) * 2 * stacks;
+            float[] stripVertices = new float[triangleStripVertexCount * 3];
+           
+            int index = 0;
+            for (int i = 0; i < stacks; i++) {
+                    float rho = i * drho;
+                   
+                    for (int j = 0; j <= slices; j++)
+                    {
+                            float theta = (j == slices) ? 0.0f : j * dtheta;
+                            float x = radius * (float)(-Math.sin(theta) * Math.sin(rho)) + (float)center.x;
+                            float y = radius * (float)(Math.cos(theta) * Math.sin(rho)) + (float)center.z;
+                            float z = radius * (float)Math.cos(rho) + (float)center.y;
+                            // TODO: Implement texture mapping if texture used
+                            //                TXTR_COORD(s, t);
+                            stripVertices[index++] = x;
+                            stripVertices[index++] = y;
+                            stripVertices[index++] = z;
+                           
+                            x = radius * (float)(-Math.sin(theta) * Math.sin(rho + drho)) + (float)center.x;
+                            y = radius * (float)(Math.cos(theta) * Math.sin(rho + drho)) + (float)center.z;
+                            z = radius * (float)Math.cos(rho + drho) + (float)center.y;
+                            // TODO: Implement texture mapping if texture used
+                            //                TXTR_COORD(s, t);
+                            stripVertices[index++] = x;
+                            stripVertices[index++] = y;
+                            stripVertices[index++] = z;
+                    }
+            }
+            strip = makeFloatBuffer(stripVertices);
     }
     
-    public void draw(GL10 gl)
-    {
-       
-        gl.glFrontFace(gl.GL_CW);
-        gl.glColor4f(((float)Color.red(color))/255.0f, ((float)Color.green(color))/255.0f, ((float)Color.blue(color))/255.0f, 1.0f);
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, sphereVertex);
-        gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
-        gl.glDrawArrays(GL10.GL_POINTS, 0, mPoints);
-        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-
+    /**
+     * Make a direct NIO FloatBuffer from an array of floats
+     * @param arr The array
+     * @return The newly created FloatBuffer
+     */
+    protected static FloatBuffer makeFloatBuffer(float[] arr) {
+            ByteBuffer bb = ByteBuffer.allocateDirect(arr.length*4);
+            bb.order(ByteOrder.nativeOrder());
+            FloatBuffer fb = bb.asFloatBuffer();
+            makeFloatBuffer(fb, arr);
+            return fb;
     }
+    
+    protected static void makeFloatBuffer(FloatBuffer fb, float[] arr) {
+        fb.put(arr);
+        fb.position(0);
 }
+
+
+	@Override
+	public void centerProp() {
+		unitSphere(stacks, slices);
+    	
+		
+	}
+
+
+}
+
