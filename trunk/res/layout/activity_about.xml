@@ -24,7 +24,7 @@
 	    android:textColor="@color/orange"
         android:textStyle="bold"
         android:paddingTop="30dp"
-	    android:layout_toRightOf="@+id/logo" />
+	    android:layout_toRightOf="@id/logo" />
         
     <TextView
         android:id="@+id/about_version"
@@ -33,8 +33,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/orange"
         android:textStyle="bold"
-        android:layout_toRightOf="@+id/logo"
-        android:layout_below="@+id/about_name" />
+        android:layout_toRightOf="@id/logo"
+        android:layout_below="@id/about_name" />
         
     <TextView
         android:id="@+id/about_version_number"
@@ -43,8 +43,8 @@
         android:textColor="@color/orange"
         android:textStyle="bold"
         android:paddingLeft="3dp"
-        android:layout_toRightOf="@+id/about_version"
-        android:layout_below="@+id/about_name" />
+        android:layout_toRightOf="@id/about_version"
+        android:layout_below="@id/about_name" />
 	    
 	<TextView
 	    android:id="@+id/about_jugglinglab"
@@ -52,6 +52,6 @@
 	   	android:text="@string/about_jugglinglab"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/logo" />
+	    android:layout_below="@id/logo" />
 	   
 </RelativeLayout>
