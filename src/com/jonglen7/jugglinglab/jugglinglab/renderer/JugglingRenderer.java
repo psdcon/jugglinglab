@@ -135,8 +135,12 @@ public class JugglingRenderer implements Renderer {
         this.right = -this.top;
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
-        
-		/*
+
+        // TODO: Compute the value of the zoom depending on the pattern
+        // Do we use boundingBoxeMaxSize?
+        mZoom = 1.0f;
+
+        /*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
     	Log.v("JugglingRenderer","BoundingBoxeMaxSize=" + boundingBoxeMaxSize);
@@ -154,9 +158,6 @@ public class JugglingRenderer implements Renderer {
 	 * .khronos.opengles.GL10, javax.microedition.khronos.egl.EGLConfig)
 	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        // TODO: Compute the value of the zoom depending on the pattern
-	    // Do we use boundingBoxeMaxSize?
-	    mZoom = 1.0f;
 		
 		// Set the background color ( rgba ).
 		gl.glClearColor(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3]);
