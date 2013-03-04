@@ -33,20 +33,25 @@ public class QuickActionGridTrick extends QuickActionGrid {
 
 	PatternRecord pattern_record;
 	Activity activity;
-	MyQuickAction qa_delete;
+	MyQuickAction qa_star;
+    MyQuickAction qa_edit;
+    MyQuickAction qa_list;
+    MyQuickAction qa_share;
+    MyQuickAction qa_info;
+    MyQuickAction qa_delete;
 
 	public QuickActionGridTrick(Activity activity) {
 		super(activity);
 		this.activity = activity;
 
-		this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_star, R.string.gd_star));
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit));
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections));
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_share, R.string.gd_share));
+		qa_star = new MyQuickAction(activity, R.drawable.gd_action_bar_star, R.string.gd_star);
+		qa_edit = new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit);
+		qa_list = new MyQuickAction(activity, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections);
+		qa_share = new MyQuickAction(activity, R.drawable.gd_action_bar_share, R.string.gd_share);
         //TODO Romain (Stats): cf icons http://androiddrawableexplorer.appspot.com/
 //        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_add, R.string.quickactions_trick_catches));
 //        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.quickactions_trick_stats)); // TODO Romain (Stats): change the icon
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.gd_info));
+        qa_info = new MyQuickAction(activity, R.drawable.gd_action_bar_info, R.string.gd_info);
         qa_delete = new MyQuickAction(activity, android.R.drawable.ic_delete, R.string.quickactions_delete);
 
         this.setOnQuickActionClickListener(mActionListener);
@@ -115,10 +120,11 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		break;
         		
         	case SHARE:
-        		Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        		Intent shareIntent = new Intent(Intent.ACTION_SEND);
         		shareIntent.setType("text/plain");
-        		shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-        				activity.getString(R.string.quickactions_trick_share_training, pattern_record.getDisplay()) + "\n" +
+        		String subject = activity.getString(R.string.quickactions_trick_share_training, pattern_record.getDisplay());
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        		shareIntent.putExtra(Intent.EXTRA_TEXT, subject + "\n" +
         				"http://jugglinglab.sourceforge.net/siteswap.php?" + pattern_record.getAnim());
         		activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.quickactions_trick_share)));
         		break;
@@ -192,6 +198,12 @@ public class QuickActionGridTrick extends QuickActionGrid {
     
     public void show(View view, PatternRecord pattern_record) {
     	this.pattern_record = pattern_record;
+    	this.clearAllQuickActions();
+        this.addQuickAction(qa_star);
+        this.addQuickAction(qa_edit);
+        this.addQuickAction(qa_list);
+        this.addQuickAction(qa_share);
+        this.addQuickAction(qa_info);
     	if ((new Trick(pattern_record, activity)).getID_TRICK() >= 0)
     	    this.addQuickAction(qa_delete);
     	super.show(view);
