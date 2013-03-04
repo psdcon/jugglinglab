@@ -61,7 +61,6 @@ public class JugglingRenderer implements Renderer {
 	float bottom;
 	float right;
 	float left;
-	boolean updateView = false;
 	
 	
 	// Romain: Added for rotation
@@ -185,7 +184,7 @@ public class JugglingRenderer implements Renderer {
 		// Save the current matrix.
 		gl.glPushMatrix();
 
-		// Sticky angles (to keep things easier, the angles are kept between 0 and 360
+		// Sticky angles (to keep things easier, the angles are kept between 0 and 360)
         mAngleX = (mAngleX + ANGLE_MAX) % ANGLE_MAX;
         mAngleY = (mAngleY + ANGLE_MAX) % ANGLE_MAX;
 		for (float angle: ANGLE_STICKY) {
@@ -200,7 +199,7 @@ public class JugglingRenderer implements Renderer {
 		// TODO: Depending on the angle values, the rotation value should change
 		gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
-        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
+//        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
         gl.glScalef(mZoom, mZoom, mZoom);
 
         // Translates into center of the bounding box
@@ -215,24 +214,6 @@ public class JugglingRenderer implements Renderer {
 
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
-        
-        
-        // Workaround to handle objects disappearance
-        if (updateView)
-        {
-	        boundingBoxeMaxSize =  Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y))); 
-			depthValue = mZoom* (boundingBoxeMaxSize + 20);
-	        zFar = 2.0f*(float)depthValue;
-	        
-	        // Update camera viewport
-	        gl.glMatrixMode(GL10.GL_PROJECTION);
-			gl.glLoadIdentity();
-			gl.glOrthof(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
-			gl.glMatrixMode(GL10.GL_MODELVIEW);
-			gl.glLoadIdentity();
-			
-			updateView = false;
-        }
         
 	}
 
@@ -465,8 +446,6 @@ public class JugglingRenderer implements Renderer {
 	public void SetZoomValue(float newZoomValue) {
 	    // The zoom can't go lower than ZOOM_MIN
 		mZoom = Math.max(ZOOM_MIN, newZoomValue);
-		updateView = true;
-		
 	}
 
 }
