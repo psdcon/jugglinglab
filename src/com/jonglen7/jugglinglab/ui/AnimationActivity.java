@@ -108,7 +108,7 @@ public class AnimationActivity extends BaseActivity {
             boolean fromTouch) {
 
             	AnimatorPrefs prefs = renderer.getPrefs();
-            	prefs.slowdown = 20 - (double)progress;
+            	prefs.slowdown = 10 - (double)progress / 5;
             	renderer.setPrefs(prefs);
             	renderer.syncToPattern();
            
