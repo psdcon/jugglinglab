@@ -23,14 +23,14 @@
                 style="@style/HomeButton"
                 android:text="@string/home_btn_pattern_entry"
                 android:onClick="onPatternEntryClick"
-                android:drawableTop="@drawable/content_edit" />
+                android:drawableTop="@drawable/dashboard_pattern_entry" />
                 
             <!--  Generator -->
             <Button android:id="@+id/home_btn_generator"
                 style="@style/HomeButton"
                 android:text="@string/home_btn_generator"
                 android:onClick="onGeneratorClick"
-                android:drawableTop="@drawable/collections_view_as_list" />
+                android:drawableTop="@drawable/dashboard_generator" />
                 
         </LinearLayout>
     </LinearLayout>
@@ -54,14 +54,14 @@
                 style="@style/HomeButton"
                 android:text="@string/home_btn_tutorials"
                 android:onClick="onTutorialsClick"
-                android:drawableTop="@drawable/content_paste" />
+                android:drawableTop="@drawable/dashboard_tutorial" />
                 
             <!-- Pattern List -->
             <Button android:id="@+id/home_btn_pattern_list"
                 style="@style/HomeButton"
                 android:text="@string/home_btn_pattern_list"
                 android:onClick="onPatternListClick"
-                android:drawableTop="@drawable/device_access_storage" />
+                android:drawableTop="@drawable/dashboard_pattern_list" />
         </LinearLayout>
     </LinearLayout>
     
@@ -84,7 +84,7 @@
                 style="@style/HomeButton"
                 android:text="@string/home_btn_my_profile"
                 android:onClick="onMyProfileClick"
-                android:drawableTop="@drawable/social_person" />
+                android:drawableTop="@drawable/dashboard_my_profile" />
                 
             <!-- Video -->    
             <!-- TODO Romain: Unhide when ready -->
@@ -92,7 +92,7 @@
                 style="@style/HomeButton"
                 android:text="@string/home_btn_video"
                 android:onClick="onVideoClick"
-                android:drawableTop="@drawable/device_access_video"
+                android:drawableTop="@drawable/dashboard_video"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
