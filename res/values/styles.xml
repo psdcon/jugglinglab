@@ -20,7 +20,7 @@
         <item name="android:drawablePadding">2dp</item>
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/orange</item>
+        <item name="android:textColor">@color/title_text</item>
         <item name="android:background">@null</item>
     </style>
 
