@@ -22,7 +22,9 @@ public class Floor {
 	 * Attributes
 	 * 
 	 */
-	private float FLOOR_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f}; 
+    private final float FLOOR_POSITION = 50.0f;
+
+    private float FLOOR_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f}; 
     private FloatBuffer   mVertexBuffer;
     private ByteBuffer  mIndexBuffer;
     private ByteBuffer vbb;
@@ -31,7 +33,6 @@ public class Floor {
             0,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,31,
             0,23,1,24,2,25,3,26,4,27,5,28,6,29,7,30,8,31  
    	};
-    private float FLOOR_POSITION = 50.0f;
     
     
     /**
