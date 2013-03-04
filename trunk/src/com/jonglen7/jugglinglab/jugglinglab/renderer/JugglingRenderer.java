@@ -66,7 +66,7 @@ public class JugglingRenderer implements Renderer {
 	// Romain: Added for rotation
     public float mAngleX;
     public float mAngleY;
-    private final float ANGLE_EPSILON = 7.5f;
+    private final float ANGLE_EPSILON = 2.5f;
     private final float ANGLE_MAX = 360;
     private final float[] ANGLE_STICKY = new float[] {0 * ANGLE_MAX / 4,
                                                       1 * ANGLE_MAX / 4,
@@ -217,7 +217,7 @@ public class JugglingRenderer implements Renderer {
 
 		gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
-        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
+//        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
         gl.glScalef(mZoom, mZoom, mZoom);
         
         // Translates into center of the bounding box
