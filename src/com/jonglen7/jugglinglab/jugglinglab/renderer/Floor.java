@@ -11,7 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
  * Class Floor
  * Build a 8x8 grid floor
  * 
- * @author frédéric.rayar
+ * @author frï¿½dï¿½ric.rayar
  * @date 21/06/2012
  *
  */
@@ -31,6 +31,7 @@ public class Floor {
             0,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,31,
             0,23,1,24,2,25,3,26,4,27,5,28,6,29,7,30,8,31  
    	};
+    private float FLOOR_POSITION = 50.0f;
     
     
     /**
@@ -65,38 +66,35 @@ public class Floor {
     //
 	private void BuildFloor()
 	{
-	   int a = 0;
+	    int a = 0;
+	    float i = -50.0f;
 	   
-	   float i = -50.0f;
-	   
-	      for (float j = -50.0f; j <= 50.0; j += 12.5f, a+=3) 
-	      {
-	    	 floorVertices[a] = j;
-	    	 floorVertices[a+1] = 0.0f;
-	    	 floorVertices[a+2] = i;
-	      }	    
-	      
+	    for (float j = -50.0f; j <= 50.0; j += 12.5f, a+=3) 
+	    {
+	        floorVertices[a] = j;
+	        floorVertices[a+1] = FLOOR_POSITION;
+	        floorVertices[a+2] = i;
+	    }       
 
-	      i+=12.5f;
-	      for (float k = i; k<50.0; k+=12.5f, a+=6)
-	      {
-	     	 floorVertices[a] = -50.0f;
-	     	 floorVertices[a+1] = 0.0f;
-	     	 floorVertices[a+2] = k;
-	     	 
-	    	 floorVertices[a+3] = 50.0f;
-	    	 floorVertices[a+4] = 0.0f;
-	    	 floorVertices[a+5] = k;
-	      }
-	      
-	
-	      i=50.0f;
-	      for (float j = -50.0f; j <= 50.0; j += 12.5f, a+=3) 
-	      {
-	    	 floorVertices[a] = j;
-	    	 floorVertices[a+1] = 0.0f;
-	    	 floorVertices[a+2] = i;
-	      }
+	    i+=12.5f;
+	    for (float k = i; k<50.0; k+=12.5f, a+=6)
+	    {
+	        floorVertices[a] = -50.0f;
+	        floorVertices[a+1] = FLOOR_POSITION;
+	        floorVertices[a+2] = k;
+
+	        floorVertices[a+3] = 50.0f;
+	        floorVertices[a+4] = FLOOR_POSITION;
+	        floorVertices[a+5] = k;
+	    }
+
+	    i=50.0f;
+	    for (float j = -50.0f; j <= 50.0; j += 12.5f, a+=3) 
+	    {
+	        floorVertices[a] = j;
+	        floorVertices[a+1] = FLOOR_POSITION;
+	        floorVertices[a+2] = i;
+	    }
 
 	}
 
