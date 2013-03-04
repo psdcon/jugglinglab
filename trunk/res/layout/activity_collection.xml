@@ -16,7 +16,8 @@
         android:id="@id/gd_action_bar_content_view"
         android:layout_height="0dp"
         android:layout_width="fill_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
     
         <ListView android:id="@android:id/list"
             android:layout_width="fill_parent" 
