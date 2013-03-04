@@ -122,9 +122,10 @@ public class JugglingRenderer implements Renderer {
         
         // Compute max dimensions
         // this.overallmax.z to handle from floor to highest prop position
+        // TODO: Why is it "this.overallmax.z" and not "Math.abs(this.overallmax.z - this.overallmin.z)"?
         boundingBoxeMaxSize = Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
         
-      
+        // TODO: Do we really need all those variables?
 		this.roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
 		this.depthValue = boundingBoxeMaxSize + 20;
         this.top = (float)this.overallmax.z;
@@ -153,6 +154,7 @@ public class JugglingRenderer implements Renderer {
 	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // TODO: Compute the value of the zoom depending on the pattern
+	    // Do we use boundingBoxeMaxSize?
 	    mZoom = 1.0f;
 		
 		// Set the background color ( rgba ).
@@ -196,12 +198,28 @@ public class JugglingRenderer implements Renderer {
 
         // Rotate/Scale/Translate the scene
         //gl.glTranslatef(mTranslateX, mTranslateY, 0);
+
 		// TODO: Depending on the angle values, the rotation value should change
+		// For example, if you set mAngleX to 90 and then try to rotate using
+		// mAngleY, the rotation is just wrong. This is because only the x and y
+		// axes are considered here. While it is true that on a 2D surface (phone)
+		// the user can only move along those 2 axes, it doesn't mean that the
+		// rotation to give to the object will be:
+		// 1/ Only along those 2 axes
+		// 2/ Directly linked to the user's movement (if the user moves along
+		//    the x axis of 20 degrees, the rotation to give to the object along
+		//    the x axis might not be of 20 degrees, cf example above).
+		// Solution (?): have to separate sets of variables, one for the user
+		// input (along x and y axes) and one for the rotation to apply to the
+		// object (mAngleX, mAngleY, mAngleZ), those values will be computed
+		// based on their previous values and the user input (I'm sure there's
+		// some formulas around for that, so have a look).
+
 		gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
-//        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
+        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
         gl.glScalef(mZoom, mZoom, mZoom);
-
+        
         // Translates into center of the bounding box
 //        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue));
         gl.glTranslatef(-(float)cameraCenter.x, -(float)cameraCenter.y, -(float)cameraCenter.z);
