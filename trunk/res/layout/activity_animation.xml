@@ -11,8 +11,8 @@
 
     <SeekBar
         android:id="@+id/animation_speed_seekbar" 
-        android:max="19"
-        android:progress="18"
+        android:max="49"
+        android:progress="30"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/surface"
