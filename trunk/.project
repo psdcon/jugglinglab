@@ -3,6 +3,7 @@
 	<name>Juggling Lab</name>
 	<comment></comment>
 	<projects>
+		<project>GreenDroid</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
