@@ -19,7 +19,7 @@
 
 <resources>
 
-	<style name="Theme.JugglingLab" parent="@style/Theme.GreenDroid.Light.NoTitleBar">
+	<style name="Theme.JugglingLab" parent="@style/Theme.GreenDroid.NoTitleBar">
 	
 		<item name="gdActionBarTitleColor">@color/orange</item>
 		<item name="gdActionBarBackground">@drawable/action_bar_background</item>
