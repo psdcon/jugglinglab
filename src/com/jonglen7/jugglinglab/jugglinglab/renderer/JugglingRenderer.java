@@ -71,7 +71,6 @@ public class JugglingRenderer implements Renderer {
 	
     // Romain: Added for zoom
     public float mZoom;
-    public final float ZOOM_INIT = 1.0f;
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.1f;
 	
@@ -147,6 +146,8 @@ public class JugglingRenderer implements Renderer {
 	 * .khronos.opengles.GL10, javax.microedition.khronos.egl.EGLConfig)
 	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        // TODO: Compute the value of the zoom depending on the pattern
+	    mZoom = 1.0f;
 		
 		// Set the background color ( rgba ).
 		gl.glClearColor(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3]);
@@ -170,21 +171,23 @@ public class JugglingRenderer implements Renderer {
 	 * khronos.opengles.GL10)
 	 */
 	public void onDrawFrame(GL10 gl) {
-		
+	    
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 			
 		// Save the current matrix.
 		gl.glPushMatrix();
-		
-		// Translates into center of the bounding box
-        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
         
 		// Rotate/Scale/Translate the scene
         //gl.glTranslatef(mTranslateX, mTranslateY, 0);
+		// TODO: Add sticky rotation
         gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
+
+        // Translates into center of the bounding box
+//        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue));
+        gl.glTranslatef(-(float)cameraCenter.x, -(float)cameraCenter.y, -(float)cameraCenter.z);
         
 		// Draw the Frame
 		drawEffectiveFrame(gl);
@@ -430,7 +433,7 @@ public class JugglingRenderer implements Renderer {
     	cameraCenter.setCoordinate(x, y, z);
 
 
-    	//Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
+//    	Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
     }
     
 	public AnimatorPrefs getPrefs() {
