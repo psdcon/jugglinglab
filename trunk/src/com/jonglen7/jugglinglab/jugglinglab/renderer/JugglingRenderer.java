@@ -67,6 +67,13 @@ public class JugglingRenderer implements Renderer {
 	// Romain: Added for rotation
     public float mAngleX;
     public float mAngleY;
+    private final float ANGLE_EPSILON = 7.5f;
+    private final float ANGLE_MAX = 360;
+    private final float[] ANGLE_STICKY = new float[] {0 * ANGLE_MAX / 4,
+                                                      1 * ANGLE_MAX / 4,
+                                                      2 * ANGLE_MAX / 4,
+                                                      3 * ANGLE_MAX / 4,
+                                                      4 * ANGLE_MAX / 4};
 	
 	
     // Romain: Added for zoom
@@ -177,12 +184,23 @@ public class JugglingRenderer implements Renderer {
 			
 		// Save the current matrix.
 		gl.glPushMatrix();
-        
-		// Rotate/Scale/Translate the scene
+
+		// Sticky angles (to keep things easier, the angles are kept between 0 and 360
+        mAngleX = (mAngleX + ANGLE_MAX) % ANGLE_MAX;
+        mAngleY = (mAngleY + ANGLE_MAX) % ANGLE_MAX;
+		for (float angle: ANGLE_STICKY) {
+		    if (angle - ANGLE_EPSILON <= mAngleX && mAngleX <= angle + ANGLE_EPSILON)
+		        mAngleX = angle;
+            if (angle - ANGLE_EPSILON <= mAngleY && mAngleY <= angle + ANGLE_EPSILON)
+                mAngleY = angle;
+		}
+
+        // Rotate/Scale/Translate the scene
         //gl.glTranslatef(mTranslateX, mTranslateY, 0);
-		// TODO: Add sticky rotation
-        gl.glRotatef(mAngleX, 0, -1, 0);
+		// TODO: Depending on the angle values, the rotation value should change
+		gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
+        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
         gl.glScalef(mZoom, mZoom, mZoom);
 
         // Translates into center of the bounding box
