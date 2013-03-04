@@ -59,7 +59,6 @@ public class TouchSurfaceView extends GLSurfaceView {
     public void setRenderer(Renderer renderer) 
     {
     	mRenderer = (JugglingRenderer) renderer;
-    	mRenderer.mZoom = mRenderer.ZOOM_INIT;
     	super.setRenderer(mRenderer);
     }
     
