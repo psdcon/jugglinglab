@@ -17,7 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/surface"
         android:layout_alignLeft="@id/surface"
-        android:padding="10dip"/>
+        android:paddingLeft="35dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="10dp"/>
     
     <ZoomButton
         android:id="@+id/animation_btn_zoom_out"
