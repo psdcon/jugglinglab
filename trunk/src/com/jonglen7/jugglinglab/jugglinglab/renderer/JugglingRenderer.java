@@ -45,11 +45,11 @@ public class JugglingRenderer implements Renderer {
 	private int				num_frames;
 	private double			sim_time;
 	private long				real_interval_millis;
-
-	private static final double snapangle = JLMath.toRad(15.0);
     
 	private Coordinate cameraCenter;
 	
+	
+	// Viewport related attributes
 	double boundingBoxeMaxSize;
 	double roiHalfHeight;
 	double depthValue;
@@ -61,27 +61,19 @@ public class JugglingRenderer implements Renderer {
 	float bottom;
 	float right;
 	float left;
+	boolean updateView = false;
 	
-	
-	// Romain: Added for rotation
+	// Rotation related attributes
     public float mAngleX;
     public float mAngleY;
-    private final float ANGLE_EPSILON = 2.5f;
-    private final float ANGLE_MAX = 360;
-    private final float[] ANGLE_STICKY = new float[] {0 * ANGLE_MAX / 4,
-                                                      1 * ANGLE_MAX / 4,
-                                                      2 * ANGLE_MAX / 4,
-                                                      3 * ANGLE_MAX / 4,
-                                                      4 * ANGLE_MAX / 4};
 	
-	
-    // Romain: Added for zoom
+    // Zoom related attributes
     public float mZoom;
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.1f;
-	
     
-	// Romain: Added for translation
+	// Translation related attributes
+    // Not used currently
     public float mTranslateX;
     public float mTranslateY;
     
@@ -122,11 +114,10 @@ public class JugglingRenderer implements Renderer {
         
         // Compute max dimensions
         // this.overallmax.z to handle from floor to highest prop position
-        // TODO: Why is it "this.overallmax.z" and not "Math.abs(this.overallmax.z - this.overallmin.z)"?
         boundingBoxeMaxSize = Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
         
-        // TODO: Do we really need all those variables?
-		this.roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
+      
+		this.roiHalfHeight = 0.5*(Math.abs(this.overallmax.z - this.overallmin.z));
 		this.depthValue = boundingBoxeMaxSize + 20;
         this.top = (float)this.overallmax.z;
         this.bottom = -this.top;
@@ -153,9 +144,6 @@ public class JugglingRenderer implements Renderer {
 	 * .khronos.opengles.GL10, javax.microedition.khronos.egl.EGLConfig)
 	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        // TODO: Compute the value of the zoom depending on the pattern
-	    // Do we use boundingBoxeMaxSize?
-	    mZoom = 1.0f;
 		
 		// Set the background color ( rgba ).
 		gl.glClearColor(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3]);
@@ -179,50 +167,21 @@ public class JugglingRenderer implements Renderer {
 	 * khronos.opengles.GL10)
 	 */
 	public void onDrawFrame(GL10 gl) {
-	    
+		
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 			
 		// Save the current matrix.
 		gl.glPushMatrix();
-
-		// Sticky angles (to keep things easier, the angles are kept between 0 and 360)
-        mAngleX = (mAngleX + ANGLE_MAX) % ANGLE_MAX;
-        mAngleY = (mAngleY + ANGLE_MAX) % ANGLE_MAX;
-		for (float angle: ANGLE_STICKY) {
-		    if (angle - ANGLE_EPSILON <= mAngleX && mAngleX <= angle + ANGLE_EPSILON)
-		        mAngleX = angle;
-            if (angle - ANGLE_EPSILON <= mAngleY && mAngleY <= angle + ANGLE_EPSILON)
-                mAngleY = angle;
-		}
-
-        // Rotate/Scale/Translate the scene
-        //gl.glTranslatef(mTranslateX, mTranslateY, 0);
-
-		// TODO: Depending on the angle values, the rotation value should change
-		// For example, if you set mAngleX to 90 and then try to rotate using
-		// mAngleY, the rotation is just wrong. This is because only the x and y
-		// axes are considered here. While it is true that on a 2D surface (phone)
-		// the user can only move along those 2 axes, it doesn't mean that the
-		// rotation to give to the object will be:
-		// 1/ Only along those 2 axes
-		// 2/ Directly linked to the user's movement (if the user moves along
-		//    the x axis of 20 degrees, the rotation to give to the object along
-		//    the x axis might not be of 20 degrees, cf example above).
-		// Solution (?): have to separate sets of variables, one for the user
-		// input (along x and y axes) and one for the rotation to apply to the
-		// object (mAngleX, mAngleY, mAngleZ), those values will be computed
-		// based on their previous values and the user input (I'm sure there's
-		// some formulas around for that, so have a look).
-
-		gl.glRotatef(mAngleX, 0, -1, 0);
-        gl.glRotatef(mAngleY, 1, 0, 0);
-//        Log.v("JugglingRenderer","mAngleX=" + mAngleX + "\tmAngleY=" + mAngleY);
-        gl.glScalef(mZoom, mZoom, mZoom);
+		
+		// Translates into center of the bounding box
+        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue)); 
         
-        // Translates into center of the bounding box
-//        gl.glTranslatef(0, (float)(-roiHalfHeight), (float)(-depthValue));
-        gl.glTranslatef(-(float)cameraCenter.x, -(float)cameraCenter.y, -(float)cameraCenter.z);
+		// Rotate/Scale/Translate the scene
+        //gl.glTranslatef(mTranslateX, mTranslateY, 0);
+        gl.glRotatef(mAngleX, 0, -1, 0);
+        gl.glRotatef(mAngleY, 1, 0, 0);
+        gl.glScalef(mZoom, mZoom, mZoom);
         
 		// Draw the Frame
 		drawEffectiveFrame(gl);
@@ -232,6 +191,24 @@ public class JugglingRenderer implements Renderer {
 
 		// Time for an animation
         time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
+        
+        
+        // Workaround to handle objects disappearance
+        if (updateView)
+        {
+	        boundingBoxeMaxSize =  Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y))); 
+			depthValue = mZoom* (boundingBoxeMaxSize + 20);
+	        zFar = 2.0f*(float)depthValue;
+	        
+	        // Update camera viewport
+	        gl.glMatrixMode(GL10.GL_PROJECTION);
+			gl.glLoadIdentity();
+			gl.glOrthof(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
+			gl.glMatrixMode(GL10.GL_MODELVIEW);
+			gl.glLoadIdentity();
+			
+			updateView = false;
+        }
         
 	}
 
@@ -244,7 +221,11 @@ public class JugglingRenderer implements Renderer {
      * be set when the viewport is resized.
      * 
      */
-	public void onSurfaceChanged(GL10 gl, int width, int height) {
+	public void onSurfaceChanged(GL10 gl, int width, int height) 
+	{
+		// Reset zoom 
+		// TODO: Compute the value of the zoom depending on the pattern. Do we use boundingBoxeMaxSize?
+	    mZoom = 1.0f;
 		
 		// Sets the current view port to the new size.
 		gl.glViewport(0, 0, width, height);
@@ -450,7 +431,7 @@ public class JugglingRenderer implements Renderer {
     	cameraCenter.setCoordinate(x, y, z);
 
 
-//    	Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
+    	//Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
     }
     
 	public AnimatorPrefs getPrefs() {
@@ -461,9 +442,18 @@ public class JugglingRenderer implements Renderer {
 		this.prefs = prefs;
 	}
 
-	public void SetZoomValue(float newZoomValue) {
-	    // The zoom can't go lower than ZOOM_MIN
+	/**
+	 * Update attributes when a zoom has been processed by user
+	 * 
+	 */
+	public void SetZoomValue(float newZoomValue) 
+	{
+		// The zoom can't go lower than ZOOM_MIN
 		mZoom = Math.max(ZOOM_MIN, newZoomValue);
+		
+		updateView = true;
+		
 	}
+    
 
 }
