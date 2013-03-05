@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 
-//import com.cyrilmottier.android.greendroid.R;
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.util.Collection;
 import com.jonglen7.jugglinglab.util.Trick;
+//import com.cyrilmottier.android.greendroid.R;
 
 /**
  * An extension of a {@link NormalActionBarItem} that supports a starred states.

@@ -6,7 +6,6 @@ import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.opengl.GLSurfaceView.Renderer;
-import android.util.Log;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;

@@ -3,7 +3,6 @@ package com.jonglen7.jugglinglab.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 

@@ -2,7 +2,6 @@ package com.jonglen7.jugglinglab.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -199,7 +198,7 @@ public class GeneratorActivity extends BaseDisplayModeActivity {
     	}
     	text.append((edit_exclude_these_expressions.getText().length() > 0) ? (" -x " + edit_exclude_these_expressions.getText()) : "");
     	text.append((edit_include_these_expressions.getText().length() > 0) ? (" -i " + edit_include_these_expressions.getText()) : "");
-        Log.v("GeneratorActivity", text.toString());
+//        Log.v("GeneratorActivity", text.toString());
 
         Intent i = new Intent(this, GeneratorListActivity.class);
         i.putExtra("pattern", text.toString());

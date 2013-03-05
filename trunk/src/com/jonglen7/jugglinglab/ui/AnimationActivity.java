@@ -7,9 +7,9 @@ import java.io.StringReader;
 
 import org.xml.sax.SAXException;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,6 +35,7 @@ import com.jonglen7.jugglinglab.widget.TouchSurfaceView;
  * Display the juggling animation. 
  * 
  */
+@SuppressLint("NewApi")  // To suppress error messages caused by getActionBar()
 public class AnimationActivity extends BaseActivity {
 	
 	
@@ -187,7 +188,7 @@ public class AnimationActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 		} else {
-			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
+//			Log.v("JMLPatternActivity", "WTF!? Neither siteswap or jml !");
 		}
     	
     	return pattern;
