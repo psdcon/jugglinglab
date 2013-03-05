@@ -142,25 +142,23 @@ public class JugglingRenderer implements Renderer, Serializable {
         boundingBoxeMaxSize = Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
         
         // TODO: Do we really need all those variables?
-		this.roiHalfHeight = 0.5*(Math.abs(this.overallmax.z));
 		this.depthValue = boundingBoxeMaxSize + 20;
-        this.top = (float)this.overallmax.z;
+        this.top = Math.abs((float)(this.overallmax.z - this.overallmin.z));
         this.bottom = -this.top;
-        this.left = this.top;
-        this.right = -this.top;
+        this.left = -this.top;
+        this.right = this.top;
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
-
         this.mZoom = ZOOM_INIT;
-
+        
         /*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
     	Log.v("JugglingRenderer","OverallMax Coordinate X=" + this.overallmax.x + " Y=" + this.overallmax.y + " Z=" + this.overallmax.z);
     	Log.v("JugglingRenderer","BoundingBoxeMaxSize=" + boundingBoxeMaxSize);
     	Log.v("JugglingRenderer", "roiHalfHeight = " + this.roiHalfHeight + ", depth = " + this.depthValue);
     	Log.v("JugglingRenderer", "top = " + this.top + ", bottom = " + this.bottom + ", left = " + this.left + ", right = " + this.right + ", zNear = " + this.zNear + ", zfar = " + this.zFar);
-    	*/  	
-        	
+    	*/
+
 	}
 
 	/*
@@ -230,7 +228,7 @@ public class JugglingRenderer implements Renderer, Serializable {
 
 		//printMatrix(mModelMatrix);
 		
-		// Apply Rotatation, Scaling and Transslation
+		// Apply Rotatation, Scaling and Translation
 		gl.glMultMatrixf(mModelMatrix, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
         gl.glTranslatef(-(float)cameraCenter.x, -(float)cameraCenter.y, -(float)cameraCenter.z);
@@ -282,7 +280,7 @@ public class JugglingRenderer implements Renderer, Serializable {
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		
 		// Sets the current view port to the new size.
-		//gl.glViewport(0, 0, width, height);
+		gl.glViewport(0, 0, width, height);
 		
 		// Set the Projection
 		gl.glMatrixMode(GL10.GL_PROJECTION);
@@ -291,7 +289,6 @@ public class JugglingRenderer implements Renderer, Serializable {
 		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		//gl.glLoadIdentity();
 		
 	}
 
