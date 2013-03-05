@@ -79,7 +79,7 @@ public class JugglingRenderer implements Renderer {
     // Romain: Added for zoom
     public float mZoom;
     public final float ZOOM_MIN = 0.0f;
-    public final float ZOOM_STEP = 0.1f;
+    public final float ZOOM_STEP = 0.2f;
 	
     
 	// Romain: Added for translation
