@@ -28,6 +28,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 	private boolean isOnPause = false;
     private ScaleGestureDetector mScaleDetector;
     boolean motion = false;
+    boolean scale = false;
 
 	
     /** Constructor **/
@@ -90,18 +91,20 @@ public class TouchSurfaceView extends GLSurfaceView {
 	        	// Only move if animation is not paused
 	        	if (!isOnPause) 
 	        	{
-	        		float dx;
-	        		float dy;
-	        		
-	        		// Only ROTATE if the ScaleGestureDetector isn't processing a gesture.
-	        		if (!mScaleDetector.isInProgress()) 
-	        		{
-	                    dx = x - mPrevious.x;
-	                    dy = y - mPrevious.y;
-	                    mRenderer.mAngleX += dx * TOUCH_SCALE_FACTOR;
-	                    mRenderer.mAngleY += dy * TOUCH_SCALE_FACTOR;
-	                    requestRender();
-	        		} 
+	        	    if (!scale) {
+    	        		float dx;
+    	        		float dy;
+    	        		
+    	        		// Only ROTATE if the ScaleGestureDetector isn't processing a gesture.
+    	        		if (!mScaleDetector.isInProgress()) 
+    	        		{
+    	                    dx = x - mPrevious.x;
+    	                    dy = y - mPrevious.y;
+    	                    mRenderer.mAngleX += dx * TOUCH_SCALE_FACTOR;
+    	                    mRenderer.mAngleY += dy * TOUCH_SCALE_FACTOR;
+    	                    requestRender();
+    	        		}
+	        	    }
 	        		
 	        		motion = true;
 	        	}
@@ -119,6 +122,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 	        		isOnPause = !isOnPause;
         		}
         		motion = false;
+        		scale = false;
 
 	        	break;
         }
@@ -160,6 +164,8 @@ public class TouchSurfaceView extends GLSurfaceView {
             // Don't let the object get too small or too large.
             //mRenderer.mZoom = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
 
+        	scale = true;
+        	
             return true;
         }
     }
