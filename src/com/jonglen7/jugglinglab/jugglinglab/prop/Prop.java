@@ -22,6 +22,7 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.prop;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -44,7 +45,7 @@ public abstract class Prop {
 
     public static Prop getProp(String name) throws JuggleExceptionUser {
         try {
-            Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.prop."+name.toLowerCase()+"Prop").newInstance();
+            Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.prop."+name.toLowerCase(Locale.US)+"Prop").newInstance();
             if (!(obj instanceof Prop))
                 throw new JuggleExceptionUser("Prop type '"+name+"' doesn't work");
             return (Prop)obj;

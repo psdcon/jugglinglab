@@ -23,6 +23,7 @@
 package com.jonglen7.jugglinglab.jugglinglab.generator;
 
 
+import java.util.Locale;
 import java.util.Vector;
 
 import com.jonglen7.jugglinglab.jugglinglab.core.Constants;
@@ -1602,7 +1603,7 @@ findending2:
     public static void main(String[] args) {
         if (args.length < 3)
             System.out.println(
-                "Juggling Lab "+"Version".toLowerCase()+" "+Constants.version+", copyright 2002-"+Constants.year+" by Jack Boyce and others\n\n" +
+                "Juggling Lab "+"Version".toLowerCase(Locale.US)+" "+Constants.version+", copyright 2002-"+Constants.year+" by Jack Boyce and others\n\n" +
                 "GPL_part1"+"\n"+
                 "GPL_part2"+"\n\n"+
                 "Generator_intro"

@@ -22,6 +22,7 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.notation;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -170,7 +171,7 @@ public class mhnPattern {
                 switch (st2.countTokens()) {
                     case 1:
                         // Use the value as a color name
-                        color[i] = st2.nextToken().trim().toLowerCase();
+                        color[i] = st2.nextToken().trim().toLowerCase(Locale.US);
                         break;
                     case 3:
                         // Use the three values as RGB values
