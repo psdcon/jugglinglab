@@ -8,7 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
  * Class Axis
  * Build a 3D axis
  * 
- * @author frédéric.rayar
+ * @author frederic.rayar
  * @date 11/10/2012
  *
  */
