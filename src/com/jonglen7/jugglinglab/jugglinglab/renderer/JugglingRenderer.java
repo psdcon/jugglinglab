@@ -86,6 +86,9 @@ public class JugglingRenderer implements Renderer {
     public float mTranslateX;
     public float mTranslateY;
     
+    // Fred: Added for manipulation of scene when animation is paused
+    public boolean freeze = false;
+    
 	
 	// Constructors
 	// Parameter context is used to acces JMLPattern and SharedPreferences
@@ -200,6 +203,10 @@ public class JugglingRenderer implements Renderer {
 		gl.glRotatef(mAngleX, 0, -1, 0);
         gl.glRotatef(mAngleY, 1, 0, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
+        
+       // gl.glPushMatrix();
+        //gl.glPopMatrix();
+
         gl.glTranslatef(-(float)cameraCenter.x, -(float)cameraCenter.y, -(float)cameraCenter.z);
         
 		// Draw the Frame
@@ -230,8 +237,10 @@ public class JugglingRenderer implements Renderer {
 		gl.glLoadIdentity();
 		gl.glTranslatef(-(float)cameraCenter.x, 0.0f, -(float)(depthValue));
 	
+		
 		// Time for an animation
-        time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
+		if (!freeze)
+			time = (time + sim_interval_secs) % pattern.getLoopEndTime() ;
 
 	}
 
