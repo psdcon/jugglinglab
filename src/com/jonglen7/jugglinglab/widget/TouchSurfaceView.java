@@ -13,7 +13,7 @@ import com.jonglen7.jugglinglab.jugglinglab.renderer.JugglingRenderer;
 /**
  * 
  * Implement a touch surface
- * Simple rotation around axes x and y
+ * 3D rotation with regard to http://www.learnopengles.com/rotating-an-object-with-touch-events/
  * Pinch-to-zoom with regard to http://android-developers.blogspot.fr/2010/06/making-sense-of-multitouch.html
  * 
  */
@@ -52,7 +52,7 @@ public class TouchSurfaceView extends GLSurfaceView {
     	setFocusable(true);
     	
     	// Create our ScaleGestureDetector
-        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
+        mScaleDetector = new ScaleGestureDetector(context, new ScaleListener()); 
     }
     
     
@@ -90,16 +90,17 @@ public class TouchSurfaceView extends GLSurfaceView {
 	        	
 	        	// Only move if animation is not paused
         	    if (!scale) {
-	        		float dx;
-	        		float dy;
+	        		float deltaX;
+	        		float deltaY;
 	        		
 	        		// Only ROTATE if the ScaleGestureDetector isn't processing a gesture.
 	        		if (!mScaleDetector.isInProgress()) 
 	        		{
-	                    dx = x - mPrevious.x;
-	                    dy = y - mPrevious.y;
-	                    mRenderer.mAngleX += dx * TOUCH_SCALE_FACTOR;
-	                    mRenderer.mAngleY += dy * TOUCH_SCALE_FACTOR;
+	        			deltaX = x - mPrevious.x ;
+	        			deltaY = y - mPrevious.y ;
+	        			
+	                    mRenderer.mAngleX += deltaX * TOUCH_SCALE_FACTOR;
+	                    mRenderer.mAngleY += deltaY * TOUCH_SCALE_FACTOR;
 	                    requestRender();
 	        		}
         	    }
