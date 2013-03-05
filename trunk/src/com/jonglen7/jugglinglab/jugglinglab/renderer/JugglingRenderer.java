@@ -136,9 +136,7 @@ public class JugglingRenderer implements Renderer {
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
 
-        // TODO: Compute the value of the zoom depending on the pattern
-        // Do we use boundingBoxeMaxSize?
-        mZoom = 1.0f;
+        this.mZoom = 1.0f;
 
         /*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
@@ -445,6 +443,7 @@ public class JugglingRenderer implements Renderer {
     
     private void setCameraCoordinate()
     {
+        // TODO: Modify the z coordinate of the cam so that there's no wasted space
     	double x = (double)(0.5*(overallmax.x+overallmin.x));
     	double y = (double)(0.5*(overallmax.z+overallmin.z));
     	double z = (double)(0.5*(overallmax.y+overallmin.y));
