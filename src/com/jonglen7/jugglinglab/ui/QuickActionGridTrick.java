@@ -147,7 +147,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         		break;
         		
         	case DELETE:
-        		builder.setTitle(String.format(activity.getString(R.string.quickactions_delete_confirmation, trick.getCUSTOM_DISPLAY())));
+        		builder.setTitle(activity.getString(R.string.quickactions_delete_confirmation, trick.getCUSTOM_DISPLAY()));
         		
         		builder.setPositiveButton(activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 	        		public void onClick(DialogInterface dialog, int whichButton) {
