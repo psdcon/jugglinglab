@@ -212,7 +212,7 @@ public class JugglingRenderer implements Renderer, Serializable {
 		// Set a matrix that contains the current rotation.
 		Matrix.setIdentityM(mModelMatrix, 0);
 		Matrix.setIdentityM(mCurrentRotation, 0);
-		Matrix.rotateM(mCurrentRotation, 0, mAngleX, 0.0f, -1.0f, 0.0f);
+		Matrix.rotateM(mCurrentRotation, 0, mAngleX, 0.0f, 1.0f, 0.0f);
 		Matrix.rotateM(mCurrentRotation, 0, mAngleY, 1.0f, 0.0f, 0.0f);
 		//Log.v("JugglingRenderer", "mAngleX = " + mAngleX + " mAngleY = " + mAngleY);
 		mAngleX = 0.0f;
