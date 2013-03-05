@@ -8,6 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.Matrix;
 
 import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.core.AnimatorPrefs;
@@ -22,9 +23,10 @@ import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
 
 public class JugglingRenderer implements Renderer, Serializable {
 	
-	
 	// Attributes
-	private float BACKGROUND_COLOR[] = {1.0f, 1.0f, 1.0f, 0.5f}; 
+	private static final long serialVersionUID = 1L;
+	
+	private float BACKGROUND_COLOR[] = {1.0f, 1.0f, 1.0f, 0.5f};
 	
 	private Context context = null;
 	private JMLPattern pattern = null;
@@ -67,6 +69,11 @@ public class JugglingRenderer implements Renderer, Serializable {
 	// Romain: Added for rotation
     public float mAngleX;
     public float mAngleY;
+    private final float[] mAccumulatedRotation = new float[16]; /** Store the accumulated rotation. */
+    private final float[] mCurrentRotation = new float[16];    	/** Store the current rotation. */
+    private final float[] mTemporaryMatrix = new float[16];    	/** Store a temporary matrix. */
+    private final float[] mModelMatrix = new float[16];			/** Store the model matrix */
+    
     boolean updateView = false;
     private final float ANGLE_EPSILON = 2.5f;
     private final float ANGLE_MAX = 360;
@@ -76,22 +83,20 @@ public class JugglingRenderer implements Renderer, Serializable {
                                                       3 * ANGLE_MAX / 4,
                                                       4 * ANGLE_MAX / 4};
 	
-	
     // Romain: Added for zoom
     public float mZoom;
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.2f;
     public final float ZOOM_INIT = 1.0f;
 	
-    
 	// Romain: Added for translation
     public float mTranslateX;
     public float mTranslateY;
     
     // Fred: Added for manipulation of scene when animation is paused
     public boolean freeze = false;
+   	
     
-	
 	// Constructors
 	// Parameter context is used to acces JMLPattern and SharedPreferences
 	public JugglingRenderer(Context context, JMLPattern pattern) {
@@ -107,6 +112,11 @@ public class JugglingRenderer implements Renderer, Serializable {
 		this.overallmax= new Coordinate(40.0f, 175.0f, 35.0f);
 		this.tempc = new Coordinate();
 		
+		// Initialize matrices
+		Matrix.setIdentityM(mAccumulatedRotation, 0);
+		Matrix.setIdentityM(mCurrentRotation, 0);
+		Matrix.setIdentityM(mTemporaryMatrix, 0);
+		Matrix.setIdentityM(mModelMatrix, 0);
 		
 		// Create juggler(s) and Floor
 		this.juggler = new Juggler(this.pattern.getNumberOfJugglers()); 
@@ -188,9 +198,9 @@ public class JugglingRenderer implements Renderer, Serializable {
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 			
-		// Save the current matrix.
+ 		// Save the current matrix.
 		gl.glPushMatrix();
-
+		
 		// Sticky angles (to keep things easier, the angles are kept between 0 and 360)
         mAngleX = (mAngleX + ANGLE_MAX) % ANGLE_MAX;
         mAngleY = (mAngleY + ANGLE_MAX) % ANGLE_MAX;
@@ -200,15 +210,29 @@ public class JugglingRenderer implements Renderer, Serializable {
             if (angle - ANGLE_EPSILON <= mAngleY && mAngleY <= angle + ANGLE_EPSILON)
                 mAngleY = angle;
 		}
+		
+		// Set a matrix that contains the current rotation.
+		Matrix.setIdentityM(mModelMatrix, 0);
+		Matrix.setIdentityM(mCurrentRotation, 0);
+		Matrix.rotateM(mCurrentRotation, 0, mAngleX, 0.0f, -1.0f, 0.0f);
+		Matrix.rotateM(mCurrentRotation, 0, mAngleY, 1.0f, 0.0f, 0.0f);
+		//Log.v("JugglingRenderer", "mAngleX = " + mAngleX + " mAngleY = " + mAngleY);
+		mAngleX = 0.0f;
+		mAngleY = 0.0f;
 
-        // Rotate/Scale/Translate the scene
-		gl.glRotatef(mAngleX, 0, -1, 0);
-        gl.glRotatef(mAngleY, 1, 0, 0);
+		// Multiply the current rotation by the accumulated rotation, and then set the accumulated rotation to the result.
+		Matrix.multiplyMM(mTemporaryMatrix, 0, mCurrentRotation, 0, mAccumulatedRotation, 0);
+		System.arraycopy(mTemporaryMatrix, 0, mAccumulatedRotation, 0, 16);
+		
+		// Put the overall rotation into the model matrix.
+		Matrix.multiplyMM(mTemporaryMatrix, 0, mModelMatrix, 0, mAccumulatedRotation, 0);
+		System.arraycopy(mTemporaryMatrix, 0, mModelMatrix, 0, 16);
+
+		//printMatrix(mModelMatrix);
+		
+		// Apply Rotatation, Scaling and Transslation
+		gl.glMultMatrixf(mModelMatrix, 0);
         gl.glScalef(mZoom, mZoom, mZoom);
-        
-       // gl.glPushMatrix();
-        //gl.glPopMatrix();
-
         gl.glTranslatef(-(float)cameraCenter.x, -(float)cameraCenter.y, -(float)cameraCenter.z);
         
 		// Draw the Frame
@@ -486,6 +510,13 @@ public class JugglingRenderer implements Renderer, Serializable {
         mAngleX = 0;
         mAngleY = 0;
         mZoom = ZOOM_INIT;
+        
+		// Initialize matrices
+		Matrix.setIdentityM(mAccumulatedRotation, 0);
+		Matrix.setIdentityM(mCurrentRotation, 0);
+		Matrix.setIdentityM(mTemporaryMatrix, 0);
+		Matrix.setIdentityM(mModelMatrix, 0);
     }
+    
 
 }

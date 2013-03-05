@@ -100,7 +100,6 @@ public class AnimationActivity extends BaseActivity {
         
     	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
     	mGLSurfaceView.setRenderer(renderer);
-        //setContentView(view);
 	
         setTitle(pattern_record.getDisplay());
     
