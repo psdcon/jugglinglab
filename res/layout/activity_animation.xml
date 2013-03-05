@@ -36,5 +36,14 @@
         android:layout_toRightOf="@id/animation_btn_zoom_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <!-- TODO: Change the icon -->
+    <Button
+        android:id="@+id/animation_btn_reset_anim"
+        android:background="@drawable/btn_zoom_up"
+        android:layout_alignRight="@id/surface"
+        android:layout_alignTop="@id/surface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     
 </RelativeLayout>

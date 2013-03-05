@@ -169,5 +169,10 @@ public class TouchSurfaceView extends GLSurfaceView {
             return true;
         }
     }
+    
+    /** Reset Anim **/
+    public void resetAnim() {
+        mRenderer.resetAnim();
+    }
 }
 
