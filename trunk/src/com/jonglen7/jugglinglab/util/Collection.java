@@ -79,7 +79,7 @@ public class Collection implements Parcelable {
 		return isStarred;
 	}
 	
-	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+	public static final Parcelable.Creator<Collection> CREATOR = new Parcelable.Creator<Collection>() {
 		public Collection createFromParcel(Parcel in) {
            	return new Collection(in);
 		}
