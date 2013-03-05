@@ -89,25 +89,23 @@ public class TouchSurfaceView extends GLSurfaceView {
 	        case MotionEvent.ACTION_MOVE:
 	        	
 	        	// Only move if animation is not paused
-	        	if (!isOnPause) 
-	        	{
-	        	    if (!scale) {
-    	        		float dx;
-    	        		float dy;
-    	        		
-    	        		// Only ROTATE if the ScaleGestureDetector isn't processing a gesture.
-    	        		if (!mScaleDetector.isInProgress()) 
-    	        		{
-    	                    dx = x - mPrevious.x;
-    	                    dy = y - mPrevious.y;
-    	                    mRenderer.mAngleX += dx * TOUCH_SCALE_FACTOR;
-    	                    mRenderer.mAngleY += dy * TOUCH_SCALE_FACTOR;
-    	                    requestRender();
-    	        		}
-	        	    }
+        	    if (!scale) {
+	        		float dx;
+	        		float dy;
 	        		
-	        		motion = true;
-	        	}
+	        		// Only ROTATE if the ScaleGestureDetector isn't processing a gesture.
+	        		if (!mScaleDetector.isInProgress()) 
+	        		{
+	                    dx = x - mPrevious.x;
+	                    dy = y - mPrevious.y;
+	                    mRenderer.mAngleX += dx * TOUCH_SCALE_FACTOR;
+	                    mRenderer.mAngleY += dy * TOUCH_SCALE_FACTOR;
+	                    requestRender();
+	        		}
+        	    }
+        		
+        		motion = true;
+	
 	            break;
 	            
 	        // Pause/Resume when first finger lifted
@@ -116,9 +114,9 @@ public class TouchSurfaceView extends GLSurfaceView {
         		if (!motion) 
         		{
 	        		if (isOnPause)
-	            		onResume();
+	        			ResumeAnimation();
 	            	else
-	            		onPause();
+	            		FreezeAnimation();
 	        		isOnPause = !isOnPause;
         		}
         		motion = false;
@@ -173,6 +171,17 @@ public class TouchSurfaceView extends GLSurfaceView {
     /** Reset Anim **/
     public void resetAnim() {
         mRenderer.resetAnim();
+    }
+    
+	/** Called when the activity is "paused". */
+    public void FreezeAnimation() {
+    	mRenderer.freeze = true;
+        
+    }
+    
+	/** Called when the activity is "resumed". */
+    public void ResumeAnimation() {
+    	mRenderer.freeze = false;
     }
 }
 
