@@ -50,27 +50,28 @@ public class ColorPickerPreference extends Preference {
 	}
 
 	public class BorderView extends View {
+	    private Paint paint = new Paint();
+	    private RectF rect1 = new RectF(0, 0, borderViewWidth, borderViewWidth);
+        private RectF rect2 = new RectF(1, 1, borderViewWidth - 1, borderViewWidth - 1);
+        private RectF rect3 = new RectF(2, 2, borderViewWidth - 2, borderViewWidth - 2);
+	    
 		public BorderView(Context context) {
 			super(context);
 		}
 
 		protected void onDraw(Canvas canvas) {
-			Paint paint = new Paint();
 			paint.setAntiAlias(true);
 			paint.setStyle(Paint.Style.FILL);
 			paint.setColor(Color.WHITE);
-			canvas.drawRoundRect(new RectF(0, 0, borderViewWidth,
-					borderViewWidth), 3, 3, paint);
+			canvas.drawRoundRect(rect1, 3, 3, paint);
 			paint.setStyle(Paint.Style.FILL);
 			paint.setColor(Color.BLACK);
-			canvas.drawRoundRect(new RectF(1, 1, borderViewWidth - 1,
-					borderViewWidth - 1), 3, 3, paint);
+			canvas.drawRoundRect(rect2, 3, 3, paint);
 			paint.setStyle(Paint.Style.FILL);
 			paint.setColor(color);
 			//Log.v("ColorPickerPreference", "onDraw | " + String.format("#%02x%02x%02x", Color.red(color),
 			//		Color.green(color), Color.blue(color)));
-			canvas.drawRoundRect(new RectF(2, 2, borderViewWidth - 2,
-					borderViewWidth - 2), 3, 3, paint);
+			canvas.drawRoundRect(rect3, 3, 3, paint);
 		}
 
 	}
