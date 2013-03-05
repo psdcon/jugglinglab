@@ -3,7 +3,6 @@ package com.jonglen7.jugglinglab.jugglinglab.prop;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
