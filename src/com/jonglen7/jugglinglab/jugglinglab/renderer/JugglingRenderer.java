@@ -1,5 +1,7 @@
 package com.jonglen7.jugglinglab.jugglinglab.renderer;
 
+import java.io.Serializable;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -18,7 +20,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
 
-public class JugglingRenderer implements Renderer {
+public class JugglingRenderer implements Renderer, Serializable {
 	
 	
 	// Attributes
@@ -256,7 +258,7 @@ public class JugglingRenderer implements Renderer {
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		
 		// Sets the current view port to the new size.
-		gl.glViewport(0, 0, width, height);
+		//gl.glViewport(0, 0, width, height);
 		
 		// Set the Projection
 		gl.glMatrixMode(GL10.GL_PROJECTION);
@@ -265,7 +267,7 @@ public class JugglingRenderer implements Renderer {
 		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glLoadIdentity();
+		//gl.glLoadIdentity();
 		
 	}
 

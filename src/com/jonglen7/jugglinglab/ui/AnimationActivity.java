@@ -62,17 +62,48 @@ public class AnimationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setActionBarContentView(R.layout.activity_animation);
         
-        // Get the PatternRecord.
-        Bundle extras = getIntent().getExtras();
-        if (extras== null){
-        	Toast.makeText(getApplicationContext(), "ERROR",
-                    Toast.LENGTH_SHORT).show();
-        }
+        if ( savedInstanceState == null )
+        {
+	        // Get the PatternRecord.
+	        Bundle extras = getIntent().getExtras();
+	        if (extras== null){
+	        	Toast.makeText(getApplicationContext(), "ERROR",
+	                    Toast.LENGTH_SHORT).show();
+	        }
     	
-        pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
+	        pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
+	        
+	        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
+	        //                http://android.cyrilmottier.com/?p=450
+	        //            That might be necessary because computation takes some time
+	        
+	        // Initialize Juggling Renderer and View
+	        try {
+	        	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
+	        } catch (Exception e) {
+	        	// Note: Necessity to have the 2 following instruction to exit Activity: finish(); return;
+	        	// because  finish() does not work until onCreate() return control to system.
+	        	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
+	        	finish();
+	        	return;
+	        }
 
-        setTitle(pattern_record.getDisplay());
+        }
+        else
+        {
+        	
+        	super.onRestoreInstanceState(savedInstanceState);
+        	
+			this.pattern_record = savedInstanceState.getParcelable("myPatternRecord");
+			this.renderer = (JugglingRenderer) savedInstanceState.getSerializable("myRenderer");
+        }
         
+    	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
+    	mGLSurfaceView.setRenderer(renderer);
+        //setContentView(view);
+	
+        setTitle(pattern_record.getDisplay());
+    
         getActionBar().setOnClickListener(clickListener);
 
         StarActionBarItem starItem = (StarActionBarItem) getActionBar()
@@ -87,24 +118,7 @@ public class AnimationActivity extends BaseActivity {
         /** QuickAction. */
         quickActionGrid = new QuickActionGridTrick(this);
         
-        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
-        //                http://android.cyrilmottier.com/?p=450
-        //            That might be necessary because computation takes some time
-        
-        // Initialize Juggling Renderer and View
-        try {
-        	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
-        } catch (Exception e) {
-        	// Note: Necessity to have the 2 following instruction to exit Activity: finish(); return;
-        	// because  finish() does not work until onCreate() return control to system.
-        	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
-        	finish();
-        	return;
-        }
-    	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
-    	mGLSurfaceView.setRenderer(renderer);
-        //setContentView(view);
-        
+    
         // Assign Speed SeekBar Listener
         SeekBar speedSeekbar = (SeekBar) findViewById(R.id.animation_speed_seekbar);
         speedSeekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -153,6 +167,7 @@ public class AnimationActivity extends BaseActivity {
                 mGLSurfaceView.resetAnim();
             }
         });
+        
     }
     
     /** 
@@ -238,5 +253,23 @@ public class AnimationActivity extends BaseActivity {
 			quickActionGrid.show(view, pattern_record);
 		}
 	};
+	
+	
+	/** 
+	 * Save PatternRecord and JugglingRenderer to the savedInstanceState.
+	 * This bundle will be passed to onCreate if the process.
+	 * It allow to keep the state of the animation while changing the orientation of the device
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) 
+	{
+		if (savedInstanceState != null)
+		{
+			super.onSaveInstanceState(savedInstanceState);
+			savedInstanceState.putParcelable("myPatternRecord", this.pattern_record);
+			savedInstanceState.putSerializable("myRenderer", this.renderer);
+		}
+	  
+	}
     
 }
