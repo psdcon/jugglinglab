@@ -26,7 +26,7 @@
     <string name="pattern_entry_btn_juggle">Juggle</string>
     
     <!-- Pattern info -->
-    <string name="pattern_info_txt_display">Display</string>
+    <string name="pattern_info_txt_display">Name</string>
     <string name="pattern_info_txt_pattern">Pattern</string>
     
     <!-- Generator -->
@@ -129,7 +129,7 @@ Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.
     <string name="deactivated">deactivated</string>
     <string name="txt_no_patterns">No patterns found!</string>
     <string name="error_pattern">Couldn\'t find the pattern!</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait&#8230;</string>
     <string name="invalid_pattern">Invalid pattern!</string>
     
     <!-- Settings -->
