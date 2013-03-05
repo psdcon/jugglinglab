@@ -2,6 +2,7 @@ package com.jonglen7.jugglinglab.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -182,7 +183,7 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
      * @param v The View
      */
     public void onJuggleClick(View v) {
-		String display = edit_pattern.getText().toString().toLowerCase();
+		String display = edit_pattern.getText().toString().toLowerCase(Locale.US);
 		
     	StringBuffer text = new StringBuffer(256);
     	text.append("pattern=" + display);
@@ -369,8 +370,8 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
     	ArrayList<ArrayList<String>> values = new ArrayList<ArrayList<String>>();
     	
     	String query = "SELECT CODE, XML_LINE_NUMBER, CUSTOM_DISPLAY " +
-    					"FROM " + table.toUpperCase() + " " +
-    					"ORDER BY ID_" + table.toUpperCase();
+    					"FROM " + table.toUpperCase(Locale.US) + " " +
+    					"ORDER BY ID_" + table.toUpperCase(Locale.US);
 
     	Cursor cursor = myDbHelper.execQuery(query);
         startManagingCursor(cursor);
@@ -379,8 +380,8 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
         int item = 0;
 
         int arrayId = 0;
-        if (table.toUpperCase() == "HANDS") arrayId = R.array.hand_movement;
-    	else if (table.toUpperCase() == "BODY") arrayId = R.array.body_movement;
+        if (table.toUpperCase(Locale.US) == "HANDS") arrayId = R.array.hand_movement;
+    	else if (table.toUpperCase(Locale.US) == "BODY") arrayId = R.array.body_movement;
     	String[] names_array = getResources().getStringArray(arrayId);
     	
 	 	cursor.moveToFirst();
@@ -405,8 +406,8 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
             if (code.compareTo("") == 0) {
             	custom_count++;
                 if (custom_count == 2) {
-                	if (table.toUpperCase() == "HANDS") hand_movement_custom = item;
-                	else if (table.toUpperCase() == "BODY") body_movement_custom = item;
+                	if (table.toUpperCase(Locale.US) == "HANDS") hand_movement_custom = item;
+                	else if (table.toUpperCase(Locale.US) == "BODY") body_movement_custom = item;
                 }
             }
         	item++;

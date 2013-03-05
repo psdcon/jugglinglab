@@ -24,6 +24,7 @@ package com.jonglen7.jugglinglab.jugglinglab.notation;
 
 
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
@@ -54,12 +55,12 @@ public abstract class Notation {
         if (hash == null)
             hash = new Hashtable();
 
-        Notation not = (Notation)hash.get(name.toLowerCase());
+        Notation not = (Notation)hash.get(name.toLowerCase(Locale.US));
         if (not == null) {
             Notation newnot = null;
             try {
                 Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.notation."+
-                                           name.toLowerCase()+"Notation").newInstance();
+                                           name.toLowerCase(Locale.US)+"Notation").newInstance();
                 if (!(obj instanceof Notation))
                     throw new JuggleExceptionInternal(errorstrings.getString("Error_notation_bad")+": '"+name+"'");
                 newnot = (Notation)obj;
@@ -74,7 +75,7 @@ public abstract class Notation {
                 throw new JuggleExceptionInternal(errorstrings.getString("Error_notation_cantcreate")+": '"+name+"'");
             }
 
-            hash.put(name.toLowerCase(), newnot);
+            hash.put(name.toLowerCase(Locale.US), newnot);
             return newnot;
         }
         return not;

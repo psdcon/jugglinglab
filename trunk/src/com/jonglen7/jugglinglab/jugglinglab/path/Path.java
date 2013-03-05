@@ -22,6 +22,7 @@
 
 package com.jonglen7.jugglinglab.jugglinglab.path;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
@@ -51,7 +52,7 @@ public abstract class Path {
             throw new JuggleExceptionUser("Prop type not specified");
 
         try {
-            Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.path."+name.toLowerCase()+"Path").newInstance();
+            Object obj = Class.forName("com.jonglen7.jugglinglab.jugglinglab.path."+name.toLowerCase(Locale.US)+"Path").newInstance();
             //			if (obj == null)
             //				throw new JuggleExceptionUser("Cannot create Path type '"+name+"'");
             if (!(obj instanceof Path))

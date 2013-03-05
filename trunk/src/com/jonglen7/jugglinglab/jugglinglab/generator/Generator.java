@@ -23,6 +23,7 @@
 package com.jonglen7.jugglinglab.jugglinglab.generator;
 
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
@@ -45,7 +46,7 @@ public abstract class Generator {
     public static Generator getGenerator(String name) {
         try {
             Object obj = Class.forName("jugglinglab.generator."+
-                                       name.toLowerCase()+"Generator").newInstance();
+                                       name.toLowerCase(Locale.US)+"Generator").newInstance();
             if (!(obj instanceof Generator)) {
                 return null;
                 // throw new JuggleExceptionUser("Generator type '"+name+"' doesn't work");

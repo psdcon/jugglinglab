@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Stack;
 
 
@@ -694,7 +695,7 @@ public class XmlParser {
   void checkEncoding (String encodingName, boolean ignoreEncoding)
     throws java.lang.Exception
   {
-    encodingName = encodingName.toUpperCase();
+    encodingName = encodingName.toUpperCase(Locale.US);
 
     if (ignoreEncoding) {
       return;
