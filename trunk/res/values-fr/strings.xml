@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <string name="home_btn_pattern_entry">Pattern Entry</string> <!-- TODO -->
+    <string name="home_btn_generator">Generateur</string>
+    <string name="home_btn_tutorials">Tutoriels</string>
+    <string name="home_btn_pattern_list">Pattern List</string> <!-- TODO -->
+    <string name="home_btn_my_profile">Mon Profil</string> <!-- TODO -->
+    <string name="home_btn_video">Video</string>
+    <string name="footer_txt_last">Derniere figure pratiquee:</string>
+    
+    <!-- Pattern entry -->
+    <string name="pattern_entry_title">Pattern Entry</string> <!-- TODO -->
+    <string name="pattern_entry_txt_pattern">Pattern Entry</string> <!-- TODO -->
+    <string name="pattern_entry_edit_pattern">3</string>
+    <string name="pattern_entry_txt_hand_movement">Mouvement des mains</string>
+    <string name="pattern_entry_txt_prop_type">Objet</string>
+    <string name="pattern_entry_txt_dwell_beats">Dwell</string> <!-- TODO -->
+    <string name="pattern_entry_txt_beats_per_second">BPS</string> <!-- TODO -->
+    <string name="pattern_entry_txt_body_movement">Mouvement du corps</string>
+    <string name="pattern_entry_txt_manual_settings">Parametres manuels</string>
+    <string name="pattern_entry_btn_juggle">Jongle</string>
+    
+    <!-- Pattern info -->
+    <string name="pattern_info_txt_display">Nom</string>
+    <string name="pattern_info_txt_pattern">Pattern</string> <!-- TODO -->
+    
+    <!-- Generator -->
+    <string name="generator_title">Generateur</string>
+    <string name="generator_txt_balls">Balles</string>
+    <string name="generator_edit_balls">5</string>
+    <string name="generator_txt_max_throw">Hauteur max</string>
+    <string name="generator_edit_max_throw">7</string>
+    <string name="generator_txt_rhythm">Rythme</string>
+    <string name="generator_txt_jugglers">Jongleurs</string>
+    <string name="generator_txt_period">Periode</string>
+    <string name="generator_edit_period">5</string>
+    <string name="generator_txt_compositions">Compositions</string>
+    <string name="generator_txt_find">Cherche:</string>
+    <string name="generator_cb_ground_state_patterns">Ground state patterns</string> <!-- TODO -->
+    <string name="generator_cb_excited_state_patterns">Excited state patterns</string> <!-- TODO -->
+    <string name="generator_cb_transition_throws">Lancers de transition</string>
+    <string name="generator_cb_pattern_rotations">Pattern rotations</string> <!-- TODO -->
+    <string name="generator_cb_juggler_permutations">Permutations de jongleur</string>
+    <string name="generator_cb_connected_patterns_only">Connected patterns only</string> <!-- TODO -->
+    <string name="generator_txt_multiplexing">Multiplexing:</string> <!-- TODO -->
+    <string name="generator_cb_enable">Active</string>
+    <string name="generator_txt_simultaneous_throws">Lancers simultanes</string>
+    <string name="generator_edit_simultaneous_throws">2</string>
+    <string name="generator_cb_no_simultaneous_catches">Pas de lancers simultanes</string>
+    <string name="generator_cb_no_clustered_throws">No clustered throws</string> <!-- TODO -->
+    <string name="generator_cb_true_multiplexing_only">True multiplexing only</string> <!-- TODO -->
+    <string name="generator_txt_exclude_these_expressions">Exclure ces expressions</string>
+    <string name="generator_txt_include_these_expressions">Inclure ces expressions</string>
+    <string name="generator_txt_passing_communication_delay">Passing communication delay</string> <!-- TODO -->
+    <string name="generator_edit_passing_communication_delay">0</string>
+    <string name="generator_btn_run">Run</string> <!-- TODO -->
+    
+    <!-- Generator List -->
+    <string name="generator_list_title">%d patterns found</string> <!-- TODO -->
+    <string name="generator_list_generating_siteswaps">Generation des siteswaps</string>
+    
+    <!-- Tutorials -->
+    <string name="tutorials_title">Tutoriels</string>
+    
+    <!-- Pattern List -->
+    <string name="pattern_list_title">Pattern List</string> <!-- TODO -->
+    
+    <!-- My profile -->
+    <string name="my_profile_title">Mon profil</string>
+    <string name="my_profile_tab_starred">Favoris</string>
+    <string name="my_profile_tab_unsorted">Non classes</string>
+    <string name="my_profile_tab_goals">Objectifs</string>
+    <string name="my_profile_tab_training">Entrainement</string>
+    
+    <!-- Video -->
+    <string name="video_title">Video</string>
+    
+    <!-- Animation -->
+    <string name="animation_rendering">Rendering</string> <!-- TODO -->
+
+    <!-- About -->
+    <string name="about_title">A propos</string>
+    <string name="about_version">Version</string>
+    <string name="about_jugglinglab"> <!-- TODO -->
+Juggling Lab is based on the desktop application also called Juggling Lab http://jugglinglab.sourceforge.net.\n
+
+\nJuggling Lab is an application for creating and animating juggling patterns.
+Its main goals are to help people learn juggling patterns, and to assist in inventing new ones.\n
+
+\nAuthors:
+\nThis application has been developed by Frédéric RAYAR and Romain RICHARD.
+\nIf you have any questions, comments, or suggestions, please contact us at frederic.rayar@gmail.com or romain.richard.IT.engineer@gmail.com.\n
+
+\nLicense:
+\nThis software is provided under LGPL v.3 license.
+Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.html\n
+
+\nAcknowledgments:
+\nExternal libraries are used in the project, and makes extensive use of the following persons code:
+\n - GreenDroid, by Cyril Mottier - https://github.com/cyrilmottier/GreenDroid
+        </string>
+    
+    <!-- TODO Romain (Help): Help -->
+    <string name="help_title">Aide</string>
+    <string name="help_jugglinglab">Veuillez vous referer a http://jugglinglab.sourceforge.net/</string>
+    
+    <!-- Menu -->
+    <string name="menu_settings">Parametres</string>
+    <string name="menu_help">Aide</string>
+    <string name="menu_about">A propos</string>
+    
+    <!-- QuickActions -->
+    <string name="quickactions_trick_collections">Labels</string> <!-- TODO -->
+    <string name="quickactions_trick_share">Partager avec</string>
+    <string name="quickactions_trick_share_training">Je m\'entraine au %1$s grace a Juggling Lab sur Android !</string>
+    <string name="quickactions_trick_catches">Catches</string> <!-- TODO -->
+    <string name="quickactions_trick_stats">Stats</string>
+    <string name="quickactions_delete">Supprimer</string>
+    <string name="quickactions_delete_confirmation">Supprimer %s ?</string>
+    
+    <!-- Other -->
+    <string name="advanced_mode">Mode avance</string>
+    <string name="activated">active</string>
+    <string name="deactivated">desactive</string>
+    <string name="txt_no_patterns">No patterns found!</string> <!-- TODO -->
+    <string name="error_pattern">Couldn\'t find the pattern!</string> <!-- TODO -->
+    <string name="please_wait">Veuillez patienter&#8230;</string>
+    <string name="invalid_pattern">Invalid pattern!</string> <!-- TODO -->
+    
+    <!-- Settings -->
+    <string name="settings_category_user">Utilisateur</string>
+    <string name="settings_cb_advanced_mode_title">Mode avance</string>
+    <string name="settings_cb_advanced_mode_summary">Activer le mode avance</string>
+
+    <string name="settings_category_generator">Generateur</string>
+    <string name="settings_txt_max_patterns_title">Patterns</string> <!-- TODO -->
+    <string name="settings_txt_max_patterns_summary">Maximum number of patterns to print</string> <!-- TODO -->
+    <string name="settings_txt_max_seconds_title">Timeout</string> <!-- TODO -->
+    <string name="settings_txt_max_seconds_summary">Maximum number of seconds</string> <!-- TODO -->
+
+    <!-- TODO Fred: Change the names of the strings to follow the pattern settings_{type}_{name} with type in [category, txt, cb, ...]-->
+    <!-- TODO: Once it's done, translate them -->
+    <string name="settings_category_animation">Animation</string>
+
+    <string name="settings_category_background">Background</string>
+    <string name="settings_category_background_color">Color</string>
+
+    <string name="settings_category_prop">Prop</string>
+    <string name="settings_category_prop_type">Type</string>
+    <string name="settings_category_prop_color">Color</string>
+    <string name="settings_category_prop_color_category_all">All Props</string>
+    <string name="settings_category_prop_color_color">One Color</string>    
+    <string name="settings_category_prop_color_category_mixed_title">Mixed</string>
+    <string name="settings_category_prop_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_category_prop_color_category_pbp_title">Prop by Prop</string>
+    <string name="settings_category_prop_size">Size</string>
+
+    <string name="settings_category_juggler">Juggler</string>
+    <string name="settings_category_juggler_color_category_all">All Props</string>
+    <string name="settings_category_juggler_color_color">One Color</string>  
+    <string name="settings_category_juggler_color_category_mixed_title">Mixed</string>
+    <string name="settings_category_juggler_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_category_juggler_color_category_jbj_title">Juggler by Juggler</string>
+    <string name="settings_txt_juggler_height_title">Height</string>
+    <string name="settings_txt_juggler_height_summary">The height of the juggler</string>
+    <string name="settings_txt_juggler_weight_title">Weight</string>
+    <string name="settings_txt_juggler_weight_summary">The weight of the juggler</string>
+
+    <string name="settings_category_juggler_hat">Hat</string>
+
+    <string name="settings_category_juggler_glasses">Glasses</string>
+
+    <string name="settings_category_juggler_beard">Beard</string>
+    
+</resources>

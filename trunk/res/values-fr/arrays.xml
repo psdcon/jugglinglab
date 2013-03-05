@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources> <!-- TODO: Ajouter accents? -->
+	<string-array name="hand_movement">
+		<item>Defaut</item>
+		<item>Lancer nterieur</item>
+		<item>Lancer exterieur</item>
+		<item>Demi douche</item>
+        <item>Douche</item>
+		<item>Mills Mess</item>
+        <item>Moulin a vent</item>
+        <item>Centre</item>
+		<item>Backcrosses</item> <!-- TODO -->
+		<item>Backshoulders</item> <!-- TODO -->
+		<item>Backcatches</item> <!-- TODO -->
+		<item>Personnalise</item>
+	</string-array>
+
+	<string-array name="body_movement">
+		<item>Defaut</item>
+		<item>Ligne</item>
+		<item>Feed</item> <!-- TODO -->
+		<item>Dos a dos</item>
+		<item>Cote a cote</item>
+		<item>Cercles</item>
+		<item>Personnalise</item>
+	</string-array>
+
+	<string-array name="prop_type">
+		<item>Balle</item>
+		<item>Anneau</item>
+		<item>Massue</item>
+		<item>Cube</item>
+		<item>Image</item>
+	</string-array>
+
+	<string-array name="rhythm">
+		<item>Asynch</item>
+		<item>Synch</item>
+	</string-array>
+
+	<string-array name="jugglers">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+	</string-array>
+
+	<string-array name="compositions">
+		<item>Toutes</item>
+		<item>Non-evidentes</item>
+		<item>Aucune (prime only)</item> <!-- TODO -->
+	</string-array>
+
+    <string-array name="collection">
+        <item>Cascade 3 pas a pas</item>
+        <item>Fontaine 4 pas a pas</item>
+        <item>Cascade 5 pas a pas</item>
+        <item>Cascade 3 Figures</item>
+        <item>Figures a 3 balles</item>
+        <item>Figures a 4 balles</item>
+        <item>Figures a 5 balles</item>
+        <item>Douche</item>
+        <item>Mills Mess</item>
+        <item>Boite</item>
+        <item>Colonnes</item>
+        <item>Figures a une main</item>
+        <item>Siteswaps</item>
+        <item>Multiplex</item>
+        <item>Synchrones</item>
+        <item>Nombres</item>
+        <item>Etes-vous Dieu?</item>
+        <item>Figures par Isaac Orr</item>
+        <item>Figures par JAG</item>
+        <item>Multiplex mills mess</item>
+        <item>Patterns by PWN</item> <!-- TODO -->
+        <item>Patterns By Scotch Tom</item> <!-- TODO -->
+        <item>Stupid Patterns By Chunky Kibbles</item> <!-- TODO -->
+        <item>Favoris</item>
+    </string-array>
+
+	<string-array name="trick"> <!-- TODO: stopped here last time -->
+	    <!-- 3-Cascade Step By Step -->
+		<item>1 Ball out of a 3-Cascade</item>
+		<item>Throw Twice</item>
+		<item>2 Balls out of a 3-Cascade</item>
+		<item>Throw 3 Times</item>
+		<item>3-Cascade</item>
+        <!-- 4-Foutain Step By Step -->
+		<item>2 in One Hand</item>
+		<item>4-Synchronous Fountain</item>
+		<item>4-Fountain</item>
+        <!-- 5-Cascade Step By Step -->
+		<item>2 Balls out of a 5-Cascade</item>
+		<item>3 Balls</item>
+		<item>Chase</item>
+		<item>Flash</item>
+		<item>4 Balls</item>
+		<item>4 Balls out of a 5-Cascade</item>
+		<item>552</item>
+		<item>5551</item>
+		<item>5-Cascade</item>
+        <!-- 3-Cascade Tricks -->
+        <item>3-ball Flash</item>
+        <item>Chop</item>
+        <item>Eating Apples</item>
+        <item>Eating an Apple (for light eaters)</item>
+        <item>Wide Cascade</item>
+        <item>Juggler\'s Tennis</item>
+        <item>Over the Head</item>
+        <item>Reverse Cascade</item>
+        <item>Wide Reverse Cascade</item>
+        <item>Reachover</item>
+        <item>Reachover (alternate)</item>
+        <item>Reachunder</item>
+        <item>Reachunder (alternate)</item>
+        <item>Crossed Arm Reverse</item>
+        <!-- 3-ball Tricks -->
+        <item>1Up-2Up A (Columns)</item>
+		<item>1Up-2Up B</item>
+		<item>1Up-2Up C</item>
+		<item>1Up-2Up D</item>
+		<item>1Up-2Up E</item>
+		<item>1Up-2Up F</item>
+		<item>Yo-Yo</item>
+		<item>Oy-Oy</item>
+		<item>Around The Yo-Yo</item>
+		<item>Yo-Yo (Columns Fake A)</item>
+		<item>Yo-Yo (Columns Fake B)</item>
+		<item>Yo-Yo (Columns Fake C)</item>
+		<item>Yo-Yo (Traverse)</item>
+		<item>441</item>
+		<item>Arches</item>
+        <item>Statue of Liberty A</item>
+		<item>Statue of Liberty B</item>
+		<item>Shuffle (The Slam)</item>
+		<item>See Saw Shuffle (Luke\'s Shuffle)</item>
+		<item>441 Shuffle</item>
+		<item>Both Side Slam</item>
+		<item>Robot (Machine,Factory)</item>
+		<item>Exchange (Pendulum,Drop)</item>
+		<item>Carry</item>
+		<item>Follow</item>
+        <!-- 4-ball Tricks -->
+		<item>4-Reverse Synchronous Fountain</item>
+		<item>4-Reverse Fountain</item>
+		<item>4-Columns Switch</item>
+		<item>4-ball Cross A</item>
+		<item>4-ball Cross B</item>
+		<item>444447333</item>
+		<item>4-ball Tennis</item>
+        <!-- 5-ball Tricks -->
+		<item>5-Reverse Cascade</item>
+		<item>3-Cascade -> 5-Cascade</item>
+		<item>555555744</item>
+        <!-- Shower -->
+		<item>3-Shower Japanese OTEDAMA</item>
+		<item>3-Half Shower A</item>
+		<item>3-Half Shower B</item>
+		<item>4-Shower</item>
+		<item>4-Half Shower</item>
+		<item>5-Half Shower A</item>
+		<item>5-Half Shower B</item>
+		<item>5-Half Shower C</item>
+		<item>6-Half Shower</item>
+		<item>3-Synchronous Shower</item>
+		<item>4-Synchronous Shower</item>
+		<item>3-High-Low Shower A</item>
+		<item>3-High-Low Shower B</item>
+		<item>3-High-Low Shower C</item>
+		<item>4-High-Low Shower</item>
+		<item>Under-the-Hand Shower</item>
+		<item>Under-the-Hand Shower (alternate)</item>
+		<item>4-Half Shower Like Trick</item>
+		<item>High Half Shower</item>
+		<item>Multi-Shower</item>
+		<item>False Shower (Windmill)</item>
+        <!-- Mills Mess -->
+		<item>2 out of the Mills Mess</item>
+		<item>Standard Mills Mess</item>
+		<item>Mills Mess 423</item>
+		<item>Mills Mess 414</item>
+		<item>Mills Mess 315</item>
+		<item>Mills Mess Box</item>
+		<item>4-ball Mills Mess</item>
+		<item>Mills Mess 534</item>
+		<item>Mills Mess 552</item>
+		<item>Mills Mess 642</item>
+		<item>5-ball Mills Mess</item>
+		<item>6-ball Mills Mess</item>
+		<item>Mills Mess 864</item>
+		<item>Multi-Mills Mess</item>
+		<item>No Through Mills Mess</item>
+		<item>Half Mess</item>
+		<item>Reverse Mills Mess</item>
+		<item>Mills 44133</item>
+		<item>2-Mills Simultaneous</item>
+		<item>3-Mills Simultaneous</item>
+		<item>4-Mills Simultaneous</item>
+        <!-- Box -->
+		<item>2 Balls out of the Box</item>
+		<item>Box (See Saw)</item>
+		<item>A Box-like Pattern A</item>
+		<item>A Box-like Pattern B</item>
+		<item>Double Box</item>
+		<item>4-ball Box A</item>
+		<item>4-ball Box B</item>
+		<item>4-ball Box C</item>
+		<item>5-ball Box</item>
+        <!-- Columns -->
+		<item>Boston Mess A</item>
+		<item>Boston Mess B</item>
+		<item>4-Columns (Pistons)</item>
+		<item>4-Synchronous Columns (Asymmetry)</item>
+		<item>4-Synchronous Columns (Symmetry)</item>
+		<item>4-Synchronous Columns (Splits)</item>
+		<item>5-Columns</item>
+		<item>5-Mills Mess Columns A</item>
+		<item>5-Mills Mess Columns B</item>
+		<item>5-Mills Mess Columns C</item>
+		<item>6-Columns</item>
+		<item>Multi-Columns</item>
+        <!-- One Hand Tricks -->
+		<item>2-ball Columns in One Hand</item>
+		<item>3-ball in One Hand</item>
+		<item>3-Multiplex in One Hand</item>
+		<item>Combination in One Hand</item>
+		<item>3 Hi-Lo in One Hand</item>
+		<item>3-ball Columns in One Hand</item>
+		<item>Cascade in One Hand</item>
+        <!-- Siteswaps -->
+		<item>3-ball Combination</item>
+		<item>53</item>
+		<item>44453</item>
+		<item>501</item>
+		<item>531</item>
+		<item>561</item>
+		<item>Complete Waste of a 5 Ball Juggler</item>
+		<item>453</item>
+		<item>720</item>
+		<item>753</item>
+		<item>741</item>
+		<item>744</item>
+		<item>6424</item>
+		<item>64</item>
+		<item>66661</item>
+		<item>61616</item>
+		<item>(5201) &amp; (0040)</item>
+		<item>(70300) &amp; (02012)</item>
+		<item>7272712</item>
+		<item>51414</item>
+		<item>7161616</item>
+		<item>88333</item>
+		<item>75751</item>
+		<item>123456789</item>
+        <!-- Multiplex -->
+		<item>[34]1</item>
+		<item>4[43]1 441+1</item>
+		<item>5-ball Multiplex A step_1</item>
+		<item>5-ball Multiplex A step_2</item>
+		<item>5-ball Multiplex A</item>
+		<item>5-Cascade -> 5-Multiplex A No.1</item>
+		<item>5-Cascade -> 5-Multiplex A No.2</item>
+		<item>5-ball Multiplex B step_1</item>
+		<item>5-ball Multiplex B</item>
+		<item>25[75]51</item>
+		<item>7-ball Splits A</item>
+		<item>7-ball Splits B</item>
+		<item>26[76]</item>
+		<item>[234]57</item>
+		<item>9-ball Multiplex</item>
+        <!-- Synchronous -->
+		<item>3-Synchronous Cascade A</item>
+		<item>3-Synchronous Cascade B</item>
+		<item>(2x,6x)(6x,2x)</item>
+		<item>(4x,2x)(2,4)</item>
+		<item>(4x,6)(0,2x)</item>
+		<item>(2,6x)(2x,6)(6x,2)(6,2x)</item>
+		<item>(2,4)([44x],2x)</item>
+		<item>(2,[62])([22],6x)([62],2)(6x,[22])</item>
+		<item>6-ball Synchronous Fountain</item>
+        <!-- Numbers -->
+		<item>5-Shower</item>
+		<item>6-Shower</item>
+		<item>7-Shower</item>
+		<item>6-Fountain</item>
+		<item>7-Cascade</item>
+		<item>8-Fountain</item>
+		<item>9-Cascade</item>
+        <!-- Are You God? -->
+		<item>35-Cascade</item>
+		<item>18-Shower</item>
+		<item>35-Multi Shower</item>
+		<item>12-Mills Mess</item>
+		<item>[b9753]0020[22]0[222]0[2222]0</item>
+		<item>123456789abcdefghijklmnopqrstuv</item>
+		<item>9-ball Box</item>
+		<item>xvtrpnljhfdb97531</item>
+		<item>Ken</item>
+		<item>Penta-Multiplex</item>
+        <!-- Tricks by Isaac Orr -->
+		<item>575151</item>
+		<item>7141404</item>
+		<item>(8x,2)(8,8)(8,8)(2,8x)(8,8)(8,8)</item>
+		<item>(6x,2)(6,6)(2,6x)(6,6)</item>
+		<item>([6x6],2)(2,[6x6])</item>
+		<item>56702</item>
+		<item>64244</item>
+		<item>[34]</item>
+		<item>4-ball Box variation 1</item>
+		<item>4-ball Box variation 2</item>
+		<item>[34]1</item>
+		<item>6316131</item>
+		<item>55514</item>
+		<item>12345</item>
+		<item>23456</item>
+		<item>1234567</item>
+		<item>633</item>
+		<item>44633</item>
+		<item>44444444633</item>
+		<item>64514</item>
+		<item>Orr Multiplex (3 balls)</item>
+		<item>Orr Multiplex (4 balls)</item>
+		<item>Reverse Orr Multiplex</item>
+		<item>Macdonalds!</item>
+		<item>123456</item>
+		<item>303456</item>
+		<item>63123</item>
+		<item>6051</item>
+		<item>63303</item>
+		<item>64113</item>
+		<item>70161</item>
+		<item>83031</item>
+		<item>6316131</item>
+		<item>612</item>
+		<item>62313</item>
+		<item>63141</item>
+		<item>52413</item>
+		<item>63501</item>
+		<item>Alternate 3 Balls in Hand A</item>
+		<item>Alternate 3 Balls in Hand B</item>
+		<item>Alternate 3 Balls in Hand C</item>
+		<item>56162</item>
+		<item>6451</item>
+		<item>5641</item>
+		<item>5560</item>
+		<item>6352</item>
+		<item>83333</item>
+		<item>845151</item>
+		<item>83441</item>
+		<item>83531</item>
+		<item>83522</item>
+		<item>7522</item>
+		<item>83423</item>
+		<item>7423</item>
+		<item>804</item>
+		<item>36362</item>
+		<item>7531</item>
+		<item>75314</item>
+		<item>714</item>
+		<item>73334</item>
+		<item>5911</item>
+		<item>831</item>
+		<item>7045</item>
+		<item>73451</item>
+		<item>7441</item>
+		<item>74414</item>
+		<item>642</item>
+		<item>4246</item>
+		<item>62525</item>
+		<item>5751613</item>
+		<item>673175151</item>
+		<item>773151</item>
+		<item>746151</item>
+		<item>661515</item>
+		<item>751515</item>
+		<item>6631</item>
+		<item>72461</item>
+		<item>72416</item>
+		<item>73631</item>
+		<item>75661</item>
+		<item>66314</item>
+		<item>63524</item>
+		<item>7405 Transitions A</item>
+		<item>7405 Transitions B</item>
+		<item>7405 Transitions C</item>
+		<item>7405 Transitions D</item>
+		<item>7405 Transitions E</item>
+		<item>555183333</item>
+		<item>5551955500</item>
+		<item>5551552</item>
+		<item>55255550</item>
+		<item>53633</item>
+		<item>7731514</item>
+		<item>7461514</item>
+		<item>5661514</item>
+		<item>35741</item>
+		<item>4 Shower Transition 1</item>
+		<item>4 Shower Transition 2</item>
+		<item>4 Shower Transition 3</item>
+		<item>Alternate 4 Shower 1</item>
+		<item>Alternate 4 Shower 2</item>
+		<item>Alternate 4 Shower 3</item>
+		<item>4 Shower - Three heights</item>
+		<item>4 Shower - Crazy</item>
+		<item>4 Shower with a leak</item>
+		<item>1 up 1 across</item>
+		<item>Playing catch</item>
+		<item>Looking idle</item>
+		<item>5 Balls Peter Gunn</item>
+		<item>726</item>
+		<item>7346</item>
+		<item>7463</item>
+		<item>663</item>
+		<item>88441</item>
+		<item>88531</item>
+		<item>8444</item>
+		<item>8534</item>
+		<item>8633</item>
+		<item>84445</item>
+		<item>85345</item>
+		<item>94444</item>
+		<item>94534</item>
+		<item>96451</item>
+		<item>95551</item>
+		<item>96631</item>
+		<item>753</item>
+		<item>771</item>
+		<item>861</item>
+		<item>64</item>
+		<item>645</item>
+		<item>6662</item>
+		<item>75661</item>
+		<item>756615</item>
+		<item>7562</item>
+		<item>777171</item>
+		<item>Full 5 Flash</item>
+		<item>3 of 5 Flash</item>
+		<item>97531</item>
+		<item>x</item>
+		<item>zxv</item>
+		<item>itzik</item>
+		<item>orr</item>
+		<!-- Tricks by JAG -->
+		<item>3-Balls Peter Gunn Theme</item>
+		<item>5-Balls Peter Gunn Theme</item>
+		<!-- Multiplex mills mess -->
+		<item>5 ball Easier Variation</item>
+		<item>5 ball Harder Variation</item>
+		<item>4 Ball (Orinoco)</item>
+		<item>Orr Multiplex MM</item>
+		<!-- Patterns by PWN -->
+		<item>¾ Norton\'s Demultiplexer</item>
+		<item>[34]</item>
+		<item>23[34]</item>
+		<item>20[34]</item>
+		<item>53[34]</item>
+		<item>26[34]20[34]23[34]</item>
+		<item>Back &amp; Forth</item>
+		<item>Back &amp; Forth 2</item>
+		<item>High Triplex</item>
+		<item>Low Triplex</item>
+		<item>55550</item>
+		<item>5551</item>
+		<item>552</item>
+		<item>53</item>
+		<item>555504</item>
+		<item>55514</item>
+		<item>5524</item>
+		<item>534</item>
+		<item>666660</item>
+		<item>66661</item>
+		<item>6662</item>
+		<item>663</item>
+		<item>64</item>
+		<item>6666605</item>
+		<item>666615</item>
+		<item>66625</item>
+		<item>6635</item>
+		<item>645</item>
+		<item>7777770</item>
+		<item>777771</item>
+		<item>77772</item>
+		<item>7773</item>
+		<item>774</item>
+		<item>75</item>
+		<item>77777706</item>
+		<item>7777716</item>
+		<item>777726</item>
+		<item>77736</item>
+		<item>7746</item>
+		<item>756</item>
+		<!-- Patterns By Scotch Tom -->
+		<item>Long Name for Pointless Trick</item>
+		<item>Random Doodle 1</item>
+		<item>Random Doodle 2</item>
+		<item>Ben Beaver at Chocfest</item>
+		<!-- Stupid Patterns By Chunky Kibbles -->
+		<item>531-Extended</item>
+		<item>Extended Sexta-Multiplex</item>
+		<item>297 Balls 11-Multiplex</item>
+		<item>528 Balls</item>
+		<item>One-handed Extended Sexta-Multiplex</item>
+		<item>Multiplexing Two-handed Shower (Simple)</item>
+		<item>Multiplexing Two-handed Shower</item>
+		<item>Multiplexing Two-handed Shower (Hard)</item>
+	</string-array>
+</resources>
