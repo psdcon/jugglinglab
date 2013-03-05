@@ -80,6 +80,7 @@ public class JugglingRenderer implements Renderer {
     public float mZoom;
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.2f;
+    public final float ZOOM_INIT = 1.0f;
 	
     
 	// Romain: Added for translation
@@ -136,7 +137,7 @@ public class JugglingRenderer implements Renderer {
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
 
-        this.mZoom = 1.0f;
+        this.mZoom = ZOOM_INIT;
 
         /*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
@@ -467,5 +468,14 @@ public class JugglingRenderer implements Renderer {
 		
 		updateView = true;
 	}
+    
+    /** Reset Anim **/
+    public void resetAnim() {
+        // TODO: Clean up (might need to change this if the rotation around the
+        // 3 axes changes the code a lot)
+        mAngleX = 0;
+        mAngleY = 0;
+        mZoom = ZOOM_INIT;
+    }
 
 }

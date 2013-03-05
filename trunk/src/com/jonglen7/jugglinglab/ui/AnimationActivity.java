@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
@@ -46,6 +47,9 @@ public class AnimationActivity extends BaseActivity {
     private ZoomButton mZoomIn;
     private ZoomButton mZoomOut;
 	
+    /** Button. */
+    private Button mResetAnim;
+    
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
     
@@ -138,7 +142,16 @@ public class AnimationActivity extends BaseActivity {
 				mGLSurfaceView.zoomOut();
 			}
 		});
-
+        
+        // Button
+        mResetAnim = (Button) findViewById(R.id.animation_btn_reset_anim);
+        
+        mResetAnim.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGLSurfaceView.resetAnim();
+            }
+        });
     }
     
     /** 
