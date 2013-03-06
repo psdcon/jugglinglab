@@ -62,40 +62,53 @@ public class AnimationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setActionBarContentView(R.layout.activity_animation);
         
-        if ( savedInstanceState == null )
-        {
-	        // Get the PatternRecord.
-	        Bundle extras = getIntent().getExtras();
-	        if (extras== null){
-	        	Toast.makeText(getApplicationContext(), "ERROR",
-	                    Toast.LENGTH_SHORT).show();
-	        }
-    	
-	        pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
-	        
-	        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
-	        //                http://android.cyrilmottier.com/?p=450
-	        //            That might be necessary because computation takes some time
-	        
-	        // Initialize Juggling Renderer and View
-	        try {
-	        	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
-	        } catch (Exception e) {
-	        	// Note: Necessity to have the 2 following instruction to exit Activity: finish(); return;
-	        	// because  finish() does not work until onCreate() return control to system.
-	        	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
-	        	finish();
-	        	return;
-	        }
-
+        // Get the PatternRecord.
+        Bundle extras = getIntent().getExtras();
+        if (extras== null){
+        	Toast.makeText(getApplicationContext(), "ERROR",
+                    Toast.LENGTH_SHORT).show();
         }
-        else
+        pattern_record = (PatternRecord) extras.getParcelable("pattern_record");
+        
+        // TODO Fred: See http://android.cyrilmottier.com/?p=381 and
+        //                http://android.cyrilmottier.com/?p=450
+        //            That might be necessary because computation takes some time
+        
+        // Initialize Juggling Renderer and View
+        try {
+        	renderer = new JugglingRenderer(this, getJMLPattern(pattern_record));
+        } catch (Exception e) {
+        	// Note: Necessity to have the 2 following instruction to exit Activity: finish(); return;
+        	// because  finish() does not work until onCreate() return control to system.
+        	Toast.makeText(this, getString(R.string.invalid_pattern), Toast.LENGTH_LONG).show();
+        	finish();
+        	return;
+        }
+
+
+        // If load previous state if available
+        if ( savedInstanceState != null )
         {
-        	
         	super.onRestoreInstanceState(savedInstanceState);
+        	   	
+			// Is animation Frozen?
+        	this.renderer.freeze = savedInstanceState.getBoolean("mFreeze");	
+			
+			// Time of the animation in the storyboard        	
+			this.renderer.setTime(savedInstanceState.getDouble("mTime"));
+			
+			// Accumulated rotation
+			this.renderer.mAccumulatedRotation = savedInstanceState.getFloatArray("mAccumulatedRotation");
+			
+			// Current zoom value
+			this.renderer.mZoom = savedInstanceState.getFloat("mZoom");
+			
+			// Value of the slowdown
+			AnimatorPrefs prefs = renderer.getPrefs();
+        	prefs.slowdown = savedInstanceState.getDouble("mSlowdown");
+        	renderer.setPrefs(prefs);
+        	renderer.syncToPattern();
         	
-			this.pattern_record = savedInstanceState.getParcelable("myPatternRecord");
-			this.renderer = (JugglingRenderer) savedInstanceState.getSerializable("myRenderer");
         }
         
     	mGLSurfaceView = (TouchSurfaceView) findViewById(R.id.surface);
@@ -265,8 +278,21 @@ public class AnimationActivity extends BaseActivity {
 		if (savedInstanceState != null)
 		{
 			super.onSaveInstanceState(savedInstanceState);
-			savedInstanceState.putParcelable("myPatternRecord", this.pattern_record);
-			savedInstanceState.putSerializable("myRenderer", this.renderer);
+			
+			// Is animation Frozen?
+			savedInstanceState.putBoolean("mFreeze", this.renderer.freeze);	
+			
+			// Time of the animation in the storyboard
+			savedInstanceState.putDouble("mTime", Math.max(this.renderer.freeze_time_begin, this.renderer.getTime()));
+			
+			// Accumulated rotation
+			savedInstanceState.putFloatArray("mAccumulatedRotation", this.renderer.mAccumulatedRotation);
+			
+			// Current zoom value
+			savedInstanceState.putFloat("mZoom", this.renderer.mZoom);
+			
+			// Value of the slowdown
+			savedInstanceState.putDouble("mSlowdown", this.renderer.getPrefs().slowdown);
 		}
 	  
 	}

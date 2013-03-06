@@ -27,8 +27,8 @@ public class TouchSurfaceView extends GLSurfaceView {
 	private PointF mPrevious = new PointF();
 	private boolean isOnPause = false;
     private ScaleGestureDetector mScaleDetector;
-    boolean motion = false;
-    boolean scale = false;
+    private boolean motion = false;
+    private boolean scale = false;
 
 	
     /** Constructor **/
@@ -85,6 +85,7 @@ public class TouchSurfaceView extends GLSurfaceView {
         // Switch detection action : either move (rotate, zoom) or pause/resume
         switch (e.getAction() & MotionEvent.ACTION_MASK) 
         {
+        	
         	// Move action (rotate or zoom)
 	        case MotionEvent.ACTION_MOVE:
 	        	
@@ -102,17 +103,17 @@ public class TouchSurfaceView extends GLSurfaceView {
 	                    mRenderer.mAngleX += deltaX * TOUCH_SCALE_FACTOR;
 	                    mRenderer.mAngleY += deltaY * TOUCH_SCALE_FACTOR;
 	                    requestRender();
+	                    
+	            		motion = true;
 	        		}
         	    }
-        		
-        		motion = true;
-	
+        	    
 	            break;
 	            
 	        // Pause/Resume when first finger lifted
 	        case MotionEvent.ACTION_UP:
         		// Only if no gesture.
-        		if (!motion) 
+        		if (!motion && !scale)
         		{
 	        		if (isOnPause)
 	        			ResumeAnimation();
@@ -177,12 +178,14 @@ public class TouchSurfaceView extends GLSurfaceView {
 	/** Called when the activity is "paused". */
     public void FreezeAnimation() {
     	mRenderer.freeze = true;
+		mRenderer.freeze_time_begin = mRenderer.getTime();
         
     }
     
 	/** Called when the activity is "resumed". */
     public void ResumeAnimation() {
     	mRenderer.freeze = false;
+    	mRenderer.freeze_time_begin = 0.0f;
     }
 }
 
