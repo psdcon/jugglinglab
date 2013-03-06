@@ -166,7 +166,7 @@ public class PatternRecord implements Parcelable {
 		dest.writeString(anim);
 	}
 	
-	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+	public static final Parcelable.Creator<PatternRecord> CREATOR = new Parcelable.Creator<PatternRecord>() {
 		public PatternRecord createFromParcel(Parcel in) {
            	return new PatternRecord(in);
 		}
