@@ -6,94 +6,73 @@
     
     <!-- First row -->
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="6dip">
+        android:layout_height="0dip"
+        android:layout_weight="1">
         
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1">
+        <!-- Pattern Entry -->
+        <Button android:id="@+id/home_btn_pattern_entry"
+            style="@style/HomeButton"
+            android:text="@string/home_btn_pattern_entry"
+            android:onClick="onPatternEntryClick"
+            android:drawableTop="@drawable/dashboard_pattern_entry" />
             
-            <!-- Pattern Entry -->
-            <Button android:id="@+id/home_btn_pattern_entry"
-                style="@style/HomeButton"
-                android:text="@string/home_btn_pattern_entry"
-                android:onClick="onPatternEntryClick"
-                android:drawableTop="@drawable/dashboard_pattern_entry" />
-                
-            <!--  Generator -->
-            <Button android:id="@+id/home_btn_generator"
-                style="@style/HomeButton"
-                android:text="@string/home_btn_generator"
-                android:onClick="onGeneratorClick"
-                android:drawableTop="@drawable/dashboard_generator" />
-                
-        </LinearLayout>
+        <!--  Generator -->
+        <Button android:id="@+id/home_btn_generator"
+            style="@style/HomeButton"
+            android:text="@string/home_btn_generator"
+            android:onClick="onGeneratorClick"
+            android:drawableTop="@drawable/dashboard_generator" />
+            
     </LinearLayout>
     
     <!-- Second row -->
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="6dip">
+        android:layout_height="0dip"
+        android:layout_weight="1">
         
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1">
+        <!-- Tutorial -->
+        <Button android:id="@+id/home_btn_tutorials"
+            style="@style/HomeButton"
+            android:text="@string/home_btn_tutorials"
+            android:onClick="onTutorialsClick"
+            android:drawableTop="@drawable/dashboard_tutorial" />
             
-            <!-- Tutorial -->
-            <Button android:id="@+id/home_btn_tutorials"
-                style="@style/HomeButton"
-                android:text="@string/home_btn_tutorials"
-                android:onClick="onTutorialsClick"
-                android:drawableTop="@drawable/dashboard_tutorial" />
-                
-            <!-- Pattern List -->
-            <Button android:id="@+id/home_btn_pattern_list"
-                style="@style/HomeButton"
-                android:text="@string/home_btn_pattern_list"
-                android:onClick="onPatternListClick"
-                android:drawableTop="@drawable/dashboard_pattern_list" />
-        </LinearLayout>
+        <!-- Pattern List -->
+        <Button android:id="@+id/home_btn_pattern_list"
+            style="@style/HomeButton"
+            android:text="@string/home_btn_pattern_list"
+            android:onClick="onPatternListClick"
+            android:drawableTop="@drawable/dashboard_pattern_list" />
+
     </LinearLayout>
     
     <!-- Third row -->
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="6dip">
+        android:layout_height="0dip"
+        android:layout_weight="1">
         
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1">
+        <!-- My Profile -->
+        <Button android:id="@+id/home_btn_my_profile"
+            style="@style/HomeButton"
+            android:text="@string/home_btn_my_profile"
+            android:onClick="onMyProfileClick"
+            android:drawableTop="@drawable/dashboard_my_profile" />
             
-            <!-- My Profile -->
-            <Button android:id="@+id/home_btn_my_profile"
-                style="@style/HomeButton"
-                android:text="@string/home_btn_my_profile"
-                android:onClick="onMyProfileClick"
-                android:drawableTop="@drawable/dashboard_my_profile" />
-                
-            <!-- Video -->    
-            <!-- TODO Romain: Unhide when ready -->
-            <Button android:id="@+id/home_btn_video"
-                style="@style/HomeButton"
-                android:text="@string/home_btn_video"
-                android:onClick="onVideoClick"
-                android:drawableTop="@drawable/dashboard_video"
-                android:visibility="invisible"/>
-        </LinearLayout>
+        <!-- Video -->    
+        <!-- TODO Romain: Unhide when ready -->
+        <Button android:id="@+id/home_btn_video"
+            style="@style/HomeButton"
+            android:text="@string/home_btn_video"
+            android:onClick="onVideoClick"
+            android:drawableTop="@drawable/dashboard_video"
+            android:visibility="invisible"/>
+
     </LinearLayout>
+
 </LinearLayout>
