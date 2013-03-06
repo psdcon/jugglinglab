@@ -87,7 +87,7 @@ public class JugglingRenderer implements Renderer, Serializable {
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.2f;
     // Quick hack to have a better initial zoom when only one juggler
-    public final float ZOOM_INIT_1 = 1.6f;
+    public final float ZOOM_INIT_1 = 1.0f;
     public final float ZOOM_INIT_2 = 1.0f;
 	
 	// Romain: Added for translation
@@ -97,6 +97,8 @@ public class JugglingRenderer implements Renderer, Serializable {
     // Fred: Added for manipulation of scene when animation is paused
     public boolean freeze = false;
     public double freeze_time_begin = 0.0f;
+
+	private float aspect;
    	
     
 	// Constructors
@@ -252,7 +254,7 @@ public class JugglingRenderer implements Renderer, Serializable {
 			// Update camera viewport		
 			gl.glMatrixMode(GL10.GL_PROJECTION);		
 			gl.glLoadIdentity();		
-			gl.glOrthof(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);		
+			gl.glOrthof(this.aspect*this.left, this.aspect*this.right, this.bottom, this.top, this.zNear, this.zFar);		
 			gl.glMatrixMode(GL10.GL_MODELVIEW);		
 			gl.glLoadIdentity();
 			
@@ -283,11 +285,13 @@ public class JugglingRenderer implements Renderer, Serializable {
 		
 		// Sets the current view port to the new size.
 		gl.glViewport(0, 0, width, height);
+		this.aspect = (float)width / (float)height;
+		this.mZoom *= this.aspect;
 		
 		// Set the Projection
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		gl.glOrthof(this.left, this.right, this.bottom, this.top, this.zNear, this.zFar);
+		gl.glOrthof(this.aspect*this.left, this.aspect*this.right, this.bottom, this.top, this.zNear, this.zFar);
 		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
