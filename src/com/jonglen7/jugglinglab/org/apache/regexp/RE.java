@@ -1605,7 +1605,7 @@ public class RE implements Serializable
     public String[] split(String s)
     {
         // Create new vector
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
 
         // Start at position 0 and search the whole string
         int pos = 0;
@@ -1806,7 +1806,7 @@ public class RE implements Serializable
     public String[] grep(Object[] search)
     {
         // Create new vector to hold return items
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
 
         // Traverse array of objects
         for (int i = 0; i < search.length; i++)

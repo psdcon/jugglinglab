@@ -40,7 +40,7 @@ public abstract class Notation {
         errorstrings = ResourceBundle.getBundle("com/jonglen7/jugglinglab/resources/ErrorStrings");
     }
 
-    static Hashtable hash = null;
+    static Hashtable<String, Notation> hash = null;
 
     // The built-in notations
     public static final String[] builtinNotations = { "Siteswap" };
@@ -53,7 +53,7 @@ public abstract class Notation {
     // naming convention.
     public static Notation getNotation(String name) throws JuggleExceptionUser, JuggleExceptionInternal {
         if (hash == null)
-            hash = new Hashtable();
+            hash = new Hashtable<String, Notation>();
 
         Notation not = (Notation)hash.get(name.toLowerCase(Locale.US));
         if (not == null) {

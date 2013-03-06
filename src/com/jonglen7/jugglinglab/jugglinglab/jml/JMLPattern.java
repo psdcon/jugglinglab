@@ -80,18 +80,18 @@ public class JMLPattern {
     protected String title;
     protected int numjugglers;
     protected int numpaths;
-    protected Vector props;
+    protected Vector<PropDef> props;
     protected int[] propassignment;
     protected boolean[][] hasVDHandJMLTransition;		// whether pattern has a velocity-defining transition,
                                                    // for each juggler/hand
     protected boolean[] hasVDPathJMLTransition;		// for each path
-    protected Vector symmetries;
+    protected Vector<JMLSymmetry> symmetries;
     protected JMLEvent eventlist;
     protected JMLPosition positionlist;
     protected boolean laidout, valid;
 
-    protected Vector[] pathlinks;		// for each path
-    protected Vector[][] handlinks;		// for each juggler/hand
+    protected Vector<Object>[] pathlinks;		// for each path
+    protected Vector<Object>[][] handlinks;		// for each juggler/hand
     protected Curve[] jugglercurve;		// coordinates for each juggler
     protected Curve[] jugglerangle;		// angles for each juggler
 
@@ -103,8 +103,8 @@ public class JMLPattern {
         positionlist = null;
         pathlinks = null;
         handlinks = null;
-        props = new Vector();
-        symmetries = new Vector();
+        props = new Vector<PropDef>();
+        symmetries = new Vector<JMLSymmetry>();
     }
 
     public JMLPattern(JMLNode root) throws JuggleExceptionUser {
@@ -683,7 +683,7 @@ public class JMLPattern {
 
         for (i = 0; i < getNumberOfPaths(); i++) {
             // build the PathLink list for the ith path
-            pathlinks[i] = new Vector();
+            pathlinks[i] = new Vector<Object>();
             JMLEvent ev = this.eventlist;
             JMLEvent lastev = null;
             JMLTransition lasttr = null;
@@ -751,7 +751,7 @@ done1:
             for (j = 0; j < 2; j++) {
                 int handnum = (j == 0 ? HandLink.LEFT_HAND : HandLink.RIGHT_HAND);
 
-                handlinks[i][j] = new Vector();
+                handlinks[i][j] = new Vector<Object>();
                 JMLEvent ev = this.eventlist;
                 JMLEvent lastev = null;
                 VelocityRef vr = null;

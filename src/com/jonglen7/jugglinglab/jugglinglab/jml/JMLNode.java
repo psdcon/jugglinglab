@@ -33,14 +33,14 @@ public class JMLNode {
     protected String nodeType;		// from taglist in JMLDefs.java
     protected String nodeValue;		// nodes with character content
     protected JMLNode parentNode;
-    protected Vector childNodes;
+    protected Vector<JMLNode> childNodes;
     protected JMLNode previousSibling;
     protected JMLNode nextSibling;
     protected JMLAttributes attributes;
 
     public JMLNode(String nodeType) {
         this.nodeType = nodeType;
-        childNodes = new Vector();
+        childNodes = new Vector<JMLNode>();
         attributes = new JMLAttributes(this);
     }
 

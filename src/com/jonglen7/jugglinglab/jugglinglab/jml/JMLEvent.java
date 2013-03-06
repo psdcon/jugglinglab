@@ -46,7 +46,7 @@ public class JMLEvent {
     protected double t;
     protected int juggler;
     protected int hand;
-    protected Vector transitions = null;
+    protected Vector<JMLTransition> transitions = null;
     protected int[][][] eventarray;
     protected int delay;
     protected int delayunits;
@@ -61,7 +61,7 @@ public class JMLEvent {
         this.master = null;
         this.prev = this.next = null;
         this.calcpos = false;
-        this.transitions = new Vector();
+        this.transitions = new Vector<JMLTransition>();
         this.globaldirty = true;
     }
 

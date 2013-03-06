@@ -93,7 +93,7 @@ public class siteswapGenerator extends Generator {
     protected int ground_state[][];
     protected int ground_state_length;
     protected int n, ht, l, llow, lhigh;
-	protected Vector exclude, include;
+	protected Vector<RE> exclude, include;
 	protected char[] output;
 	protected int outputpos;
     protected int numflag, groundflag;
@@ -154,8 +154,8 @@ public class siteswapGenerator extends Generator {
         jugglers = 1;
         target = null;
 
-		exclude = new Vector();
-		include = new Vector();
+		exclude = new Vector<RE>();
+		include = new Vector<RE>();
 
         for (i = 3; i < args.length; i++) {
             if (args[i].equals("-n"))
