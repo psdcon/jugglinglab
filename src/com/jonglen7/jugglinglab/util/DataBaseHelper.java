@@ -16,11 +16,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper{
 
-	//The Android's default system path of your application database.
-	private static String DB_PATH = "/data/data/com.jonglen7.jugglinglab/databases/";
-
+    private String DB_PATH;
 	private static String DB_NAME = "BDD.db";
-
 	private SQLiteDatabase myDataBase; 
 
 	private final Context myContext;
@@ -33,6 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public DataBaseHelper(Context context) {
 		super(context, DB_NAME, null, 1);
 		this.myContext = context;
+		this.DB_PATH = context.getFilesDir().getPath() + "/";
 	}	
 
 	/**
