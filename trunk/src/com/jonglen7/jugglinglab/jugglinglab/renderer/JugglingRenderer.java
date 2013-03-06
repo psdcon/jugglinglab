@@ -35,10 +35,10 @@ public class JugglingRenderer implements Renderer, Serializable {
 	private SharedPreferences preferences = null;
 	private AnimatorPrefs prefs = null;
 	
-	private Coordinate		overallmax = null;
-    private Coordinate		overallmin = null;
-    
+	private Coordinate overallmax = null;
+    private Coordinate overallmin = null;
     private Coordinate tempc = null;
+	private Coordinate cameraCenter;
 	
 	private double sim_interval_secs = 0.0;
 	private double time = 0.0;
@@ -46,12 +46,11 @@ public class JugglingRenderer implements Renderer, Serializable {
 	private int[]				animpropnum = null, temppropnum = null;
 	private Permutation		invpathperm = null;
 	private int				num_frames;
-	private double			sim_time;
 	private long				real_interval_millis;
 
 	private static final double snapangle = JLMath.toRad(15.0);
     
-	private Coordinate cameraCenter;
+
 	
 	double boundingBoxeMaxSize;
 	double roiHalfHeight;
@@ -69,10 +68,10 @@ public class JugglingRenderer implements Renderer, Serializable {
 	// Romain: Added for rotation
     public float mAngleX;
     public float mAngleY;
-    private final float[] mAccumulatedRotation = new float[16]; /** Store the accumulated rotation. */
-    private final float[] mCurrentRotation = new float[16];    	/** Store the current rotation. */
-    private final float[] mTemporaryMatrix = new float[16];    	/** Store a temporary matrix. */
-    private final float[] mModelMatrix = new float[16];			/** Store the model matrix */
+    public float[] mAccumulatedRotation = new float[16]; /** Store the accumulated rotation. */
+    private float[] mCurrentRotation = new float[16];    	/** Store the current rotation. */
+    private float[] mTemporaryMatrix = new float[16];    	/** Store a temporary matrix. */
+    private float[] mModelMatrix = new float[16];			/** Store the model matrix */
     
     boolean updateView = false;
     private final float ANGLE_EPSILON = 2.5f;
@@ -97,6 +96,7 @@ public class JugglingRenderer implements Renderer, Serializable {
     
     // Fred: Added for manipulation of scene when animation is paused
     public boolean freeze = false;
+    public double freeze_time_begin = 0.0f;
    	
     
 	// Constructors
@@ -464,7 +464,7 @@ public class JugglingRenderer implements Renderer, Serializable {
         // return new Coordinate(Math.min(min.x, min.y), Math.min(min.x, min.y), min.z);
     }
     
-    public double getTime() { return sim_time; };
+    public double getTime() { return this.time; };
 
     public void setTime(double time) {
         /*		while (time < pat.getLoopStartTime())
@@ -472,7 +472,7 @@ public class JugglingRenderer implements Renderer, Serializable {
         while (time > pat.getLoopEndTime())
         time -= (pat.getLoopEndTime() - pat.getLoopStartTime());
         */
-        sim_time = time;
+        this.time = time;
     }
     
     private void setCameraCoordinate()
