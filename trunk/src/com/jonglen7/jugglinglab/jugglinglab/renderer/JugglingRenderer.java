@@ -87,7 +87,9 @@ public class JugglingRenderer implements Renderer, Serializable {
     public float mZoom;
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.2f;
-    public final float ZOOM_INIT = 1.0f;
+    // Quick hack to have a better initial zoom when only one juggler
+    public final float ZOOM_INIT_1 = 1.6f;
+    public final float ZOOM_INIT_2 = 1.0f;
 	
 	// Romain: Added for translation
     public float mTranslateX;
@@ -149,7 +151,7 @@ public class JugglingRenderer implements Renderer, Serializable {
         this.right = this.top;
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
-        this.mZoom = ZOOM_INIT;
+        this.mZoom = (this.pattern.getNumberOfJugglers() == 1)? ZOOM_INIT_1: ZOOM_INIT_2;
         
         /*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
@@ -506,7 +508,7 @@ public class JugglingRenderer implements Renderer, Serializable {
         // 3 axes changes the code a lot)
         mAngleX = 0;
         mAngleY = 0;
-        mZoom = ZOOM_INIT;
+        mZoom = (this.pattern.getNumberOfJugglers() == 1)? ZOOM_INIT_1: ZOOM_INIT_2;
         
 		// Initialize matrices
 		Matrix.setIdentityM(mAccumulatedRotation, 0);
