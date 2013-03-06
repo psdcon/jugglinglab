@@ -40,7 +40,9 @@ import com.jonglen7.jugglinglab.jugglinglab.util.MathVector;
 
 public class Juggler {
 	
-	private float JUGGLER_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f}; 
+	private float JUGGLER_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
+	//private float JUGGLER_BODY_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	
 	
 	// Juggler dimensions, in cm
 	public final static double shoulder_hw = 23.0;	// shoulder half-width (m)
@@ -106,6 +108,10 @@ public class Juggler {
             2, 6,    6, 7,    7, 3,     3, 2,	// Body
             9, 8,    8, 10,   10, 11,   11, 9	// Head
    	};
+    
+
+    //private byte indicesOfBody[] = { 2, 6, 3, 7 }; // Body for GL_TRIANGLE_STRIP
+ 
 	
 	// Buffer from openGL
     private FloatBuffer   mVertexBuffer;
@@ -320,7 +326,7 @@ public class Juggler {
         // must have their byte order set to native order
 
     	gl.glDisable(GL10.GL_BLEND);
-    	gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
+        gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
     	gl.glLineWidth(1.0f);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
@@ -329,6 +335,12 @@ public class Juggler {
         	mVertexBuffer.put(vertices[juggler-1]);
             mVertexBuffer.position(0);
         
+	        // Draw the body
+	        //gl.glColor4f(JUGGLER_BODY_COLOR[0],JUGGLER_BODY_COLOR[1],JUGGLER_BODY_COLOR[2],JUGGLER_BODY_COLOR[3]);
+	        //mIndexBuffer.put(indicesOfBody);
+            //mIndexBuffer.position(0);
+            //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+            
 	        // Draw the lines
 	        if (bNullLeftelbow) {
 	            mIndexBuffer.put(indicesWithoutLeftelbow);
@@ -343,6 +355,11 @@ public class Juggler {
 	            mIndexBuffer.position(0);
 	        	gl.glDrawElements(GL10.GL_LINES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 	        }
+	        
+
+
+
+
         }
     }
 	
