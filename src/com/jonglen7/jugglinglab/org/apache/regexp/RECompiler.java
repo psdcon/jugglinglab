@@ -106,23 +106,23 @@ public class RECompiler
     int[] bracketOpt = null;                            // Additional optional matches
 
     // Lookup table for POSIX character class names
-    static Hashtable hashPOSIX = new Hashtable();
+    static Hashtable<String, Character> hashPOSIX = new Hashtable<String, Character>();
     static
     {
-        hashPOSIX.put("alnum",     new Character(RE.POSIX_CLASS_ALNUM));
-        hashPOSIX.put("alpha",     new Character(RE.POSIX_CLASS_ALPHA));
-        hashPOSIX.put("blank",     new Character(RE.POSIX_CLASS_BLANK));
-        hashPOSIX.put("cntrl",     new Character(RE.POSIX_CLASS_CNTRL));
-        hashPOSIX.put("digit",     new Character(RE.POSIX_CLASS_DIGIT));
-        hashPOSIX.put("graph",     new Character(RE.POSIX_CLASS_GRAPH));
-        hashPOSIX.put("lower",     new Character(RE.POSIX_CLASS_LOWER));
-        hashPOSIX.put("print",     new Character(RE.POSIX_CLASS_PRINT));
-        hashPOSIX.put("punct",     new Character(RE.POSIX_CLASS_PUNCT));
-        hashPOSIX.put("space",     new Character(RE.POSIX_CLASS_SPACE));
-        hashPOSIX.put("upper",     new Character(RE.POSIX_CLASS_UPPER));
-        hashPOSIX.put("xdigit",    new Character(RE.POSIX_CLASS_XDIGIT));
-        hashPOSIX.put("javastart", new Character(RE.POSIX_CLASS_JSTART));
-        hashPOSIX.put("javapart",  new Character(RE.POSIX_CLASS_JPART));
+        hashPOSIX.put("alnum",     Character.valueOf(RE.POSIX_CLASS_ALNUM));
+        hashPOSIX.put("alpha",     Character.valueOf(RE.POSIX_CLASS_ALPHA));
+        hashPOSIX.put("blank",     Character.valueOf(RE.POSIX_CLASS_BLANK));
+        hashPOSIX.put("cntrl",     Character.valueOf(RE.POSIX_CLASS_CNTRL));
+        hashPOSIX.put("digit",     Character.valueOf(RE.POSIX_CLASS_DIGIT));
+        hashPOSIX.put("graph",     Character.valueOf(RE.POSIX_CLASS_GRAPH));
+        hashPOSIX.put("lower",     Character.valueOf(RE.POSIX_CLASS_LOWER));
+        hashPOSIX.put("print",     Character.valueOf(RE.POSIX_CLASS_PRINT));
+        hashPOSIX.put("punct",     Character.valueOf(RE.POSIX_CLASS_PUNCT));
+        hashPOSIX.put("space",     Character.valueOf(RE.POSIX_CLASS_SPACE));
+        hashPOSIX.put("upper",     Character.valueOf(RE.POSIX_CLASS_UPPER));
+        hashPOSIX.put("xdigit",    Character.valueOf(RE.POSIX_CLASS_XDIGIT));
+        hashPOSIX.put("javastart", Character.valueOf(RE.POSIX_CLASS_JSTART));
+        hashPOSIX.put("javapart",  Character.valueOf(RE.POSIX_CLASS_JPART));
     }
 
     /**
