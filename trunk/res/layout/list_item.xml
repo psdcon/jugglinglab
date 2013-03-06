@@ -19,7 +19,8 @@
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:src="@android:drawable/ic_menu_more"/>
+        android:src="@android:drawable/ic_menu_more"
+        android:contentDescription="@string/quickactions"/>
  
 	<TextView
 		android:id="@+id/list_text"
