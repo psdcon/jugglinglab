@@ -74,7 +74,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 
     @Override 
     public boolean onTouchEvent(MotionEvent e) 
-    {
+    {  	
     	// Let the ScaleGestureDetector inspect all events.
         mScaleDetector.onTouchEvent(e);
 
@@ -100,11 +100,16 @@ public class TouchSurfaceView extends GLSurfaceView {
 	        			deltaX = x - mPrevious.x ;
 	        			deltaY = y - mPrevious.y ;
 	        			
-	                    mRenderer.mAngleX += deltaX * TOUCH_SCALE_FACTOR;
-	                    mRenderer.mAngleY += deltaY * TOUCH_SCALE_FACTOR;
-	                    requestRender();
-	                    
-	            		motion = true;
+	        			float delta = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+	        			
+	        			if (delta > 10f)
+	        			{
+		                    mRenderer.mAngleX += deltaX * TOUCH_SCALE_FACTOR;
+		                    mRenderer.mAngleY += deltaY * TOUCH_SCALE_FACTOR;
+		                    requestRender();
+		                    
+		            		motion = true;
+	        			}
 	        		}
         	    }
         	    
