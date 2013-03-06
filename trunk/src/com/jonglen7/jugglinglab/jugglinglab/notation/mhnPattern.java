@@ -67,7 +67,7 @@ public class mhnPattern {
     protected mhnBody bodies = null;
     protected int max_throw;
     protected int indexes;
-    protected Vector symmetry = null;
+    protected Vector<mhnSymmetry> symmetry = null;
 
     public static final int RIGHT_HAND = 0;
     public static final int LEFT_HAND = 1;

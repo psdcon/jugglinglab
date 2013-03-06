@@ -208,7 +208,7 @@ public class siteswapPattern extends mhnPattern {
     public void parsePattern() throws JuggleExceptionUser, JuggleExceptionInternal {
         // first clear out the internal variables
         th = null;
-        symmetry = new Vector();
+        symmetry = new Vector<mhnSymmetry>();
 
 		SiteswapTreeItem tree = null;   // should probably be class variable
 		

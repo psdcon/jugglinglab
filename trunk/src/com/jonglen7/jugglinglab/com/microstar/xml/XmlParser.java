@@ -331,9 +331,9 @@ public class XmlParser {
   /**
     * Hash table of attribute types.
     */
-  private static Hashtable attributeTypeHash;
+  private static Hashtable<String, Integer> attributeTypeHash;
   static {
-    attributeTypeHash = new Hashtable();
+    attributeTypeHash = new Hashtable<String, Integer>();
     attributeTypeHash.put("CDATA", Integer.valueOf(ATTRIBUTE_CDATA));
     attributeTypeHash.put("ID", Integer.valueOf(ATTRIBUTE_ID));
     attributeTypeHash.put("IDREF", Integer.valueOf(ATTRIBUTE_IDREF));
@@ -916,7 +916,7 @@ public class XmlParser {
     unread(c);
 
 				// Supply any defaulted attributes.
-    Enumeration atts = declaredAttributes(gi);
+    Enumeration<String> atts = declaredAttributes(gi);
     if (atts != null) {
       String aname;
     loop: while (atts.hasMoreElements()) {
@@ -2466,7 +2466,7 @@ public class XmlParser {
     * @see #getElementContentType
     * @see #getElementContentModel
     */
-  public Enumeration declaredElements ()
+  public Enumeration<String> declaredElements ()
   {
     return elementInfo.keys();
   }
@@ -2520,7 +2520,7 @@ public class XmlParser {
     *  attribute hash table
     */
   void setElement (String name, int contentType,
-		   String contentModel, Hashtable attributes)
+		   String contentModel, Hashtable<String, Object[]> attributes)
     throws java.lang.Exception
   {
     Object element[];
@@ -2564,13 +2564,13 @@ public class XmlParser {
     * Look up the attribute hash table for an element.
     * The hash table is the second item in the element array.
     */
-  Hashtable getElementAttributes (String name)
+  Hashtable<String, Object[]> getElementAttributes (String name)
   {
     Object element[] = (Object[])elementInfo.get(name);
     if (element == null) {
       return null;
     } else {
-      return (Hashtable)element[2];
+      return (Hashtable<String, Object[]>)element[2];
     }
   }
 
@@ -2592,9 +2592,9 @@ public class XmlParser {
     * @see #getAttributeDefaultValue
     * @see #getAttributeExpandedValue
     */
-  public Enumeration declaredAttributes (String elname)
+  public Enumeration<String> declaredAttributes (String elname)
   {
-    Hashtable attlist = getElementAttributes(elname);
+    Hashtable<String, Object[]> attlist = getElementAttributes(elname);
 
     if (attlist == null) {
       return null;
@@ -2726,13 +2726,13 @@ public class XmlParser {
 		     String value, int valueType)
     throws java.lang.Exception
   {
-    Hashtable attlist;
+    Hashtable<String, Object[]> attlist;
     Object attribute[];
 
 				// Create a new hashtable if necessary.
     attlist = getElementAttributes(elName);
     if (attlist == null) {
-      attlist = new Hashtable();
+      attlist = new Hashtable<String, Object[]>();
     }
 
 				// Check that the attribute doesn't
@@ -2761,7 +2761,7 @@ public class XmlParser {
     */
   Object[] getAttribute (String elName, String name)
   {
-    Hashtable attlist;
+    Hashtable<String, Object[]> attlist;
     Object attribute[];
 
     attlist = getElementAttributes(elName);
@@ -2789,7 +2789,7 @@ public class XmlParser {
     * @see #getEntityValue
     * @see #getEntityNotationName
     */
-  public Enumeration declaredEntities ()
+  public Enumeration<String> declaredEntities ()
   {
     return entityInfo.keys();
   }
@@ -2952,7 +2952,7 @@ public class XmlParser {
     * @see #getNotationPublicId
     * @see #getNotationSystemId
     */
-  public Enumeration declaredNotations ()
+  public Enumeration<String> declaredNotations ()
   {
     return notationInfo.keys();
   }
@@ -3541,7 +3541,7 @@ public class XmlParser {
 
 				// Check for entity recursion.
     if (ename != null) {
-      Enumeration entities = entityStack.elements();
+      Enumeration<String> entities = entityStack.elements();
       while (entities.hasMoreElements()) {
 	String e = (String)entities.nextElement();
 	if (e == ename) {
@@ -4227,9 +4227,9 @@ public class XmlParser {
     nameBuffer = new char[NAME_BUFFER_INITIAL];
 
 				// Set up the DTD hash tables
-    elementInfo = new Hashtable();
-    entityInfo = new Hashtable();
-    notationInfo = new Hashtable();
+    elementInfo = new Hashtable<String, Object[]>();
+    entityInfo = new Hashtable<String, Object[]>();
+    notationInfo = new Hashtable<String, Object[]>();
 
 				// Set up the variables for the current
 				// element context.
@@ -4238,8 +4238,8 @@ public class XmlParser {
 
 				// Set up the input variables
     sourceType = INPUT_NONE;
-    inputStack = new Stack();
-    entityStack = new Stack();
+    inputStack = new Stack<Object[]>();
+    entityStack = new Stack<String>();
     externalEntity = null;
     tagAttributePos = 0;
     tagAttributes = new String[100];
@@ -4284,7 +4284,7 @@ public class XmlParser {
   private int line;		// current line number
   private int column;		// current column number
   private int sourceType;	// type of input source
-  private Stack inputStack;	// stack of input soruces
+  private Stack<Object[]> inputStack;	// stack of input soruces
   private URLConnection externalEntity;	// current external entity
   private int encoding;		// current character encoding.
   private int currentByteCount;	// how many bytes read from current source.
@@ -4328,9 +4328,9 @@ public class XmlParser {
   //
   // Hashtables for DTD information on elements, entities, and notations.
   //
-  private Hashtable elementInfo;
-  private Hashtable entityInfo;
-  private Hashtable notationInfo;
+  private Hashtable<String, Object[]> elementInfo;
+  private Hashtable<String, Object[]> entityInfo;
+  private Hashtable<String, Object[]> notationInfo;
 
 
   //
@@ -4354,7 +4354,7 @@ public class XmlParser {
   //
   // Stack of entity names, to help detect recursion.
   //
-  private Stack entityStack;
+  private Stack<String> entityStack;
 
   //
   // Are we in a context where PEs are allowed?

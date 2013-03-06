@@ -70,10 +70,10 @@ public class SAXDriver
   private ErrorHandler errorHandler = base;
 
   private String elementName = null;
-  private Stack entityStack = new Stack();
+  private Stack<String> entityStack = new Stack<String>();
 
-  private Vector attributeNames = new Vector();
-  private Vector attributeValues = new Vector();
+  private Vector<String> attributeNames = new Vector<String>();
+  private Vector<String> attributeValues = new Vector<String>();
 
 
 
@@ -456,8 +456,8 @@ public class SAXDriver
     String publicId;
     String systemId;
 
-    Enumeration notationNames = parser.declaredNotations();
-    Enumeration entityNames = parser.declaredEntities();
+    Enumeration<?> notationNames = parser.declaredNotations();
+    Enumeration<?> entityNames = parser.declaredEntities();
 
 				// First, report all notations.
     while (notationNames.hasMoreElements()) {
