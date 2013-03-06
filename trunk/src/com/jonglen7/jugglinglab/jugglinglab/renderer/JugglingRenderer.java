@@ -87,8 +87,8 @@ public class JugglingRenderer implements Renderer, Serializable {
     public final float ZOOM_MIN = 0.0f;
     public final float ZOOM_STEP = 0.2f;
     // Quick hack to have a better initial zoom when only one juggler
-    public final float ZOOM_INIT_1 = 1.0f;
-    public final float ZOOM_INIT_2 = 1.0f;
+    public final float ZOOM_INIT_1 = 1.6f;
+    public final float ZOOM_INIT_2 = 0.8f;
 	
 	// Romain: Added for translation
     public float mTranslateX;
@@ -286,7 +286,6 @@ public class JugglingRenderer implements Renderer, Serializable {
 		// Sets the current view port to the new size.
 		gl.glViewport(0, 0, width, height);
 		this.aspect = (float)width / (float)height;
-		this.mZoom *= this.aspect;
 		
 		// Set the Projection
 		gl.glMatrixMode(GL10.GL_PROJECTION);
