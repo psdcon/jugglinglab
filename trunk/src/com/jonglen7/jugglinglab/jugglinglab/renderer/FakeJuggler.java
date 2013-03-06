@@ -81,12 +81,12 @@ public class FakeJuggler {
     // Drawing function
     public void draw(GL10 gl)
     {
-    	gl.glDisable(gl.GL_BLEND);
+    	gl.glDisable(GL10.GL_BLEND);
     	gl.glColor4f(1.0f,0.0f,0.0f,1.0f);
     	gl.glLineWidth(3.0f);
-        gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
-        gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
-        gl.glDrawElements(gl.GL_LINES, indices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        gl.glDrawElements(GL10.GL_LINES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 
     }
 }
