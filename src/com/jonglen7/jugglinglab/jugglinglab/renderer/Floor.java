@@ -106,15 +106,15 @@ public class Floor {
     	mVertexBuffer.put(floorVertices);
         mVertexBuffer.position(0);
         
-    	gl.glDisable(gl.GL_BLEND);
+    	gl.glDisable(GL10.GL_BLEND);
     	gl.glColor4f(FLOOR_COLOR[0],FLOOR_COLOR[1],FLOOR_COLOR[2],FLOOR_COLOR[3]);
     	gl.glLineWidth(1.0f);
-        gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
-        gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
               
         mIndexBuffer.put(floorIndices);
         mIndexBuffer.position(0);
-    	gl.glDrawElements(gl.GL_LINES, floorIndices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+    	gl.glDrawElements(GL10.GL_LINES, floorIndices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 
 	}
 	

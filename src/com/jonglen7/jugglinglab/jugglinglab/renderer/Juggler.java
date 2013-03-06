@@ -319,11 +319,11 @@ public class Juggler {
         // Buffers with multi-byte datatypes (e.g., short, int, float)
         // must have their byte order set to native order
 
-    	gl.glDisable(gl.GL_BLEND);
+    	gl.glDisable(GL10.GL_BLEND);
     	gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
     	gl.glLineWidth(1.0f);
-        gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
-        gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         
         for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
         	mVertexBuffer.put(vertices[juggler-1]);
@@ -333,15 +333,15 @@ public class Juggler {
 	        if (bNullLeftelbow) {
 	            mIndexBuffer.put(indicesWithoutLeftelbow);
 	            mIndexBuffer.position(0);
-	        	gl.glDrawElements(gl.GL_LINES, indicesWithoutLeftelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        	gl.glDrawElements(GL10.GL_LINES, indicesWithoutLeftelbow.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 	        } else if (bNullRightelbow){
 	            mIndexBuffer.put(indicesWithoutRightelbow);
 	            mIndexBuffer.position(0);
-	        	gl.glDrawElements(gl.GL_LINES, indicesWithoutRightelbow.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        	gl.glDrawElements(GL10.GL_LINES, indicesWithoutRightelbow.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 	        } else {
 	            mIndexBuffer.put(indices);
 	            mIndexBuffer.position(0);
-	        	gl.glDrawElements(gl.GL_LINES, indices.length, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        	gl.glDrawElements(GL10.GL_LINES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 	        }
         }
     }

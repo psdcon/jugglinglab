@@ -305,11 +305,11 @@ public class cubeProp extends Prop {
         mVertexBuffer.put(vertices);
         mVertexBuffer.position(0);
         
-        gl.glFrontFace(gl.GL_CW);
+        gl.glFrontFace(GL10.GL_CW);
         gl.glColor4f(((float)Color.red(color))/255.0f, ((float)Color.green(color))/255.0f, ((float)Color.blue(color))/255.0f, 1.0f);
-        gl.glVertexPointer(3, gl.GL_FLOAT, 0, mVertexBuffer);
-        gl.glEnableClientState(gl.GL_VERTEX_ARRAY);
-        gl.glDrawElements(gl.GL_TRIANGLES, 36, gl.GL_UNSIGNED_BYTE, mIndexBuffer);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 
     }
 }
