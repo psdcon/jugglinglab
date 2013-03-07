@@ -46,7 +46,8 @@
         android:textStyle="bold"
         android:paddingLeft="3dp"
         android:layout_toRightOf="@id/about_version"
-        android:layout_below="@id/about_name" />
+        android:layout_below="@id/about_name"
+        android:textIsSelectable="true" />
 	    
 	<TextView
 	    android:id="@+id/about_jugglinglab"
