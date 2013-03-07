@@ -22,7 +22,7 @@ public class Floor {
 	 * Attributes
 	 * 
 	 */
-    private final float FLOOR_POSITION = 50.0f;
+    private final float FLOOR_POSITION = -3.0f; // For bouncing balls
 
     private float FLOOR_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f}; 
     private FloatBuffer   mVertexBuffer;
