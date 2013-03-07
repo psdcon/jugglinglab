@@ -74,13 +74,13 @@ public class JugglingRenderer implements Renderer, Serializable {
     private float[] mModelMatrix = new float[16];			/** Store the model matrix */
     
     boolean updateView = false;
-    private final float ANGLE_EPSILON = 2.5f;
-    private final float ANGLE_MAX = 360;
-    private final float[] ANGLE_STICKY = new float[] {0 * ANGLE_MAX / 4,
-                                                      1 * ANGLE_MAX / 4,
-                                                      2 * ANGLE_MAX / 4,
-                                                      3 * ANGLE_MAX / 4,
-                                                      4 * ANGLE_MAX / 4};
+//    private final float ANGLE_EPSILON = 2.5f;
+//    private final float ANGLE_MAX = 360;
+//    private final float[] ANGLE_STICKY = new float[] {0 * ANGLE_MAX / 4,
+//                                                      1 * ANGLE_MAX / 4,
+//                                                      2 * ANGLE_MAX / 4,
+//                                                      3 * ANGLE_MAX / 4,
+//                                                      4 * ANGLE_MAX / 4};
 	
     // Romain: Added for zoom
     public float mZoom;
@@ -204,14 +204,14 @@ public class JugglingRenderer implements Renderer, Serializable {
 		gl.glPushMatrix();
 		
 		// Sticky angles (to keep things easier, the angles are kept between 0 and 360)
-        mAngleX = (mAngleX + ANGLE_MAX) % ANGLE_MAX;
-        mAngleY = (mAngleY + ANGLE_MAX) % ANGLE_MAX;
-		for (float angle: ANGLE_STICKY) {
-		    if (angle - ANGLE_EPSILON <= mAngleX && mAngleX <= angle + ANGLE_EPSILON)
-		        mAngleX = angle;
-            if (angle - ANGLE_EPSILON <= mAngleY && mAngleY <= angle + ANGLE_EPSILON)
-                mAngleY = angle;
-		}
+//        mAngleX = (mAngleX + ANGLE_MAX) % ANGLE_MAX;
+//        mAngleY = (mAngleY + ANGLE_MAX) % ANGLE_MAX;
+//		for (float angle: ANGLE_STICKY) {
+//		    if (angle - ANGLE_EPSILON <= mAngleX && mAngleX <= angle + ANGLE_EPSILON)
+//		        mAngleX = angle;
+//            if (angle - ANGLE_EPSILON <= mAngleY && mAngleY <= angle + ANGLE_EPSILON)
+//                mAngleY = angle;
+//		}
 		
 		// Set a matrix that contains the current rotation.
 		Matrix.setIdentityM(mModelMatrix, 0);
