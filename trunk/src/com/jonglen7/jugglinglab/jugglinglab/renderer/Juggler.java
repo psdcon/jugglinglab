@@ -40,8 +40,12 @@ import com.jonglen7.jugglinglab.jugglinglab.util.MathVector;
 
 public class Juggler {
 	
-	private float JUGGLER_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
-	private float JUGGLER_BODY_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	private float JUGGLER_EDGES_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
+	private float JUGGLER_LEFT_ARM_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
+	private float JUGGLER_RIGHT_ARM_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
+	private float JUGGLER_INNER_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	private float JUGGLER_WIDTH = 1.0f;
+	private float JUGGLER_ARM_WIDTH = 1.0f;
 	
 	
 	// Juggler dimensions, in cm
@@ -87,33 +91,27 @@ public class Juggler {
 	private boolean bNullLeftelbow = false;
 	private boolean bNullRightelbow = false;
 	
-	
 	// Array for openGL
 	private float vertices[][];
-    private byte indices[] = {
-            0, 4,    1, 5,						// Left and Right Hand
-            4, 2,    5, 3,						// Left and Right Arm
-            2, 6,    6, 7,    7, 3,     3, 2,	// Body
-            9, 8,    8, 10,   10, 11,   11, 9	// Head
-   	};
-    private byte indicesWithoutLeftelbow[] = {
-            0, 2,    							// Left Arm
-            1, 5,    5, 3,						// Right Arm
-            2, 6,    6, 7,    7, 3,     3, 2,	// Body
-            9, 8,    8, 10,   10, 11,   11, 9	// Head
-   	};
-    private byte indicesWithoutRightelbow[] = {
-            0, 4,    4, 2,						// Left Arm
-            1, 5,								// Right Arm
+	
+	// Body and Head
+    private byte indicesOfBodyAndHead[] = {
             2, 6,    6, 7,    7, 3,     3, 2,	// Body
             9, 8,    8, 10,   10, 11,   11, 9	// Head
    	};
     
-
-    private byte indicesOfBody[] = { 2, 6, 3, 7 }; // Body for GL_TRIANGLE_STRIP
-    private byte indicesOfHead[] = { 8, 9, 10, 11 }; // Head for GL_TRIANGLE_STRIP
+    // Inner Body and Inner Head
+    private byte indicesOfInnerBody[] = { 2, 6, 3, 7 }; 		// Body for GL_TRIANGLE_STRIP
+    private byte indicesOfInnerHead[] = { 8, 9, 10, 11 }; 		// Head for GL_TRIANGLE_STRIP
+    
+    // Left Arm
+    private byte indicesOfLeftArm[] = {0, 4, 4, 2,};			// Left Arm and Hand
+    private byte indicesOfLeftArmWithoutLeftElbow[] = {0, 2};	// Left Arm and Hand Without Elbow
+    
+    // Right Arm
+    private byte indicesOfRightArm[] = {1, 5, 5, 3,};			// Right Arm and Hand
+    private byte indicesOfRightArmWithoutRightElbow[] = {1, 3};	// Right Arm and Han Without Elbow
  
-	
 	// Buffer from openGL
     private FloatBuffer   mVertexBuffer;
     private ByteBuffer  mIndexBuffer;
@@ -137,8 +135,8 @@ public class Juggler {
         vbb.order(ByteOrder.nativeOrder());
         mVertexBuffer = vbb.asFloatBuffer();
         
-    	mIndexBuffer = ByteBuffer.allocateDirect(indices.length);
-        mIndexBuffer.put(indices);
+    	mIndexBuffer = ByteBuffer.allocateDirect(indicesOfBodyAndHead.length);
+        mIndexBuffer.put(indicesOfBodyAndHead);
         mIndexBuffer.position(0);
     	
     }
@@ -327,7 +325,6 @@ public class Juggler {
         // must have their byte order set to native order
 
     	gl.glDisable(GL10.GL_BLEND);
-        gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
     	gl.glLineWidth(1.0f);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
@@ -336,45 +333,71 @@ public class Juggler {
         	mVertexBuffer.put(vertices[juggler-1]);
             mVertexBuffer.position(0);
 
-            // To avoid issues with the depth buffer
-            // Solution found here: http://profs.sci.univr.it/~colombar/html_openGL_tutorial/en/06depth_014.html
+            // To avoid issues with the depth buffer (cf. http://profs.sci.univr.it/~colombar/html_openGL_tutorial/en/06depth_014.html)
             gl.glPolygonOffset(1.0f, 1.0f);
             gl.glEnable(GL10.GL_POLYGON_OFFSET_FILL);
 
-            // Draw the body
-	        gl.glColor4f(JUGGLER_BODY_COLOR[0],JUGGLER_BODY_COLOR[1],JUGGLER_BODY_COLOR[2],JUGGLER_BODY_COLOR[3]);
-	        mIndexBuffer.put(indicesOfBody);
+            // Set inner parts color
+            gl.glColor4f(JUGGLER_INNER_COLOR[0],JUGGLER_INNER_COLOR[1],JUGGLER_INNER_COLOR[2],JUGGLER_INNER_COLOR[3]);
+            
+            // Draw the inner body
+	        mIndexBuffer.put(indicesOfInnerBody);
             mIndexBuffer.position(0);
-            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfInnerBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
         
-            // Draw the head
-            gl.glColor4f(JUGGLER_BODY_COLOR[0],JUGGLER_BODY_COLOR[1],JUGGLER_BODY_COLOR[2],JUGGLER_BODY_COLOR[3]);
-            mIndexBuffer.put(indicesOfHead);
+            // Draw the inner head
+            mIndexBuffer.put(indicesOfInnerHead);
             mIndexBuffer.position(0);
-            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfInnerHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 
+            // Disable fill flag
             gl.glDisable(GL10.GL_POLYGON_OFFSET_FILL);
+            
+        	// Set juggler width
+        	gl.glLineWidth(JUGGLER_WIDTH);
 
-	        // Draw the lines
-            gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
-	        if (bNullLeftelbow) {
-	            mIndexBuffer.put(indicesWithoutLeftelbow);
+            // Set juggler edges color
+            gl.glColor4f(JUGGLER_EDGES_COLOR[0],JUGGLER_EDGES_COLOR[1],JUGGLER_EDGES_COLOR[2],JUGGLER_EDGES_COLOR[3]);
+            
+	        // Draw the head and body edges
+            mIndexBuffer.put(indicesOfBodyAndHead);
+            mIndexBuffer.position(0);
+        	gl.glDrawElements(GL10.GL_LINES, indicesOfBodyAndHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+            
+        	// Set arms width
+        	gl.glLineWidth(JUGGLER_ARM_WIDTH);
+        	
+            // Set left arm color
+        	gl.glColor4f(JUGGLER_LEFT_ARM_COLOR[0],JUGGLER_LEFT_ARM_COLOR[1],JUGGLER_LEFT_ARM_COLOR[2],JUGGLER_LEFT_ARM_COLOR[3]);
+        	
+        	// Draw left arm and hand
+        	if (bNullLeftelbow) {
+	            mIndexBuffer.put(indicesOfLeftArmWithoutLeftElbow);
 	            mIndexBuffer.position(0);
-	        	gl.glDrawElements(GL10.GL_LINES, indicesWithoutLeftelbow.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
-	        } else if (bNullRightelbow){
-	            mIndexBuffer.put(indicesWithoutRightelbow);
-	            mIndexBuffer.position(0);
-	        	gl.glDrawElements(GL10.GL_LINES, indicesWithoutRightelbow.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
-	        } else {
-	            mIndexBuffer.put(indices);
-	            mIndexBuffer.position(0);
-	        	gl.glDrawElements(GL10.GL_LINES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        	gl.glDrawElements(GL10.GL_LINES, indicesOfLeftArmWithoutLeftElbow.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 	        }
-	        
-
-
-
-
+        	else
+        	{
+        		mIndexBuffer.put(indicesOfLeftArm);
+	            mIndexBuffer.position(0);
+	        	gl.glDrawElements(GL10.GL_LINES, indicesOfLeftArm.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+        	}
+        	
+        	// Set right arm color
+        	gl.glColor4f(JUGGLER_RIGHT_ARM_COLOR[0],JUGGLER_RIGHT_ARM_COLOR[1],JUGGLER_RIGHT_ARM_COLOR[2],JUGGLER_RIGHT_ARM_COLOR[3]);
+        	
+        	// Draw right arm and hand
+        	if (bNullRightelbow) {
+	            mIndexBuffer.put(indicesOfRightArmWithoutRightElbow);
+	            mIndexBuffer.position(0);
+	        	gl.glDrawElements(GL10.GL_LINES, indicesOfRightArmWithoutRightElbow.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+	        }
+        	else
+        	{
+        		mIndexBuffer.put(indicesOfRightArm);
+	            mIndexBuffer.position(0);
+	        	gl.glDrawElements(GL10.GL_LINES, indicesOfRightArm.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+        	}
         }
     }
 	
