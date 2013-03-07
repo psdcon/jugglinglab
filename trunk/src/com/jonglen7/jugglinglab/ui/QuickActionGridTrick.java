@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -39,9 +40,9 @@ public class QuickActionGridTrick extends QuickActionGrid {
     MyQuickAction qa_info;
     MyQuickAction qa_delete;
 
-	public QuickActionGridTrick(Activity activity) {
-		super(activity);
-		this.activity = activity;
+	public QuickActionGridTrick(Context context) {
+		super(context);
+		this.activity = (Activity) context;
 
 		qa_star = new MyQuickAction(activity, R.drawable.gd_action_bar_star, R.string.gd_star);
 		qa_edit = new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit);

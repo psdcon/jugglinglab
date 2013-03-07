@@ -4,6 +4,7 @@ import greendroid.widget.QuickActionGrid;
 import greendroid.widget.QuickActionWidget;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +20,10 @@ public class QuickActionGridCollection extends QuickActionGrid {
 	Collection collection;
 	Activity activity;
 
-	public QuickActionGridCollection(Activity activity) {
-		super(activity);
-		this.activity = activity;
+	public QuickActionGridCollection(Context context) {
+        super(context);
+        this.activity = (Activity) context;
+
         this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit));
         this.addQuickAction(new MyQuickAction(activity, android.R.drawable.ic_delete, R.string.quickactions_delete));
         this.setOnQuickActionClickListener(mActionListener);
