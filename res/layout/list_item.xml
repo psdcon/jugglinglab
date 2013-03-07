@@ -30,6 +30,6 @@
         android:layout_toLeftOf="@id/i_quick_action"
         android:layout_toRightOf="@id/btn_star"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textIsSelectable="true"/>
+        android:textIsSelectable="false"/>
 
 </RelativeLayout>

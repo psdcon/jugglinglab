@@ -22,6 +22,6 @@
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_toLeftOf="@id/i_quick_action"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textIsSelectable="true"/>
+        android:textIsSelectable="false"/>
 
 </RelativeLayout>
