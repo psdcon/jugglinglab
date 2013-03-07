@@ -107,6 +107,9 @@ public class QuickActionGridTrick extends QuickActionGrid {
         			else checkedItems[i] = false;
         		}
         		
+        		// TODO Romain (QuickActionGridTrick): Should reload the activity when done
+        		// Don't do it in the onClick function, otherwise it will reload the activity every time the user checks a box
+        		// Possible solution: Add a button to validate the change (same as case EDIT)
         		builder.setMultiChoiceItems(collections_display, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which, boolean isChecked) {

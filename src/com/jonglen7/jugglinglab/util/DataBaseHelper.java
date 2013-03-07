@@ -30,7 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public DataBaseHelper(Context context) {
 		super(context, DB_NAME, null, 1);
 		this.myContext = context;
-		this.DB_PATH = context.getFilesDir().getPath() + "/";
+        this.DB_PATH = context.getDatabasePath(DB_NAME).getPath();
 	}	
 
 	/**
@@ -59,8 +59,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	private boolean checkDataBase(){
 		SQLiteDatabase checkDB = null;
 		try{
-			String myPath = DB_PATH + DB_NAME;
-			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+			checkDB = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
 		}catch(SQLiteException e){
 			//database does't exist yet.
 		}
@@ -81,11 +80,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		//Open your local db as the input stream
 		InputStream myInput = myContext.getAssets().open(DB_NAME);
 
-		// Path to the just created empty db
-		String outFileName = DB_PATH + DB_NAME;
-
 		//Open the empty db as the output stream
-		OutputStream myOutput = new FileOutputStream(outFileName);
+		OutputStream myOutput = new FileOutputStream(DB_PATH);
 
 		//transfer bytes from the inputfile to the outputfile
 		byte[] buffer = new byte[1024];
@@ -102,8 +98,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 	public void openDataBase() throws SQLException{
 		//Open the database
-		String myPath = DB_PATH + DB_NAME;
-		myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+		myDataBase = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
 	}
 
 	@Override
