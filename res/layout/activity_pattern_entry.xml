@@ -74,7 +74,8 @@
                     android:max="18"
                     android:progress="12"/>
                 <TextView
-                    android:id="@+id/pattern_entry_txt_dwell_beats_progress"/>
+                    android:id="@+id/pattern_entry_txt_dwell_beats_progress"
+                    android:textIsSelectable="true"/>
             </TableRow>
     
             <!-- Beats per second -->
@@ -87,7 +88,8 @@
                     android:max="9"
                     android:progress="2"/>
                 <TextView
-                    android:id="@+id/pattern_entry_txt_beats_per_second_progress"/>
+                    android:id="@+id/pattern_entry_txt_beats_per_second_progress"
+                    android:textIsSelectable="true"/>
             </TableRow>
         
             <!-- Body movement -->
