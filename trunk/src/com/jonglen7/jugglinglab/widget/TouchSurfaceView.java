@@ -22,6 +22,13 @@ public class TouchSurfaceView extends GLSurfaceView {
 	/** Attributes **/
     private final float TOUCH_SCALE_FACTOR = 180.0f / 640;
     private final float TRACKBALL_SCALE_FACTOR = 36.0f;
+    
+    // With a too small value, hitting the screen to pause/resume will only work
+    // if the finger doesn't move. With a too big value, sliding your finger on
+    // the screen to rotate the animation will only work if it's going fast
+    // enough, inducing a jerky rotation when the speed keeps changing from too
+    // slow to fast enough.
+    private final float TOUCH_DIST_EPSILON = 2f;
    
     private JugglingRenderer mRenderer;
 	private PointF mPrevious = new PointF();
@@ -100,9 +107,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 	        			deltaX = x - mPrevious.x ;
 	        			deltaY = y - mPrevious.y ;
 	        			
-	        			float delta = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-	        			
-	        			if (delta > 10f)
+	        			if (Math.sqrt(deltaX * deltaX + deltaY * deltaY) > TOUCH_DIST_EPSILON)
 	        			{
 		                    mRenderer.mAngleX += deltaX * TOUCH_SCALE_FACTOR;
 		                    mRenderer.mAngleY += deltaY * TOUCH_SCALE_FACTOR;
