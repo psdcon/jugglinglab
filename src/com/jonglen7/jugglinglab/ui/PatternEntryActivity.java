@@ -183,7 +183,7 @@ public class PatternEntryActivity extends BaseDisplayModeActivity {
      * @param v The View
      */
     public void onJuggleClick(View v) {
-		String display = edit_pattern.getText().toString().toLowerCase(Locale.US);
+		String display = edit_pattern.getText().toString();
 		
     	StringBuffer text = new StringBuffer(256);
     	text.append("pattern=" + display);
