@@ -41,7 +41,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.MathVector;
 public class Juggler {
 	
 	private float JUGGLER_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
-	//private float JUGGLER_BODY_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	private float JUGGLER_BODY_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f};
 	
 	
 	// Juggler dimensions, in cm
@@ -110,7 +110,8 @@ public class Juggler {
    	};
     
 
-    //private byte indicesOfBody[] = { 2, 6, 3, 7 }; // Body for GL_TRIANGLE_STRIP
+    private byte indicesOfBody[] = { 2, 6, 3, 7 }; // Body for GL_TRIANGLE_STRIP
+    private byte indicesOfHead[] = { 8, 9, 10, 11 }; // Head for GL_TRIANGLE_STRIP
  
 	
 	// Buffer from openGL
@@ -334,14 +335,28 @@ public class Juggler {
         for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
         	mVertexBuffer.put(vertices[juggler-1]);
             mVertexBuffer.position(0);
+
+            // To avoid issues with the depth buffer
+            // Solution found here: http://profs.sci.univr.it/~colombar/html_openGL_tutorial/en/06depth_014.html
+            gl.glPolygonOffset(1.0f, 1.0f);
+            gl.glEnable(GL10.GL_POLYGON_OFFSET_FILL);
+
+            // Draw the body
+	        gl.glColor4f(JUGGLER_BODY_COLOR[0],JUGGLER_BODY_COLOR[1],JUGGLER_BODY_COLOR[2],JUGGLER_BODY_COLOR[3]);
+	        mIndexBuffer.put(indicesOfBody);
+            mIndexBuffer.position(0);
+            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
         
-	        // Draw the body
-	        //gl.glColor4f(JUGGLER_BODY_COLOR[0],JUGGLER_BODY_COLOR[1],JUGGLER_BODY_COLOR[2],JUGGLER_BODY_COLOR[3]);
-	        //mIndexBuffer.put(indicesOfBody);
-            //mIndexBuffer.position(0);
-            //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
-            
+            // Draw the head
+            gl.glColor4f(JUGGLER_BODY_COLOR[0],JUGGLER_BODY_COLOR[1],JUGGLER_BODY_COLOR[2],JUGGLER_BODY_COLOR[3]);
+            mIndexBuffer.put(indicesOfHead);
+            mIndexBuffer.position(0);
+            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+
+            gl.glDisable(GL10.GL_POLYGON_OFFSET_FILL);
+
 	        // Draw the lines
+            gl.glColor4f(JUGGLER_COLOR[0],JUGGLER_COLOR[1],JUGGLER_COLOR[2],JUGGLER_COLOR[3]);
 	        if (bNullLeftelbow) {
 	            mIndexBuffer.put(indicesWithoutLeftelbow);
 	            mIndexBuffer.position(0);
