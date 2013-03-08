@@ -139,6 +139,8 @@ public class JugglingRenderer implements Renderer, Serializable {
         syncToPattern();
         setCameraCoordinate();
 
+        // Set zoom
+        this.mZoom = (this.pattern.getNumberOfJugglers() == 1)? ZOOM_INIT_1: ZOOM_INIT_2;
         
         // Compute max dimensions
         // this.overallmax.z to handle from floor to highest prop position
@@ -146,14 +148,13 @@ public class JugglingRenderer implements Renderer, Serializable {
         boundingBoxeMaxSize = Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
         
         // TODO: Do we really need all those variables?
-		this.depthValue = boundingBoxeMaxSize + 20;
+		this.depthValue = mZoom * (boundingBoxeMaxSize + 20);
         this.top = Math.abs((float)(this.overallmax.z - this.overallmin.z));
         this.bottom = -this.top;
         this.left = -this.top;
         this.right = this.top;
         this.zNear = 10.0f;
         this.zFar = 2.0f*(float)depthValue;
-        this.mZoom = (this.pattern.getNumberOfJugglers() == 1)? ZOOM_INIT_1: ZOOM_INIT_2;
         
         /*
 		Log.v("JugglingRenderer","OverallMin Coordinate X=" + this.overallmin.x + " Y=" + this.overallmin.y + " Z=" + this.overallmin.z);
