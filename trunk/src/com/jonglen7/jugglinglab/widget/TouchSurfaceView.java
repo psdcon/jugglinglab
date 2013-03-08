@@ -28,7 +28,7 @@ public class TouchSurfaceView extends GLSurfaceView {
     // the screen to rotate the animation will only work if it's going fast
     // enough, inducing a jerky rotation when the speed keeps changing from too
     // slow to fast enough.
-    private final float TOUCH_DIST_EPSILON = 2f;
+    private final float TOUCH_DIST_EPSILON = 0.2f;
    
     private JugglingRenderer mRenderer;
 	private PointF mPrevious = new PointF();
