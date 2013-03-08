@@ -144,10 +144,7 @@ public class JugglingRenderer implements Renderer, Serializable {
         
         // Compute max dimensions
         // this.overallmax.z to handle from floor to highest prop position
-        // TODO: Why is it "this.overallmax.z" and not "Math.abs(this.overallmax.z - this.overallmin.z)"?
         boundingBoxeMaxSize = Math.max(this.overallmax.z,  Math.max(Math.abs(this.overallmax.x - this.overallmin.x), Math.abs(this.overallmax.y - this.overallmin.y)));
-        
-        // TODO: Do we really need all those variables?
 		this.depthValue = mZoom * (boundingBoxeMaxSize + 20);
         this.top = Math.abs((float)(this.overallmax.z - this.overallmin.z));
         this.bottom = -this.top;
@@ -481,12 +478,10 @@ public class JugglingRenderer implements Renderer, Serializable {
     
     private void setCameraCoordinate()
     {
-        // TODO: Modify the z coordinate of the cam so that there's no wasted space
     	double x = (double)(0.5*(overallmax.x+overallmin.x));
     	double y = (double)(0.5*(overallmax.z+overallmin.z));
     	double z = (double)(0.5*(overallmax.y+overallmin.y));
     	cameraCenter.setCoordinate(x, y, z);
-
 
 //    	Log.v("JugglingRenderer","Camera Center\tX=" + this.cameraCenter.x + "\tY=" + this.cameraCenter.y + "\tZ=" + this.cameraCenter.z);
     }
@@ -508,8 +503,7 @@ public class JugglingRenderer implements Renderer, Serializable {
     
     /** Reset Anim **/
     public void resetAnim() {
-        // TODO: Clean up (might need to change this if the rotation around the
-        // 3 axes changes the code a lot)
+    	
         mAngleX = 0;
         mAngleY = 0;
         mZoom = (this.pattern.getNumberOfJugglers() == 1)? ZOOM_INIT_1: ZOOM_INIT_2;
