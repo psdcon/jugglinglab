@@ -70,7 +70,6 @@ public class ColorPreferenceActivity extends PreferenceActivity {
 		} else if (type.compareTo("Juggler") == 0) {
 			this.addPreferencesFromResource(R.xml.settings_animation_juggler_color);
 		} else {
-			// TODO Fred: Throw an exception
 		}
 		
 		// Initialize the ColorickerPreference for the All item color
@@ -84,7 +83,6 @@ public class ColorPreferenceActivity extends PreferenceActivity {
 		} else if ((type.compareTo("Juggler") == 0) && (nb_item >1)) {
 			pc = (PreferenceCategory)pg.findPreference("juggler_by_juggler_category");
 		} else {
-			// TODO Fred: Throw an exception
 		}
 		
 		// TODO Fred: Use dependencies to display or not for each prop maybe regarding a check box "Display prop by Prop"?

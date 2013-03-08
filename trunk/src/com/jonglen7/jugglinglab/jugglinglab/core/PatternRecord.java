@@ -8,7 +8,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class PatternRecord implements Parcelable {
-	// TODO Fred: à lire http://www.tutos-android.com/parcelable-android
 
 	private String display;
     private String animprefs;

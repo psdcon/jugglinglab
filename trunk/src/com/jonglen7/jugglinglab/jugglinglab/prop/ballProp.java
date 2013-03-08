@@ -254,8 +254,6 @@ public class ballProp extends Prop {
                             float x = radius * (float)(-Math.sin(theta) * Math.sin(rho)) + (float)center.x;
                             float y = radius * (float)(Math.cos(theta) * Math.sin(rho)) + (float)center.z;
                             float z = radius * (float)Math.cos(rho) + (float)center.y;
-                            // TODO: Implement texture mapping if texture used
-                            //                TXTR_COORD(s, t);
                             stripVertices[index++] = x;
                             stripVertices[index++] = y;
                             stripVertices[index++] = z;
@@ -263,7 +261,7 @@ public class ballProp extends Prop {
                             x = radius * (float)(-Math.sin(theta) * Math.sin(rho + drho)) + (float)center.x;
                             y = radius * (float)(Math.cos(theta) * Math.sin(rho + drho)) + (float)center.z;
                             z = radius * (float)Math.cos(rho + drho) + (float)center.y;
-                            // TODO: Implement texture mapping if texture used
+                            // TODO: Fred Implement texture mapping if texture used
                             //                TXTR_COORD(s, t);
                             stripVertices[index++] = x;
                             stripVertices[index++] = y;
