@@ -16,8 +16,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper{
 
-    private String DB_PATH;
-	private static String DB_NAME = "BDD.db";
+    private String DATABASE_PATH;
+	private static String DATABASE_NAME = "BDD.db";
+	private static final int DATABASE_VERSION = 1; // To be changed when modifying the database
 	private SQLiteDatabase myDataBase; 
 
 	private final Context myContext;
@@ -28,9 +29,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	 * @param context
 	 */
 	public DataBaseHelper(Context context) {
-		super(context, DB_NAME, null, 1);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.myContext = context;
-        this.DB_PATH = context.getDatabasePath(DB_NAME).getPath();
+        this.DATABASE_PATH = context.getDatabasePath(DATABASE_NAME).getPath();
 	}	
 
 	/**
@@ -59,7 +60,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	private boolean checkDataBase(){
 		SQLiteDatabase checkDB = null;
 		try{
-			checkDB = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
+			checkDB = SQLiteDatabase.openDatabase(DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
 		}catch(SQLiteException e){
 			//database does't exist yet.
 		}
@@ -78,10 +79,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	 * */
 	private void copyDataBase() throws IOException{
 		//Open your local db as the input stream
-		InputStream myInput = myContext.getAssets().open(DB_NAME);
+		InputStream myInput = myContext.getAssets().open(DATABASE_NAME);
 
 		//Open the empty db as the output stream
-		OutputStream myOutput = new FileOutputStream(DB_PATH);
+		OutputStream myOutput = new FileOutputStream(DATABASE_PATH);
 
 		//transfer bytes from the inputfile to the outputfile
 		byte[] buffer = new byte[1024];
@@ -98,7 +99,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 	public void openDataBase() throws SQLException{
 		//Open the database
-		myDataBase = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
+		myDataBase = SQLiteDatabase.openDatabase(DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
 	}
 
 	@Override
@@ -109,10 +110,36 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {}
+	public void onCreate(SQLiteDatabase db) {
+	    // When a user first installs the application, we apply all the upgrades
+	    this.onUpgrade(db, 1, -1);
+	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//	    TODO Romain (Database): Choose between the 2 possible ways to update the database
+//	    1/ Write the SQL queries here
+//	    2/ Write them in separate files, let Android find them and run them
+//	       For example, have 2.sql and 3.sql in the assets folder and run the
+//	       files that need to be, so if oldVersion = 2, only run 3.sql
+//	    
+//	    switch(oldVersion) {
+//	    case 1:
+//	        // Do the update here...
+//	        // We want both updates, so no break statement here
+//	    case 2:
+//	    }
+//	    
+//	    try {
+//            myContext.getAssets().list(myContext.getFilesDir().getAbsolutePath());
+//            // Test if this command works first and if it does, keep the list of
+//            // files that we are insterested in (*.sql).
+//            // Then, use their names (2.sql, 3.sql, ...) to know which ones need
+//            // to be run
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+	}
 
 	// Add your public helper methods to access and get content from the database.
 	// You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
