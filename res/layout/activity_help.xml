@@ -10,6 +10,7 @@
         android:autoLink="all"
         android:text="@string/help_jugglinglab"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"/>
 
 </LinearLayout>

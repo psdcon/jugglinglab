@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/orange"
         android:textStyle="bold"
-        android:paddingTop="10dip"/>
+        android:paddingTop="10dip"
+        android:textIsSelectable="true"/>
 
 </LinearLayout>

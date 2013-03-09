@@ -25,7 +25,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_display_value"
                 android:padding="5dp"
@@ -49,7 +50,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_pattern_value"
                 android:padding="5dp"
@@ -73,7 +75,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_hand_movement_code"
                 android:padding="5dp"
@@ -110,7 +113,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_prop_type_code"
                 android:padding="5dp"
@@ -134,7 +138,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_dwell_beats_code"
                 android:padding="5dp"
@@ -157,7 +162,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_beats_per_second_code"
                 android:padding="5dp"
@@ -181,7 +187,8 @@
                 android:padding="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:textIsSelectable="true" />
             <TextView
                 android:id="@+id/pattern_info_txt_body_movement_code"
                 android:padding="5dp"
