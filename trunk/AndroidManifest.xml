@@ -3,7 +3,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jonglen7.jugglinglab"
     android:versionCode="2"
-    android:versionName="1.0">
+    android:versionName="1.0"
+    android:debuggable="false">
 
     <uses-sdk
         android:minSdkVersion="8"
