@@ -28,11 +28,13 @@ public class ListAdapterTrick extends BaseAdapter {
 	private ListView listView;
 	private ArrayList<PatternRecord> pattern_list;
 	private Activity activity;
+	private boolean show_delete;
 
-    public ListAdapterTrick(ListView listView, ArrayList<PatternRecord> pattern_list, Activity activity) {
+    public ListAdapterTrick(ListView listView, ArrayList<PatternRecord> pattern_list, Activity activity, boolean show_delete) {
     	this.listView = listView;
     	this.pattern_list = pattern_list;
 		this.activity = activity;
+		this.show_delete = show_delete;
     }
     
     @Override
@@ -114,7 +116,7 @@ public class ListAdapterTrick extends BaseAdapter {
 		public void onClick(View view) {
 			QuickActionGridTrick quickActionGrid = new QuickActionGridTrick(activity);
             final int position = listView.getPositionForView(view);
-			quickActionGrid.show(view, getItem(position));
+			quickActionGrid.show(view, getItem(position), show_delete);
 		}
 
 	};

@@ -33,6 +33,7 @@ public class CollectionActivity extends BaseListActivity {
 
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
+    boolean show_delete = true;
     
     /** Called when the activity is first created. */
     @Override
@@ -52,7 +53,7 @@ public class CollectionActivity extends BaseListActivity {
             setTitle(collection.getCUSTOM_DISPLAY());
 
             listView = getListView();
-            mSchedule = new ListAdapterTrick(listView, pattern_list, CollectionActivity.this);
+            mSchedule = new ListAdapterTrick(listView, pattern_list, CollectionActivity.this, show_delete);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
@@ -119,7 +120,7 @@ public class CollectionActivity extends BaseListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position));
+			quickActionGrid.show(view, pattern_list.get(position), show_delete);
 			return true;
 		}
 	};

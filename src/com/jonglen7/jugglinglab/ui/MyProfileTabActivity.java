@@ -36,6 +36,7 @@ public class MyProfileTabActivity extends ListActivity {
 
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
+    boolean show_delete = false;
 	
     /** Called when the activity is first created. */
     @Override
@@ -49,7 +50,7 @@ public class MyProfileTabActivity extends ListActivity {
         pattern_list = createPatternList(getIntent().getStringExtra("tab"));
 
         listView = getListView();
-        mSchedule = new ListAdapterTrick(listView, pattern_list, MyProfileTabActivity.this);
+        mSchedule = new ListAdapterTrick(listView, pattern_list, MyProfileTabActivity.this, show_delete);
         
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(itemLongClickListener);
@@ -143,7 +144,7 @@ public class MyProfileTabActivity extends ListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position));
+			quickActionGrid.show(view, pattern_list.get(position), show_delete);
 			return true;
 		}
 	};
