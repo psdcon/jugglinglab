@@ -36,6 +36,7 @@ public class GeneratorListActivity extends BaseListActivity {
 
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
+    boolean show_delete = false;
     
     /** Called when the activity is first created. */
     @Override
@@ -115,7 +116,7 @@ public class GeneratorListActivity extends BaseListActivity {
 			setTitle(getResources().getString(R.string.generator_list_title, pattern_list.size()));
 
             listView = getListView();
-            mSchedule = new ListAdapterTrick(listView, pattern_list, GeneratorListActivity.this);
+            mSchedule = new ListAdapterTrick(listView, pattern_list, GeneratorListActivity.this, show_delete);
             
             listView.setOnItemClickListener(itemClickListener);
             listView.setOnItemLongClickListener(itemLongClickListener);
@@ -142,7 +143,7 @@ public class GeneratorListActivity extends BaseListActivity {
 
 		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-			quickActionGrid.show(view, pattern_list.get(position));
+			quickActionGrid.show(view, pattern_list.get(position), show_delete);
 			return true;
 		}
 	};

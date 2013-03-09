@@ -199,7 +199,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
 		return collections;
 	}
     
-    public void show(View view, PatternRecord pattern_record) {
+    public void show(View view, PatternRecord pattern_record, boolean show_delete) {
     	this.pattern_record = pattern_record;
     	this.clearAllQuickActions();
         this.addQuickAction(qa_star);
@@ -207,7 +207,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         this.addQuickAction(qa_list);
         this.addQuickAction(qa_share);
         this.addQuickAction(qa_info);
-    	if ((new Trick(pattern_record, activity)).getID_TRICK() >= 0)
+    	if (show_delete && (new Trick(pattern_record, activity)).getID_TRICK() >= 0)
     	    this.addQuickAction(qa_delete);
     	super.show(view);
     }

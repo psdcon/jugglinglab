@@ -53,6 +53,7 @@ public class AnimationActivity extends BaseActivity {
     
     /** QuickAction. */
     QuickActionGridTrick quickActionGrid;
+    boolean show_delete = false;
     
 
     /** Called when the activity is first created. */
@@ -262,7 +263,7 @@ public class AnimationActivity extends BaseActivity {
 
 		@Override
 		public void onClick(View view) {
-			quickActionGrid.show(view, pattern_record);
+			quickActionGrid.show(view, pattern_record, show_delete);
 		}
 	};
 	
