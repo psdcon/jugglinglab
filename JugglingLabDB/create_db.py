@@ -219,6 +219,7 @@ def add_tables(database):
     database.create_table("Collection",
                           [("ID_COLLECTION", "INTEGER PRIMARY KEY AUTOINCREMENT"),
                            ("IS_TUTORIAL", "INTEGER NOT NULL"),
+                           ("STEP", "INTEGER"),
                            ("XML_LINE_NUMBER", "INTEGER"),
                            ("CUSTOM_DISPLAY", "TEXT")]
                           )
@@ -759,6 +760,7 @@ def add_collections(database):
     """Add collections for the Juggling Lab application on Android"""
     for i in range(23):
         database.insert("Collection", {"XML_LINE_NUMBER": i,
+                                       "STEP": i + 1 - (0 if i < 3 else 3),
                                        "IS_TUTORIAL": 1 if i < 3 else 0})
 
     # Tutorials
@@ -778,26 +780,26 @@ def add_collections(database):
             tricktutorial[i][j]["link_values"]["STEP"] = j + 1
 
     # Pattern lists
-    three_cascade_tricks = [{} for _ in range(14)]
-    three_ball_tricks = [{} for _ in range(25)]
-    four_ball_tricks = [{} for _ in range(7)]
-    five_ball_tricks = [{} for _ in range(3)]
-    shower = [{} for _ in range(21)]
-    mills_mess = [{} for _ in range(21)]
-    box = [{} for _ in range(9)]
-    columns = [{} for _ in range(12)]
-    one_hand_tricks = [{} for _ in range(7)]
-    siteswaps = [{} for _ in range(24)]
-    multiplex = [{} for _ in range(15)]
-    synchronous = [{} for _ in range(9)]
-    numbers = [{} for _ in range(7)]
-    are_you_god = [{} for _ in range(10)]
-    tricks_by_isaac_orr = [{} for _ in range(142)]
-    tricks_by_jag = [{} for _ in range(2)]
-    multiplex_mills_mess = [{} for _ in range(4)]
-    patterns_by_pwn = [{} for _ in range(40)]
-    patterns_by_scotch_tom = [{} for _ in range(4)]
-    stupid_patterns_by_chunky_kibbles = [{} for _ in range(8)]
+    three_cascade_tricks = [{"link_values": {}} for _ in range(14)]
+    three_ball_tricks = [{"link_values": {}} for _ in range(25)]
+    four_ball_tricks = [{"link_values": {}} for _ in range(7)]
+    five_ball_tricks = [{"link_values": {}} for _ in range(3)]
+    shower = [{"link_values": {}} for _ in range(21)]
+    mills_mess = [{"link_values": {}} for _ in range(21)]
+    box = [{"link_values": {}} for _ in range(9)]
+    columns = [{"link_values": {}} for _ in range(12)]
+    one_hand_tricks = [{"link_values": {}} for _ in range(7)]
+    siteswaps = [{"link_values": {}} for _ in range(24)]
+    multiplex = [{"link_values": {}} for _ in range(15)]
+    synchronous = [{"link_values": {}} for _ in range(9)]
+    numbers = [{"link_values": {}} for _ in range(7)]
+    are_you_god = [{"link_values": {}} for _ in range(10)]
+    tricks_by_isaac_orr = [{"link_values": {}} for _ in range(142)]
+    tricks_by_jag = [{"link_values": {}} for _ in range(2)]
+    multiplex_mills_mess = [{"link_values": {}} for _ in range(4)]
+    patterns_by_pwn = [{"link_values": {}} for _ in range(40)]
+    patterns_by_scotch_tom = [{"link_values": {}} for _ in range(4)]
+    stupid_patterns_by_chunky_kibbles = [{"link_values": {}} for _ in range(8)]
     trickcollection = [three_cascade_tricks,
                        three_ball_tricks,
                        four_ball_tricks,
@@ -819,9 +821,10 @@ def add_collections(database):
                        patterns_by_scotch_tom,
                        stupid_patterns_by_chunky_kibbles]
     for i in range(len(trickcollection)):
-        for trick in trickcollection[i]:
-            trick["where"] = {"XML_LINE_NUMBER": len_tricktutorial + i}
-            trick["link_table"] = "TrickCollection"
+        for j in range(len(trickcollection[i])):
+            trickcollection[i][j]["where"] = {"XML_LINE_NUMBER": len_tricktutorial + i}
+            trickcollection[i][j]["link_table"] = "TrickCollection"
+            trickcollection[i][j]["link_values"]["STEP"] = j + 1
 
     # Insert into the database
     tricktutorialcollection = tricktutorial + trickcollection
