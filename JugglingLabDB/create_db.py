@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# pylint: disable=C0301
+
 """
 createDB - Create a sqlite3 DataBase for the Juggling Lab application on Android.
 
@@ -25,14 +27,13 @@ createDB - Create a sqlite3 DataBase for the Juggling Lab application on Android
 
 import itertools
 import sqlite3
-import sys
 
 
-class createDB:
+class Database:
     """Create a DataBase and add data to it."""
 
-    def __init__(self):
-        self.conn = sqlite3.connect("./BDD.db")
+    def __init__(self, filename):
+        self.conn = sqlite3.connect(filename)
         self.cursor = self.conn.cursor()
 
     def close(self):
@@ -59,8 +60,10 @@ class createDB:
         @param columns: The columns of the table (name: type)
 
         """
-        query = "CREATE TABLE {name} ({columns});".format(name=name,
-                                                          columns=", ".join(["{k} {v}".format(k=k, v=v) for k, v in columns]))
+        query = "CREATE TABLE {name} ({columns});"\
+                .format(name=name,
+                        columns=", ".join(["{k} {v}".format(k=k, v=v)
+                                           for k, v in columns]))
         self.exec_query(query)
 
     def insert(self, table, values):
@@ -73,12 +76,12 @@ class createDB:
         @param values: The values to insert (column name: value)
 
         """
-        query = "INSERT INTO {table} ({columns}) VALUES ('{values}');".format(table=table,
-                                                                              columns=", ".join(values.keys()),
-                                                                              values="', '".join(str(v) for v in values.values()))
+        query = "INSERT INTO {table} ({columns}) VALUES ('{values}');"\
+                .format(table=table, columns=", ".join(values.keys()),
+                        values="', '".join(str(v) for v in values.values()))
         self.exec_query(query)
 
-    def select(self, columns, tables, where={}):
+    def select(self, columns, tables, where=None):
         """Select values from tables.
 
         @type columns: List
@@ -91,12 +94,17 @@ class createDB:
         @param where: Conditions to select (column name: value)
 
         """
-        query = "SELECT {columns} FROM {tables} {where};".format(columns=", ".join(columns),
-                                                                tables=", ".join(tables),
-                                                                where=("WHERE {cond}".format(cond=" AND ".join(["{k}='{v}'".format(k=k, v=v) for k, v in where.items()])) if where else ""))
+        where = where or {}
+        query = "SELECT {columns} FROM {tables} {where};"\
+                .format(columns=", ".join(columns), tables=", ".join(tables),
+                        where=("WHERE {cond}"
+                               .format(cond=" AND ".join(["{k}='{v}'".format(k=k, v=v)
+                                                          for k, v in where.items()]))
+                               if where else ""))
         self.exec_query(query)
 
-    def insert_link(self, table1, where1, table2, where2, link_table, link_values={}):
+    def insert_link(self, table1, where1, table2, where2, link_table,
+                    link_values=None):
         """Insert a link between two tables in another one.
 
         @type table1: String
@@ -118,6 +126,8 @@ class createDB:
         @param link_values: The values to insert (column name: value)
 
         """
+        link_values = link_values or {}
+
         id_table1_name = "ID_{table}".format(table=table1.upper())
         self.select([id_table1_name], [table1], where1)
         id_table1_value = self.cursor.fetchone()[0]
@@ -126,7 +136,8 @@ class createDB:
         self.select([id_table2_name], [table2], where2)
         id_table2_value = self.cursor.fetchone()[0]
 
-        link_values.update({id_table1_name: id_table1_value, id_table2_name: id_table2_value})
+        link_values.update({id_table1_name: id_table1_value,
+                            id_table2_name: id_table2_value})
         self.insert(link_table, link_values)
 
     def find_id(self, table, where):
@@ -149,133 +160,134 @@ class createDB:
         return res[0]
 
 
-def main():
-    db = createDB()
+def add_tables(database):
+    """Add tables for the Juggling Lab application on Android"""
+    database.create_table("Prop",
+                          [("ID_PROP", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("CODE", "TEXT NOT NULL"),
+                           ("XML_LINE_NUMBER", "INTEGER NOT NULL")]
+                          )
 
-    ############################################################################
-    ################################## TABLES ##################################
-    ############################################################################
-    db.create_table("Prop",
-                    [("ID_PROP", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("CODE", "TEXT NOT NULL"),
-                     ("XML_LINE_NUMBER", "INTEGER NOT NULL")]
-                   )
+    database.create_table("Hands",
+                          [("ID_HANDS", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("CODE", "TEXT NOT NULL"),
+                           ("XML_LINE_NUMBER", "INTEGER"),
+                           ("CUSTOM_DISPLAY", "TEXT"),
+                           ("IS_HIDDEN", "INTEGER NOT NULL")]
+                          )
 
-    db.create_table("Hands",
-                    [("ID_HANDS", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("CODE", "TEXT NOT NULL"),
-                     ("XML_LINE_NUMBER", "INTEGER"),
-                     ("CUSTOM_DISPLAY", "TEXT"),
-                     ("IS_HIDDEN", "INTEGER NOT NULL")]
-                   )
+    database.create_table("Body",
+                          [("ID_BODY", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("CODE", "TEXT NOT NULL"),
+                           ("XML_LINE_NUMBER", "INTEGER"),
+                           ("CUSTOM_DISPLAY", "TEXT"),
+                           ("IS_HIDDEN", "INTEGER NOT NULL")]
+                          )
 
-    db.create_table("Body",
-                    [("ID_BODY", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("CODE", "TEXT NOT NULL"),
-                     ("XML_LINE_NUMBER", "INTEGER"),
-                     ("CUSTOM_DISPLAY", "TEXT"),
-                     ("IS_HIDDEN", "INTEGER NOT NULL")]
-                   )
+    database.create_table("Trick",
+                          [("ID_TRICK", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("PATTERN", "TEXT NOT NULL"),
+                           ("ID_PROP", "INTEGER NOT NULL"),
+                           ("ID_HANDS", "INTEGER NOT NULL"),
+                           ("ID_BODY", "INTEGER NOT NULL"),
+                           ("XML_DISPLAY_LINE_NUMBER", "INTEGER"),
+                           ("XML_DESCRIPTION_LINE_NUMBER", "INTEGER"),
+                           ("CUSTOM_DISPLAY", "TEXT"),
+                           ("CUSTOM_DESCRITPION", "TEXT"),
+                           ("FOREIGN KEY (ID_PROP)", "REFERENCES Prop(ID_PROP)"),
+                           ("FOREIGN KEY (ID_HANDS)", "REFERENCES Hands(ID_HANDS)"),
+                           ("FOREIGN KEY (ID_BODY)", "REFERENCES Body(ID_BODY)")]
+                          )
 
-    db.create_table("Trick",
-                    [("ID_TRICK", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("PATTERN", "TEXT NOT NULL"),
-                     ("ID_PROP", "INTEGER NOT NULL"),
-                     ("ID_HANDS", "INTEGER NOT NULL"),
-                     ("ID_BODY", "INTEGER NOT NULL"),
-                     ("XML_DISPLAY_LINE_NUMBER", "INTEGER"),
-                     ("XML_DESCRIPTION_LINE_NUMBER", "INTEGER"),
-                     ("CUSTOM_DISPLAY", "TEXT"),
-                     ("CUSTOM_DESCRITPION", "TEXT"),
-                     ("FOREIGN KEY (ID_PROP)", "REFERENCES Prop(ID_PROP)"),
-                     ("FOREIGN KEY (ID_HANDS)", "REFERENCES Hands(ID_HANDS)"),
-                     ("FOREIGN KEY (ID_BODY)", "REFERENCES Body(ID_BODY)")]
-                   )
+    database.create_table("Spin",
+                          [("ID_SPIN", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("SPIN_X", "INTEGER"),
+                           ("SPIN_Y", "INTEGER"),
+                           ("SPIN_Z", "INTEGER")]
+                          )
 
-    db.create_table("Spin",
-                    [("ID_SPIN", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("SPIN_X", "INTEGER"),
-                     ("SPIN_Y", "INTEGER"),
-                     ("SPIN_Z", "INTEGER")]
-                   )
+    database.create_table("TrickSpin",
+                          [("ID_TRICK", "INTEGER NOT NULL"),
+                           ("ID_SPIN", "INTEGER NOT NULL"),
+                           ("THROW", "INTEGER NOT NULL"),
+                           ("IS_POSITION", "INTEGER NOT NULL"),
+                           ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
+                           ("FOREIGN KEY (ID_SPIN)", "REFERENCES Spin(ID_SPIN)"),
+                           ("PRIMARY KEY (ID_TRICK, ID_SPIN)", "")]
+                          )
 
-    db.create_table("TrickSpin",
-                    [("ID_TRICK", "INTEGER NOT NULL"),
-                     ("ID_SPIN", "INTEGER NOT NULL"),
-                     ("THROW", "INTEGER NOT NULL"),
-                     ("IS_POSITION", "INTEGER NOT NULL"),
-                     ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
-                     ("FOREIGN KEY (ID_SPIN)", "REFERENCES Spin(ID_SPIN)"),
-                     ("PRIMARY KEY (ID_TRICK, ID_SPIN)", "")]
-                   )
+    database.create_table("Collection",
+                          [("ID_COLLECTION", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("IS_TUTORIAL", "INTEGER NOT NULL"),
+                           ("XML_LINE_NUMBER", "INTEGER"),
+                           ("CUSTOM_DISPLAY", "TEXT")]
+                          )
 
-    db.create_table("Collection",
-                    [("ID_COLLECTION", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("IS_TUTORIAL", "INTEGER NOT NULL"),
-                     ("XML_LINE_NUMBER", "INTEGER"),
-                     ("CUSTOM_DISPLAY", "TEXT")]
-                   )
+    database.create_table("TrickCollection",
+                          [("ID_TRICK", "INTEGER NOT NULL"),
+                           ("ID_COLLECTION", "INTEGER NOT NULL"),
+                           ("STEP", "INTEGER"),
+                           ("GOAL", "INTEGER"),
+                           ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
+                           ("FOREIGN KEY (ID_COLLECTION)", "REFERENCES Collection(ID_COLLECTION)"),
+                           ("PRIMARY KEY (ID_TRICK, ID_COLLECTION)", "")]
+                          )
 
-    db.create_table("TrickCollection",
-                    [("ID_TRICK", "INTEGER NOT NULL"),
-                     ("ID_COLLECTION", "INTEGER NOT NULL"),
-                     ("STEP", "INTEGER"),
-                     ("GOAL", "INTEGER"),
-                     ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
-                     ("FOREIGN KEY (ID_COLLECTION)", "REFERENCES Collection(ID_COLLECTION)"),
-                     ("PRIMARY KEY (ID_TRICK, ID_COLLECTION)", "")]
-                   )
+    database.create_table("Catch",
+                          [("ID_CATCH", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("ID_TRICK", "INTEGER NOT NULL"),
+                           ("DATE", "TEXT"),
+                           ("CATCHS", "INTEGER"),
+                           ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)")]
+                          )
 
-    db.create_table("Catch",
-                    [("ID_CATCH", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("ID_TRICK", "INTEGER NOT NULL"),
-                     ("DATE", "TEXT"),
-                     ("CATCHS", "INTEGER"),
-                     ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)")]
-                   )
+    database.create_table("Goal",
+                          [("ID_GOAL", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("ID_TRICK", "INTEGER NOT NULL"),
+                           ("DATE_BEGIN", "TEXT"),
+                           ("DATE_END", "TEXT"),
+                           ("GOAL", "INTEGER"),
+                           ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)")]
+                          )
 
-    db.create_table("Goal",
-                    [("ID_GOAL", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("ID_TRICK", "INTEGER NOT NULL"),
-                     ("DATE_BEGIN", "TEXT"),
-                     ("DATE_END", "TEXT"),
-                     ("GOAL", "INTEGER"),
-                     ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)")]
-                   )
+    database.create_table("Juggler",
+                          [("ID_JUGGLER", "INTEGER PRIMARY KEY AUTOINCREMENT"),
+                           ("COLOR_SKIN", "TEXT"),
+                           ("COLOR_HAIR", "TEXT"),
+                           ("COLOR_EYES", "TEXT"),
+                           ("COLOR_SHIRT", "TEXT"),
+                           ("COLOR_PANTS", "TEXT"),
+                           ("HAT", "INTEGER"),
+                           ("COLOR_HAT", "TEXT"),
+                           ("GLASSES", "INTEGER"),
+                           ("COLOR_GLASSES", "TEXT"),
+                           ("BEARD", "INTEGER"),
+                           ("IS_MALE", "INTEGER"),
+                           ("HEIGHT", "INTEGER"),
+                           ("WEIGHT", "INTEGER")]
+                          )
 
-    db.create_table("Juggler",
-                    [("ID_JUGGLER", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                     ("COLOR_SKIN", "TEXT"),
-                     ("COLOR_HAIR", "TEXT"),
-                     ("COLOR_EYES", "TEXT"),
-                     ("COLOR_SHIRT", "TEXT"),
-                     ("COLOR_PANTS", "TEXT"),
-                     ("HAT", "INTEGER"),
-                     ("COLOR_HAT", "TEXT"),
-                     ("GLASSES", "INTEGER"),
-                     ("COLOR_GLASSES", "TEXT"),
-                     ("BEARD", "INTEGER"),
-                     ("IS_MALE", "INTEGER"),
-                     ("HEIGHT", "INTEGER"),
-                     ("WEIGHT", "INTEGER")]
-                   )
+    database.create_table("JugglingRecords",
+                          [("USERNAME", "TEXT"),
+                           ("PASSWORD", "TEXT NOT NULL")]
+                          )
 
-    ############################################################################
-    ################################# ANDROID ##################################
-    ############################################################################
-    db.create_table("android_metadata", [("locale", "TEXT DEFAULT 'en_US'")])
-    db.insert("android_metadata", {"locale": "en_US"})
 
-    ############################################################################
-    ################################### PROP ###################################
-    ############################################################################
+def add_android_metadata(database):
+    """Add the metadata needed by Android"""
+    database.create_table("android_metadata", [("locale", "TEXT DEFAULT 'en_US'")])
+    database.insert("android_metadata", {"locale": "en_US"})
+
+
+def add_props(database):
+    """Add props for the Juggling Lab application on Android"""
     prop = ["ball", "ring", "club", "cube", "image"]
     for i in range(len(prop)):
-        db.insert("Prop", {"CODE": prop[i], "XML_LINE_NUMBER": i})
+        database.insert("Prop", {"CODE": prop[i], "XML_LINE_NUMBER": i})
 
-    ############################################################################
-    ################################## HANDS ###################################
-    ############################################################################
+
+def add_hand_movements(database):
+    """Add hand movements for the Juggling Lab application on Android"""
     hands = ["",
              "(10)(32.5).",
              "(32.5)(10).",
@@ -289,11 +301,12 @@ def main():
              "(0,0,0)(25,0,-50).",
              ""]
     for i in range(len(hands)):
-        db.insert("Hands", {"CODE": hands[i], "XML_LINE_NUMBER": i, "IS_HIDDEN": 0})
+        database.insert("Hands", {"CODE": hands[i], "XML_LINE_NUMBER": i,
+                                  "IS_HIDDEN": 0})
 
-    ############################################################################
-    ################################### BODY ###################################
-    ############################################################################
+
+def add_body_movements(database):
+    """Add body movements for the Juggling Lab application on Android"""
     body = ["",
             "<(90).|(270,-125).|(90,125).|(270,-250).|(90,250).|(270,-375).>",
             "<(90).|(270,-150,50).|(270,-150,-50).|(270,-150,150).|(270,-150,-150).>",
@@ -302,11 +315,12 @@ def main():
             "(0,75,0)...(90,0,75)...(180,-75,0)...(270,0,-75)...",
             ""]
     for i in range(len(body)):
-        db.insert("Body", {"CODE": body[i], "XML_LINE_NUMBER": i, "IS_HIDDEN": 0})
+        database.insert("Body", {"CODE": body[i], "XML_LINE_NUMBER": i,
+                                 "IS_HIDDEN": 0})
 
-    ############################################################################
-    ################################## TRICK ###################################
-    ############################################################################
+
+def add_tricks(database):
+    """Add tricks for the Juggling Lab application on Android"""
     trick = [
              # 3-Cascade Step By Step
              {"pattern": "300"},
@@ -734,25 +748,28 @@ def main():
              {"pattern": "[71]"}
              ]
     for i in range(len(trick)):
-        db.insert("Trick", {"PATTERN": trick[i]["pattern"],
-                            "ID_PROP": (db.find_id("PROP", {"CODE": trick[i]["prop"]}) if "prop" in trick[i] else 1),
-                            "ID_HANDS": (db.find_id("HANDS", {"CODE": trick[i]["hands"]}) if "hands" in trick[i] else 1),
-                            "ID_BODY": (db.find_id("BODY", {"CODE": trick[i]["body"]}) if "body" in trick[i] else 1),
-                            "XML_DISPLAY_LINE_NUMBER": i})
+        database.insert("Trick", {"PATTERN": trick[i]["pattern"],
+                                  "ID_PROP": (database.find_id("PROP", {"CODE": trick[i]["prop"]}) if "prop" in trick[i] else 1),
+                                  "ID_HANDS": (database.find_id("HANDS", {"CODE": trick[i]["hands"]}) if "hands" in trick[i] else 1),
+                                  "ID_BODY": (database.find_id("BODY", {"CODE": trick[i]["body"]}) if "body" in trick[i] else 1),
+                                  "XML_DISPLAY_LINE_NUMBER": i})
 
-    ############################################################################
-    ################################ COLLECTION ################################
-    ############################################################################
+
+def add_collections(database):
+    """Add collections for the Juggling Lab application on Android"""
     for i in range(23):
-        db.insert("Collection", {"XML_LINE_NUMBER": i, "IS_TUTORIAL": 1 if i < 3 else 0})
+        database.insert("Collection", {"XML_LINE_NUMBER": i,
+                                       "IS_TUTORIAL": 1 if i < 3 else 0})
 
-    ############################################################################
-    ############################# TRICKCOLLECTION ##############################
-    ############################################################################
-    three_cascade_step_by_step = [{"link_values": {"GOAL": 30}} for i in range(5)]
-    four_fountain_step_by_step = [{"link_values": {"GOAL": 40}} for i in range(3)]
-    five_cascade_step_by_step = [{"link_values": {"GOAL": 50}} for i in range(9)]
-    tricktutorial = [three_cascade_step_by_step, four_fountain_step_by_step, five_cascade_step_by_step]
+    # Tutorials
+    three_cascade_step_by_step = [{"link_values": {"GOAL": 30}}
+                                  for _ in range(5)]
+    four_fountain_step_by_step = [{"link_values": {"GOAL": 40}}
+                                  for _ in range(3)]
+    five_cascade_step_by_step = [{"link_values": {"GOAL": 50}}
+                                 for _ in range(9)]
+    tricktutorial = [three_cascade_step_by_step, four_fountain_step_by_step,
+                     five_cascade_step_by_step]
     len_tricktutorial = len(tricktutorial)
     for i in range(len(tricktutorial)):
         for j in range(len(tricktutorial[i])):
@@ -760,26 +777,27 @@ def main():
             tricktutorial[i][j]["link_table"] = "TrickCollection"
             tricktutorial[i][j]["link_values"]["STEP"] = j + 1
 
-    three_cascade_tricks = [{} for i in range(14)]
-    three_ball_tricks = [{} for i in range(25)]
-    four_ball_tricks = [{} for i in range(7)]
-    five_ball_tricks = [{} for i in range(3)]
-    shower = [{} for i in range(21)]
-    mills_mess = [{} for i in range(21)]
-    box = [{} for i in range(9)]
-    columns = [{} for i in range(12)]
-    one_hand_tricks = [{} for i in range(7)]
-    siteswaps = [{} for i in range(24)]
-    multiplex = [{} for i in range(15)]
-    synchronous = [{} for i in range(9)]
-    numbers = [{} for i in range(7)]
-    are_you_god = [{} for i in range(10)]
-    tricks_by_isaac_orr = [{} for i in range(142)]
-    tricks_by_jag = [{} for i in range(2)]
-    multiplex_mills_mess = [{} for i in range(4)]
-    patterns_by_pwn = [{} for i in range(40)]
-    patterns_by_scotch_tom = [{} for i in range(4)]
-    stupid_patterns_by_chunky_kibbles = [{} for i in range(8)]
+    # Pattern lists
+    three_cascade_tricks = [{} for _ in range(14)]
+    three_ball_tricks = [{} for _ in range(25)]
+    four_ball_tricks = [{} for _ in range(7)]
+    five_ball_tricks = [{} for _ in range(3)]
+    shower = [{} for _ in range(21)]
+    mills_mess = [{} for _ in range(21)]
+    box = [{} for _ in range(9)]
+    columns = [{} for _ in range(12)]
+    one_hand_tricks = [{} for _ in range(7)]
+    siteswaps = [{} for _ in range(24)]
+    multiplex = [{} for _ in range(15)]
+    synchronous = [{} for _ in range(9)]
+    numbers = [{} for _ in range(7)]
+    are_you_god = [{} for _ in range(10)]
+    tricks_by_isaac_orr = [{} for _ in range(142)]
+    tricks_by_jag = [{} for _ in range(2)]
+    multiplex_mills_mess = [{} for _ in range(4)]
+    patterns_by_pwn = [{} for _ in range(40)]
+    patterns_by_scotch_tom = [{} for _ in range(4)]
+    stupid_patterns_by_chunky_kibbles = [{} for _ in range(8)]
     trickcollection = [three_cascade_tricks,
                        three_ball_tricks,
                        four_ball_tricks,
@@ -801,34 +819,51 @@ def main():
                        patterns_by_scotch_tom,
                        stupid_patterns_by_chunky_kibbles]
     for i in range(len(trickcollection)):
-        for j in range(len(trickcollection[i])):
-            trickcollection[i][j]["where"] = {"XML_LINE_NUMBER": len_tricktutorial + i}
-            trickcollection[i][j]["link_table"] = "TrickCollection"
+        for trick in trickcollection[i]:
+            trick["where"] = {"XML_LINE_NUMBER": len_tricktutorial + i}
+            trick["link_table"] = "TrickCollection"
 
-    ############################################################################
-    ######################### TRICKTUTORIALCOLLECTION ##########################
-    ############################################################################
+    # Insert into the database
     tricktutorialcollection = tricktutorial + trickcollection
     tricktutorialcollection = list(itertools.chain.from_iterable(tricktutorialcollection))
     for i in range(len(tricktutorialcollection)):
-        db.insert_link("Trick",
-                       {"XML_DISPLAY_LINE_NUMBER": i},
-                       "Collection",
-                       tricktutorialcollection[i]["where"],
-                       tricktutorialcollection[i]["link_table"],
-                       tricktutorialcollection[i]["link_values"] if "link_values" in tricktutorialcollection[i] else {}
-                      )
+        database.insert_link("Trick",
+                             {"XML_DISPLAY_LINE_NUMBER": i},
+                             "Collection",
+                             tricktutorialcollection[i]["where"],
+                             tricktutorialcollection[i]["link_table"],
+                             tricktutorialcollection[i]["link_values"] if "link_values" in tricktutorialcollection[i] else {}
+                             )
 
     # Starred
-    db.insert("Collection", {"XML_LINE_NUMBER": 23, "IS_TUTORIAL": 0})
+    database.insert("Collection", {"XML_LINE_NUMBER": 23, "IS_TUTORIAL": 0})
 
-    for table in ["PROP", "HANDS", "BODY", "TRICK", "SPIN", "TRICKSPIN",
-                  "COLLECTION", "TRICKCOLLECTION", "CATCH", "GOAL", "JUGGLER"]:
-        db.select(["COUNT(*)"], [table])
-        print("{table}: {nb} lines".format(table=table, nb=db.cursor.fetchone()[0]))
 
-    db.close()
-    sys.exit(0)
+def main():
+    """Create a sqlite3 DataBase for the Juggling Lab application on Android"""
+    filename = "./BDD.db"
+    database = Database(filename)
+
+    add_tables(database)
+    add_android_metadata(database)
+    add_props(database)
+    add_hand_movements(database)
+    add_body_movements(database)
+    add_tricks(database)
+    add_collections(database)
+
+    database.close()
+
+    # Verify the the creation was successful
+    conn = sqlite3.connect(filename)
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = [c[0] for c in cursor.fetchall()]
+    for table in tables:
+        cursor.execute("SELECT COUNT(*) FROM {table}".format(table=table))
+        print("{table}: {nb} lines".format(table=table,
+                                           nb=cursor.fetchone()[0]))
+    cursor.close()
 
 if __name__ == "__main__":
     main()
