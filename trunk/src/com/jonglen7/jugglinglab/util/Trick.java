@@ -151,14 +151,22 @@ public class Trick {
 		cv.put("ID_BODY", ID_BODY);
 		cv.put("ID_PROP", ID_PROP);
 
-		String display = pattern_record_values.get("pattern");
-		if (HANDS_CUSTOM_DISPLAY != null) {
-			display += " " + HANDS_CUSTOM_DISPLAY;
+		String display;
+		String pattern = pattern_record_values.get("pattern");
+		// If the user gave a name to the trick, use that name
+		// TODO Romain (Trick): Maybe find a cleaner way to do that check
+		if (this.CUSTOM_DISPLAY != pattern) {
+		    display = this.CUSTOM_DISPLAY;
 		} else {
-			String[] hand_movements = this.context.getResources().getStringArray(R.array.hand_movement);
-			if (HANDS_XML_LINE_NUMBER > 0 && HANDS_XML_LINE_NUMBER < hand_movements.length) {
-				display += " " + this.context.getResources().getStringArray(R.array.hand_movement)[HANDS_XML_LINE_NUMBER];
-			}
+    		display = pattern;
+    		if (HANDS_CUSTOM_DISPLAY != null) {
+    			display += " " + HANDS_CUSTOM_DISPLAY;
+    		} else {
+    			String[] hand_movements = this.context.getResources().getStringArray(R.array.hand_movement);
+    			if (HANDS_XML_LINE_NUMBER > 0 && HANDS_XML_LINE_NUMBER < hand_movements.length) {
+    				display += " " + this.context.getResources().getStringArray(R.array.hand_movement)[HANDS_XML_LINE_NUMBER];
+    			}
+    		}
 		}
 		cv.put("CUSTOM_DISPLAY", display);
 		
