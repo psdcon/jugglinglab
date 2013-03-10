@@ -4,7 +4,7 @@
     package="com.jonglen7.jugglinglab"
     android:versionCode="2"
     android:versionName="1.0"
-    android:debuggable="false">
+    android:debuggable="true">
 
     <uses-sdk
         android:minSdkVersion="8"
