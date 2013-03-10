@@ -213,7 +213,7 @@ def add_tables(database):
                            ("IS_POSITION", "INTEGER NOT NULL"),
                            ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)"),
                            ("FOREIGN KEY (ID_SPIN)", "REFERENCES Spin(ID_SPIN)"),
-                           ("PRIMARY KEY (ID_TRICK, ID_SPIN)", "")]
+                           ("PRIMARY KEY (ID_TRICK, ID_SPIN, THROW)", "")]
                           )
 
     database.create_table("Collection",
