@@ -272,7 +272,11 @@ public class Juggler {
 	public void MathVectorToVertices(){
 		int i = 0;
 		for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
+			
+			bNullLeftelbow = false;
+			bNullRightelbow = false;
 			i = 0;
+			
 			for (int j=0; j<4; j++){
 				vertices[juggler-1][i] = (int)jugglerDescription[juggler-1][j].x;
 				vertices[juggler-1][i+1] = (int)jugglerDescription[juggler-1][j].y;
