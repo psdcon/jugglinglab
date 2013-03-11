@@ -94,14 +94,20 @@ public class Juggler {
 	// Array for openGL
 	private float vertices[][];
 	
-	// Body and Head
-    private byte indicesOfBodyAndHead[] = {
+	// Body
+    private byte indicesOfBody[] = {
             2, 6,    6, 7,    7, 3,     3, 2,	// Body
+   	};
+    
+    // Head
+    private byte indicesOfHead[] = {
             9, 8,    8, 10,   10, 11,   11, 9	// Head
    	};
     
-    // Inner Body and Inner Head
+    // Inner Body
     private byte indicesOfInnerBody[] = { 2, 6, 3, 7 }; 		// Body for GL_TRIANGLE_STRIP
+    
+    // Inner Head
     private byte indicesOfInnerHead[] = { 8, 9, 10, 11 }; 		// Head for GL_TRIANGLE_STRIP
     
     // Left Arm
@@ -116,6 +122,12 @@ public class Juggler {
     private FloatBuffer   mVertexBuffer;
     private ByteBuffer  mIndexBuffer;
     private ByteBuffer vbb;
+    
+    // Round Head attributes
+    private float roundHeadVertices[][];
+    private ByteBuffer roundHeadVbb;
+    private FloatBuffer roundHeadVertexBuffer;
+    private int roundHeadNbSegments = 36;
     
     
     
@@ -135,9 +147,18 @@ public class Juggler {
         vbb.order(ByteOrder.nativeOrder());
         mVertexBuffer = vbb.asFloatBuffer();
         
-    	mIndexBuffer = ByteBuffer.allocateDirect(indicesOfBodyAndHead.length);
-        mIndexBuffer.put(indicesOfBodyAndHead);
+    	mIndexBuffer = ByteBuffer.allocateDirect(indicesOfHead.length);
+        mIndexBuffer.put(indicesOfHead);
         mIndexBuffer.position(0);
+        
+        // Round Head
+        this.roundHeadVertices = new float[nbJuggler][3*roundHeadNbSegments];
+        this.roundHeadVbb = ByteBuffer.allocateDirect(3*roundHeadNbSegments*4);
+        this.roundHeadVbb.order(ByteOrder.nativeOrder());
+        this.roundHeadVertexBuffer = this.roundHeadVbb.asFloatBuffer();
+        
+        
+        
     	
     }
 	
@@ -306,12 +327,40 @@ public class Juggler {
 			}		
 			i+=3;
 			
+			// Squared head vertices
 			for (int j=6; j<12; j++){
 				vertices[juggler-1][i] = (int)jugglerDescription[juggler-1][j].x;
 				vertices[juggler-1][i+1] = (int)jugglerDescription[juggler-1][j].y;
 				vertices[juggler-1][i+2] = (int)jugglerDescription[juggler-1][j].z;
 				i+=3;
 			}
+			
+			// Round Head vertices
+			int count = 0;
+			float tmpX = 0.0f, tmpY = 0.0f, tmpZ = 0.0f, theta = 0.0f;
+			
+			// Compute translation vector
+			float xPos = (float)(jugglerDescription[juggler-1][9].x + jugglerDescription[juggler-1][10].x)/2.0f;
+			float yPos = (float)(jugglerDescription[juggler-1][9].y + jugglerDescription[juggler-1][10].y)/2.0f;
+			float zPos = (float)(jugglerDescription[juggler-1][9].z + jugglerDescription[juggler-1][10].z)/2.0f;
+			
+            // Compute angle of rotation
+            theta = (float)(Math.atan2(- jugglerDescription[juggler-1][9].z + jugglerDescription[juggler-1][10].z  , jugglerDescription[juggler-1][9].x - jugglerDescription[juggler-1][10].x));
+            
+            // Compute vertices of the head
+			for (float j = 0; j < 360.0f; j += (360.0f/this.roundHeadNbSegments)) 
+			{
+				// Get coordinates in a classic 3-axis
+	            tmpX = (float)(Math.cos(Math.PI/180.0f *j)*Juggler.head_hw);
+	            tmpY = (float)(Math.sin(Math.PI/180.0f *j)*Juggler.head_h/2);
+	            tmpZ = 0.0f;
+	            
+	            // Apply a rotation around Y axis to have them relatively to the juggler orientation 
+	            // and translate to align to the juggler body
+	            this.roundHeadVertices[juggler-1][count++] = xPos + (float)(Math.cos(theta) * tmpX + Math.sin(theta) * tmpZ);
+	            this.roundHeadVertices[juggler-1][count++] = yPos + tmpY;
+	            this.roundHeadVertices[juggler-1][count++] = zPos + (float)(- Math.sin(theta) * tmpX + Math.cos(theta) * tmpZ);  
+	        }
 		}
 	}
 	
@@ -329,13 +378,33 @@ public class Juggler {
         // must have their byte order set to native order
 
     	gl.glDisable(GL10.GL_BLEND);
-    	gl.glLineWidth(1.0f);
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         
         for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
+        	
+        	// Set attributes to draw round head
+        	roundHeadVertexBuffer.put(roundHeadVertices[juggler-1]);
+        	roundHeadVertexBuffer.position(0);
+            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, roundHeadVertexBuffer);
+
+        	// Draw round head inner part
+            gl.glPolygonOffset(1.0f, 1.0f);
+            gl.glEnable(GL10.GL_POLYGON_OFFSET_FILL);
+        	gl.glColor4f(JUGGLER_INNER_COLOR[0],JUGGLER_INNER_COLOR[1],JUGGLER_INNER_COLOR[2],JUGGLER_INNER_COLOR[3]);
+        	gl.glLineWidth(1.0f);
+            gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, roundHeadNbSegments);
+            gl.glDisable(GL10.GL_POLYGON_OFFSET_FILL);
+            
+            // Draw round head edges
+        	gl.glColor4f(JUGGLER_EDGES_COLOR[0],JUGGLER_EDGES_COLOR[1],JUGGLER_EDGES_COLOR[2],JUGGLER_EDGES_COLOR[3]);
+        	gl.glLineWidth(JUGGLER_WIDTH);
+        	gl.glDrawArrays(GL10.GL_LINE_LOOP, 0, roundHeadNbSegments);
+        	
+
+        	// Set attributes to draw other part of the juggler
         	mVertexBuffer.put(vertices[juggler-1]);
             mVertexBuffer.position(0);
+            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 
             // To avoid issues with the depth buffer (cf. http://profs.sci.univr.it/~colombar/html_openGL_tutorial/en/06depth_014.html)
             gl.glPolygonOffset(1.0f, 1.0f);
@@ -343,6 +412,7 @@ public class Juggler {
 
             // Set inner parts color
             gl.glColor4f(JUGGLER_INNER_COLOR[0],JUGGLER_INNER_COLOR[1],JUGGLER_INNER_COLOR[2],JUGGLER_INNER_COLOR[3]);
+            gl.glLineWidth(1.0f);
             
             // Draw the inner body
 	        mIndexBuffer.put(indicesOfInnerBody);
@@ -350,9 +420,9 @@ public class Juggler {
             gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfInnerBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
         
             // Draw the inner head
-            mIndexBuffer.put(indicesOfInnerHead);
-            mIndexBuffer.position(0);
-            gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfInnerHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+            //mIndexBuffer.put(indicesOfInnerHead);
+            //mIndexBuffer.position(0);
+            //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, indicesOfInnerHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 
             // Disable fill flag
             gl.glDisable(GL10.GL_POLYGON_OFFSET_FILL);
@@ -363,10 +433,15 @@ public class Juggler {
             // Set juggler edges color
             gl.glColor4f(JUGGLER_EDGES_COLOR[0],JUGGLER_EDGES_COLOR[1],JUGGLER_EDGES_COLOR[2],JUGGLER_EDGES_COLOR[3]);
             
-	        // Draw the head and body edges
-            mIndexBuffer.put(indicesOfBodyAndHead);
+	        // Draw the head edges
+            //mIndexBuffer.put(indicesOfHead);
+            //mIndexBuffer.position(0);
+        	//gl.glDrawElements(GL10.GL_LINES, indicesOfHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+        	
+        	// Draw the body edges
+        	mIndexBuffer.put(indicesOfBody);
             mIndexBuffer.position(0);
-        	gl.glDrawElements(GL10.GL_LINES, indicesOfBodyAndHead.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+        	gl.glDrawElements(GL10.GL_LINES, indicesOfBody.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
             
         	// Set arms width
         	gl.glLineWidth(JUGGLER_ARM_WIDTH);
@@ -402,6 +477,7 @@ public class Juggler {
 	            mIndexBuffer.position(0);
 	        	gl.glDrawElements(GL10.GL_LINES, indicesOfRightArm.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
         	}
+        	
         }
     }
 	
