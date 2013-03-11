@@ -116,6 +116,7 @@ Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.
     
     <!-- QuickActions -->
     <string name="quickactions">QuickActions</string>
+    <string name="quickactions_rename">Rename</string>
     <string name="quickactions_trick_collections">Labels</string>
     <string name="quickactions_trick_share">Share using</string>
     <string name="quickactions_trick_share_training">Training %1$s thanks to Juggling Lab for Android !</string>

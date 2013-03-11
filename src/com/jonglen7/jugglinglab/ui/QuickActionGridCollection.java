@@ -24,7 +24,7 @@ public class QuickActionGridCollection extends QuickActionGrid {
         super(context);
         this.activity = (Activity) context;
 
-        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit));
+        this.addQuickAction(new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.quickactions_rename));
         this.addQuickAction(new MyQuickAction(activity, android.R.drawable.ic_delete, R.string.quickactions_delete));
         this.setOnQuickActionClickListener(mActionListener);
 	}
@@ -37,7 +37,7 @@ public class QuickActionGridCollection extends QuickActionGrid {
         	case EDIT:
         		final EditText input = new EditText(activity);
         		builder.setView(input);
-        		builder.setTitle(activity.getString(R.string.gd_edit));
+        		builder.setTitle(activity.getString(R.string.quickactions_rename));
         		input.setText(collection.getCUSTOM_DISPLAY());
         		
         		builder.setPositiveButton(activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
