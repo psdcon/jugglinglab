@@ -45,7 +45,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
 		this.activity = (Activity) context;
 
 		qa_star = new MyQuickAction(activity, R.drawable.gd_action_bar_star, R.string.gd_star);
-		qa_edit = new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.gd_edit);
+		qa_edit = new MyQuickAction(activity, R.drawable.gd_action_bar_edit, R.string.quickactions_rename);
 		qa_list = new MyQuickAction(activity, R.drawable.gd_action_bar_list, R.string.quickactions_trick_collections);
 		qa_share = new MyQuickAction(activity, R.drawable.gd_action_bar_share, R.string.gd_share);
         //TODO Romain (Stats): cf icons http://androiddrawableexplorer.appspot.com/
@@ -72,7 +72,7 @@ public class QuickActionGridTrick extends QuickActionGrid {
         	case EDIT:
         		final EditText input = new EditText(activity);
         		builder.setView(input);
-        		builder.setTitle(activity.getString(R.string.gd_edit));
+        		builder.setTitle(activity.getString(R.string.quickactions_rename));
         		input.setText(trick.getCUSTOM_DISPLAY());
         		
         		builder.setPositiveButton(activity.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
