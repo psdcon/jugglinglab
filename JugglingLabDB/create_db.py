@@ -745,7 +745,40 @@ def add_tricks(database):
              {"pattern": "[oqsuwy]0"},
              {"pattern": "[31]"},
              {"pattern": "[51]"},
-             {"pattern": "[71]"}
+             {"pattern": "[71]"},
+             # Passing 2 Jugglers 5 Balls
+             {"pattern": "<3p|2p>"},
+             {"pattern": "<4p 2 2|2 2 3p>"},
+             # Passing 2 Jugglers 6 Balls
+             {"pattern": "<3p 3 3 3|3p 3 3 3>"},
+             {"pattern": "<3p 3 3|3p 3 3>"},
+             {"pattern": "<3p 3|3p 3>"},
+             {"pattern": "<3p|3p>"},
+             {"pattern": "<3p 3 3 3 3 3 | 3p 3 3 3 3 3>"},
+             {"pattern": "<3p 3p 3|3p 3p 3>"},
+             {"pattern": "<3p 3p 3 3 | 3p 3p 3 3>"},
+             {"pattern": "<3p 3 3p 3 3p|3p 3 3p 3 3p>"},
+             {"pattern": "<3p 3p 3 3p 3| 3p 3p 3 3p 3>"},
+             {"pattern": "<3p 3 3p 3 3p 3p 3 3 | 3p 3 3p 3 3p 3p 3 3>"},
+             {"pattern": "<4p 3 3 | 2 2 4p>"},
+             {"pattern": "<3p 3 3 3 3p 3 3 3p 3 3p 3p 3 3p 3 3|3p 3 3 3 3p 3 3 3p 3 3p 3p 3 3p 3 3>"},
+             {"pattern": "<3p 3 3 3p 3 3p 3p 3|3p 3 3 3p 3 3p 3p 3>"},
+             # Passing 2 Jugglers 7 Balls
+             {"pattern": "<R|L><4xp 3 | 3 4xp>"},
+             {"pattern": "<3 3 5p 3 | 5p 3 3 3>"},
+             {"pattern": "<4p 4p 3 | 3 3p 4p>"},
+             {"pattern": "<3p 3p 3 | 4p 4 4p>"},
+             # Passing 2 Jugglers 8 Balls
+             {"pattern": "<5p 3 | 5p 3>"},
+             {"pattern": "<6p 3 3|6p 3 3>"},
+             {"pattern": "<4p 4p 3|3 5p 5p>"},
+             # Passing 3 Jugglers 9 Balls
+             {"pattern": "<3p2 3 3p3 3| 3p1 3 3 3| 3 3 3p1 3>"},
+             {"pattern": "<3p2 3|3p1 3p3| 3 3p2>"},
+             {"pattern": "<3p2 3 3 | 3p1 3p3 3 |  3 3p2 3>"},
+             {"pattern": "<3p2 3 3 3 | 3p3 3 3 3 | 3p1 3 3 3>"},
+             {"pattern": "<3p2|3p1|3>; <3p3|3  |3p1>; <3  |3p3|3p2>"},
+             {"pattern": "<3p2|3p3|3p1>; <3p3|3  |3p1>; <3 |3 |3 >"},
              ]
     for i in range(len(trick)):
         database.insert("Trick", {"PATTERN": trick[i]["pattern"],
@@ -757,7 +790,7 @@ def add_tricks(database):
 
 def add_collections(database):
     """Add collections for the Juggling Lab application on Android"""
-    for i in range(23):
+    for i in range(28):
         database.insert("Collection", {"XML_LINE_NUMBER": i,
                                        "STEP": i + 1 - (0 if i < 3 else 3),
                                        "IS_TUTORIAL": 1 if i < 3 else 0})
@@ -799,6 +832,11 @@ def add_collections(database):
     patterns_by_pwn = [{"link_values": {}} for _ in range(40)]
     patterns_by_scotch_tom = [{"link_values": {}} for _ in range(4)]
     stupid_patterns_by_chunky_kibbles = [{"link_values": {}} for _ in range(8)]
+    passing_2_jugglers_5_balls = [{"link_values": {}} for _ in range(2)]
+    passing_2_jugglers_6_balls = [{"link_values": {}} for _ in range(13)]
+    passing_2_jugglers_7_balls = [{"link_values": {}} for _ in range(4)]
+    passing_2_jugglers_8_balls = [{"link_values": {}} for _ in range(3)]
+    passing_3_jugglers_9_balls = [{"link_values": {}} for _ in range(6)]
     trickcollection = [three_cascade_tricks,
                        three_ball_tricks,
                        four_ball_tricks,
@@ -818,7 +856,12 @@ def add_collections(database):
                        multiplex_mills_mess,
                        patterns_by_pwn,
                        patterns_by_scotch_tom,
-                       stupid_patterns_by_chunky_kibbles]
+                       stupid_patterns_by_chunky_kibbles,
+                       passing_2_jugglers_5_balls,
+                       passing_2_jugglers_6_balls,
+                       passing_2_jugglers_7_balls,
+                       passing_2_jugglers_8_balls,
+                       passing_3_jugglers_9_balls]
     for i in range(len(trickcollection)):
         for j in range(len(trickcollection[i])):
             trickcollection[i][j]["where"] = {"XML_LINE_NUMBER": len_tricktutorial + i}
@@ -838,7 +881,7 @@ def add_collections(database):
                              )
 
     # Starred
-    database.insert("Collection", {"XML_LINE_NUMBER": 23, "IS_TUTORIAL": 0})
+    database.insert("Collection", {"XML_LINE_NUMBER": 28, "IS_TUTORIAL": 0})
 
 
 def main():
