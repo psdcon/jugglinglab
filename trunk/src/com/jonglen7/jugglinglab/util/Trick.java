@@ -26,7 +26,7 @@ public class Trick {
 		DataBaseHelper myDbHelper = DataBaseHelper.init(context);
 
 		Cursor cursor = null;
-		String query = "SELECT T.ID_TRICK, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
+		String query = "SELECT T.ID_TRICK, T.XML_LINE_NUMBER, T.CUSTOM_DISPLAY " +
 					"FROM Trick T, Hands H, Body B, Prop P " +
 					"WHERE T.ID_HANDS = H.ID_HANDS " +
 					"AND T.ID_BODY = B.ID_BODY " +
@@ -41,7 +41,7 @@ public class Trick {
 		if (!cursor.isAfterLast()) {
 	    	String[] trick = context.getResources().getStringArray(R.array.trick);
 			this.ID_TRICK = cursor.getInt(cursor.getColumnIndex("ID_TRICK"));
-			this.CUSTOM_DISPLAY = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))]);
+			this.CUSTOM_DISPLAY = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_LINE_NUMBER"))]);
 
 	    	cursor.close();
 			query = "SELECT C.ID_COLLECTION AS ID_COLLECTION, IS_TUTORIAL, XML_LINE_NUMBER, CUSTOM_DISPLAY " +
