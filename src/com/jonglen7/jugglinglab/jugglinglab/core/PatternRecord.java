@@ -56,6 +56,7 @@ public class PatternRecord implements Parcelable {
 	}
 
 	public static HashMap<String, String> animToValues(String anim) {
+	    // TODO Romain (PatternRecord): Clean that part (quick and dirty)
 		HashMap<String, String> values = new HashMap<String, String>();
         values.put("pattern", "");
         values.put("hands", "");
@@ -63,11 +64,16 @@ public class PatternRecord implements Parcelable {
         values.put("prop", "");
         values.put("dwell", "");
         values.put("bps", "");
-		for (String attr: anim.split(";")) {
-		    String[] val = attr.split("=");
-		    if (val.length == 2 && val[1].trim().length() > 0)
-		        values.put(val[0], val[1].trim());
-		}
+        String[] anim_splitted = anim.split(";");
+        if (anim_splitted.length == 1 && anim_splitted[0].split("=").length == 1)
+            values.put("pattern", anim_splitted[0]);
+        else {
+    		for (String attr: anim_splitted) {
+    		    String[] val = attr.split("=");
+    		    if (val.length == 2 && val[1].trim().length() > 0)
+    		        values.put(val[0], val[1].trim());
+    		}
+        }
 		return values;
 	}
     
