@@ -165,7 +165,7 @@ def add_tables(database):
     database.create_table("Prop",
                           [("ID_PROP", "INTEGER PRIMARY KEY AUTOINCREMENT"),
                            ("CODE", "TEXT NOT NULL"),
-                           ("XML_LINE_NUMBER", "INTEGER NOT NULL")]
+                           ("XML_LINE_NUMBER", "INTEGER")]
                           )
 
     database.create_table("Hands",
@@ -190,8 +190,7 @@ def add_tables(database):
                            ("ID_PROP", "INTEGER NOT NULL"),
                            ("ID_HANDS", "INTEGER NOT NULL"),
                            ("ID_BODY", "INTEGER NOT NULL"),
-                           ("XML_DISPLAY_LINE_NUMBER", "INTEGER"),
-                           ("XML_DESCRIPTION_LINE_NUMBER", "INTEGER"),
+                           ("XML_LINE_NUMBER", "INTEGER"),
                            ("CUSTOM_DISPLAY", "TEXT"),
                            ("CUSTOM_DESCRITPION", "TEXT"),
                            ("FOREIGN KEY (ID_PROP)", "REFERENCES Prop(ID_PROP)"),
@@ -201,9 +200,9 @@ def add_tables(database):
 
     database.create_table("Spin",
                           [("ID_SPIN", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                           ("SPIN_X", "INTEGER"),
-                           ("SPIN_Y", "INTEGER"),
-                           ("SPIN_Z", "INTEGER")]
+                           ("SPIN_X", "INTEGER NOT NULL"),
+                           ("SPIN_Y", "INTEGER NOT NULL"),
+                           ("SPIN_Z", "INTEGER NOT NULL")]
                           )
 
     database.create_table("TrickSpin",
@@ -237,8 +236,8 @@ def add_tables(database):
     database.create_table("Catch",
                           [("ID_CATCH", "INTEGER PRIMARY KEY AUTOINCREMENT"),
                            ("ID_TRICK", "INTEGER NOT NULL"),
-                           ("DATE", "TEXT"),
-                           ("CATCHS", "INTEGER"),
+                           ("DATE", "TEXT NOT NULL"),
+                           ("CATCHS", "INTEGER NOT NULL"),
                            ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)")]
                           )
 
@@ -247,29 +246,29 @@ def add_tables(database):
                            ("ID_TRICK", "INTEGER NOT NULL"),
                            ("DATE_BEGIN", "TEXT"),
                            ("DATE_END", "TEXT"),
-                           ("GOAL", "INTEGER"),
+                           ("GOAL", "INTEGER NOT NULL"),
                            ("FOREIGN KEY (ID_TRICK)", "REFERENCES Trick(ID_TRICK)")]
                           )
 
     database.create_table("Juggler",
                           [("ID_JUGGLER", "INTEGER PRIMARY KEY AUTOINCREMENT"),
-                           ("COLOR_SKIN", "TEXT"),
-                           ("COLOR_HAIR", "TEXT"),
-                           ("COLOR_EYES", "TEXT"),
-                           ("COLOR_SHIRT", "TEXT"),
-                           ("COLOR_PANTS", "TEXT"),
-                           ("HAT", "INTEGER"),
-                           ("COLOR_HAT", "TEXT"),
-                           ("GLASSES", "INTEGER"),
-                           ("COLOR_GLASSES", "TEXT"),
-                           ("BEARD", "INTEGER"),
-                           ("IS_MALE", "INTEGER"),
-                           ("HEIGHT", "INTEGER"),
-                           ("WEIGHT", "INTEGER")]
+                           ("COLOR_SKIN", "TEXT NOT NULL"),
+                           ("COLOR_HAIR", "TEXT NOT NULL"),
+                           ("COLOR_EYES", "TEXT NOT NULL"),
+                           ("COLOR_SHIRT", "TEXT NOT NULL"),
+                           ("COLOR_PANTS", "TEXT NOT NULL"),
+                           ("HAT", "INTEGER NOT NULL"),
+                           ("COLOR_HAT", "TEXT NOT NULL"),
+                           ("GLASSES", "INTEGER NOT NULL"),
+                           ("COLOR_GLASSES", "TEXT NOT NULL"),
+                           ("BEARD", "INTEGER NOT NULL"),
+                           ("IS_MALE", "INTEGER NOT NULL"),
+                           ("HEIGHT", "INTEGER NOT NULL"),
+                           ("WEIGHT", "INTEGER NOT NULL")]
                           )
 
     database.create_table("JugglingRecords",
-                          [("USERNAME", "TEXT"),
+                          [("USERNAME", "TEXT NOT NULL"),
                            ("PASSWORD", "TEXT NOT NULL")]
                           )
 
@@ -753,7 +752,7 @@ def add_tricks(database):
                                   "ID_PROP": (database.find_id("PROP", {"CODE": trick[i]["prop"]}) if "prop" in trick[i] else 1),
                                   "ID_HANDS": (database.find_id("HANDS", {"CODE": trick[i]["hands"]}) if "hands" in trick[i] else 1),
                                   "ID_BODY": (database.find_id("BODY", {"CODE": trick[i]["body"]}) if "body" in trick[i] else 1),
-                                  "XML_DISPLAY_LINE_NUMBER": i})
+                                  "XML_LINE_NUMBER": i})
 
 
 def add_collections(database):
@@ -831,7 +830,7 @@ def add_collections(database):
     tricktutorialcollection = list(itertools.chain.from_iterable(tricktutorialcollection))
     for i in range(len(tricktutorialcollection)):
         database.insert_link("Trick",
-                             {"XML_DISPLAY_LINE_NUMBER": i},
+                             {"XML_LINE_NUMBER": i},
                              "Collection",
                              tricktutorialcollection[i]["where"],
                              tricktutorialcollection[i]["link_table"],
