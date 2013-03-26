@@ -78,7 +78,7 @@ public class MyProfileTabActivity extends ListActivity {
 		
 		String query = "";
 		if (tab.equals("starred")) {
-		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_LINE_NUMBER, T.CUSTOM_DISPLAY " +
  					"FROM Trick T, Hands H, Prop P, Body B, TrickCollection TC, Collection C " +
  					"WHERE T.ID_HANDS=H.ID_HANDS " + 
  					"AND T.ID_BODY=B.ID_BODY " +
@@ -87,7 +87,7 @@ public class MyProfileTabActivity extends ListActivity {
  					"AND TC.ID_COLLECTION = C.ID_COLLECTION " + 
  					"AND C.XML_LINE_NUMBER=" + Collection.STARRED_XML_LINE_NUMBER;
 		} else if (tab.equals("unsorted")) {
-		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_LINE_NUMBER, T.CUSTOM_DISPLAY " +
  					"FROM Trick T, Hands H, Prop P, Body B " +
  					"WHERE T.ID_HANDS=H.ID_HANDS " + 
  					"AND T.ID_BODY=B.ID_BODY " +
@@ -95,7 +95,7 @@ public class MyProfileTabActivity extends ListActivity {
  					"AND T.ID_TRICK NOT IN (SELECT ID_TRICK FROM TrickCollection)";
 		} else if (tab.equals("goals")) {
 			// TODO Romain (Stats): Gérer date, un seul goal par trick
-		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_LINE_NUMBER, T.CUSTOM_DISPLAY " +
  					"FROM Trick T, Hands H, Prop P, Body B, Goal G " +
  					"WHERE T.ID_HANDS=H.ID_HANDS " + 
  					"AND T.ID_BODY=B.ID_BODY " +
@@ -103,7 +103,7 @@ public class MyProfileTabActivity extends ListActivity {
  					"AND T.ID_TRICK=G.ID_TRICK";
 		} else if (tab.equals("training")) {
 			// TODO Romain (Stats): Gérer date
-		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_DISPLAY_LINE_NUMBER, T.CUSTOM_DISPLAY " +
+		 	query = "SELECT T.ID_TRICK, T.PATTERN, H.CODE AS HANDS, P.CODE AS PROP, B.CODE AS BODY, T.XML_LINE_NUMBER, T.CUSTOM_DISPLAY " +
  					"FROM Trick T, Hands H, Prop P, Body B, Catch C " +
  					"WHERE T.ID_HANDS=H.ID_HANDS " + 
  					"AND T.ID_BODY=B.ID_BODY " +
@@ -118,7 +118,7 @@ public class MyProfileTabActivity extends ListActivity {
     	
 	 	cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-        	String display = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_DISPLAY_LINE_NUMBER"))]);
+        	String display = (cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) != null ? cursor.getString(cursor.getColumnIndex("CUSTOM_DISPLAY")) : trick[cursor.getInt(cursor.getColumnIndex("XML_LINE_NUMBER"))]);
         	pattern_list.add(new PatternRecord(display, "", "siteswap", cursor));
             cursor.moveToNext();
         }
