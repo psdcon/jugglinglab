@@ -12,7 +12,7 @@ import com.jonglen7.jugglinglab.R;
 
 public class Collection implements Parcelable {
 	
-	public static final int STARRED_XML_LINE_NUMBER = 23;
+	public static final int STARRED_XML_LINE_NUMBER = 28;
 	private static final String table = "Collection";
 	
 	private int IS_TUTORIAL;

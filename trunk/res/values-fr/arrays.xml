@@ -77,6 +77,11 @@
         <item>Patterns by PWN</item> <!-- TODO -->
         <item>Patterns By Scotch Tom</item> <!-- TODO -->
         <item>Stupid Patterns By Chunky Kibbles</item> <!-- TODO -->
+        <item>Passing 2 jongleurs 5 balles</item>
+        <item>Passing 2 jongleurs 6 balles</item>
+        <item>Passing 2 jongleurs 7 balles</item>
+        <item>Passing 2 jongleurs 8 balles</item>
+        <item>Passing 3 jongleurs 9 balles</item>
         <item>Favoris</item>
     </string-array>
 
@@ -505,5 +510,38 @@
 		<item>Multiplexing Two-handed Shower (Simple)</item>
 		<item>Multiplexing Two-handed Shower</item>
 		<item>Multiplexing Two-handed Shower (Hard)</item>
+        <!-- Passing 2 Jugglers 5 Balls -->
+        <item>1-count Ultimate</item>
+        <item>3-count Ultimate</item>
+        <!-- Passing 2 Jugglers 6 Balls -->
+        <item>4-count (Every others)</item>
+        <item>3-count (Waltz)</item>
+        <item>2-count (Everies)</item>
+        <item>1-count (Ultimate)</item>
+        <item>6-count</item>
+        <item>PPS</item>
+        <item>PPSS (Desmond Tutu)</item>
+        <item>PSPSP</item>
+        <item>PPSPS (Bookends)</item>
+        <item>PSPS PPSS (Tango)</item>
+        <item>Ultimate Waltz</item>
+        <item>4 Countdown (PSSSPSSPSPPSPSS)</item>
+        <item>3 Countdown (PSSPSPPS)</item>
+        <!-- Passing 2 Jugglers 7 Balls -->
+        <item>2-count</item>
+        <item>4-count</item>
+        <item>PPS</item>
+        <item>PPS (Double vs Simple)</item>
+        <!-- Passing 2 Jugglers 8 Balls -->
+        <item>2-count</item>
+        <item>3-count</item>
+        <item>PPS</item>
+        <!-- Passing 3 Jugglers 9 Balls -->
+        <item>Feed</item>
+        <item>Ultimate</item>
+        <item>PPS</item>
+        <item>Triangle</item>
+        <item>Triangle PPS</item>
+        <item>Tarim Triangle</item>
 	</string-array>
 </resources>
