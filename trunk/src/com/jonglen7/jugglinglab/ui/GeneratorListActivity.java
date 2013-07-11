@@ -71,9 +71,18 @@ public class GeneratorListActivity extends BaseListActivity {
 	    	pattern_list = new ArrayList<PatternRecord>();
 	    	
 	        /** Settings for the generator. */
-	        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(GeneratorListActivity.this);
-	        int max_patterns = Integer.parseInt(preferences.getString("generator_max_patterns", "100"));
-	        int max_seconds = Integer.parseInt(preferences.getString("generator_max_seconds", "3"));
+            int max_patterns = 100;
+            int max_seconds = 3;
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(GeneratorListActivity.this);
+	        String generator_max_patterns = preferences.getString("generator_max_patterns", "");
+	        String generator_max_seconds = preferences.getString("generator_max_seconds", "");
+	        if (!generator_max_patterns.isEmpty()) {
+	            max_patterns = Integer.parseInt(generator_max_patterns);
+	        }
+            if (!generator_max_seconds.isEmpty()) {
+                max_seconds = Integer.parseInt(generator_max_seconds);
+            }
 	        
 	        /** GeneratorTarget. */
 	        GeneratorTarget target = new GeneratorTarget();
