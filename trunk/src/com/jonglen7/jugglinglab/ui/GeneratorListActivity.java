@@ -77,10 +77,10 @@ public class GeneratorListActivity extends BaseListActivity {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(GeneratorListActivity.this);
 	        String generator_max_patterns = preferences.getString("generator_max_patterns", "");
 	        String generator_max_seconds = preferences.getString("generator_max_seconds", "");
-	        if (!generator_max_patterns.isEmpty()) {
+	        if (generator_max_patterns.length() > 0) {
 	            max_patterns = Integer.parseInt(generator_max_patterns);
 	        }
-            if (!generator_max_seconds.isEmpty()) {
+            if (generator_max_seconds.length() > 0) {
                 max_seconds = Integer.parseInt(generator_max_seconds);
             }
 	        
