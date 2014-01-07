@@ -131,7 +131,14 @@ public class GeneratorListActivity extends BaseListActivity {
             listView.setOnItemLongClickListener(itemLongClickListener);
             listView.setAdapter(mSchedule);
 
-			dialog.dismiss();
+            // Users reported an error coming from dialog.dismiss();
+            // Solution found here: http://stackoverflow.com/a/5102572
+		    try {
+		        dialog.dismiss();
+		        dialog = null;
+		    } catch (Exception e) {
+		        // nothing
+		    }
 		}
 		
 	}
