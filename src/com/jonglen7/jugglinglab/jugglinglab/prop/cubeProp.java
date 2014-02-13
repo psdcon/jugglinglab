@@ -36,6 +36,7 @@ import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.ParameterDescriptor;
 import com.jonglen7.jugglinglab.jugglinglab.util.ParameterList;
+import com.jonglen7.jugglinglab.util.ColorConverter;
 
 
 public class cubeProp extends Prop {
@@ -304,9 +305,10 @@ public class cubeProp extends Prop {
     {
         mVertexBuffer.put(vertices);
         mVertexBuffer.position(0);
+        float[] rgba = new ColorConverter().hex2rgba(color);
         
         gl.glFrontFace(GL10.GL_CW);
-        gl.glColor4f(((float)Color.red(color))/255.0f, ((float)Color.green(color))/255.0f, ((float)Color.blue(color))/255.0f, 1.0f);
+        gl.glColor4f(rgba[0], rgba[1], rgba[2], rgba[3]);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);

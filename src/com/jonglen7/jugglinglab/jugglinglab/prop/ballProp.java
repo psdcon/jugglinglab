@@ -12,6 +12,7 @@ import android.graphics.Color;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.ParameterDescriptor;
+import com.jonglen7.jugglinglab.util.ColorConverter;
 
 public class ballProp extends Prop {
 	
@@ -23,8 +24,6 @@ public class ballProp extends Prop {
     private float radius;
     private int stacks,  slices;
     private int tex;
-    
-    private float PROP_COLOR[] = {1.0f, 0.0f, 0.0f, 1.0f}; 
     
     static String[] colornames = {"black", "blue", "cyan", "gray",
         "green", "magenta", "red", "white", "yellow"};
@@ -154,37 +153,38 @@ public class ballProp extends Prop {
     // Drawing method
     // -------------------------------------
     public void draw(GL10 gl) {
-            //gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
-    		gl.glColor4f(PROP_COLOR[0],PROP_COLOR[1],PROP_COLOR[2],PROP_COLOR[3]);
-           
-            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fan_top);
-            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-   
-            gl.glNormalPointer(GL10.GL_FLOAT, 0, fan_top);
-            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-           
-            gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tex_fan_top);
-            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, slices + 2);
-           
-            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, strip);
-            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-   
-            gl.glNormalPointer(GL10.GL_FLOAT, 0, strip);
-            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, (slices + 1) * 2 * stacks);
-           
-            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fan_bottom);
-            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-   
-            gl.glNormalPointer(GL10.GL_FLOAT, 0, fan_bottom);
-            gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-           
+        float[] rgba = new ColorConverter().hex2rgba(color);
 
-            gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tex_fan_bottom);
-            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        //gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
+		gl.glColor4f(rgba[0],rgba[1],rgba[2],rgba[3]);
            
-            gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, slices + 2);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fan_top);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+   
+        gl.glNormalPointer(GL10.GL_FLOAT, 0, fan_top);
+        gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+           
+        gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tex_fan_top);
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, slices + 2);
+       
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, strip);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+   
+        gl.glNormalPointer(GL10.GL_FLOAT, 0, strip);
+        gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, (slices + 1) * 2 * stacks);
+           
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fan_bottom);
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+   
+        gl.glNormalPointer(GL10.GL_FLOAT, 0, fan_bottom);
+        gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+
+        gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tex_fan_bottom);
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+           
+        gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, slices + 2);
     }
    
     protected FloatBuffer[] makeEndCap(int stacks, int slices, boolean top) {

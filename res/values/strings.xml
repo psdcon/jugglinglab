@@ -145,37 +145,38 @@ Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.
     <string name="settings_txt_max_seconds_title">Timeout</string>
     <string name="settings_txt_max_seconds_summary">Maximum number of seconds</string>
 
-    <!-- TODO Fred: Change the names of the strings to follow the pattern settings_{type}_{name} with type in [category, txt, cb, ...]-->
     <string name="settings_category_animation">Animation</string>
 
     <string name="settings_category_background">Background</string>
-    <string name="settings_category_background_color">Color</string>
+    <string name="settings_txt_background_color">Color</string>
 
     <string name="settings_category_prop">Prop</string>
-    <string name="settings_category_prop_type">Type</string>
-    <string name="settings_category_prop_color">Color</string>
-    <string name="settings_category_prop_color_category_all">All Props</string>
-    <string name="settings_category_prop_color_color">One Color</string>    
-    <string name="settings_category_prop_color_category_mixed_title">Mixed</string>
-    <string name="settings_category_prop_color_category_mixed_summary">Use predefined mixed colors</string>
-    <string name="settings_category_prop_color_category_pbp_title">Prop by Prop</string>
-    <string name="settings_category_prop_size">Size</string>
+    <string name="settings_txt_prop_type">Type</string>
+    <string name="settings_txt_prop_color">Color</string>
+    <string name="settings_txt_prop_color_category_all">All Props</string>
+    <string name="settings_txt_prop_color_color">One Color</string>    
+    <string name="settings_txt_prop_color_category_mixed_title">Mixed</string>
+    <string name="settings_txt_prop_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_txt_prop_color_category_pbp_title">Prop by Prop</string>
+    <string name="settings_txt_prop_size">Size</string>
 
     <string name="settings_category_juggler">Juggler</string>
-    <string name="settings_category_juggler_color_category_all">All Props</string>
-    <string name="settings_category_juggler_color_color">One Color</string>  
-    <string name="settings_category_juggler_color_category_mixed_title">Mixed</string>
-    <string name="settings_category_juggler_color_category_mixed_summary">Use predefined mixed colors</string>
-    <string name="settings_category_juggler_color_category_jbj_title">Juggler by Juggler</string>
+    <string name="settings_txt_juggler_edges_color">Edges color</string>
+    <string name="settings_txt_juggler_inner_color">Inner color</string>
+    <string name="settings_txt_juggler_color_category_all">All Props</string>
+    <string name="settings_txt_juggler_color_color">One Color</string>  
+    <string name="settings_txt_juggler_color_category_mixed_title">Mixed</string>
+    <string name="settings_txt_juggler_color_category_mixed_summary">Use predefined mixed colors</string>
+    <string name="settings_txt_juggler_color_category_jbj_title">Juggler by Juggler</string>
     <string name="settings_txt_juggler_height_title">Height</string>
     <string name="settings_txt_juggler_height_summary">The height of the juggler</string>
     <string name="settings_txt_juggler_weight_title">Weight</string>
     <string name="settings_txt_juggler_weight_summary">The weight of the juggler</string>
+    <string name="settings_txt_juggler_hat">Hat</string>
+    <string name="settings_txt_juggler_glasses">Glasses</string>
+    <string name="settings_txt_juggler_beard">Beard</string>
 
-    <string name="settings_category_juggler_hat">Hat</string>
-
-    <string name="settings_category_juggler_glasses">Glasses</string>
-
-    <string name="settings_category_juggler_beard">Beard</string>
+    <string name="settings_category_floor">Floor</string>
+    <string name="settings_txt_floor_color">Color</string>
     
 </resources>

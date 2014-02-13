@@ -2,7 +2,14 @@
 <resources>
     <color name="title_text">#ffffffff</color>
     
-    <color name="prop_default_color">#ff0000</color> <!-- red -->
+    <color name="background_default_color">#80ffffff</color>
+
+    <color name="prop_default_color">#ffff0000</color> <!-- red -->
+
+    <color name="juggler_edges_default_color">#ff000000</color>
+    <color name="juggler_inner_default_color">#ffffffff</color>
+
+    <color name="floor_default_color">#ff000000</color>
 
     <color name="orange">#ff4a0e</color>
 

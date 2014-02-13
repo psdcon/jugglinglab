@@ -20,13 +20,12 @@ import com.jonglen7.jugglinglab.jugglinglab.util.JLMath;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionUser;
 import com.jonglen7.jugglinglab.jugglinglab.util.Permutation;
+import com.jonglen7.jugglinglab.util.ColorConverter;
 
 public class JugglingRenderer implements Renderer, Serializable {
 	
 	// Attributes
 	private static final long serialVersionUID = 1L;
-	
-	private float BACKGROUND_COLOR[] = {1.0f, 1.0f, 1.0f, 0.5f};
 	
 	private Context context = null;
 	private JMLPattern pattern = null;
@@ -123,8 +122,8 @@ public class JugglingRenderer implements Renderer, Serializable {
 		Matrix.setIdentityM(mModelMatrix, 0);
 		
 		// Create juggler(s) and Floor
-		this.juggler = new Juggler(this.pattern.getNumberOfJugglers()); 
-		this.floor = new Floor();
+		this.juggler = new Juggler(context, this.pattern.getNumberOfJugglers()); 
+		this.floor = new Floor(context);
 
 		// Lay out the spatial paths in the pattern
 		try {
@@ -171,9 +170,10 @@ public class JugglingRenderer implements Renderer, Serializable {
 	 * .khronos.opengles.GL10, javax.microedition.khronos.egl.EGLConfig)
 	 */
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		
-		// Set the background color ( rgba ).
-		gl.glClearColor(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], BACKGROUND_COLOR[3]);
+	    // Set the background color ( rgba ).
+        int color = preferences.getInt("background_color", context.getResources().getInteger(R.color.background_default_color));
+        float[] rgba = new ColorConverter().hex2rgba(color);
+        gl.glClearColor(rgba[0], rgba[1], rgba[2], rgba[3]);
 		// Enable Smooth Shading, default not really needed.
 		gl.glShadeModel(GL10.GL_SMOOTH);
 		// Depth buffer setup.
@@ -194,6 +194,8 @@ public class JugglingRenderer implements Renderer, Serializable {
 	 * khronos.opengles.GL10)
 	 */
 	public void onDrawFrame(GL10 gl) {
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 	    
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
@@ -331,7 +333,12 @@ public class JugglingRenderer implements Renderer, Serializable {
 	            y = (float)(0.5f + tempc.y);
 	            z = (float)(0.5f + tempc.z);
 	            Prop pr = pattern.getProp(animpropnum[i-1]);
-	            color = preferences.getInt("SelectedColor_for_item_" + (i-1), context.getResources().getInteger(R.color.prop_default_color));     
+	            // TODO: The color shouldn't be set here (I, Romain, think),
+	            // because the color of the Prop doesn't depend on the value of
+	            // i since one Prop won't always be in the same place, so we
+	            // can't identify one Prop using i.
+//	            color = preferences.getInt("SelectedColor_for_item_" + (i-1), context.getResources().getInteger(R.color.prop_default_color));
+	            color = preferences.getInt("prop_color", context.getResources().getInteger(R.color.prop_default_color));
 	            pr.setColor(color);
 	            pr.setCenter(tempc);
 	            pr.centerProp();

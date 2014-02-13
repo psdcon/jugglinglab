@@ -28,22 +28,23 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.jonglen7.jugglinglab.R;
 import com.jonglen7.jugglinglab.jugglinglab.jml.HandLink;
 import com.jonglen7.jugglinglab.jugglinglab.jml.JMLPattern;
 import com.jonglen7.jugglinglab.jugglinglab.util.Coordinate;
 import com.jonglen7.jugglinglab.jugglinglab.util.JLMath;
 import com.jonglen7.jugglinglab.jugglinglab.util.JuggleExceptionInternal;
 import com.jonglen7.jugglinglab.jugglinglab.util.MathVector;
+import com.jonglen7.jugglinglab.util.ColorConverter;
 
 
 //  This class calculates the coordinates of the juggler elbows, shoulders, etc.
 
 public class Juggler {
 	
-	private float JUGGLER_EDGES_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
-	private float JUGGLER_LEFT_ARM_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
-	private float JUGGLER_RIGHT_ARM_COLOR[] = {0.0f, 0.0f, 0.0f, 1.0f};
-	private float JUGGLER_INNER_COLOR[] = {1.0f, 1.0f, 1.0f, 1.0f};
 	private float JUGGLER_WIDTH = 1.0f;
 	private float JUGGLER_ARM_WIDTH = 1.0f;
 	
@@ -80,8 +81,10 @@ public class Juggler {
 	public final static double elbow_radius = 4;
 	public final static double wrist_radius = 2;
 	
-	
-	// Number of juggler
+    private Context context = null;
+    private SharedPreferences preferences = null;
+
+    // Number of juggler
 	private int nbJuggler;
 	
 	// Structure that will contains the pixel positions of the juggler
@@ -133,10 +136,12 @@ public class Juggler {
     
     
     // Constructors
-    public Juggler(int nbJuggler)
+    public Juggler(Context context, int nbJuggler)
     { 	
     	// Allocation
+        this.context = context;
     	this.nbJuggler = nbJuggler;
+        this.preferences = context.getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
     	
 		this.jugglerDescription = new MathVector[nbJuggler][12];
 		
@@ -377,7 +382,15 @@ public class Juggler {
         // Buffers with multi-byte datatypes (e.g., short, int, float)
         // must have their byte order set to native order
 
-    	gl.glDisable(GL10.GL_BLEND);
+        // Get colors from the preferences
+        int edges_color = preferences.getInt("juggler_edges_color", context.getResources().getInteger(R.color.juggler_edges_default_color));
+        float[] edges_rgba = new ColorConverter().hex2rgba(edges_color);
+
+        int inner_color = preferences.getInt("juggler_inner_color", context.getResources().getInteger(R.color.juggler_inner_default_color));
+        float[] inner_rgba = new ColorConverter().hex2rgba(inner_color);
+        
+        // Edit Romain: To enable transparent textures, had to comment the next line
+//    	gl.glDisable(GL10.GL_BLEND);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         
         for (int juggler = 1; juggler <= this.nbJuggler; juggler++) {
@@ -390,13 +403,13 @@ public class Juggler {
         	// Draw round head inner part
             gl.glPolygonOffset(1.0f, 1.0f);
             gl.glEnable(GL10.GL_POLYGON_OFFSET_FILL);
-        	gl.glColor4f(JUGGLER_INNER_COLOR[0],JUGGLER_INNER_COLOR[1],JUGGLER_INNER_COLOR[2],JUGGLER_INNER_COLOR[3]);
+        	gl.glColor4f(inner_rgba[0],inner_rgba[1],inner_rgba[2],inner_rgba[3]);
         	gl.glLineWidth(1.0f);
             gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, roundHeadNbSegments);
             gl.glDisable(GL10.GL_POLYGON_OFFSET_FILL);
             
             // Draw round head edges
-        	gl.glColor4f(JUGGLER_EDGES_COLOR[0],JUGGLER_EDGES_COLOR[1],JUGGLER_EDGES_COLOR[2],JUGGLER_EDGES_COLOR[3]);
+        	gl.glColor4f(edges_rgba[0],edges_rgba[1],edges_rgba[2],edges_rgba[3]);
         	gl.glLineWidth(JUGGLER_WIDTH);
         	gl.glDrawArrays(GL10.GL_LINE_LOOP, 0, roundHeadNbSegments);
         	
@@ -411,7 +424,7 @@ public class Juggler {
             gl.glEnable(GL10.GL_POLYGON_OFFSET_FILL);
 
             // Set inner parts color
-            gl.glColor4f(JUGGLER_INNER_COLOR[0],JUGGLER_INNER_COLOR[1],JUGGLER_INNER_COLOR[2],JUGGLER_INNER_COLOR[3]);
+            gl.glColor4f(inner_rgba[0],inner_rgba[1],inner_rgba[2],inner_rgba[3]);
             gl.glLineWidth(1.0f);
             
             // Draw the inner body
@@ -431,7 +444,7 @@ public class Juggler {
         	gl.glLineWidth(JUGGLER_WIDTH);
 
             // Set juggler edges color
-            gl.glColor4f(JUGGLER_EDGES_COLOR[0],JUGGLER_EDGES_COLOR[1],JUGGLER_EDGES_COLOR[2],JUGGLER_EDGES_COLOR[3]);
+            gl.glColor4f(edges_rgba[0],edges_rgba[1],edges_rgba[2],edges_rgba[3]);
             
 	        // Draw the head edges
             //mIndexBuffer.put(indicesOfHead);
@@ -447,7 +460,7 @@ public class Juggler {
         	gl.glLineWidth(JUGGLER_ARM_WIDTH);
         	
             // Set left arm color
-        	gl.glColor4f(JUGGLER_LEFT_ARM_COLOR[0],JUGGLER_LEFT_ARM_COLOR[1],JUGGLER_LEFT_ARM_COLOR[2],JUGGLER_LEFT_ARM_COLOR[3]);
+        	gl.glColor4f(edges_rgba[0],edges_rgba[1],edges_rgba[2],edges_rgba[3]);
         	
         	// Draw left arm and hand
         	if (bNullLeftelbow) {
@@ -463,7 +476,7 @@ public class Juggler {
         	}
         	
         	// Set right arm color
-        	gl.glColor4f(JUGGLER_RIGHT_ARM_COLOR[0],JUGGLER_RIGHT_ARM_COLOR[1],JUGGLER_RIGHT_ARM_COLOR[2],JUGGLER_RIGHT_ARM_COLOR[3]);
+        	gl.glColor4f(edges_rgba[0],edges_rgba[1],edges_rgba[2],edges_rgba[3]);
         	
         	// Draw right arm and hand
         	if (bNullRightelbow) {
