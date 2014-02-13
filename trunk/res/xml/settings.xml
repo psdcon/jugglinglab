@@ -24,39 +24,58 @@
 			android:defaultValue="3"/>
 	</PreferenceCategory>
 
-
-
-<!--    
-
+<!--
 	 // Animation Settings 
 	 <PreferenceCategory android:title="@string/settings_category_animation">
         // @TODO Fred: BPS, Dwell, Speed, Hands movement, Body movement, ...
      </PreferenceCategory>
+-->
     
     // Background Settings
-    <PreferenceCategory android:title="@string/settings_category_background">         
-        <com.jonglen7.jugglinglab.ui.ColorPickerPreference
-                android:key="backgroundColorPicker" 
-                android:title="@string/settings_category_background_color" />
+    <PreferenceCategory android:title="@string/settings_category_background">
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="background_color"
+            android:title="@string/settings_txt_background_color"
+            android:defaultValue="@color/background_default_color"
+            alphaSlider="true"
+        />
     </PreferenceCategory>
 
 	// Prop Settings
     <PreferenceCategory android:title="@string/settings_category_prop">
+<!--
         <PreferenceScreen
-            android:title="@string/settings_category_prop_type">
-        </PreferenceScreen>
-        
-        <PreferenceScreen
-            android:key="colorPrefScreen" android:title="@string/settings_category_prop_color">
+            android:title="@string/settings_txt_prop_type">
         </PreferenceScreen>
 
         <PreferenceScreen
-            android:title="@string/settings_category_prop_size">
+            android:title="@string/settings_txt_prop_size">
         </PreferenceScreen>
+-->
+        
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="prop_color"
+            android:title="@string/settings_txt_prop_color"
+            android:defaultValue="@color/prop_default_color"
+            alphaSlider="true"
+        />
     </PreferenceCategory>
 
 	// Juggler Settings
     <PreferenceCategory android:title="@string/settings_category_juggler">
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="juggler_edges_color"
+            android:title="@string/settings_txt_juggler_edges_color"
+            android:defaultValue="@color/juggler_edges_default_color"
+            alphaSlider="true"
+        />
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="juggler_inner_color"
+            android:title="@string/settings_txt_juggler_inner_color"
+            android:defaultValue="@color/juggler_inner_default_color"
+            alphaSlider="true"
+        />
+<!--
         // @TODO Fred: Male/Female
         <EditTextPreference
             android:key="juggler_height"
@@ -72,14 +91,25 @@
             android:defaultValue="60"/>
         // @TODO Fred: Color of : skin, hair, eyes, shirt, pants, ...
         <PreferenceScreen
-            android:title="@string/settings_category_juggler_hat">
+            android:title="@string/settings_txt_juggler_hat">
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="@string/settings_category_juggler_glasses">
+            android:title="@string/settings_txt_juggler_glasses">
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="@string/settings_category_juggler_beard">
+            android:title="@string/settings_txt_juggler_beard">
         </PreferenceScreen>
-    </PreferenceCategory> -->
+-->
+    </PreferenceCategory>
+    
+    // Floor Settings
+    <PreferenceCategory android:title="@string/settings_category_floor">
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="floor_color"
+            android:title="@string/settings_txt_floor_color"
+            android:defaultValue="@color/floor_default_color"
+            alphaSlider="true"
+        />
+    </PreferenceCategory>
 	
 </PreferenceScreen>
