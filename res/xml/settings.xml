@@ -24,12 +24,23 @@
 			android:defaultValue="3"/>
 	</PreferenceCategory>
 
-<!--
 	 // Animation Settings 
 	 <PreferenceCategory android:title="@string/settings_category_animation">
         // @TODO Fred: BPS, Dwell, Speed, Hands movement, Body movement, ...
+        <!-- <SeekBarPreference
+            android:key="animation_speed"
+            android:max="49"
+            android:title="@string/settings_txt_animation_speed_title"
+            android:summary="@string/settings_txt_animation_speed_summary"
+            android:numeric="integer"
+            android:defaultValue="20"/> -->
+        <EditTextPreference
+            android:key="animation_speed"
+            android:title="@string/settings_txt_animation_speed_title"
+            android:summary="@string/settings_txt_animation_speed_summary"
+            android:numeric="integer"
+            android:defaultValue="20"/>
      </PreferenceCategory>
--->
     
     // Background Settings
     <PreferenceCategory android:title="@string/settings_category_background">

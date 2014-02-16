@@ -146,6 +146,8 @@ Exact definition can be at the following link: http://www.gnu.org/licenses/lgpl.
     <string name="settings_txt_max_seconds_summary">Maximum number of seconds</string>
 
     <string name="settings_category_animation">Animation</string>
+    <string name="settings_txt_animation_speed_title">Speed (1-50)</string>
+    <string name="settings_txt_animation_speed_summary">Default animation speed</string>
 
     <string name="settings_category_background">Background</string>
     <string name="settings_txt_background_color">Color</string>
