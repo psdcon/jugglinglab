@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -131,19 +132,17 @@ public class AnimationActivity extends BaseActivity {
         /** QuickAction. */
         quickActionGrid = new QuickActionGridTrick(this);
         
-    
         // Assign Speed SeekBar Listener
         SeekBar speedSeekbar = (SeekBar) findViewById(R.id.animation_speed_seekbar);
+        SharedPreferences sp = this.getSharedPreferences("com.jonglen7.jugglinglab_preferences", 0);
         speedSeekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
  
             public void onProgressChanged(SeekBar seekBar, int progress,
-            boolean fromTouch) {
-
+                                          boolean fromTouch) {
             	AnimatorPrefs prefs = renderer.getPrefs();
             	prefs.slowdown = 250 / (Math.pow((double)progress, 1.6) + 1);
             	renderer.setPrefs(prefs);
             	renderer.syncToPattern();
-           
             }
             public void onStartTrackingTouch(SeekBar seekBar) {
                 //ignorer
@@ -152,6 +151,27 @@ public class AnimationActivity extends BaseActivity {
                 //ignorer
             }
         });
+
+        // Get speed value from preferences
+        // I, Romain, was not able to use a SeekBarPreference so I had to use
+        // a EditTextPreference in settings.xml. I was able to display the
+        // SeekBar but its value was not kept in the preferences
+        int speed = 21;
+        String animation_speed = sp.getString("animation_speed", "");
+        if (animation_speed.length() > 0) {
+            // Keep the speed between 1 and 50
+            // TODO: The range checking should probably be in SettingsActivity
+            // because here we are changing the speed value, in the preferences,
+            // only when the user starts the animation.
+            // Another way would be not to limit the valid range that the speed
+            // can take.
+            speed = Math.min(Math.max(1, Integer.parseInt(animation_speed)), 50);
+        }
+        speed -= 1; // The Seekbar is 0-indexed
+        // Save the value of the speed in the preferences
+        sp.edit().putString("animation_speed", Integer.toString(speed)).commit();
+
+        speedSeekbar.setProgress(speed - 1);
 
     	// ZoomButtons
         mZoomIn = (ZoomButton) findViewById(R.id.animation_btn_zoom_in);
