@@ -156,7 +156,7 @@ public class AnimationActivity extends BaseActivity {
         // I, Romain, was not able to use a SeekBarPreference so I had to use
         // a EditTextPreference in settings.xml. I was able to display the
         // SeekBar but its value was not kept in the preferences
-        int speed = 21;
+        int speed = 20;
         String animation_speed = sp.getString("animation_speed", "");
         if (animation_speed.length() > 0) {
             // Keep the speed between 1 and 50
@@ -167,11 +167,10 @@ public class AnimationActivity extends BaseActivity {
             // can take.
             speed = Math.min(Math.max(1, Integer.parseInt(animation_speed)), 50);
         }
-        speed -= 1; // The Seekbar is 0-indexed
         // Save the value of the speed in the preferences
         sp.edit().putString("animation_speed", Integer.toString(speed)).commit();
 
-        speedSeekbar.setProgress(speed - 1);
+        speedSeekbar.setProgress(speed);
 
     	// ZoomButtons
         mZoomIn = (ZoomButton) findViewById(R.id.animation_btn_zoom_in);
